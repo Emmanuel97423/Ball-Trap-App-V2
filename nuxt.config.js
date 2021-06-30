@@ -8,10 +8,10 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "AndShop",
-    titleTemplate: "%s - AndShop Ecommerce Vue js Template",
+    title: "Trap One",
+    titleTemplate: "%s - Trap One vente d'article de sport",
     htmlAttrs: {
-      lang: "en",
+      lang: "fr",
     },
     meta: [
       { charset: "utf-8" },
@@ -19,7 +19,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "AndShop Ecommerce Vue js, Nuxt js Template",
+        content: "Trap One, Trap One Shop",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
