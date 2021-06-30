@@ -6,7 +6,7 @@
         <div class="col-lg-8 offset-lg-2">
           <div class="coming_soon_content">
             <h1>TRAPONE LOGO</h1>
-            <p>Slogan : lorem ipsum dolor</p>
+
             <nuxt-link v-if="!enabled" to="/"
               ><img src="~/assets/img/logo-white.png" alt="coming-soon"
             /></nuxt-link>
@@ -73,7 +73,7 @@ export default {
         {
           hid: "Trap One",
           name: "Trap One",
-          content: "Trap One, vente d'article de sport, ball trap",
+          content: "Trap One, vente d'articles de sport, ball trap",
         },
       ],
     };
@@ -83,7 +83,14 @@ export default {
 
 <style scoped>
 .coming_soon_content h1,
+h2,
 p {
   color: white;
+}
+.coming_soon_content h1 {
+  border-bottom: 1px solid white;
+  margin: 0 0 1.5rem 0;
+  padding: 0 0 1.5rem 0;
+  opacity: 0.7;
 }
 </style>
