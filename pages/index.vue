@@ -5,7 +5,9 @@
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
           <div class="coming_soon_content">
-            <nuxt-link to="/"
+            <h1>TRAPONE LOGO</h1>
+            <p>Slogan : lorem ipsum dolor</p>
+            <nuxt-link v-if="!enabled" to="/"
               ><img src="~/assets/img/logo-white.png" alt="coming-soon"
             /></nuxt-link>
             <div class="coming_soon_title">
@@ -17,10 +19,10 @@
             </div>
             <div class="coming_soon_time">
               <div id="countdown_soon">
-                <Timer date="October 15, 2025" />
+                <Timer date="July 31, 2021" />
               </div>
             </div>
-            <div class="coming_soon_newsletter">
+            <div v-if="!enabled" class="coming_soon_newsletter">
               <h3>Restez informer de nos prochaines mise à jour</h3>
               <form>
                 <div class="input-group">
@@ -59,6 +61,7 @@ export default {
   data() {
     return {
       title: "Trap One",
+      enabled: true,
     };
   },
 
@@ -78,4 +81,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.coming_soon_content h1,
+p {
+  color: white;
+}
+</style>
