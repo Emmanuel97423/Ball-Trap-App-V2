@@ -1,8 +1,6 @@
 export default {
   target: "static",
-  router: {
-    base: "/Ball-Trap-App-V2/",
-  },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
