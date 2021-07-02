@@ -353,6 +353,7 @@ export default {
     BlogItem1,
     carousel,
   },
+  middleware: "authenticated",
 
   data() {
     return {
