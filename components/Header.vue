@@ -35,7 +35,7 @@
                         >
                       </li>
                       <li class="has-dropdown has-megaitem">
-                        <a href="#!"
+                        <a href="#"
                           >Catalogue <i class="fa fa-angle-down"></i
                         ></a>
                         <!-- Mega Menu -->
@@ -48,12 +48,10 @@
                               >
                               <ul class="mega-menu-sub">
                                 <li>
-                                  <nuxt-link to="/shop">Hommes</nuxt-link>
+                                  <nuxt-link to="#">Hommes</nuxt-link>
                                 </li>
                                 <li>
-                                  <nuxt-link to="/shop/shop-2"
-                                    >Femmes</nuxt-link
-                                  >
+                                  <nuxt-link to="#">Femmes</nuxt-link>
                                 </li>
                               </ul>
                             </li>
@@ -64,17 +62,13 @@
                               >
                               <ul class="mega-menu-sub">
                                 <li>
-                                  <nuxt-link to="/cart/">Fusils</nuxt-link>
+                                  <nuxt-link to="#">Fusils</nuxt-link>
                                 </li>
                                 <li>
-                                  <nuxt-link to="/cart/cart-2"
-                                    >Cartouches
-                                  </nuxt-link>
+                                  <nuxt-link to="#">Cartouches </nuxt-link>
                                 </li>
                                 <li>
-                                  <nuxt-link to="/cart/empty-cart"
-                                    >Entretiens</nuxt-link
-                                  >
+                                  <nuxt-link to="#">Entretiens</nuxt-link>
                                 </li>
                               </ul>
                             </li>
@@ -160,7 +154,7 @@
                         </ul>
                       </li>
                       <li>
-                        <nuxt-link to="/about-us">A propos</nuxt-link>
+                        <nuxt-link to="#">A propos</nuxt-link>
                       </li>
                     </ul>
                   </nav>
@@ -169,6 +163,7 @@
 
                 <!-- Start Header Action Link -->
                 <ul
+                  v-if="!enabled"
                   class="header-action-link action-color--black action-hover-color--golden"
                 >
                   <li>
@@ -220,7 +215,8 @@
             <div class="mobile-header-left">
               <ul class="mobile-menu-logo">
                 <li>
-                  <nuxt-link to="/">
+                  <h3>Trap One Logo</h3>
+                  <nuxt-link v-if="!enabled" to="/">
                     <div class="logo">
                       <img :src="require('@/assets/img/logo.png')" alt="logo" />
                     </div>
@@ -231,7 +227,7 @@
             <!-- End Mobile Left Side -->
 
             <!-- Start Mobile Right Side -->
-            <div class="mobile-right-side">
+            <div v-if="!enabled" class="mobile-right-side">
               <ul
                 class="header-action-link action-color--black action-hover-color--golden"
               >

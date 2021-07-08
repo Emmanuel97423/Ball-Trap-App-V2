@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header v-if="!enabled" />
+    <Header v-if="enabled" />
     <transition name="fade" mode="out-in">
-      <Nuxt v-if="!enabled" />
+      <Nuxt v-if="enabled" />
     </transition>
-    <Footer v-if="!enabled" />
+    <Footer v-if="enabled" />
   </div>
 </template>
 
