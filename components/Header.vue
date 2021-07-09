@@ -335,7 +335,7 @@
               :key="productItem.id"
             >
               <div class="offcanvas-cart-item-block">
-                <nuxt-link to="/product" class="offcanvas-cart-item-image-link">
+                <nuxt-link to="#" class="offcanvas-cart-item-image-link">
                   <img
                     :src="productItem.productImg1"
                     alt="img"
@@ -343,7 +343,7 @@
                   />
                 </nuxt-link>
                 <div class="offcanvas-cart-item-content">
-                  <nuxt-link to="/product" class="offcanvas-cart-item-link">{{
+                  <nuxt-link to="#" class="offcanvas-cart-item-link">{{
                     productItem.productTitle
                   }}</nuxt-link>
                   <div class="offcanvas-cart-item-details">
@@ -368,7 +368,7 @@
           </ul>
 
           <div class="offcanvas-cart-total-price">
-            <span class="offcanvas-cart-total-price-text">Subtotal:</span>
+            <span class="offcanvas-cart-total-price-text">Total:</span>
             <span class="offcanvas-cart-total-price-value"
               >${{ CartTotal }}</span
             >
@@ -376,17 +376,13 @@
 
           <ul class="offcanvas-cart-action-button">
             <li>
-              <nuxt-link
-                to="/cart"
-                class="theme-btn-one btn-black-overlay btn_md"
-                >View Cart</nuxt-link
+              <nuxt-link to="#" class="theme-btn-one btn-black-overlay btn_md"
+                >Voir le panier</nuxt-link
               >
             </li>
             <li>
-              <nuxt-link
-                to="/my-account/checkout-1"
-                class="theme-btn-one btn-black-overlay btn_md"
-                >Checkout</nuxt-link
+              <nuxt-link to="#" class="theme-btn-one btn-black-overlay btn_md"
+                >Commander</nuxt-link
               >
             </li>
           </ul>
@@ -654,7 +650,7 @@ export default {
           productImg2: require("assets/img/product-image/product2.png"),
           productTagClass: "",
           productTag: "",
-          productTitle: "Black T-Shirt For Woman",
+          productTitle: "Cartouche",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 38.5,
@@ -667,7 +663,7 @@ export default {
           productImg2: require("assets/img/product-image/product4.png"),
           productTagClass: "new",
           productTag: "new",
-          productTitle: "T-Shirt Form Girls",
+          productTitle: "Cartouche",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 738.5,
@@ -680,7 +676,7 @@ export default {
           productImg2: require("assets/img/product-image/product6.png"),
           productTagClass: "hot",
           productTag: "hot",
-          productTitle: "White Black Line Dress",
+          productTitle: "Tee-shirt",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 50.5,
@@ -693,7 +689,7 @@ export default {
           productImg2: require("assets/img/product-image/product8.png"),
           productTagClass: "",
           productTag: "",
-          productTitle: "Blue Dress For Woman",
+          productTitle: "Gilet",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 738.5,
