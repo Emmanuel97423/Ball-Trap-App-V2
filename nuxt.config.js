@@ -46,6 +46,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
+    "@nuxtjs/strapi",
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -54,4 +55,5 @@ export default {
       compact: true,
     },
   },
+  strapi: {},
 };

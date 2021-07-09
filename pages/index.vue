@@ -104,14 +104,14 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="center_heading">
-              <h2>Hot Product</h2>
+              <h2>Catégorie</h2>
               <p>Mauris luctus nisi sapien tristique dignissim ornare</p>
             </div>
           </div>
         </div>
 
         <b-tabs class="hot-product-area-tabs">
-          <b-tab title="New Arrival" class="row">
+          <b-tab title="Textile" class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
               v-for="productItem in productItems.slice(0, 8)"
@@ -147,7 +147,7 @@
             </div>
           </b-tab>
 
-          <b-tab title="Best Sellers" class="row">
+          <b-tab title="Fusils" class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
               v-for="productItem in productItems.slice(0, 6)"
@@ -165,7 +165,7 @@
             </div>
           </b-tab>
 
-          <b-tab title="Featured" class="row">
+          <b-tab title="Accessoires" class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
               v-for="productItem in productItems.slice(0, 4)"
@@ -183,7 +183,7 @@
             </div>
           </b-tab>
 
-          <b-tab title="On sall" class="row">
+          <b-tab title="Offres" class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
               v-for="productItem in productItems.slice(0, 3)"
@@ -205,7 +205,7 @@
     </section>
 
     <!-- Offer Time Area -->
-    <section v-if="!enabled" id="offer_timer_one">
+    <section v-if="enabled" id="offer_timer_one">
       <div class="container">
         <div class="row">
           <div
@@ -233,11 +233,7 @@
     </section>
 
     <!-- To Days Area -->
-    <section
-      v-if="!enabled"
-      id="to_days_area"
-      class="ptb-100 slider_arrows_one"
-    >
+    <section v-if="enabled" id="to_days_area" class="ptb-100 slider_arrows_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -282,7 +278,7 @@
     </section>
 
     <!-- Special offer -->
-    <section v-if="!enabled" id="special_offer_one">
+    <section v-if="enabled" id="special_offer_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 offset-lg-4 col-md-12 col-sm-12 col-12">
@@ -303,7 +299,7 @@
     </section>
 
     <!-- Latest Blog Arae -->
-    <section v-if="!enabled" id="blog_area_one" class="ptb-100">
+    <section v-if="enabled" id="blog_area_one" class="ptb-100">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -354,7 +350,7 @@ export default {
 
   data() {
     return {
-      enabled: true,
+      enabled: false,
       title: "Home",
       // Product Items Data
       productItems: [
@@ -364,7 +360,7 @@ export default {
           productImg2: require("assets/img/product-image/product2.png"),
           productTagClass: "",
           productTag: "",
-          productTitle: "Black T-Shirt For Woman",
+          productTitle: "Gilet Ball Trap",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 38.5,
@@ -377,7 +373,7 @@ export default {
           productImg2: require("assets/img/product-image/product4.png"),
           productTagClass: "new",
           productTag: "new",
-          productTitle: "T-Shirt Form Girls",
+          productTitle: "Cartouches",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 738.5,
@@ -390,7 +386,7 @@ export default {
           productImg2: require("assets/img/product-image/product6.png"),
           productTagClass: "hot",
           productTag: "hot",
-          productTitle: "White Black Line Dress",
+          productTitle: "Tee-shirt homme",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 50.5,
@@ -403,7 +399,7 @@ export default {
           productImg2: require("assets/img/product-image/product8.png"),
           productTagClass: "",
           productTag: "",
-          productTitle: "Blue Dress For Woman",
+          productTitle: "Casquette",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 738.5,
@@ -416,7 +412,7 @@ export default {
           productImg2: require("assets/img/product-image/product10.png"),
           productTagClass: "new",
           productTag: "new",
-          productTitle: "Black T-Shirt For Woman",
+          productTitle: "Fusil 1",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 99.5,
@@ -429,7 +425,7 @@ export default {
           productImg2: require("assets/img/product-image/product12.png"),
           productTagClass: "hot",
           productTag: "hot",
-          productTitle: "Blue Dress For Woman",
+          productTitle: "Casquette 2",
           productDescription:
             "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
           productPrice: 738.5,
