@@ -129,7 +129,7 @@
             </div>
           </b-tab>
 
-          <b-tab title="Trending" class="row">
+          <b-tab title="Nouveautés" class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
               v-for="productItem in productItems.slice(0, 3)"
