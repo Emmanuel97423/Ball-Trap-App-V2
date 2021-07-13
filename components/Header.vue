@@ -326,7 +326,7 @@
       right
     >
       <div class="offcanvas-add-cart-wrapper">
-        <h4 class="offcanvas-title">Shopping Cart</h4>
+        <h4 class="offcanvas-title">Panier</h4>
         <div v-if="productItems.length > 0">
           <ul class="offcanvas-cart">
             <li
