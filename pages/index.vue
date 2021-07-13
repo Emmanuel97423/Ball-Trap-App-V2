@@ -42,7 +42,7 @@
                 alt="img"
               />
               <div class="product_var_one_text">
-                <h4 class="color_one">Hivers</h4>
+                <h4 class="color_one">Hiver</h4>
                 <h2>Cold</h2>
                 <h4>Collection</h4>
                 <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
