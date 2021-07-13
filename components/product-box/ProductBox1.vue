@@ -10,10 +10,7 @@
           <span :class="productTagClass">{{ productTag }}</span>
         </span>
         <div class="actions">
-          <nuxt-link
-            to="/my-account/wishlist"
-            class="action wishlist"
-            title="Wishlist"
+          <nuxt-link to="#" class="action wishlist" title="Wishlist"
             ><i class="far fa-heart"></i
           ></nuxt-link>
           <a
@@ -24,10 +21,7 @@
             title="Quick view"
             ><i class="fas fa-expand"></i
           ></a>
-          <nuxt-link
-            to="/my-account/compare"
-            class="action compare"
-            title="Compare"
+          <nuxt-link to="#" class="action compare" title="Compare"
             ><i class="fas fa-exchange-alt"></i
           ></nuxt-link>
         </div>
@@ -217,7 +211,7 @@
                       <nuxt-link
                         to="#"
                         class="theme-btn-one btn-black-overlay btn_sm"
-                        >Add To Cart</nuxt-link
+                        >Ajouter au panier</nuxt-link
                       >
                     </div>
                   </form>

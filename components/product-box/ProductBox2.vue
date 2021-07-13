@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="thumb">
-            <nuxt-link :to="'/product/' + productTitle" class="image">
+            <nuxt-link :to="'#' + productTitle" class="image">
               <img :src="productImg1" alt="Product" />
             </nuxt-link>
           </div>
