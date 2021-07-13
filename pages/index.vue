@@ -76,7 +76,7 @@
                 <h2>Nouvel</h2>
                 <h4 class="color_one">Arrivage</h4>
                 <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
-                  >Shop Now</nuxt-link
+                  >Poule!</nuxt-link
                 >
               </div>
             </div>
