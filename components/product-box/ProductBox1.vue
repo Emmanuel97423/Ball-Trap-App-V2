@@ -37,7 +37,7 @@
           <nuxt-link :to="'#' + productTitle">{{ productTitle }}</nuxt-link>
         </h5>
         <span class="price">
-          <span class="new">${{ productPrice }}</span>
+          <span class="new">{{ productPrice }} €</span>
         </span>
       </div>
 
@@ -136,12 +136,12 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
-                    <span>(2 Customer Review)</span>
+                    <span>(2 Avis)</span>
                   </div>
-                  <h4>${{ productPrice }}</h4>
+                  <h4>{{ productPrice }}€</h4>
                   <p>{{ productDescription }}</p>
                   <div class="variable-single-item">
-                    <span>Color</span>
+                    <span>Couleur</span>
                     <div class="product-variable-color">
                       <label for="modal-product-color-red">
                         <input
@@ -216,7 +216,7 @@
                     </div>
                   </form>
                   <div class="modal_share_icons_one">
-                    <h4>SHARE THIS PRODUCT</h4>
+                    <h4>PARTAGER CET ARTICLE</h4>
                     <div class="posted_icons_one">
                       <a href="#!"><i class="fab fa-facebook-f"></i></a>
                       <a href="#!"><i class="fab fa-instagram"></i></a>

@@ -17,7 +17,7 @@
               </h4>
               <p>{{ productDescription }}</p>
               <span class="price">
-                <span class="new">${{ productPrice }}</span>
+                <span class="new">{{ productPrice }}€</span>
               </span>
             </div>
 
@@ -142,9 +142,9 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
-                    <span>(2 Customer Review)</span>
+                    <span>(2 Avis )</span>
                   </div>
-                  <h4>${{ productPrice }}</h4>
+                  <h4>{{ productPrice }}€</h4>
                   <p>{{ productDescription }}</p>
                   <div class="variable-single-item">
                     <span>Color</span>
