@@ -49,12 +49,12 @@
               <div class="product_shot_view">
                 <ul>
                   <li>
-                    <nuxt-link to="/shop/shop-2"
+                    <nuxt-link to="/shop/shop-4"
                       ><i class="fas fa-th-large"></i
                     ></nuxt-link>
                   </li>
                   <li>
-                    <nuxt-link to="/shop" class="active"
+                    <nuxt-link to="/shop/shop-4" class="active"
                       ><i class="fas fa-th"></i
                     ></nuxt-link>
                   </li>
