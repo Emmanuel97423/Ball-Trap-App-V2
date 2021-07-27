@@ -21,7 +21,7 @@
     <section id="shop_main_area" class="ptb-100">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 col-md-12">
+          <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
               <div class="customs_selects">
                 <select name="product" class="customs_sel_box">
@@ -34,7 +34,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-12">
+          <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_shot">
               <div class="product_shot_title">
                 <p>Sort By:</p>
@@ -115,6 +115,7 @@ export default {
   },
   data() {
     return {
+      enabled: true,
       title: "Shop",
 
       // Product Items Data

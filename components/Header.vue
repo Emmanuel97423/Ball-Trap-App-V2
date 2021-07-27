@@ -35,7 +35,8 @@
                         >
                       </li>
                       <li class="has-dropdown has-megaitem">
-                        <a href="#"
+                        <a
+                          href="https://emmanuel97423.github.io/Ball-Trap-App-V2/shop/shop-2"
                           >Catalogue <i class="fa fa-angle-down"></i
                         ></a>
                         <!-- Mega Menu -->
