@@ -2,7 +2,7 @@
   <div>
     <div class="product_wrappers_one">
       <div class="thumb">
-        <nuxt-link :to="'#' + productTitle" class="image">
+        <nuxt-link to="'/product/' + productTitle" class="image">
           <img :src="productImg1" alt="Product" />
           <img class="hover-image" :src="productImg2" alt="Product" />
         </nuxt-link>

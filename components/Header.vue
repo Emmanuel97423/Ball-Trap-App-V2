@@ -35,8 +35,12 @@
                         >
                       </li>
                       <li class="has-dropdown has-megaitem">
-                        <a
-                          href="https://emmanuel97423.github.io/Ball-Trap-App-V2/shop/shop-2"
+                        <nuxt-link
+                          class="active main-menu-link"
+                          to="/shop/shop-2"
+                          >Catalogue <i class="fa fa-angle-down"></i
+                        ></nuxt-link>
+                        <a href="#"
                           >Catalogue <i class="fa fa-angle-down"></i
                         ></a>
                         <!-- Mega Menu -->
@@ -44,9 +48,7 @@
                           <ul class="mega-menu-inner">
                             <!-- Mega Menu Sub Link -->
                             <li class="mega-menu-item">
-                              <a
-                                href="https://emmanuel97423.github.io/Ball-Trap-App-V2/shop/shop-2"
-                                class="mega-menu-item-title"
+                              <a href="#" class="mega-menu-item-title"
                                 >Textiles</a
                               >
                               <ul class="mega-menu-sub">

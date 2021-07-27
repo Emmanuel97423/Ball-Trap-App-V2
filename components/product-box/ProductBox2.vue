@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="thumb">
-            <nuxt-link :to="'#' + productTitle" class="image">
+            <nuxt-link :to="'/product/' + productTitle" class="image">
               <img :src="productImg1" alt="Product" />
             </nuxt-link>
           </div>
@@ -13,7 +13,9 @@
           <div class="content">
             <div class="product_para_top">
               <h4 class="title">
-                <nuxt-link to="#">{{ productTitle }}</nuxt-link>
+                <nuxt-link :to="'/product/' + productTitle">{{
+                  productTitle
+                }}</nuxt-link>
               </h4>
               <p>{{ productDescription }}</p>
               <span class="price">

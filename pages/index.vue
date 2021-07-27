@@ -31,7 +31,9 @@
                 <h4 class="color_one">Outdoor</h4>
                 <h2 class="color_two">Nouvelle</h2>
                 <h4 class="color_two">Collection</h4>
-                <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                <nuxt-link
+                  to="/shop/shop-2"
+                  class="theme-btn-one bg-black btn_sm"
                   >Poule!</nuxt-link
                 >
               </div>
@@ -45,7 +47,9 @@
                 <h4 class="color_one">Hiver</h4>
                 <h2>Cold</h2>
                 <h4>Collection</h4>
-                <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                <nuxt-link
+                  to="/shop/shop-2"
+                  class="theme-btn-one bg-black btn_sm"
                   >Poule!</nuxt-link
                 >
               </div>
@@ -60,7 +64,9 @@
               <div class="product_var_one_text_center">
                 <h2 class="color_one">10% Offert</h2>
                 <h4>Notre selection du mois</h4>
-                <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                <nuxt-link
+                  to="/shop/shop-2"
+                  class="theme-btn-one bg-black btn_sm"
                   >Poule!</nuxt-link
                 >
               </div>
@@ -88,7 +94,9 @@
               <div class="product_var_one_text">
                 <h2>Cartouches</h2>
                 <h4 class="color_one">Offre</h4>
-                <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                <nuxt-link
+                  to="/shop/shop-2"
+                  class="theme-btn-one bg-black btn_sm"
                   >Poule!</nuxt-link
                 >
               </div>
