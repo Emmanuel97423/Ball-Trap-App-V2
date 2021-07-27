@@ -44,7 +44,9 @@
                           <ul class="mega-menu-inner">
                             <!-- Mega Menu Sub Link -->
                             <li class="mega-menu-item">
-                              <a href="#" class="mega-menu-item-title"
+                              <a
+                                href="https://emmanuel97423.github.io/Ball-Trap-App-V2/shop/shop-2"
+                                class="mega-menu-item-title"
                                 >Textiles</a
                               >
                               <ul class="mega-menu-sub">
