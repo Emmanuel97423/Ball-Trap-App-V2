@@ -40,11 +40,9 @@
                           to="/shop/shop-2"
                           >Catalogue <i class="fa fa-angle-down"></i
                         ></nuxt-link>
-                        <a href="#"
-                          >Catalogue <i class="fa fa-angle-down"></i
-                        ></a>
+
                         <!-- Mega Menu -->
-                        <div class="mega-menu">
+                        <div v-if="!enabled" class="mega-menu">
                           <ul class="mega-menu-inner">
                             <!-- Mega Menu Sub Link -->
                             <li class="mega-menu-item">
@@ -160,6 +158,11 @@
                       </li>
                       <li>
                         <nuxt-link to="#">A propos</nuxt-link>
+                      </li>
+                      <li>
+                        <nuxt-link class="active main-menu-link" to="/admin"
+                          >Admin
+                        </nuxt-link>
                       </li>
                     </ul>
                   </nav>

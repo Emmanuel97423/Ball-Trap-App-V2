@@ -2,8 +2,7 @@
   <div>
     <div class="product_wrappers_one">
       <div class="thumb">
-        <nuxt-link to="'/product/' + productTitle" class="image">
-          <img :src="productImg1" alt="Product" />
+        <nuxt-link to="/product/">
           <img class="hover-image" :src="productImg2" alt="Product" />
         </nuxt-link>
         <span class="badges">
@@ -34,7 +33,7 @@
       </div>
       <div class="content">
         <h5 class="title">
-          <nuxt-link :to="'#' + productTitle">{{ productTitle }}</nuxt-link>
+          <nuxt-link to="/product/">{{ productTitle }}</nuxt-link>
         </h5>
         <span class="price">
           <span class="new">{{ productPrice }} €</span>

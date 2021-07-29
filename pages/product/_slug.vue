@@ -23,12 +23,62 @@
         <div class="row area_boxed">
           <div class="col-lg-4">
             <div class="product_single_one_img">
-              <inner-image-zoom
-                :src="require('@/assets/img/product-image/product1.png')"
-                :zoomSrc="require('@/assets/img/product-image/product1.png')"
-                moveType="drag"
-                className="product-image-zoom"
-              />
+              <swiper
+                class="swiper product-single-2-slider"
+                :options="swiperOption"
+              >
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product1.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product2.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product3.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product4.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product5.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product6.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+                <swiper-slide>
+                  <img
+                    :src="require('@/assets/img/product-image/product7.png')"
+                    alt="img"
+                  />
+                </swiper-slide>
+
+                <div
+                  class="swiper-button-prev swiper-button-white"
+                  slot="button-prev"
+                ></div>
+                <div
+                  class="swiper-button-next swiper-button-white"
+                  slot="button-next"
+                ></div>
+              </swiper>
             </div>
           </div>
           <div class="col-lg-8">
@@ -37,7 +87,7 @@
                 <h3 v-if="this.$route.params.slug">
                   {{ this.$route.params.slug }}
                 </h3>
-                <h3 v-else>Black fashion handbag JI9023</h3>
+                <h3 v-else>Test fiche produit</h3>
 
                 <div class="reviews_rating">
                   <i class="fas fa-star"></i>
@@ -45,9 +95,9 @@
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
-                  <span>(2 Customer Review)</span>
+                  <span>(2 avis clients)</span>
                 </div>
-                <h4>25.00 € <del>40.00 €</del></h4>
+                <h4>317.76 €<del>456.43 €</del></h4>
                 <p>
                   Standard dummy text ever since the 1500s, standard dummy text
                   ever since the 1500s, when an unknown printer took a galley of
@@ -55,14 +105,14 @@
                 </p>
                 <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
-                    <option value="size">Size</option>
+                    <option value="size">Taille</option>
                     <option value="xl">XL</option>
                     <option value="small">S</option>
                     <option value="medium">M</option>
                     <option value="large">L</option>
                   </select>
                 </div>
-                <div class="variable-single-item">
+                <div v-if="!enabled" class="variable-single-item">
                   <span>Color</span>
                   <div class="product-variable-color">
                     <label for="modal-product-color-red1">
@@ -134,7 +184,7 @@
                 </form>
                 <div class="links_Product_areas">
                   <ul>
-                    <li>
+                    <li v-if="!enabled">
                       <nuxt-link
                         to="/my-account/wishlist"
                         class="action wishlist"
@@ -142,7 +192,7 @@
                         ><i class="far fa-heart"></i>Add To Wishlist</nuxt-link
                       >
                     </li>
-                    <li>
+                    <li v-if="!enabled">
                       <nuxt-link
                         to="/my-account/compare"
                         class="action compare"
@@ -155,7 +205,7 @@
                   <nuxt-link
                     to="/cart/cart-2"
                     class="theme-btn-one btn-black-overlay btn_sm"
-                    >Add To Cart</nuxt-link
+                    >Ajouter au panier</nuxt-link
                   >
                 </div>
               </div>
@@ -201,26 +251,26 @@
                   </div>
                 </b-tab>
 
-                <b-tab title="Additional Information" id="additional">
+                <b-tab title="Informations additionnels" id="additional">
                   <div class="product_additional">
                     <ul>
-                      <li>Weight: <span>400 g</span></li>
+                      <li>Poids: <span>400 g</span></li>
                       <li>Dimensions: <span>10 x 10 x 15 cm</span></li>
                       <li>
-                        Materials: <span> 60% cotton, 40% polyester</span>
+                        Materiaux: <span> 60% cotton, 40% polyester</span>
                       </li>
                       <li>
-                        Other Info:
+                        Autres infos:
                         <span>
-                          American heirloom jean shorts pug seitan
-                          letterpress</span
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Eveniet nostrum est nesciunt velit tempo</span
                         >
                       </li>
                     </ul>
                   </div>
                 </b-tab>
 
-                <b-tab title="Reviews" id="review">
+                <b-tab title="Avis" id="review">
                   <div class="product_reviews">
                     <ul>
                       <li class="media">
@@ -234,11 +284,11 @@
                           <div class="media-header">
                             <div class="media-name">
                               <h4>Sara Anela</h4>
-                              <p>5 days ago</p>
+                              <p>Il y a 5 jours</p>
                             </div>
                             <div class="post-share">
-                              <a href="#!" class="replay">Replay</a>
-                              <a href="#!" class="">Report</a>
+                              <a href="#!" class="replay">Répondre</a>
+                              <a href="#!" class="">Signaler</a>
                             </div>
                           </div>
                           <div class="media-pragraph">
@@ -281,11 +331,11 @@
                           <div class="media-header">
                             <div class="media-name">
                               <h4>Sara Anela</h4>
-                              <p>5 days ago</p>
+                              <p>Il y a 5 jours</p>
                             </div>
                             <div class="post-share">
-                              <a href="#!" class="replay">Replay</a>
-                              <a href="#!" class="">Report</a>
+                              <a href="#!" class="replay">Répondre</a>
+                              <a href="#!" class="">Signaler</a>
                             </div>
                           </div>
                           <div class="media-pragraph">
@@ -328,11 +378,11 @@
                           <div class="media-header">
                             <div class="media-name">
                               <h4>Sara Anela</h4>
-                              <p>5 days ago</p>
+                              <p>Il y a 5 jours</p>
                             </div>
                             <div class="post-share">
-                              <a href="#!" class="replay">Replay</a>
-                              <a href="#!" class="">Report</a>
+                              <a href="#!" class="replay">Répondre</a>
+                              <a href="#!" class="">Signaler</a>
                             </div>
                           </div>
                           <div class="media-pragraph">
@@ -398,7 +448,6 @@
               :productTag="productItem.productTag"
               :productTitle="productItem.productTitle"
               :productPrice="productItem.productPrice"
-              :productDescription="productItem.productDescription"
             />
           </div>
         </div>
@@ -411,18 +460,36 @@
 </template>
 
 <script>
-import ProductBox1 from "~/components/product-box/ProductBox1";
-import InstagramArea from "~/components/instagram/InstagramArea";
+import ProductBox1 from "../../components/product-box/ProductBox1";
+import InstagramArea from "../../components/instagram/InstagramArea";
 
 export default {
-  name: "product-single",
+  name: "product-single-2",
   components: {
     ProductBox1,
     InstagramArea,
   },
   data() {
     return {
+      enabled: true,
       title: this.$route.params.slug,
+
+      // Product details Popup slider
+      swiperOption: {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 0,
+        loop: true,
+        mousewheel: true,
+        keyboard: {
+          enabled: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        autoplay: true,
+      },
 
       // Product Items Data
       productItems: [

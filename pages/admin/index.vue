@@ -24,19 +24,27 @@
           <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
             <div class="account_form">
               <h3>Connexion</h3>
-              <form>
+              <form @submit.prevent="userLogin">
                 <div class="default-form-box">
-                  <label>Nom ou email <span>*</span></label>
-                  <input type="text" class="form-control" />
+                  <label>Email <span>*</span></label>
+                  <input
+                    v-model="login.email"
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
                 <div class="default-form-box">
                   <label>Mot de passe <span>*</span></label>
-                  <input type="password" class="form-control" />
+                  <input
+                    v-model="login.password"
+                    type="password"
+                    class="form-control"
+                  />
                 </div>
                 <div class="login_submit">
                   <button
                     class="theme-btn-one btn-black-overlay btn_md"
-                    type="button"
+                    type="submit"
                   >
                     Connexion
                   </button>
@@ -57,6 +65,11 @@ export default {
     return {
       enabled: true,
       title: "Connexion",
+      //Login
+      login: {
+        email: "",
+        password: "",
+      },
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -69,6 +82,19 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith("local", {
+          data: this.login,
+        });
+        console.log(response);
+        this.$router.push("/admin/addProduct");
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 
   // Page head() Title, description for SEO

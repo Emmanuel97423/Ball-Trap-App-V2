@@ -1,7 +1,7 @@
 export default {
   target: "static",
   router: {
-    base: "/Ball-Trap-App-V2/",
+    base: "/",
   },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -47,6 +47,8 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     "bootstrap-vue/nuxt",
     "@nuxtjs/strapi",
+    "@nuxtjs/axios",
+    "@nuxtjs/auth-next",
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -55,5 +57,44 @@ export default {
       compact: true,
     },
   },
+  server: {
+    port: 8000,
+  },
   strapi: {},
+  axios: {
+    baseURL: "https://trap-one-api.herokuapp.com/api",
+  },
+  auth: {
+    redirect: {
+      login: "/admin",
+      //logout: "/admin",
+      //callback: false,
+      //home: "/addProduct",
+    },
+
+    strategies: {
+      local: {
+        token: {
+          property: "token",
+
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+
+        user: {
+          property: "user",
+          // autoFetch: true
+        },
+        endpoints: {
+          login: {
+            url: "/auth/login",
+            method: "post",
+          },
+          logout: { url: "/auth/logout", method: "post" },
+          user: false,
+        },
+      },
+    },
+  },
 };
