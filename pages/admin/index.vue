@@ -49,7 +49,7 @@
                     Connexion
                   </button>
                 </div>
-                <p v-if="error.enabled">Identifiants incorrects</p>
+                <p v-if="error.enabled">{{ error.message }}</p>
               </form>
             </div>
           </div>
