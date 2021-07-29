@@ -49,6 +49,7 @@
                     Connexion
                   </button>
                 </div>
+                <p v-if="error.enabled">Identifiants incorrects</p>
               </form>
             </div>
           </div>
@@ -69,6 +70,10 @@ export default {
       login: {
         email: "",
         password: "",
+      },
+      error: {
+        enabled: false,
+        message: "",
       },
 
       // Breadcrumb Items Data
@@ -92,7 +97,9 @@ export default {
         console.log(response);
         this.$router.push("/admin/addProduct");
       } catch (err) {
-        console.log(err);
+        console.log(err.response.data.error);
+        this.error.enabled = true;
+        this.error.message = err.response.data.error;
       }
     },
   },
