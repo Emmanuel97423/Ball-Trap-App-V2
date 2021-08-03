@@ -94,18 +94,30 @@
       <b-form-group id="input-group-6" label="Images:" label-for="input-2">
         <br />
         <p>Image 1</p>
-        <b-form-file v-model="form.imageUrl1" class="mt-3" plain></b-form-file
-        ><br />
-        <p>Image 2</p>
-        <b-form-file v-model="form.imageUrl2" class="mt-3" plain></b-form-file
-        ><br />
-        <p>Image 3</p>
         <b-form-file
-          v-model="form.imageUrl3"
+          v-model="form.imageUrl1"
           class="mt-3"
           plain
         ></b-form-file> </b-form-group
       ><br />
+      <!--Prix d'achat-->
+
+      <b-form-group
+        id="input-group-7"
+        label="Prix d'achat(€):"
+        label-for="input-6"
+      >
+        <b-form-input
+          id="input-7"
+          v-model="form.priceAchat"
+          placeholder="00.00"
+          type="number"
+          min="0"
+          step="0.01"
+          pattern="^\d*(\.\d{0,2})?$"
+          required
+        ></b-form-input>
+      </b-form-group>
 
       <!--Prix-->
 
@@ -197,6 +209,7 @@ export default {
         imageUrl2: null,
         imageUrl3: null,
         price: null,
+        priceAchat: null,
         quantity: null,
         tax: "",
         actived: null,
@@ -207,31 +220,34 @@ export default {
   },
   methods: {
     onSubmit(event) {
-     
+      const blob = this.form.imageUrl1;
       const formData = new FormData();
       event.preventDefault();
-      formData.append("image", this.form.imageUrl1);
-      formData.append("image", this.form.imageUrl2);
-      formData.append("image", this.form.imageUrl3);
+      formData.append("image", blob);
       formData.append("ean", this.form.ean);
       formData.append("description", this.form.description);
       formData.append("manufacturer", this.form.manufacturer);
       formData.append("name", this.form.name);
       formData.append("price", this.form.price);
+      formData.append("priceAchat", this.form.priceAchat);
       formData.append("quantity", this.form.quantity);
       formData.append("shortDescription", this.form.shortDescription);
       formData.append("tax", this.form.tax);
       formData.append("type", this.form.type);
       formData.append("actived", this.form.actived);
 
+      //Envoi données
       this.$axios
         .post("/product/addProduct", formData)
         .then((response) => {
-          console.log(response);
+          if (response.status === 201) {
+            console.log(response);
+          }
         })
         .catch((err) => console.log(err));
       alert(JSON.stringify(this.form));
     },
+
     onReset(event) {
       event.preventDefault();
       // Reset our form values
