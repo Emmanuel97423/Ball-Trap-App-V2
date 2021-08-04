@@ -76,13 +76,21 @@
             :key="productItem.id"
           >
             <ProductBox1
+              :productImg1="productItem.imageUrl"
+              :productImg2="productItem.imageUrl"
+              :productTagClass="productItem.productTagClass"
+              :productTag="productItem.productTag"
+              :productTitle="productItem.name"
+              :productPrice="productItem.price"
+            />
+            <!-- <ProductBox1
               :productImg1="productItem.productImg1"
               :productImg2="productItem.productImg2"
               :productTagClass="productItem.productTagClass"
               :productTag="productItem.productTag"
               :productTitle="productItem.productTitle"
               :productPrice="productItem.productPrice"
-            />
+            /> -->
           </div>
 
           <div class="col-lg-12">
@@ -113,113 +121,15 @@ export default {
     ProductBox1,
     InstagramArea,
   },
-  data() {
+  asyncData() {
     return {
       enabled: true,
       title: "Shop",
 
       // Product Items Data
-      productItems: [
-        {
-          id: 1,
-          productImg1: require("assets/img/product-image/product1.png"),
-          productImg2: require("assets/img/product-image/product2.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "Black T-Shirt For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 38.5,
-        },
-        {
-          id: 2,
-          productImg1: require("assets/img/product-image/product3.png"),
-          productImg2: require("assets/img/product-image/product4.png"),
-          productTagClass: "new",
-          productTag: "new",
-          productTitle: "T-Shirt Form Girls",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-        },
-        {
-          id: 3,
-          productImg1: require("assets/img/product-image/product5.png"),
-          productImg2: require("assets/img/product-image/product6.png"),
-          productTagClass: "hot",
-          productTag: "hot",
-          productTitle: "White Black Line Dress",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 50.5,
-        },
-        {
-          id: 4,
-          productImg1: require("assets/img/product-image/product7.png"),
-          productImg2: require("assets/img/product-image/product8.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "Blue Dress For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-        },
-        {
-          id: 5,
-          productImg1: require("assets/img/product-image/product9.png"),
-          productImg2: require("assets/img/product-image/product10.png"),
-          productTagClass: "new",
-          productTag: "new",
-          productTitle: "Black T-Shirt For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 99.5,
-        },
-        {
-          id: 6,
-          productImg1: require("assets/img/product-image/product11.png"),
-          productImg2: require("assets/img/product-image/product12.png"),
-          productTagClass: "hot",
-          productTag: "hot",
-          productTitle: "Blue Dress For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-        },
-        {
-          id: 7,
-          productImg1: require("assets/img/product-image/product13.png"),
-          productImg2: require("assets/img/product-image/product14.png"),
-          productTagClass: "new",
-          productTag: "new",
-          productTitle: "T-Shirt Form Girls",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 48.5,
-        },
-        {
-          id: 8,
-          productImg1: require("assets/img/product-image/product15.png"),
-          productImg2: require("assets/img/product-image/product1.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "T-Shirt Form Girls",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-        },
-        {
-          id: 9,
-          productImg1: require("assets/img/product-image/product2.png"),
-          productImg2: require("assets/img/product-image/product3.png"),
-          productTagClass: "new",
-          productTag: "new",
-          productTitle: "Blue Dress For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 300,
-        },
-      ],
+      productItems: "",
+
+      products: "",
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -251,6 +161,23 @@ export default {
         },
       ],
     };
+  },
+  beforeMount() {
+    this.getAllProducts();
+  },
+  methods: {
+    async getAllProducts() {
+      this.$axios
+        .get("/product/allProduct")
+        .then((res) => {
+          console.log(res.data);
+          this.productItems = res.data;
+          this.productItems.id = res.data.id;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
