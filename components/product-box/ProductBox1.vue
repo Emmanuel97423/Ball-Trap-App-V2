@@ -2,7 +2,7 @@
   <div>
     <div class="product_wrappers_one">
       <div class="thumb">
-        <nuxt-link to="/product/">
+        <nuxt-link :to="`/product/${productKey}`">
           <img class="hover-image" :src="productImg2" alt="Product" />
         </nuxt-link>
         <span class="badges">
@@ -248,6 +248,7 @@ export default {
     productDescription: String,
     productPrice: Number,
     totalPrice: Number,
+    productKey: String,
   },
 
   data() {

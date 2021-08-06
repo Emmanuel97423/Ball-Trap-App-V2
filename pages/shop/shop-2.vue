@@ -75,6 +75,7 @@
             v-for="productItem in productItems"
             :key="productItem.id"
           >
+            {{ productItem._id }}
             <ProductBox1
               :productImg1="productItem.imageUrl"
               :productImg2="productItem.imageUrl"
@@ -82,6 +83,7 @@
               :productTag="productItem.productTag"
               :productTitle="productItem.name"
               :productPrice="productItem.price"
+              :productKey="productItem._id"
             />
             <!-- <ProductBox1
               :productImg1="productItem.productImg1"
@@ -162,21 +164,25 @@ export default {
       ],
     };
   },
-  beforeMount() {
+  mounted() {
     this.getAllProducts();
+    this.init();
   },
   methods: {
     async getAllProducts() {
       this.$axios
         .get("/product/allProduct")
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data[0]._id);
           this.productItems = res.data;
-          this.productItems.id = res.data.id;
+          this.productItems.id = res.data._id;
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    init() {
+      console.log(this.$route.params);
     },
   },
 };

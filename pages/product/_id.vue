@@ -28,46 +28,7 @@
                 :options="swiperOption"
               >
                 <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product1.png')"
-                    alt="img"
-                  />
-                </swiper-slide>
-                <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product2.png')"
-                    alt="img"
-                  />
-                </swiper-slide>
-                <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product3.png')"
-                    alt="img"
-                  />
-                </swiper-slide>
-                <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product4.png')"
-                    alt="img"
-                  />
-                </swiper-slide>
-                <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product5.png')"
-                    alt="img"
-                  />
-                </swiper-slide>
-                <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product6.png')"
-                    alt="img"
-                  />
-                </swiper-slide>
-                <swiper-slide>
-                  <img
-                    :src="require('@/assets/img/product-image/product7.png')"
-                    alt="img"
-                  />
+                  <img :src="productItems.imageUrl" alt="img" />
                 </swiper-slide>
 
                 <div
@@ -84,10 +45,10 @@
           <div class="col-lg-8">
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
-                <h3 v-if="this.$route.params.slug">
-                  {{ this.$route.params.slug }}
+                <h3 v-if="this.$route.params.id">
+                  {{ productItems.name }}
                 </h3>
-                <h3 v-else>Test fiche produit</h3>
+                <h3 v-else>Test fiche produit hello</h3>
 
                 <div class="reviews_rating">
                   <i class="fas fa-star"></i>
@@ -97,11 +58,9 @@
                   <i class="fas fa-star"></i>
                   <span>(2 avis clients)</span>
                 </div>
-                <h4>317.76 €<del>456.43 €</del></h4>
+                <h4>{{ productItems.price }} €<del>456.43 €</del></h4>
                 <p>
-                  Standard dummy text ever since the 1500s, standard dummy text
-                  ever since the 1500s, when an unknown printer took a galley of
-                  type and scrambled it to make a type specimen.
+                  {{ productItems.description }}
                 </p>
                 <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
@@ -492,53 +451,7 @@ export default {
       },
 
       // Product Items Data
-      productItems: [
-        {
-          id: 1,
-          productImg1: require("assets/img/product-image/product1.png"),
-          productImg2: require("assets/img/product-image/product2.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "Black T-Shirt For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 38.5,
-        },
-        {
-          id: 2,
-          productImg1: require("assets/img/product-image/product3.png"),
-          productImg2: require("assets/img/product-image/product4.png"),
-          productTagClass: "new",
-          productTag: "new",
-          productTitle: "T-Shirt Form Girls",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-        },
-        {
-          id: 3,
-          productImg1: require("assets/img/product-image/product5.png"),
-          productImg2: require("assets/img/product-image/product6.png"),
-          productTagClass: "hot",
-          productTag: "hot",
-          productTitle: "White Black Line Dress",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 50.5,
-        },
-        {
-          id: 4,
-          productImg1: require("assets/img/product-image/product7.png"),
-          productImg2: require("assets/img/product-image/product8.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "Blue Dress For Woman",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-        },
-      ],
-
+      productItems: "",
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -568,6 +481,22 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.getOneProduct();
+  },
+  methods: {
+    async getOneProduct() {
+      this.$axios
+        .get("/product/" + this.$route.params.id)
+        .then((res) => {
+          console.log(res.data);
+          this.productItems = res.data;
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    },
   },
 };
 </script>

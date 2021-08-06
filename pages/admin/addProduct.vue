@@ -109,7 +109,7 @@
       >
         <b-form-input
           id="input-7"
-          v-model="form.priceAchat"
+          v-model="form.costPrice"
           placeholder="00.00"
           type="number"
           min="0"
@@ -168,7 +168,7 @@
           id="checkboxes-4"
           :aria-describedby="ariaDescribedby"
         >
-          <b-form-checkbox value="true">Activé</b-form-checkbox>
+          <b-form-checkbox value="Actived">Activé</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
 
@@ -209,10 +209,10 @@ export default {
         imageUrl2: null,
         imageUrl3: null,
         price: null,
-        priceAchat: null,
+        costPrice: null,
         quantity: null,
         tax: "",
-        actived: null,
+        actived: "none",
       },
 
       show: true,
@@ -228,8 +228,9 @@ export default {
       formData.append("description", this.form.description);
       formData.append("manufacturer", this.form.manufacturer);
       formData.append("name", this.form.name);
-      formData.append("price", this.form.price);
-      formData.append("priceAchat", this.form.priceAchat);
+      formData.append("price", this.form.costPrice);
+      formData.append("costPrice", this.form.price);
+
       formData.append("quantity", this.form.quantity);
       formData.append("shortDescription", this.form.shortDescription);
       formData.append("tax", this.form.tax);
