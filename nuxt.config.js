@@ -62,7 +62,7 @@ export default {
   },
   strapi: {},
   axios: {
-    baseURL: "http://localhost:3000/api",
+    baseURL: " https://trap-one-api.herokuapp.com/api",
   },
   auth: {
     redirect: {
