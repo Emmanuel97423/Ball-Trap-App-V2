@@ -3,14 +3,14 @@
     <div class="product_wrappers_one">
       <div class="thumb">
         
-        {{ productId }}
+        
         <nuxt-link :to="`/product/${productId}`">
           <img class="hover-image" :src="productImg2" alt="Product" />
         </nuxt-link>
         <span class="badges">
           <span :class="productTagClass">{{ productTag }}</span>
         </span>
-        <div class="actions">
+        <div v-if="!enabled" class="actions">
           <nuxt-link to="#" class="action wishlist" title="Wishlist"
             ><i class="far fa-heart"></i
           ></nuxt-link>
@@ -26,11 +26,14 @@
             ><i class="fas fa-exchange-alt"></i
           ></nuxt-link>
         </div>
-        <a
-          v-b-toggle.offcanvas-add-cart
+        <!-- start toggle -->
+        <!-- v-b-toggle.offcanvas-add-cart -->
+        <button v-if="enabled"
+          
           class="add-to-cart offcanvas-toggle"
           title="Add To Cart"
-          >Poule!</a
+           @click="addToCartByComponent(productObject)"
+          >Poule!</button
         >
       </div>
       <div class="content">
@@ -251,11 +254,12 @@ export default {
     productPrice: Number,
     totalPrice: Number,
     productId: String,
+    productObject: Object
   },
 
   data() {
     return {
-      // Product details Popup slider
+      enabled: true,      // Product details Popup slider
       swiperOption: {
         slidesPerView: 1,
         slidesPerGroup: 1,
@@ -278,6 +282,10 @@ export default {
   },
 
   methods: {
+       addToCartByComponent(productObject){
+      this.$store.commit('cart/addToCartByComponent', productObject);
+      
+    },
     // Product details Popup id Methods
     toggleModal() {
       this.$refs["product-details-popup"].toggle("#toggle-btn");

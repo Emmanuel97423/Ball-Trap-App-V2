@@ -77,7 +77,7 @@
             v-for="productItem in productItems"
             :key="productItem._id"
           >
-            {{ productItem.name }}
+            
 
             
             <ProductBox1
@@ -88,6 +88,7 @@
               :productTitle="productItem.name"
               :productPrice="productItem.price"
               :productId="productItem._id"
+              :productObject="productItem"
             />
             <!-- <ProductBox1
               :productImg1="productItem.productImg1"

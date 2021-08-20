@@ -26,6 +26,20 @@ export const mutations = {
     
   },
 
+  addToCartByComponent(state, item) {
+        const record = state.items.find(i => i._id === item._id)
+    console.log(item)
+    if (!record) {
+      state.items.push({
+        orderQuantity: 1,
+        
+        ...item
+      })
+    } else {
+      record.orderQuantity++
+    }
+  },
+
   remove(state, item) {
     const record = state.items.find(i => i._id === item._id)
 

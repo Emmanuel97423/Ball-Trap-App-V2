@@ -389,7 +389,7 @@
               >
             </li>
             <li>
-              <nuxt-link to="#" class="theme-btn-one btn-black-overlay btn_md"
+              <nuxt-link to="/my-account/checkout-1" class="theme-btn-one btn-black-overlay btn_md"
                 >Commander</nuxt-link
               >
             </li>
