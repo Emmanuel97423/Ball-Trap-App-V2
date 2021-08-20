@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <!-- Banner Area -->
     <section id="common_banner_one">
       <div class="container ">
@@ -70,12 +71,15 @@
           </div>
         </div>
         <div class="row">
+          
           <div
             class="col-lg-4 col-md-4 col-sm-6 col-12"
             v-for="productItem in productItems"
-            :key="productItem.id"
+            :key="productItem._id"
           >
-            {{ productItem._id }}
+            {{ productItem.name }}
+
+            
             <ProductBox1
               :productImg1="productItem.imageUrl"
               :productImg2="productItem.imageUrl"
@@ -83,7 +87,7 @@
               :productTag="productItem.productTag"
               :productTitle="productItem.name"
               :productPrice="productItem.price"
-              :productKey="productItem._id"
+              :productId="productItem._id"
             />
             <!-- <ProductBox1
               :productImg1="productItem.productImg1"
@@ -127,10 +131,6 @@ export default {
     return {
       enabled: true,
       title: "Shop",
-
-      // Product Items Data
-      productItems: "",
-
       products: "",
 
       // Breadcrumb Items Data
@@ -164,27 +164,17 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.getAllProducts();
-    this.init();
+  computed: {
+
+    productItems() {
+       
+      return this.$store.getters['products/productItems']
+    }
   },
-  methods: {
-    async getAllProducts() {
-      this.$axios
-        .get("/product/allProduct")
-        .then((res) => {
-          console.log(res.data[0]._id);
-          this.productItems = res.data;
-          this.productItems.id = res.data._id;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    init() {
-      console.log(this.$route.params);
-    },
-  },
+  created() {
+    this.$store.dispatch('products/getProducts')
+   
+  }
 };
 </script>
 

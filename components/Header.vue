@@ -171,10 +171,10 @@
 
                 <!-- Start Header Action Link -->
                 <ul
-                  v-if="!enabled"
+                  
                   class="header-action-link action-color--black action-hover-color--golden"
                 >
-                  <li>
+                  <li v-if="!enabled">
                     <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
                       <i class="far fa-heart"></i>
                       <span class="item-count">{{ productItems.length }}</span>
@@ -186,7 +186,7 @@
                       <span class="item-count">{{ productItems.length }}</span>
                     </a>
                   </li>
-                  <li>
+                  <li v-if="!enabled">
                     <a
                       v-b-toggle.search_sidebar
                       class="search_width offcanvas-toggle"
@@ -194,7 +194,7 @@
                       <img src="~/assets/img/svg/search.svg" alt="img" />
                     </a>
                   </li>
-                  <li>
+                  <li v-if="!enabled">
                     <a
                       v-b-toggle.offcanvas-about
                       class="offacnvas offside-about offcanvas-toggle"
@@ -384,7 +384,7 @@
 
           <ul class="offcanvas-cart-action-button">
             <li>
-              <nuxt-link to="#" class="theme-btn-one btn-black-overlay btn_md"
+              <nuxt-link to="/cart" class="theme-btn-one btn-black-overlay btn_md"
                 >Voir le panier</nuxt-link
               >
             </li>
@@ -397,7 +397,7 @@
         </div>
 
         <ul v-else class="offcanvas-cart">
-          <li>Your cart is empty!</li>
+          <li>Panier vide!</li>
         </ul>
       </div>
     </b-sidebar>

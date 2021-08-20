@@ -28,7 +28,7 @@
                 :options="swiperOption"
               >
                 <swiper-slide>
-                  <img :src="productItems.imageUrl" alt="img" />
+                  <img :src="product.imageUrl" alt="img" />
                 </swiper-slide>
 
                 <div
@@ -42,11 +42,12 @@
               </swiper>
             </div>
           </div>
+          
           <div class="col-lg-8">
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
                 <h3 v-if="this.$route.params.id">
-                  {{ productItems.name }}
+                  {{ product.name }}
                 </h3>
                 <h3 v-else>Test fiche produit hello</h3>
 
@@ -58,9 +59,9 @@
                   <i class="fas fa-star"></i>
                   <span>(2 avis clients)</span>
                 </div>
-                <h4>{{ productItems.price }} €<del>456.43 €</del></h4>
+                <h4>{{ product.price }} €<del>456.43 €</del></h4>
                 <p>
-                  {{ productItems.description }}
+                  {{ product.description }}
                 </p>
                 <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
@@ -135,7 +136,8 @@
                   <div class="product_count_one">
                     <b-form-spinbutton
                       id="sb-inline"
-                      v-model="value"
+                      :value="quantity"
+                      
                       inline
                       class="border-0"
                     ></b-form-spinbutton>
@@ -161,11 +163,23 @@
                       >
                     </li>
                   </ul>
-                  <nuxt-link
-                    to="/cart/cart-2"
+                  <button v-if=!outOfStock() class="theme-btn-one btn-black-overlay btn_sm" @click="addToCart(product)">Ajouter</button>
+                 <!-- Out of stock -->
+                 <p v-else>RUPTURE</p>
+                  <!-- <AddToCart
+                  :productId="product._id"
+                  :productPrice="product.price"
+                  :productQuantity="quantity"
+                  :productTitle ="product.name"
+                  :productEan ="product.ean"
+                  :quantity="quantity"
+                  /> -->
+                  <!-- <button
+                    
                     class="theme-btn-one btn-black-overlay btn_sm"
-                    >Ajouter au panier</nuxt-link
-                  >
+                    
+                    >Ajouter au panier</button
+                  > -->
                 </div>
               </div>
             </div>
@@ -397,7 +411,7 @@
         <div class="row">
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
-            v-for="productItem in productItems"
+            v-for="productItem in product"
             :key="productItem.id"
           >
             <ProductBox1
@@ -421,12 +435,15 @@
 <script>
 import ProductBox1 from "../../components/product-box/ProductBox1";
 import InstagramArea from "../../components/instagram/InstagramArea";
+import AddToCart from "../../components/AddToCart"
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: "product-single-2",
   components: {
     ProductBox1,
     InstagramArea,
+    AddToCart
   },
   data() {
     return {
@@ -450,8 +467,7 @@ export default {
         autoplay: true,
       },
 
-      // Product Items Data
-      productItems: "",
+    
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -465,7 +481,7 @@ export default {
       ],
 
       // Product Quanity Increment/ Decrement Data
-      value: 1,
+      quantity: 1,
     };
   },
 
@@ -482,22 +498,43 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.getOneProduct();
-  },
-  methods: {
-    async getOneProduct() {
-      this.$axios
-        .get("/product/" + this.$route.params.id)
-        .then((res) => {
-          console.log(res.data);
-          this.productItems = res.data;
-        })
-        .catch((err) => {
-          res.json(err);
-        });
+
+computed: { 
+  product () {   
+    return this.$store.getters['products/product']
+  }
+},
+   methods: {      
+    addToCart(product){
+      this.$store.commit('cart/add', product)
+      
     },
+    removeFromCart(product){
+      this.$store.commit('cart/remove', product)
+    },
+    outOfStock() { 
+      const stock = this.product.quantity
+      if(stock < 1 ){
+        return false
+      }
+      
+    }
+  // dataTest (){
+  //   this.$axios.get("/product/" + this.$route.params.id)
+  //       .then((res) => {
+          
+  //           console.log(res.data._id)
+          
+  //       }).catch((err) => {console.log(err)})
+  // },
+},
+  created() {
+    // this.dataTest()
+    this.outOfStock()
+      const id = this.$route.params.id
+      this.$store.dispatch('products/getOneProduct', id)
   },
+  
 };
 </script>
 

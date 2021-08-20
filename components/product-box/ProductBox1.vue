@@ -2,7 +2,9 @@
   <div>
     <div class="product_wrappers_one">
       <div class="thumb">
-        <nuxt-link :to="`/product/${productKey}`">
+        
+        {{ productId }}
+        <nuxt-link :to="`/product/${productId}`">
           <img class="hover-image" :src="productImg2" alt="Product" />
         </nuxt-link>
         <span class="badges">
@@ -248,7 +250,7 @@ export default {
     productDescription: String,
     productPrice: Number,
     totalPrice: Number,
-    productKey: String,
+    productId: String,
   },
 
   data() {
@@ -281,6 +283,7 @@ export default {
       this.$refs["product-details-popup"].toggle("#toggle-btn");
     },
   },
+
 };
 </script>
 

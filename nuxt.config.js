@@ -49,6 +49,9 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
+    ['nuxt-vuex-localstorage', {
+      localStorage:['cart']
+    } ]
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -56,13 +59,15 @@ export default {
     babel: {
       compact: true,
     },
+    
   },
   server: {
     port: 8000,
   },
   strapi: {},
   axios: {
-    baseURL: " https://trap-one-api.herokuapp.com/api",
+    // baseURL: " http://localhost:3000/api",
+    baseURL: "https://trap-one-api.herokuapp.com/api"
   },
   auth: {
     redirect: {
