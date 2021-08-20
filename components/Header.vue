@@ -183,7 +183,7 @@
                   <li>
                     <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                       <i class="fas fa-shopping-bag"></i>
-                      <span class="item-count">{{ productItems.length }}</span>
+                      <span class="item-count">{{ selectedProducts.length }}</span>
                     </a>
                   </li>
                   <li v-if="!enabled">
@@ -335,38 +335,38 @@
     >
       <div class="offcanvas-add-cart-wrapper">
         <h4 class="offcanvas-title">Panier</h4>
-        <div v-if="productItems.length > 0">
+        <div v-if="selectedProducts.length > 0">
           <ul class="offcanvas-cart">
             <li
               class="offcanvas-cart-item-single"
-              v-for="productItem in productItems.slice(0, 4)"
+              v-for="productItem in selectedProducts.slice(0, 4)"
               :key="productItem.id"
             >
               <div class="offcanvas-cart-item-block">
                 <nuxt-link to="#" class="offcanvas-cart-item-image-link">
                   <img
-                    :src="productItem.productImg1"
+                    :src="productItem.imageUrl"
                     alt="img"
                     class="offcanvas-cart-image"
                   />
                 </nuxt-link>
                 <div class="offcanvas-cart-item-content">
                   <nuxt-link to="#" class="offcanvas-cart-item-link">{{
-                    productItem.productTitle
+                    productItem.name
                   }}</nuxt-link>
                   <div class="offcanvas-cart-item-details">
                     <span class="offcanvas-cart-item-details-quantity"
-                      >{{ productItem.quantity }} x
+                      >{{ productItem.orderQuantity }} x
                     </span>
                     <span class="offcanvas-cart-item-details-price"
-                      >${{ productItem.productPrice }}</span
+                      >{{ (productItem.price).toFixed(2) }}€</span
                     >
                   </div>
                 </div>
               </div>
               <div class="offcanvas-cart-item-delete text-right">
                 <button
-                  @click="removeProductItem(index)"
+                  @click="removeProductItem(productItem)"
                   class="offcanvas-cart-item-delete bg-transparent remove-btn"
                 >
                   <i class="far fa-trash-alt"></i>
@@ -378,7 +378,7 @@
           <div class="offcanvas-cart-total-price">
             <span class="offcanvas-cart-total-price-text">Total:</span>
             <span class="offcanvas-cart-total-price-value"
-              >${{ CartTotal }}</span
+              >{{ (cartTotal).toFixed(2) }}€</span
             >
           </div>
 
@@ -733,6 +733,22 @@ export default {
   },
 
   computed: {
+            id() {
+              return this.$route.params.id
+          },
+          selectedProducts() {
+              return this.$store.getters['cart/items']
+          },
+          price() {
+              return this.$store.getters['cart/price']
+          },
+          
+       
+          // Cart Total Price
+          cartTotal() {
+            
+           return this.$store.getters['cart/cartTotal']
+        },
     // Cart Total Price
     CartTotal() {
       let total = 0;
@@ -745,9 +761,9 @@ export default {
 
   methods: {
     // For Delete/Remove Product Item
-    removeProductItem: function(index) {
-      this.productItems.splice(index, 1);
-    },
+   removeProductItem(productItem) {
+            this.$store.commit('cart/remove', productItem);
+        }
   },
 };
 </script>

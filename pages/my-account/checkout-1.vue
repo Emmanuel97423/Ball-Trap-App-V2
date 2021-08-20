@@ -21,85 +21,84 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                     <div class="checkout-area-bg bg-white">
                         <div class="check-heading">
-                            <h3>Billing Information</h3>
+                            <h3>Information de facturation</h3> 
                         </div>
                         <div class="check-out-form">
                             <form>
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="fname">First name</label>
+                                            <label for="fname">Nom</label>
                                             <input type="text" required="" class="form-control" id="fname"
-                                                placeholder="First name *">
+                                                placeholder="Nom *">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="lname">Last name</label>
+                                            <label for="lname">Prénom</label>
                                             <input type="text" required="" class="form-control" id="lname"
-                                                placeholder="Last name *">
+                                                placeholder="Prénom *">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="cname">Company Name</label>
+                                            <label for="cname">Entrprise</label>
                                             <input class="form-control" required="" type="text" id="cname"
-                                                placeholder="Company Name">
+                                                placeholder="Entrprise">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="email">Email Addresse</label>
+                                            <label for="email">Email </label>
                                             <input class="form-control" required="" type="text" id="email"
                                                 placeholder="info@gmail.com">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="country">Country</label>
+                                            <label for="country">Pays</label>
                                             <select class="form-control first_null" id="country">
-                                                <option value="">Select an option...</option>
-                                                <option value="AX">usa</option>
-                                                <option value="AF">Afghanistan</option>
+                                                <option value="">Choisissez une option...</option>
+                                                <option value="FR">France</option>
+                                                
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="city">State/City</label>
+                                            <label for="city">Région</label>
                                             <select class="form-control first_null" id="city">
-                                                <option value="">Select an option...</option>
-                                                <option value="AX">Aland Islands</option>
-                                                <option value="AF">Afghanistan</option>
+                                                <option value="">Choisissez une option...</option>
+                                                <option value="RE">Réunion</option>
+                                                
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="zip">State/City</label>
+                                            <label for="zip">Code postal</label>
                                             <input type="text" class="form-control" id="zip" required=""
-                                                placeholder="Enter Your zipcode">
+                                                placeholder="Enterer votre code postal">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="faddress">Full Address</label>
+                                            <label for="faddress">Adresse complète</label>
                                             <input type="text" class="form-control" id="faddress" required=""
-                                                placeholder="Enter your address here..">
+                                                placeholder="Enterer votre adresse..">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="messages">Additional Notes</label>
+                                            <label for="messages">Commentaire</label>
                                             <textarea rows="5" class="form-control" id="messages"
-                                                placeholder="Order notes"></textarea>
+                                                placeholder="Commentaires"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" id="materialUnchecked">
-                                            <label class="form-check-label" for="materialUnchecked">Save In Address
-                                                Book</label>
+                                            <label class="form-check-label" for="materialUnchecked">Sauvegarder l'adresse</label>
                                         </div>
                                     </div>
                                 </div>
@@ -110,53 +109,53 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                     <div class="order_review  box-shadow bg-white">
                         <div class="check-heading">
-                            <h3>Your Orders</h3>
+                            <h3>Votre commande</h3>
                         </div>
-                        <div class="table-responsive order_table">
-                            <table class="table">
+                        <div  class="table-responsive order_table">
+                            <table v-if="selectedProducts.length >= 1 " class="table">
                                 <thead>
                                     <tr>
-                                        <th>Product</th>
+                                        <th>Article</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-for="productItem in selectedProducts" :key="productItem.id">
                                     <tr>
-                                        <td>Blue Dress For Woman <span class="product-qty">x 2</span>
+                                        <td> {{ productItem.name }} <span class="product-qty"> x {{ productItem.orderQuantity }}</span>
                                         </td>
-                                        <td>$90.00</td>
+                                        <td>{{ (productItem.price  * productItem.orderQuantity).toFixed(2) }} €</td>
                                     </tr>
-                                    <tr>
-                                        <td>Lether Gray Tuxedo <span class="product-qty">x 1</span>
-                                        </td>
-                                        <td>$55.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Woman Full Sliv Dresss <span class="product-qty">x 3</span>
-                                        </td>
-                                        <td>$204.00</td>
-                                    </tr>
+                                
+                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>SubTotal</th>
-                                        <td class="product-subtotal">$349.00</td>
+                                        <th>Sous Total</th>
+                                        <td class="product-subtotal">{{ (cartTotal).toFixed(2) }}€</td>
                                     </tr>
                                     <tr>
-                                        <th>Shipping</th>
-                                        <td>Free Shipping</td>
+                                        <th>Livraison</th>
+                                        <td>Livraison gratuite</td>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
-                                        <td class="product-subtotal">$349.00</td>
+                                        <td class="product-subtotal">{{ (cartTotal).toFixed(2) }}€</td>
                                     </tr>
                                 </tfoot>
                             </table>
+                             <ul v-else class="offcanvas-cart">
+          <li>Panier vide!</li>
+        </ul>
+                            
                         </div>
                     </div>
-                    <div class="order_review bg-white">
+                    <div class="box">
+                        <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm">Etape suivante</button>
+                    </div>
+                    
+                    <div v-if="!enabled" class="order_review bg-white">
                         <div class="check-heading">
-                            <h3>Payment</h3>
+                            <h3>Mode de paiement</h3>
                         </div>
                         <div class="payment_method">
                             <div class="payment_option">
@@ -198,6 +197,7 @@ export default {
 
     data() {
         return {
+            enabled: true,
             title: 'Checkout',
             // Breadcrumb Items Data
             breadcrumbItems: [
@@ -226,11 +226,32 @@ export default {
           }
         ]
       }
-    }
+    },
+    computed: {
+          id() {
+              return this.$route.params.id
+          },
+          selectedProducts() {
+              return this.$store.getters['cart/items']
+          },
+          price() {
+              return this.$store.getters['cart/price']
+          },
+          // Cart Total Price
+          cartTotal() {
+            
+           return this.$store.getters['cart/cartTotal']
+        }
+
+      },
 
 }
 </script>
 
-<style>
+<style scoped>
+.box {
+    text-align: center;
+}
+
 
 </style>
