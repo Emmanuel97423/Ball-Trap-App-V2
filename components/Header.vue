@@ -235,11 +235,11 @@
             <!-- End Mobile Left Side -->
 
             <!-- Start Mobile Right Side -->
-            <div v-if="!enabled" class="mobile-right-side">
+            <div v-if="enabled" class="mobile-right-side">
               <ul
                 class="header-action-link action-color--black action-hover-color--golden"
               >
-                <li>
+                <li v-if="!enabled">
                   <a
                     v-b-toggle.search_sidebar
                     class="search_width offcanvas-toggle"
@@ -247,7 +247,7 @@
                     <img src="~/assets/img/svg/search.svg" alt="img" />
                   </a>
                 </li>
-                <li>
+                <li v-if="!enabled">
                   <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
                     <i class="far fa-heart"></i>
                     <span class="item-count">{{ productItems.length }}</span>
@@ -259,7 +259,7 @@
                     <span class="item-count">{{ productItems.length }}</span>
                   </a>
                 </li>
-                <li>
+                <li v-if="!enabled">
                   <a
                     v-b-toggle.offcanvas-about
                     class="offacnvas offside-about offcanvas-toggle"
