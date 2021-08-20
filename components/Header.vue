@@ -256,7 +256,7 @@
                 <li>
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
-                    <span class="item-count">{{ productItems.length }}</span>
+                    <span class="item-count">{{ selectedProducts.length }}</span>
                   </a>
                 </li>
                 <li v-if="!enabled">
