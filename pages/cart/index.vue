@@ -66,9 +66,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="cart_submit">
+                            <!-- <div v-if="!enabled" class="cart_submit">
                                 <button class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="refresh(productItem)">Mettre à jour</button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">

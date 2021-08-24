@@ -24,40 +24,40 @@
                             <h3>Information de facturation</h3> 
                         </div>
                         <div class="check-out-form">
-                            <form>
+                            <form id="form" >
                                 <div class="row">
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="fname">Nom</label>
-                                            <input type="text" required="" class="form-control" id="fname"
+                                            <input type="text" required="" class="form-control" id="fname" name="firstName"
                                                 placeholder="Nom *">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="lname">Prénom</label>
-                                            <input type="text" required="" class="form-control" id="lname"
+                                            <input type="text" required="" class="form-control" id="lname" name="lastName"
                                                 placeholder="Prénom *">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
-                                            <label for="cname">Entrprise</label>
-                                            <input class="form-control" required="" type="text" id="cname"
-                                                placeholder="Entrprise">
+                                            <label for="cname">Entreprise</label>
+                                            <input class="form-control" required="" type="text" id="cname" name="company"
+                                                placeholder="Entreprise">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="email">Email </label>
-                                            <input class="form-control" required="" type="text" id="email"
+                                            <input class="form-control" required="" type="text" id="email" name="email"
                                                 placeholder="info@gmail.com">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="country">Pays</label>
-                                            <select class="form-control first_null" id="country">
+                                            <select class="form-control first_null" id="country" name="country">
                                                 <option value="">Choisissez une option...</option>
                                                 <option value="FR">France</option>
                                                 
@@ -67,7 +67,7 @@
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="city">Région</label>
-                                            <select class="form-control first_null" id="city">
+                                            <select class="form-control first_null" id="city" name="zone">
                                                 <option value="">Choisissez une option...</option>
                                                 <option value="RE">Réunion</option>
                                                 
@@ -77,27 +77,27 @@
                                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="zip">Code postal</label>
-                                            <input type="text" class="form-control" id="zip" required=""
-                                                placeholder="Enterer votre code postal">
+                                            <input type="text" class="form-control" id="zip" name="zip" required=""
+                                                placeholder="Entrez votre code postal">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="faddress">Adresse complète</label>
-                                            <input type="text" class="form-control" id="faddress" required=""
-                                                placeholder="Enterer votre adresse..">
+                                            <input type="text" class="form-control" id="faddress" name="adresse" required=""
+                                                placeholder="Entrez votre adresse..">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-group">
                                             <label for="messages">Commentaire</label>
-                                            <textarea rows="5" class="form-control" id="messages"
+                                            <textarea rows="5" class="form-control" id="messages" name="orderReview"
                                                 placeholder="Commentaires"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="materialUnchecked">
+                                            <input type="checkbox" class="form-check-input" id="materialUnchecked" name="saveAdresse">
                                             <label class="form-check-label" for="materialUnchecked">Sauvegarder l'adresse</label>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <div class="box">
-                        <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm">Etape suivante</button>
+                        <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="purchase">Etape suivante</button>
                     </div>
                     
                     <div v-if="!enabled" class="order_review bg-white">
@@ -226,6 +226,17 @@ export default {
           }
         ]
       }
+    },
+    methods: {
+        purchase() {
+            const form = document.getElementById('form')
+            let formObject = {}
+            const formData = new FormData(form)
+            formData.forEach((value, key) => {
+                formObject[key] = value.trim()
+            })
+            console.log(formObject)
+        }
     },
     computed: {
           id() {

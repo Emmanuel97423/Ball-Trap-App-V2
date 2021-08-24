@@ -2,7 +2,7 @@
   <div>
     
     <!-- Banner Area -->
-    <section id="common_banner_one">
+    <section v-if="!enabled" id="common_banner_one">
       <div class="container ">
         <div class="row">
           <div class="col-lg-12">
@@ -103,6 +103,7 @@
           <div class="col-lg-12">
             <!-- pagination start -->
             <b-pagination
+            v-if="!enabled"
               v-model="currentPage"
               pills
               :total-rows="rows"

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Banner Area -->
-    <section id="common_banner_one">
+    <section v-if="!enabled" id="common_banner_one">
       <div class="container ">
         <div class="row">
           <div class="col-lg-12">
