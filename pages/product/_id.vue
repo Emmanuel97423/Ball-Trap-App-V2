@@ -136,11 +136,14 @@
                   <div class="product_count_one">
                     <b-form-spinbutton
                       id="sb-inline"
-                      :value="quantity"
                       
+                      v-model="orderQuantity"
                       inline
                       class="border-0"
+                     
                     ></b-form-spinbutton>
+
+                    
                   </div>
                 </form>
                 <div class="links_Product_areas">
@@ -481,7 +484,7 @@ export default {
       ],
 
       // Product Quanity Increment/ Decrement Data
-      quantity: 1,
+      orderQuantity: 1,
     };
   },
 
@@ -501,11 +504,16 @@ export default {
 
 computed: { 
   product () {   
+    
     return this.$store.getters['products/product']
   }
 },
-   methods: {      
+   methods: { 
+     
+    
     addToCart(product){
+      
+      this.$store.commit('cart/orderQuantity', this.orderQuantity)
       this.$store.commit('cart/add', product)
       
     },

@@ -50,10 +50,11 @@
                                             <td class="product_name">
                                                 <nuxt-link :to="`/product/${productItem._id}`">{{productItem.name}}</nuxt-link>
                                             </td>
-                                            <td class="product-price">{{productItem.price}} €</td>
+                                            <td class="product-price">{{ productItem.price }} €</td>
                                             <td class="product_quantity">
-                                                <label>quantité</label> 
-                                                <input min="1" max="100" :value="productItem.orderQuantity" type="number">
+                                                <!-- <label>quantité</label>  -->
+                                                <!-- <input min="1" max="100"   :value="productItem.orderQuantity"  type="number" @click="inc(productItem)"> -->
+                                             {{ productItem.orderQuantity }}
                                             </td>
                                             <td class="product_total">{{ (productItem.price  * productItem.orderQuantity).toFixed(2) }} €</td>
                                         </tr> 
@@ -65,9 +66,9 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- <div class="cart_submit">
-                                <button class="theme-btn-one btn-black-overlay btn_sm" type="submit">Mettre à jour</button>
-                            </div> -->
+                            <div class="cart_submit">
+                                <button class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="refresh(productItem)">Mettre à jour</button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -123,44 +124,7 @@ export default {
             title: 'Cart',
 
             // Product Items Data 
-            productItems: [
-                // {
-                //     id: 1,
-                //     productImg1: require('assets/img/product-image/product1.png'),
-                //     productImg2: require('assets/img/product-image/product2.png'),
-                //     productTagClass: '',
-                //     productTag: '',
-                //     productTitle: 'Black T-Shirt For Woman',
-                //     productDescription: 'Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.',
-                //     productPrice: 38.50,
-                //     totalPrice: 180.00,
-                //     quantity: 1
-                // },
-                // {
-                //     id: 2,
-                //     productImg1: require('assets/img/product-image/product2.png'),
-                //     productImg2: require('assets/img/product-image/product4.png'),
-                //     productTagClass: 'new',
-                //     productTag: 'new',
-                //     productTitle: 'T-Shirt Form Girls',
-                //     productDescription: 'Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.',
-                //     productPrice: 738.50,
-                //     totalPrice: 130.00,
-                //     quantity: 1
-                // },
-                // {
-                //     id: 3,
-                //     productImg1: require('assets/img/product-image/product4.png'),
-                //     productImg2: require('assets/img/product-image/product6.png'),
-                //     productTagClass: 'hot',
-                //     productTag: 'hot',
-                //     productTitle: 'White Black Line Dress',
-                //     productDescription: 'Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.',
-                //     productPrice: 50.50,
-                //     totalPrice: 160.00,
-                //     quantity: 1
-                // }
-            ],
+
             // Breadcrumb Items Data
             breadcrumbItems: [
                 {
@@ -174,14 +138,23 @@ export default {
             ],
             
             // Product Quanity Increment/ Decrement Data 
-            value: 1
+            counter: 1
 
         }
     },
     methods: {
         removeProductItem(productItem) {
             this.$store.commit('cart/remove', productItem);
-        }
+        },
+        // refresh(productItem){
+        //     console.log(this.value)
+        //     this.$store.commit('cart/orderQuantity', this.value)
+        //     this.$store.commit('cart/add', productItem)
+        // },
+        // inc(productItem, value) {
+        //    console.log(value)
+        //     this.$store.commit('cart/inc', productItem);
+        // }
     },
       computed: {
           id() {

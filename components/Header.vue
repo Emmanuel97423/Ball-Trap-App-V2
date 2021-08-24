@@ -229,7 +229,7 @@
                       <img :src="require('@/assets/img/logo.png')" alt="logo" />
                     </div>
                   </nuxt-link>
-                </li>
+                </li> 
               </ul>
             </div>
             <!-- End Mobile Left Side -->

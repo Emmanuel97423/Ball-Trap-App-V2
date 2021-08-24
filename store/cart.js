@@ -3,7 +3,8 @@
 
 //State
 export const state = () => ({
-  items: []
+  items: [],
+  orderQuantity: ""
 })
 //Mutations
 export const mutations = {
@@ -13,17 +14,28 @@ export const mutations = {
   add(state, item) {
    
     const record = state.items.find(i => i._id === item._id)
-    
+    console.log(state.orderQuantity)
     if (!record) {
       state.items.push({
-        orderQuantity: 1,
+        orderQuantity : state.orderQuantity,
         
         ...item
       })
+      
     } else {
-      record.orderQuantity++
-    }
+      record.orderQuantity += state.orderQuantity
+    };
+    console.log(state.items)
     
+  },
+  // inc(state, item) {
+  //   console.log(item)
+  //   const record = state.items.find(i => i._id === item._id)
+  //   record.orderQuantity = item.orderQuantity
+
+  // },
+  orderQuantity(state, orderQuantity) {
+    state.orderQuantity = orderQuantity
   },
 
   addToCartByComponent(state, item) {
