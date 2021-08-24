@@ -235,7 +235,9 @@ export default {
             formData.forEach((value, key) => {
                 formObject[key] = value.trim()
             })
-            console.log(formObject)
+            
+            this.$store.dispatch('order/sendOrder', formObject)
+           console.log( this.$store.getters['order/apiResponse'])
         }
     },
     computed: {
