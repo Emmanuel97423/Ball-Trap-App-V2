@@ -51,7 +51,7 @@
                 </h3>
                 <h3 v-else>Test fiche produit hello</h3>
 
-                <div class="reviews_rating">
+                <div v-if="!enabled" class="reviews_rating">
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
                   <i class="fas fa-star"></i>
@@ -59,7 +59,7 @@
                   <i class="fas fa-star"></i>
                   <span>(2 avis clients)</span>
                 </div>
-                <h4>{{ product.price }} €<del>456.43 €</del></h4>
+                <h4>{{ parseFloat(product.price).toFixed(2) }} €<del>456.43 €</del></h4>
                 <p>
                   {{ product.description }}
                 </p>

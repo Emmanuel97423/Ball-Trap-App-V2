@@ -41,7 +41,7 @@
           <nuxt-link to="/product/">{{ productTitle }}</nuxt-link>
         </h5>
         <span class="price">
-          <span class="new">{{ productPrice }} €</span>
+          <span class="new">{{ parseFloat(productPrice).toFixed(2) }} €</span>
         </span>
       </div>
 
