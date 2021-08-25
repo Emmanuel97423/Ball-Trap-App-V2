@@ -13,6 +13,8 @@ export const getters = {
 export const actions = {
     //Send order 
     sendOrder({commit}, item) {
+
+        
        
         this.$axios.post('/order/addOrder', item).then((res)=>{
             commit('SEND_ORDER', res)

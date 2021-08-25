@@ -59,10 +59,11 @@
                   <i class="fas fa-star"></i>
                   <span>(2 avis clients)</span>
                 </div>
-                <h4>{{ parseFloat(product.price).toFixed(2) }} €<del>456.43 €</del></h4>
+                <h4>{{ parseFloat(product.price).toFixed(2) }} €</h4>
                 <p>
                   {{ product.description }}
-                </p>
+                </p><br>
+                <span><em>Reste {{ product.quantity }}</em></span>
                 <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
                     <option value="size">Taille</option>
@@ -169,6 +170,7 @@
                   <button v-if=!outOfStock() class="theme-btn-one btn-black-overlay btn_sm" @click="addToCart(product)">Ajouter</button>
                  <!-- Out of stock -->
                  <p v-else>RUPTURE</p>
+                  {{ message }}
                   <!-- <AddToCart
                   :productId="product._id"
                   :productPrice="product.price"
@@ -485,6 +487,8 @@ export default {
 
       // Product Quanity Increment/ Decrement Data
       orderQuantity: 1,
+      //error message
+      message: ""
     };
   },
 
@@ -512,9 +516,15 @@ computed: {
      
     
     addToCart(product){
-      
-      this.$store.commit('cart/orderQuantity', this.orderQuantity)
+
+      if(this.product.quantity < this.orderQuantity) {
+        this.message = "Stock Insufisant"
+      } else {
+         this.$store.commit('cart/orderQuantity', this.orderQuantity)
       this.$store.commit('cart/add', product)
+      }
+      
+     
       
     },
     removeFromCart(product){

@@ -152,6 +152,8 @@
                     <div class="box">
                         <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="purchase">Etape suivante</button>
                     </div>
+
+                   
                     
                     <div v-if="!enabled" class="order_review bg-white">
                         <div class="check-heading">
@@ -210,6 +212,12 @@ export default {
                     to: '/my-account/checkout'
                 }
             ],
+            orderDetails:{
+                customer:"",
+                products:"",
+                amount:"",
+                date:"",
+            }
 
         }
     },
@@ -229,15 +237,24 @@ export default {
     },
     methods: {
         purchase() {
-            const form = document.getElementById('form')
+            // const form = document.getElementById('form')
+            
+            
+             
             let formObject = {}
             const formData = new FormData(form)
             formData.forEach((value, key) => {
                 formObject[key] = value.trim()
             })
+                this.orderDetails.amount = this.$store.getters['cart/cartTotal']
+                this.orderDetails.products = this.$store.getters['cart/items']
+                this.orderDetails.date = Date.now()
+                this.orderDetails.customer = formObject
+                console.log(this.orderDetails)
             
-            this.$store.dispatch('order/sendOrder', formObject)
-           console.log( this.$store.getters['order/apiResponse'])
+            this.$store.dispatch('order/sendOrder', this.orderDetails)
+        //    console.log( this.$store.getters['order/apiResponse'])
+        
         }
     },
     computed: {
