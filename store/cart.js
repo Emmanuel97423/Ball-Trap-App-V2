@@ -18,14 +18,15 @@ export const mutations = {
     if (!record) {
       state.items.push({
         orderQuantity : state.orderQuantity,
+        ...item,
         
-        ...item
+
       })
       
     } else {
       record.orderQuantity += state.orderQuantity
     };
-    console.log(state.items)
+    
     
   },
   // inc(state, item) {

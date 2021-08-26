@@ -1,3 +1,4 @@
+
 export default {
   target: "static",
   router: {
@@ -6,6 +7,11 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  //Environement variables 
+  env: {
+    stripePublishKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Trap One",
@@ -13,6 +19,9 @@ export default {
     htmlAttrs: {
       lang: "fr",
     },
+    script: [
+      { src: 'https://js.stripe.com/v3' }
+    ],
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -49,17 +58,19 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
+
     ['nuxt-vuex-localstorage', {
-      localStorage:['cart']
-    } ]
+      localStorage: ['cart']
+    }]
   ],
+
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     babel: {
       compact: true,
     },
-    
+
   },
   server: {
     port: 8000,
@@ -68,6 +79,7 @@ export default {
   axios: {
     baseURL: " http://localhost:3000/api",
     // baseURL: "https://trap-one-api.herokuapp.com/api"
+
   },
   auth: {
     redirect: {

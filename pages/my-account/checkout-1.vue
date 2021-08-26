@@ -149,11 +149,31 @@
                             
                         </div>
                     </div>
-                    <div class="box">
-                        <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="purchase">Etape suivante</button>
-                    </div>
+               
 
-                   
+                    <!-- <div class="box">
+                        <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="purchase">Etape suivante</button>
+                        
+                    </div> -->
+
+                     <div class="payment-simple">
+                    <StripeElements
+                    :stripe-key="stripeKey"
+                    :instance-options="instanceOptions"
+                    :elements-options="elementsOptions"
+                    #default="{ elements }" 
+                    ref="elms"
+                    >
+                    <StripeElement
+                    class="card__input"
+                        type="card"
+                        :elements="elements"
+                        :options="cardOptions"
+                        ref="card"
+                    />
+                    </StripeElements>
+    <button @click="purchase" type="button" class="theme-btn-one btn-black-overlay btn_sm">Payer</button>
+  </div>
                     
                     <div v-if="!enabled" class="order_review bg-white">
                         <div class="check-heading">
@@ -194,11 +214,18 @@
 </template>
 
 <script>
+import { StripeElements, StripeElement } from 'vue-stripe-elements-plus'
+import paymentButton from '~/components/paymentButton'
 export default {
     name: 'checkout-1',
-
+    components: {
+        paymentButton,
+          StripeElements,
+            StripeElement
+    },
     data() {
         return {
+           
             enabled: true,
             title: 'Checkout',
             // Breadcrumb Items Data
@@ -217,6 +244,22 @@ export default {
                 products:"",
                 amount:"",
                 date:"",
+                token:"",
+            },
+            stripeKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p', // test key, don't hardcode
+            instanceOptions: {
+                // https://stripe.com/docs/js/initializing#init_stripe_js-options
+            },
+            elementsOptions: {
+                // https://stripe.com/docs/js/elements_object/create#stripe_elements-options
+            },
+            cardOptions: {
+                // reactive
+                // remember about Vue 2 reactivity limitations when dealing with options
+                value: {
+                postalCode: ''
+                }
+                // https://stripe.com/docs/stripe.js#element-options
             }
 
         }
@@ -237,25 +280,52 @@ export default {
     },
     methods: {
         purchase() {
-            // const form = document.getElementById('form')
-            
-            
-             
+           
             let formObject = {}
             const formData = new FormData(form)
             formData.forEach((value, key) => {
                 formObject[key] = value.trim()
-            })
+            })  
+        //stripe token    
+    //              // ref in template
+      const groupComponent = this.$refs.elms
+      const cardComponent = this.$refs.card
+      // Get stripe element
+      const cardElement = cardComponent.stripeElement
+
+      // Access instance methods, e.g. createToken()
+      groupComponent.instance.createToken(cardElement).then((result) => {
+        // Handle result.error or result.token
+        this.orderDetails.token = result.token
+        // console.log(result.token)
+      }).catch((err) =>{alert('Une erreur: ' + err)})
+           
+   
+        //Order details store
+
                 this.orderDetails.amount = this.$store.getters['cart/cartTotal']
                 this.orderDetails.products = this.$store.getters['cart/items']
                 this.orderDetails.date = Date.now()
                 this.orderDetails.customer = formObject
-                console.log(this.orderDetails)
-            
+                
+                // console.log(this.orderDetails)         
             this.$store.dispatch('order/sendOrder', this.orderDetails)
         //    console.log( this.$store.getters['order/apiResponse'])
-        
-        }
+            
+                
+         
+           
+            // this.$axios.post('/order/addOrder', {
+            //     amount: this.orderDetails.amount,
+            //     products: this.orderDetails.products,
+            //     address: this.orderDetails.address,
+            //     token
+            // }).then(()=>{
+            //     alert('Commande passé avec succée!')
+            // }).catch((err) =>{alert('Une erreur est survenue: ' + err)})
+
+        },
+
     },
     computed: {
           id() {
@@ -271,6 +341,9 @@ export default {
           cartTotal() {
             
            return this.$store.getters['cart/cartTotal']
+        },
+        stripePlublicKey(){
+            return process.env.STRIPE_PUBLIC_KEY
         }
 
       },
@@ -281,6 +354,14 @@ export default {
 <style scoped>
 .box {
     text-align: center;
+}
+.card__input{
+    /* background-color: red; */
+    height: 50px;
+    padding:1rem;
+    margin: 0 0 1rem 0;
+    border: 1px solid grey;
+    
 }
 
 

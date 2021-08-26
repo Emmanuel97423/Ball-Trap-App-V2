@@ -1,6 +1,6 @@
 //state
-export const state = ()=>({
-    orderItems:[],
+export const state = () => ({
+    orderItems: [],
 })
 
 //Access on order state
@@ -12,18 +12,17 @@ export const getters = {
 //Handle actions
 export const actions = {
     //Send order 
-    sendOrder({commit}, item) {
+    sendOrder({ commit }, item) {
+        console.log(item)
+        this.$axios.post('/order/addOrder', item).then((res) => {
 
-        
-       
-        this.$axios.post('/order/addOrder', item).then((res)=>{
             commit('SEND_ORDER', res)
         })
     }
 }
 //handle Mutations
 export const mutations = {
-    SEND_ORDER(state, orderItems){
+    SEND_ORDER(state, orderItems) {
         state.orderItems = orderItems
     }
 }
