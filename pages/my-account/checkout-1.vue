@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Banner Area -->
-    <section id="common_banner_one">
+    <section v-if="!enabled" id="common_banner_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -342,6 +342,7 @@ import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
 import paymentButton from "~/components/paymentButton";
 export default {
   name: "checkout-1",
+  middleware: "auth",
   components: {
     paymentButton,
     StripeElements,
@@ -519,9 +520,5 @@ export default {
 .btn_sm {
   margin: 2rem 0 0 0;
   width: 50%;
-}
-.error__message {
-  color: red;
-  font-size: 12px;
 }
 </style>

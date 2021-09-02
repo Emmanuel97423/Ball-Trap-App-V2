@@ -1,5 +1,5 @@
 import { extend } from "vee-validate";
-import { required, alpha } from "vee-validate/dist/rules";
+import { required, alpha, email, ext } from "vee-validate/dist/rules";
 
 extend("required", {
     ...required,
@@ -8,5 +8,19 @@ extend("required", {
 
 extend("alpha", {
     ...alpha,
-    message: "This field must only contain alphabetic characters"
+    message: "* Ce champ ne doit contenir que des caractères alphabétiques"
+});
+
+extend("email", email, {
+
+    message: "* Veuillez entrer une adrsse mail valide"
+});
+extend("ext", ext);
+
+extend('password', {
+    params: ['target'],
+    validate(value, { target }) {
+        return value === target;
+    },
+    message: '* Les mots de passe fournis sont différents'
 });

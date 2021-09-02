@@ -1,6 +1,7 @@
 //state
 export const state = () => ({
     orderItems: [],
+    apiResponse: ""
 })
 
 //Access on order state

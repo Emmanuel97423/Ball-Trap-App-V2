@@ -2,9 +2,9 @@
   <div>
     <Header v-if="enabled" />
     <transition name="fade" mode="out-in">
-      <Nuxt v-if="enabled" />
+      <Nuxt id="nuxt__app" v-if="enabled" />
     </transition>
-    <Footer v-if="enabled" />
+    <Footer id="footer__app" v-if="enabled" />
   </div>
 </template>
 
@@ -23,3 +23,23 @@ export default {
   },
 };
 </script>
+<style >
+.error__message {
+  color: red;
+  font-size: 12px;
+}
+/* #nuxt__app {
+  width: 100%;
+  height: 100%;
+} */
+#footer__app {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 99;
+}
+/* #my-account_area {
+  height: 100vh;
+} */
+</style>

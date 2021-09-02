@@ -230,7 +230,6 @@ export default {
       formData.append("name", this.form.name);
       formData.append("price", this.form.costPrice);
       formData.append("costPrice", this.form.price);
-
       formData.append("quantity", this.form.quantity);
       formData.append("shortDescription", this.form.shortDescription);
       formData.append("tax", this.form.tax);

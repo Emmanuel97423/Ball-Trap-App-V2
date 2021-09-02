@@ -5,7 +5,13 @@
       <div class="header-wrapper">
         <div
           id="header"
-          class="header-bottom header-bottom-color--golden section-fluid sticky-header sticky-color--golden"
+          class="
+            header-bottom
+            header-bottom-color--golden
+            section-fluid
+            sticky-header
+            sticky-color--golden
+          "
         >
           <div class="container">
             <div class="row">
@@ -156,9 +162,9 @@
                           <li><nuxt-link to="/login">Login</nuxt-link></li>
                         </ul>
                       </li>
-                      <li>
+                      <!-- <li>
                         <nuxt-link to="#">A propos</nuxt-link>
-                      </li>
+                      </li> -->
                       <li>
                         <nuxt-link class="active main-menu-link" to="/admin"
                           >Admin
@@ -171,8 +177,11 @@
 
                 <!-- Start Header Action Link -->
                 <ul
-                  
-                  class="header-action-link action-color--black action-hover-color--golden"
+                  class="
+                    header-action-link
+                    action-color--black
+                    action-hover-color--golden
+                  "
                 >
                   <li v-if="!enabled">
                     <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
@@ -183,7 +192,9 @@
                   <li>
                     <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                       <i class="fas fa-shopping-bag"></i>
-                      <span class="item-count">{{ selectedProducts.length }}</span>
+                      <span class="item-count">{{
+                        selectedProducts.length
+                      }}</span>
                     </a>
                   </li>
                   <li v-if="!enabled">
@@ -214,7 +225,14 @@
     <!-- Start Mobile Header -->
     <div
       id="mobile_header"
-      class="mobile-header sticky-header sticky-color--golden mobile-header-bg-color--golden section-fluid d-lg-block d-xl-none"
+      class="
+        mobile-header
+        sticky-header
+        sticky-color--golden
+        mobile-header-bg-color--golden
+        section-fluid
+        d-lg-block d-xl-none
+      "
     >
       <div class="container">
         <div class="row">
@@ -229,7 +247,7 @@
                       <img :src="require('@/assets/img/logo.png')" alt="logo" />
                     </div>
                   </nuxt-link>
-                </li> 
+                </li>
               </ul>
             </div>
             <!-- End Mobile Left Side -->
@@ -237,7 +255,11 @@
             <!-- Start Mobile Right Side -->
             <div v-if="enabled" class="mobile-right-side">
               <ul
-                class="header-action-link action-color--black action-hover-color--golden"
+                class="
+                  header-action-link
+                  action-color--black
+                  action-hover-color--golden
+                "
               >
                 <li v-if="!enabled">
                   <a
@@ -256,7 +278,9 @@
                 <li>
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
-                    <span class="item-count">{{ selectedProducts.length }}</span>
+                    <span class="item-count">{{
+                      selectedProducts.length
+                    }}</span>
                   </a>
                 </li>
                 <li v-if="!enabled">
@@ -293,7 +317,7 @@
       <!-- End Mobile Menu Navbar Wrap -->
 
       <!-- Start Mobile contact Info -->
-      <div class="mobile-contact-info">
+      <div v-if="!enabled" class="mobile-contact-info">
         <address class="address">
           <img :src="require('@/assets/img/logo-white.png')" alt="logo" />
           <span>Address: Your address goes here.</span>
@@ -359,7 +383,7 @@
                       >{{ productItem.orderQuantity }} x
                     </span>
                     <span class="offcanvas-cart-item-details-price"
-                      >{{ (productItem.price).toFixed(2) }}€</span
+                      >{{ productItem.price.toFixed(2) }}€</span
                     >
                   </div>
                 </div>
@@ -378,18 +402,22 @@
           <div class="offcanvas-cart-total-price">
             <span class="offcanvas-cart-total-price-text">Total:</span>
             <span class="offcanvas-cart-total-price-value"
-              >{{ (cartTotal).toFixed(2) }}€</span
+              >{{ cartTotal.toFixed(2) }}€</span
             >
           </div>
 
           <ul class="offcanvas-cart-action-button">
             <li>
-              <nuxt-link to="/cart" class="theme-btn-one btn-black-overlay btn_md"
+              <nuxt-link
+                to="/cart"
+                class="theme-btn-one btn-black-overlay btn_md"
                 >Voir le panier</nuxt-link
               >
             </li>
             <li>
-              <nuxt-link to="/my-account/checkout-1" class="theme-btn-one btn-black-overlay btn_md"
+              <nuxt-link
+                to="/my-account/checkout-1"
+                class="theme-btn-one btn-black-overlay btn_md"
                 >Commander</nuxt-link
               >
             </li>
@@ -450,7 +478,11 @@
               <div class="offcanvas-wishlist-item-delete text-right">
                 <button
                   @click="removeProductItem(index)"
-                  class="offcanvas-wishlist-item-delete bg-transparent remove-btn"
+                  class="
+                    offcanvas-wishlist-item-delete
+                    bg-transparent
+                    remove-btn
+                  "
                 >
                   <i class="far fa-trash-alt"></i>
                 </button>
@@ -478,7 +510,16 @@
     <!-- Start Offcanvas Search Bar Section -->
     <b-sidebar id="search_sidebar" class="" backdrop>
       <div
-        class="px-3 py-2 search-sidebar-content-wrap d-flex justify-content-center align-content-center w-100 h-100"
+        class="
+          px-3
+          py-2
+          search-sidebar-content-wrap
+          d-flex
+          justify-content-center
+          align-content-center
+          w-100
+          h-100
+        "
       >
         <form class="d-flex flex-column justify-content-center w-100">
           <input type="search" placeholder="Type keyword(s) here" />
@@ -708,10 +749,10 @@ export default {
     };
   },
 
-  mounted: function() {
+  mounted: function () {
     // Menu Js
-    this.$nextTick(function() {
-      window.onscroll = function() {
+    this.$nextTick(function () {
+      window.onscroll = function () {
         myFunction();
       };
 
@@ -733,22 +774,20 @@ export default {
   },
 
   computed: {
-            id() {
-              return this.$route.params.id
-          },
-          selectedProducts() {
-              return this.$store.getters['cart/items']
-          },
-          price() {
-              return this.$store.getters['cart/price']
-          },
-          
-       
-          // Cart Total Price
-          cartTotal() {
-            
-           return this.$store.getters['cart/cartTotal']
-        },
+    id() {
+      return this.$route.params.id;
+    },
+    selectedProducts() {
+      return this.$store.getters["cart/items"];
+    },
+    price() {
+      return this.$store.getters["cart/price"];
+    },
+
+    // Cart Total Price
+    cartTotal() {
+      return this.$store.getters["cart/cartTotal"];
+    },
     // Cart Total Price
     CartTotal() {
       let total = 0;
@@ -761,9 +800,9 @@ export default {
 
   methods: {
     // For Delete/Remove Product Item
-   removeProductItem(productItem) {
-            this.$store.commit('cart/remove', productItem);
-        }
+    removeProductItem(productItem) {
+      this.$store.commit("cart/remove", productItem);
+    },
   },
 };
 </script>

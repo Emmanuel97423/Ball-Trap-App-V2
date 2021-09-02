@@ -60,7 +60,7 @@ export default {
     "@nuxtjs/auth-next",
 
     ['nuxt-vuex-localstorage', {
-      localStorage: ['cart']
+      localStorage: ['cart', 'user']
     }]
   ],
 
@@ -84,10 +84,13 @@ export default {
   },
   auth: {
     redirect: {
-      login: "/admin",
+      login: "/login",
       //logout: "/admin",
       //callback: false,
-      //home: "/addProduct",
+      home: "/my-account",
+    },
+    localStorage: {
+      prefix: 'auth.'
     },
 
     strategies: {
@@ -101,7 +104,7 @@ export default {
         },
 
         user: {
-          property: "user",
+          property: false,
           // autoFetch: true
         },
         endpoints: {
@@ -109,8 +112,9 @@ export default {
             url: "/auth/login",
             method: "post",
           },
-          logout: { url: "/auth/logout", method: "post" },
-          user: false,
+          logout:
+            { url: "/auth/logout", method: "post" },
+          user: false
         },
       },
     },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- footer Area -->
-    <footer id="footer_one">
+    <!-- <footer id="footer_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-12 col-sm-12 col-12">
@@ -105,7 +105,7 @@
           </div>
         </div>
       </div>
-    </footer>
+    </footer> -->
 
     <!-- CopyRight Area -->
     <section id="copyright_one">
