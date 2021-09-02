@@ -166,8 +166,10 @@
                         <nuxt-link to="#">A propos</nuxt-link>
                       </li> -->
                       <li>
-                        <nuxt-link class="active main-menu-link" to="/admin"
-                          >Admin
+                        <nuxt-link
+                          class="active main-menu-link"
+                          to="/my-account"
+                          >Compte
                         </nuxt-link>
                       </li>
                     </ul>
@@ -188,6 +190,13 @@
                       <i class="far fa-heart"></i>
                       <span class="item-count">{{ productItems.length }}</span>
                     </a>
+                  </li>
+                  <!-- Account icon -->
+                  <li v-if="enabled">
+                    <nuxt-link to="/my-account" class="offcanvas-toggle">
+                      <i class="fas fa-user"></i>
+                      <!-- <span class="item-count">{{ productItems.length }}</span> -->
+                    </nuxt-link>
                   </li>
                   <li>
                     <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
@@ -274,6 +283,13 @@
                     <i class="far fa-heart"></i>
                     <span class="item-count">{{ productItems.length }}</span>
                   </a>
+                </li>
+                <!-- Account icon -->
+                <li v-if="enabled">
+                  <nuxt-link to="/my-account" class="offcanvas-toggle">
+                    <i class="fas fa-user"></i>
+                    <!-- <span class="item-count">{{ productItems.length }}</span> -->
+                  </nuxt-link>
                 </li>
                 <li>
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">

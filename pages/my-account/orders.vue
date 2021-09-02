@@ -53,7 +53,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <!-- <tr>
                       <td>1</td>
                       <td>May 10, 2018</td>
                       <td><span class="success">Completed</span></td>
@@ -70,7 +70,8 @@
                       <td>
                         <nuxt-link to="/cart/" class="view">Voir</nuxt-link>
                       </td>
-                    </tr>
+                    </tr> -->
+                    <p>Vous n'avez pas encore de commande</p>
                   </tbody>
                 </table>
               </div>

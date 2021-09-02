@@ -74,7 +74,7 @@
                       </div> -->
                         <br />
                         <ValidationProvider
-                          name="first-name"
+                          name="firstName"
                           rules="required|alpha"
                           v-slot="{ errors }"
                         >
@@ -83,7 +83,7 @@
                             <input
                               v-model="accountDetails.firstName"
                               type="text"
-                              name="first-name"
+                              name="firstName"
                               class="form-control"
                               :placeholder="userDetails.data.firstName"
                             />
@@ -220,7 +220,7 @@
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
-  name: "Account details",
+  name: "AccountDetails",
   middleware: "auth",
   components: {
     ValidationProvider,

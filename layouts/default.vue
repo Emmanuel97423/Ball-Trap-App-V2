@@ -32,12 +32,19 @@ export default {
   width: 100%;
   height: 100%;
 } */
+/* #nuxt__app {
+  margin-bottom: 70px;
+} */
 #footer__app {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
+
   z-index: 99;
+}
+.fa-user {
+  color: black;
 }
 /* #my-account_area {
   height: 100vh;

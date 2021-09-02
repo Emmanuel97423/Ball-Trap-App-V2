@@ -44,12 +44,36 @@
                 Les adresses suivantes seront utilisées par défaut sur la page
                 de paiement.
               </p>
-              <h5 class="billing-address">Adresse de facturation</h5>
-              <p @click="formShow" class="view">Edit</p>
-              <p><strong>Jone Alex</strong></p>
-              <address>Address: Your address goes here.</address>
+              <h5 class="billing-address">Adresse</h5>
+
+              <p>
+                <strong
+                  >{{ userDetails.data.firstName }}
+                  {{ userDetails.data.lastName }}</strong
+                >
+              </p>
+              <address>
+                Information de facturation:
+                <span
+                  v-if="userDetails.data.invoicingDetails"
+                  class="invoice__adresse"
+                >
+                  {{ userDetails.data.invoicingDetails.adresse }},
+                  {{ userDetails.data.invoicingDetails.zip }},
+                  {{ userDetails.data.invoicingDetails.zone }},
+                  {{ userDetails.data.invoicingDetails.country }}</span
+                >
+                <span v-else>Aucune information n'a été renseigné</span>
+              </address>
+              <button
+                @click="formShow"
+                class="theme-btn-one btn-black-overlay btn_md"
+              >
+                Editer
+              </button>
+
               <ValidationObserver v-if="formEnabled" v-slot="{ handleSubmit }">
-                <form id="form" @submit.prevent="handleSubmit(onSumit)">
+                <form id="form" @submit.prevent="handleSubmit(onSubmit)">
                   <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                       <div class="form-group">
@@ -145,7 +169,7 @@
                             required=""
                           >
                             <option value="">Choisissez une option... *</option>
-                            <option value="FR">France</option>
+                            <option value="FRANCE">France</option>
                           </select>
                           <span class="error__message">{{ errors[0] }}</span>
                         </div>
@@ -167,7 +191,7 @@
                             required=""
                           >
                             <option value="">Choisissez une option... *</option>
-                            <option value="RE">Réunion</option>
+                            <option value="Réunion">Réunion</option>
                           </select>
                           <span class="error__message">{{ errors[0] }}</span>
                         </div>
@@ -247,6 +271,7 @@
                   >
                     Sauvegarder les modifications
                   </button>
+                  <!-- {{ userDetails }} -->
                 </form>
               </ValidationObserver>
             </div>
@@ -266,7 +291,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
-  data() {
+  asyncData() {
     return {
       enabled: true,
       formEnabled: false,
@@ -282,6 +307,7 @@ export default {
         },
       ],
       invoicing: {
+        invoiceUserId: "",
         firstName: "",
         lastName: "",
         company: "",
@@ -323,7 +349,26 @@ export default {
           console.log(err);
         });
     },
+    onSubmit() {
+      const userObject = this.$store.getters["user/userLogin"];
+      // console.log(userObject.userId);
+      this.invoicing.invoiceUserId = userObject.userId;
+      this.$store.dispatch("user/addAdresse", this.invoicing);
+      this.$store.dispatch("user/getUserDetails", userObject.userId);
+
+      this.$nuxt.refresh();
+    },
   },
+  computed: {
+    userDetails() {
+      return this.$store.getters["user/userDetails"];
+    },
+  },
+  created() {
+    const userObject = this.$store.getters["user/userLogin"];
+    this.$store.dispatch("user/getUserDetails", userObject.userId);
+  },
+  mounted() {},
 };
 </script>
 
@@ -331,5 +376,11 @@ export default {
 .view {
   font-size: 15px;
   cursor: pointer;
+}
+.invoice__adresse {
+  font-weight: bold;
+}
+.btn_md {
+  margin: 0 0 1rem 0;
 }
 </style>
