@@ -27,154 +27,235 @@
                 <h3>Information de facturation</h3>
               </div>
               Informations de facturation actuelle :
-              <span class="invoice__adresse">
-                {{ userDetails.data.invoicingDetails.firstName }},
-                {{ userDetails.data.invoicingDetails.lastName }},
-                {{ userDetails.data.invoicingDetails.adresse }}
-                {{ userDetails.data.invoicingDetails.zip }}
-                {{ userDetails.data.invoicingDetails.zone }}
-                {{ userDetails.data.invoicingDetails.country }}</span
+              <span
+                v-if="userDetails.data.invoicingDetails"
+                class="invoice__adresse"
               >
+                {{ userDetails.data.invoicingDetails.firstName }}
+                {{ userDetails.data.invoicingDetails.lastName }},
+                {{ userDetails.data.invoicingDetails.adresse }},
+                {{ userDetails.data.invoicingDetails.zip }},
+                {{ userDetails.data.invoicingDetails.zone }},
+                {{ userDetails.data.invoicingDetails.country }}.</span
+              >
+              <span v-else>Aucune information n'a été renseigné</span>
               <div class="check-out-form">
-                <form id="form">
-                  <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
+                <button
+                  @click="formShow"
+                  class="theme-btn-one btn-black-overlay btn_md"
+                >
+                  Editer
+                </button>
+
+                <ValidationObserver
+                  v-if="formEnabled"
+                  v-slot="{ handleSubmit }"
+                >
+                  <form id="form" @submit.prevent="handleSubmit(onSubmit)">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
+                        <div class="form-group">
+                          <ValidationProvider
+                            rules="required|alpha"
+                            v-slot="{ errors }"
+                          >
+                            <label for="fisrtName">Nom</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="fname"
+                              name="firstName"
+                              placeholder="Nom *"
+                              required=""
+                              v-model="invoicing.firstName"
+                            />
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </ValidationProvider>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                         <ValidationProvider
+                          name="lastName"
+                          rules="required|alpha"
+                          v-slot="{ errors }"
+                        >
+                          <div class="form-group">
+                            <label for="lastName">Prénom</label>
+                            <input
+                              type="text"
+                              required=""
+                              class="form-control"
+                              id="lname"
+                              name="lastName"
+                              placeholder="Prénom *"
+                              v-model="invoicing.lastName"
+                            />
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
+                        </ValidationProvider>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
+                        <ValidationProvider name="company" v-slot="{ errors }">
+                          <div class="form-group">
+                            <label for="cname">Entreprise</label>
+                            <input
+                              class="form-control"
+                              type="text"
+                              id="cname"
+                              name="company"
+                              placeholder="Entreprise"
+                              v-model="invoicing.company"
+                            />
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
+                        </ValidationProvider>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
+                        <ValidationProvider
+                          name="email"
+                          rules="required|email"
+                          v-slot="{ errors }"
+                        >
+                          <div class="form-group">
+                            <label for="email">Email </label>
+                            <input
+                              v-model="invoicing.email"
+                              class="form-control"
+                              required=""
+                              type="email"
+                              id="email"
+                              name="email"
+                              placeholder="info@gmail.com *"
+                            />
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
+                        </ValidationProvider>
+                      </div>
+                      <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
+                        <ValidationProvider
+                          name="country"
                           rules="required"
                           v-slot="{ errors }"
                         >
-                          <label for="fname">Nom</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="fname"
-                            name="firstName"
-                            placeholder="Nom *"
-                            v-model="validate.firstName"
-                          />
-                          <span class="error__message">{{ errors[0] }}</span>
+                          <div class="form-group">
+                            <label for="country">Pays</label>
+                            <select
+                              v-model="invoicing.country"
+                              class="form-control first_null"
+                              id="country"
+                              name="country"
+                              required=""
+                            >
+                              <option value="">
+                                Choisissez une option... *
+                              </option>
+                              <option value="FRANCE">France</option>
+                            </select>
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
                         </ValidationProvider>
                       </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="lname">Prénom</label>
-                        <input
-                          type="text"
-                          required=""
-                          class="form-control"
-                          id="lname"
-                          name="lastName"
-                          placeholder="Prénom *"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="cname">Entreprise</label>
-                        <input
-                          class="form-control"
-                          required=""
-                          type="text"
-                          id="cname"
-                          name="company"
-                          placeholder="Entreprise"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="email">Email </label>
-                        <input
-                          class="form-control"
-                          required=""
-                          type="text"
-                          id="email"
-                          name="email"
-                          placeholder="info@gmail.com"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="country">Pays</label>
-                        <select
-                          class="form-control first_null"
-                          id="country"
-                          name="country"
-                        >
-                          <option value="">Choisissez une option...</option>
-                          <option value="FR">France</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="city">Région</label>
-                        <select
-                          class="form-control first_null"
-                          id="city"
+                      <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
+                        <ValidationProvider
                           name="zone"
+                          rules="required"
+                          v-slot="{ errors }"
                         >
-                          <option value="">Choisissez une option...</option>
-                          <option value="RE">Réunion</option>
-                        </select>
+                          <div class="form-group">
+                            <label for="city">Région</label>
+                            <select
+                              v-model="invoicing.zone"
+                              class="form-control first_null"
+                              id="zone"
+                              name="zone"
+                              required=""
+                            >
+                              <option value="">
+                                Choisissez une option... *
+                              </option>
+                              <option value="Réunion">Réunion</option>
+                            </select>
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
+                        </ValidationProvider>
                       </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="zip">Code postal</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="zip"
+                      <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
+                        <ValidationProvider
                           name="zip"
-                          required=""
-                          placeholder="Entrez votre code postal"
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="faddress">Adresse complète</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="faddress"
-                          name="adresse"
-                          required=""
-                          placeholder="Entrez votre adresse.."
-                        />
-                      </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                      <div class="form-group">
-                        <label for="messages">Commentaire</label>
-                        <textarea
-                          rows="5"
-                          class="form-control"
-                          id="messages"
-                          name="orderReview"
-                          placeholder="Commentaires"
-                        ></textarea>
-                      </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                      <div class="form-check">
-                        <input
-                          type="checkbox"
-                          class="form-check-input"
-                          id="materialUnchecked"
-                          name="saveAdresse"
-                        />
-                        <label class="form-check-label" for="materialUnchecked"
-                          >Sauvegarder l'adresse</label
+                          rules="required"
+                          v-slot="{ errors }"
                         >
+                          <div class="form-group">
+                            <label for="zip">Code postal</label>
+                            <input
+                              v-model="invoicing.zip"
+                              type="text"
+                              class="form-control"
+                              id="zip"
+                              name="zip"
+                              required=""
+                              placeholder="Entrez votre code postal *"
+                            />
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
+                        </ValidationProvider>
                       </div>
+                      <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
+                        <ValidationProvider
+                          name="adresse"
+                          rule="required"
+                          v-slot="{ errors }"
+                        >
+                          <div class="form-group">
+                            <label for="addresse">Adresse complète</label>
+                            <input
+                              v-model="invoicing.adresse"
+                              type="text"
+                              class="form-control"
+                              id="adresse"
+                              name="adresse"
+                              required=""
+                              placeholder="Entrez votre adresse.. *"
+                            />
+                            <span class="error__message">{{ errors[0] }}</span>
+                          </div>
+                        </ValidationProvider>
+                      </div>
+                      <!-- <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
+                    <div class="form-group">
+                      <label for="messages">Commentaire</label>
+                      <textarea
+                        rows="5"
+                        class="form-control"
+                        id="messages"
+                        name="orderReview"
+                        placeholder="Commentaires"
+                      ></textarea>
                     </div>
-                  </div>
-                </form>
+                  </div> -->
+                      <!-- <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="materialUnchecked"
+                        name="saveAdresse"
+                      />
+                      <label class="form-check-label" for="materialUnchecked"
+                        >Sauvegarder l'adresse</label
+                      >
+                    </div>
+                  </div> -->
+                    </div>
+                    <button
+                      class="theme-btn-one btn-black-overlay btn_md"
+                      type="submit"
+                    >
+                      Sauvegarder les modifications
+                    </button>
+                    <!-- {{ userDetails }} -->
+                  </form>
+                </ValidationObserver>
               </div>
             </div>
           </div>
@@ -242,38 +323,15 @@
                         
                     </div> -->
 
-            <div class="box__payment">
-              <StripeElements
-                class="payment__element"
-                :stripe-key="stripeKey"
-                :instance-options="instanceOptions"
-                :elements-options="elementsOptions"
-                #default="{ elements }"
-                ref="elms"
-              >
-                <!-- <StripeElement
-                     class="card__input"
-                        type="name"
-                        :elements="elements"
-                        :options="cardNumberOptions"
-                    /> -->
-                <StripeElement
-                  class="card__input"
-                  type="card"
-                  :elements="elements"
-                  :options="cardOptions"
-                  ref="card"
-                />
-              </StripeElements>
-              <button
-                type="submit"
-                form="form"
-                class="theme-btn-one btn-black-overlay btn_sm"
-                @click="purchase"
-              >
-                Payer
-              </button>
-            </div>
+            <Nuxt-link
+              v-if="selectedProducts[0]"
+              type="submit"
+              form="form"
+              class="theme-btn-one btn-black-overlay btn_sm"
+              to="payment"
+            >
+              Etape suivante
+            </Nuxt-link>
 
             <div v-if="!enabled" class="order_review bg-white">
               <div class="check-heading">
@@ -345,18 +403,18 @@
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 // import { Nuxt, Builder, Utils } from 'nuxt'
-import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
+
 import paymentButton from "~/components/paymentButton";
 export default {
   name: "checkout-1",
   middleware: "auth",
   components: {
     paymentButton,
-    StripeElements,
-    StripeElement,
+
     ValidationProvider,
+    ValidationObserver,
   },
   data() {
     return {
@@ -371,6 +429,7 @@ export default {
         validate: null,
       },
       enabled: true,
+      formEnabled: false,
       title: "Checkout",
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -390,46 +449,19 @@ export default {
         date: "",
         token: "",
       },
-      stripeKey:
-        "pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p", // test key, don't hardcode
-      instanceOptions: {
-        // https://stripe.com/docs/js/initializing#init_stripe_js-options
-      },
-      elementsOptions: {
-        // https://stripe.com/docs/js/elements_object/create#stripe_elements-options
-      },
-      cardOptions: {
-        // reactive
-        // remember about Vue 2 reactivity limitations when dealing with options
-        value: {
-          postalCode: "",
-        },
 
-        style: {
-          base: {
-            iconColor: "#c4f0ff",
-            color: "#000",
-            fontWeight: "500",
-            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-            fontSize: "16px",
-            fontSmoothing: "antialiased",
-
-            ":-webkit-autofill": {
-              color: "black",
-            },
-            "::placeholder": {
-              color: "rgb(100, 100, 100)",
-            },
-          },
-
-          invalid: {
-            iconColor: "red",
-            color: "red",
-          },
-        },
-        // https://stripe.com/docs/stripe.js#element-options
+      invoicing: {
+        invoiceUserId: "",
+        firstName: "",
+        lastName: "",
+        company: "",
+        email: "",
+        country: "",
+        zone: "",
+        zip: "",
+        adresse: "",
+        review: "",
       },
-      cardNumberOptions: {},
     };
   },
 
@@ -449,37 +481,22 @@ export default {
   methods: {
     //Purchase order
     purchase() {
-      //Validate form
-      let formObject = {};
-      const formData = new FormData(form);
-      formData.forEach((value, key) => {
-        formObject[key] = value.trim();
-      });
-      //stripe token
-      //              // ref in template
-      const groupComponent = this.$refs.elms;
-      const cardComponent = this.$refs.card;
-      // Get stripe element
-      const cardElement = cardComponent.stripeElement;
-      // Access instance methods, e.g. createToken()
-      groupComponent.instance
-        .createToken(cardElement)
-        .then((result) => {
-          // Handle result.error or result.token
-          this.orderDetails.token = result.token;
-          // console.log(result.token)
-        })
-        .catch((err) => {
-          alert("Une erreur: " + err);
-        });
-      //Order details store
-      this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
-      this.orderDetails.products = this.$store.getters["cart/items"];
-      this.orderDetails.date = Date.now();
-      this.orderDetails.customer = formObject;
-      // console.log(this.orderDetails)
-      this.$store.dispatch("order/sendOrder", this.orderDetails);
       //    console.log( this.$store.getters['order/apiResponse'])
+    },
+    //Show form object
+    formShow() {
+      this.formEnabled = true;
+    },
+
+    //Submit new Adresse
+    onSubmit() {
+      const userObject = this.$store.getters["user/userLogin"];
+      // console.log(userObject.userId);
+      this.invoicing.invoiceUserId = userObject.userId;
+      this.$store.dispatch("user/addAdresse", this.invoicing);
+      this.$store.dispatch("user/getUserDetails", userObject.userId);
+
+      this.$nuxt.refresh();
     },
   },
   computed: {
@@ -502,6 +519,10 @@ export default {
     userDetails() {
       return this.$store.getters["user/userDetails"];
     },
+  },
+  created() {
+    const userObject = this.$store.getters["user/userLogin"];
+    this.$store.dispatch("user/getUserDetails", userObject.userId);
   },
 };
 </script>
@@ -535,5 +556,8 @@ export default {
 }
 .invoice__adresse {
   font-weight: bold;
+}
+.btn_md {
+  margin: 0 0 1.5rem 0;
 }
 </style>

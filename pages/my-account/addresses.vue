@@ -58,6 +58,8 @@
                   v-if="userDetails.data.invoicingDetails"
                   class="invoice__adresse"
                 >
+                  {{ userDetails.data.firstName }}
+                  {{ userDetails.data.lastName }},
                   {{ userDetails.data.invoicingDetails.adresse }},
                   {{ userDetails.data.invoicingDetails.zip }},
                   {{ userDetails.data.invoicingDetails.zone }},
@@ -291,7 +293,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
-  asyncData() {
+  data() {
     return {
       enabled: true,
       formEnabled: false,
