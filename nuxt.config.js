@@ -60,7 +60,7 @@ export default {
     "@nuxtjs/auth-next",
 
     ['nuxt-vuex-localstorage', {
-      localStorage: ['cart', 'user']
+      localStorage: ['cart', 'user', 'order',]
     }]
   ],
 
@@ -78,8 +78,8 @@ export default {
   },
   strapi: {},
   axios: {
-    baseURL: " http://localhost:3000/api",
-    // baseURL: "https://trap-one-api.herokuapp.com/api"
+    // baseURL: " http://localhost:3000/api",
+    baseURL: "https://trap-one-api.herokuapp.com/api"
 
   },
   auth: {

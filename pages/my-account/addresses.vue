@@ -366,11 +366,10 @@ export default {
       return this.$store.getters["user/userDetails"];
     },
   },
-  created() {
+  mounted() {
     const userObject = this.$store.getters["user/userLogin"];
     this.$store.dispatch("user/getUserDetails", userObject.userId);
   },
-  mounted() {},
 };
 </script>
 

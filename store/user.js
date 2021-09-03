@@ -16,7 +16,6 @@ export const getters = {
 export const actions = {
     //Send order 
     signup({ commit }, item) {
-
         this.$axios.post('/user/signup', item).then((res) => {
             // console.log("hello")
             commit('SIGNUP', res)
@@ -30,7 +29,6 @@ export const actions = {
     },
     //Get user Details
     getUserDetails({ commit }, id) {
-
         console.log(id)
         this.$axios.get('/user/' + id).then((res) => {
             commit('USER_DETAILS', res)

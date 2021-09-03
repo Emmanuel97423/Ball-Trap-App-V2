@@ -85,7 +85,6 @@
                               type="text"
                               name="firstName"
                               class="form-control"
-                              :placeholder="userDetails.data.firstName"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -102,7 +101,6 @@
                               type="text"
                               name="lastName"
                               class="form-control"
-                              :placeholder="userDetails.data.lastName"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -300,8 +298,8 @@ export default {
       return this.$store.getters["user/userDetails"];
     },
   },
-  created() {
-    this.getUserDetails();
+  mounted() {
+    return this.getUserDetails();
   },
 };
 </script>
