@@ -26,6 +26,15 @@
               <div class="check-heading">
                 <h3>Information de facturation</h3>
               </div>
+              Informations de facturation actuelle :
+              <span class="invoice__adresse">
+                {{ userDetails.data.invoicingDetails.firstName }},
+                {{ userDetails.data.invoicingDetails.lastName }},
+                {{ userDetails.data.invoicingDetails.adresse }}
+                {{ userDetails.data.invoicingDetails.zip }}
+                {{ userDetails.data.invoicingDetails.zone }}
+                {{ userDetails.data.invoicingDetails.country }}</span
+              >
               <div class="check-out-form">
                 <form id="form">
                   <div class="row">
@@ -490,6 +499,9 @@ export default {
     stripePlublicKey() {
       return process.env.STRIPE_PUBLIC_KEY;
     },
+    userDetails() {
+      return this.$store.getters["user/userDetails"];
+    },
   },
 };
 </script>
@@ -520,5 +532,8 @@ export default {
 .btn_sm {
   margin: 2rem 0 0 0;
   width: 50%;
+}
+.invoice__adresse {
+  font-weight: bold;
 }
 </style>
