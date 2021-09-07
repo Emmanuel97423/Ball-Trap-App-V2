@@ -18,7 +18,7 @@ export const actions = {
         this.$axios.post('/order/addOrder', item).then((res) => {
 
             commit('SEND_ORDER', res)
-        })
+        }).catch((err) => { commit('SEND_ORDER', err) })
     }
 }
 //handle Mutations

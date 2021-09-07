@@ -366,8 +366,12 @@ export default {
       return this.$store.getters["user/userDetails"];
     },
   },
-  mounted() {
+  created() {
     const userObject = this.$store.getters["user/userLogin"];
+    console.log(userObject.userId);
+    if (userObject.userId == null) {
+      this.logout();
+    }
     this.$store.dispatch("user/getUserDetails", userObject.userId);
   },
 };

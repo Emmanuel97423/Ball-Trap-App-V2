@@ -11,10 +11,10 @@ extend("alpha", {
     message: "* Ce champ ne doit contenir que des caractères alphabétiques"
 });
 
-extend("email", email, {
+// extend("email", email, {
 
-    message: "* Veuillez entrer une adrsse mail valide"
-});
+//     message: "* Veuillez entrer une adrsse mail valide"
+// });
 extend("ext", ext);
 
 extend('password', {
@@ -24,3 +24,4 @@ extend('password', {
     },
     message: '* Les mots de passe fournis sont différents'
 });
+

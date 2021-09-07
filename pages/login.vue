@@ -24,40 +24,61 @@
           <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
             <div class="account_form">
               <h3>Connexion</h3>
-              <form id="loginForm" name="loginForm" @submit.prevent="onSubmit">
-                <div class="default-form-box">
-                  <label>Email <span>*</span></label>
-                  <input
-                    v-model="login.email"
-                    type="email"
-                    class="form-control"
-                  />
-                </div>
-                <div class="default-form-box">
-                  <label>Mot de passe <span>*</span></label>
-                  <input
-                    v-model="login.password"
-                    type="password"
-                    class="form-control"
-                  />
-                </div>
-                <div class="login_submit">
-                  <button
-                    class="theme-btn-one btn-black-overlay btn_md"
-                    type="submit"
+              <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
+                <form
+                  id="loginForm"
+                  name="loginForm"
+                  @submit.prevent="handleSubmit(onSubmit)"
+                >
+                  <ValidationProvider
+                    name="email"
+                    vid="email"
+                    rules="required"
+                    v-slot="{ errors }"
                   >
-                    Se connecter
-                  </button>
-                </div>
-                <div class="remember_area">
-                  <label class="checkbox-default">
-                    <input type="checkbox" />
-                    <span>Se Rappeler de moi</span>
-                  </label>
-                </div>
+                    <div class="default-form-box">
+                      <label>Email <span>*</span></label>
+                      <input
+                        v-model="login.email"
+                        type="email"
+                        class="form-control"
+                      />
+                      <span class="error__message">{{ errors[0] }}</span>
+                    </div>
+                  </ValidationProvider>
+                  <ValidationProvider
+                    name="password"
+                    rules="required"
+                    v-slot="{ errors }"
+                  >
+                    <div class="default-form-box">
+                      <label>Mot de passe <span>*</span></label>
+                      <input
+                        v-model="login.password"
+                        type="password"
+                        class="form-control"
+                      />
+                      <span class="error__message">{{ errors[0] }}</span>
+                    </div>
+                  </ValidationProvider>
+                  <div class="login_submit">
+                    <button
+                      class="theme-btn-one btn-black-overlay btn_md"
+                      type="submit"
+                    >
+                      Se connecter
+                    </button>
+                  </div>
+                  <div class="remember_area">
+                    <label class="checkbox-default">
+                      <input type="checkbox" />
+                      <span>Se Rappeler de moi</span>
+                    </label>
+                  </div>
 
-                <nuxt-link to="/register">Créer un compte?</nuxt-link>
-              </form>
+                  <nuxt-link to="/register">Créer un compte?</nuxt-link>
+                </form>
+              </ValidationObserver>
             </div>
           </div>
         </div>
@@ -67,14 +88,16 @@
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
   name: "Login",
+  components: { ValidationProvider, ValidationObserver },
   data() {
     return {
       enabled: true,
       title: "Login",
       login: {
-        username: "",
+        email: "",
         password: "",
       },
 
@@ -113,7 +136,16 @@ export default {
           this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
-          console.log(err);
+          const serverMessageError = err.response.data.error;
+          if (serverMessageError === "Mot de passe incorrect !") {
+            this.$refs.loginForm.setErrors({
+              password: [err.response.data.error],
+            });
+          } else if (serverMessageError === "Utilisateur non trouvé !") {
+            this.$refs.loginForm.setErrors({
+              email: [err.response.data.error],
+            });
+          }
         });
     },
   },

@@ -24,12 +24,12 @@ export const actions = {
     },
     //Login
     login({ commit }, item) {
-        console.log(item)
+        // console.log(item)
         commit('LOGIN', item)
     },
     //Get user Details
     getUserDetails({ commit }, id) {
-        console.log(id)
+        // console.log(id)
         this.$axios.get('/user/' + id).then((res) => {
             commit('USER_DETAILS', res)
         }).catch((err) => { commit('USER_DETAILS', err.response.data.message) })

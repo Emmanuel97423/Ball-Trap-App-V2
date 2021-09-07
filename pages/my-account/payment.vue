@@ -168,7 +168,14 @@ export default {
             this.orderDetails.date = Date.now();
             this.orderDetails.customer = invoicingObject.data.invoicingDetails;
             // console.log(this.orderDetails)
-            this.$store.dispatch("order/sendOrder", this.orderDetails);
+            this.$store
+              .dispatch("order/sendOrder", this.orderDetails)
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
         })
         .catch((err) => {

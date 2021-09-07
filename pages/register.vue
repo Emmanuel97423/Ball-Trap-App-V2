@@ -24,7 +24,7 @@
           <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
             <div class="account_form">
               <h3>Ouvrir un compte</h3>
-              <ValidationObserver v-slot="{ handleSubmit }">
+              <ValidationObserver ref="registerForm" v-slot="{ handleSubmit }">
                 <form
                   id="registerForm"
                   name="registerForm"
@@ -222,7 +222,8 @@ export default {
   methods: {
     onSubmit() {
       let registerForm = document.getElementById("registerForm");
-      const blob = this.register.idFile;
+      const signupError = this.$store.state.user.userSignup;
+      // const blob = this.register.idFile;
       const formData = new FormData(registerForm);
 
       // formData.append("idFile", blob);
@@ -240,6 +241,10 @@ export default {
 
       // console.log(formObject);
       this.$store.dispatch("user/signup", formData);
+
+      this.$refs.registerForm.setErrors({
+        email: [signupError],
+      });
     },
   },
 };
