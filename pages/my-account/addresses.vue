@@ -137,7 +137,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
                       <ValidationProvider
                         name="email"
-                        rules="required|email"
+                        rules="required"
                         v-slot="{ errors }"
                       >
                         <div class="form-group">
@@ -273,7 +273,6 @@
                   >
                     Sauvegarder les modifications
                   </button>
-                  <!-- {{ userDetails }} -->
                 </form>
               </ValidationObserver>
             </div>
@@ -352,27 +351,23 @@ export default {
         });
     },
     onSubmit() {
-      const userObject = this.$store.getters["user/userLogin"];
+      const userObject = this.$store.state.auth.user;
       // console.log(userObject.userId);
       this.invoicing.invoiceUserId = userObject.userId;
       this.$store.dispatch("user/addAdresse", this.invoicing);
       this.$store.dispatch("user/getUserDetails", userObject.userId);
-
-      this.$nuxt.refresh();
     },
+  },
+
+  created() {
+    const userObject = this.$store.state.auth.user;
+
+    this.$store.dispatch("user/getUserDetails", userObject.userId);
   },
   computed: {
     userDetails() {
       return this.$store.getters["user/userDetails"];
     },
-  },
-  created() {
-    const userObject = this.$store.getters["user/userLogin"];
-    console.log(userObject.userId);
-    if (userObject.userId == null) {
-      this.logout();
-    }
-    this.$store.dispatch("user/getUserDetails", userObject.userId);
   },
 };
 </script>

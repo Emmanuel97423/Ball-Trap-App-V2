@@ -89,9 +89,9 @@ export default {
       //callback: false,
       home: "/my-account",
     },
-    // localStorage: {
-    //   prefix: 'auth.'
-    // },
+    localStorage: {
+      prefix: 'auth.'
+    },
 
     strategies: {
       local: {
@@ -110,8 +110,8 @@ export default {
         // },
 
         user: {
-          property: false,
-          // autoFetch: true
+          property: 'user',
+          autoFetch: false,
         },
         endpoints: {
           login: {
@@ -120,9 +120,9 @@ export default {
           },
           logout:
             { url: "/auth/logout", method: "post" },
-          user: false,
+          user: { url: "/auth/user", method: "get" },
         },
-        // autoLogout: true,
+        autoLogout: true,
       },
     },
   },

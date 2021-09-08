@@ -107,7 +107,7 @@
                         </ValidationProvider>
                         <ValidationProvider
                           name="email"
-                          rules="required|email"
+                          rules="required"
                           v-slot="{ errors }"
                         >
                           <div class="default-form-box mb-20">
@@ -276,9 +276,9 @@ export default {
         });
     },
     getUserDetails() {
-      this.userLogin = this.$store.getters["user/userLogin"];
+      this.userLogin = this.$store.state.auth.user;
       const id = this.userLogin.userId;
-      // console.log(id);
+      console.log(id);
       this.$store.dispatch("user/getUserDetails", id);
       // console.log(this.$store.getters["user/userDetails"]);
     },
