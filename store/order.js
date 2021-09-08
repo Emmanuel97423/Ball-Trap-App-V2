@@ -14,11 +14,13 @@ export const getters = {
 export const actions = {
     //Send order 
     sendOrder({ commit }, item) {
-        console.log(item)
+
         this.$axios.post('/order/addOrder', item).then((res) => {
 
             commit('SEND_ORDER', res)
-        }).catch((err) => { commit('SEND_ORDER', err) })
+            this.$router.push('payment/sucess')
+            
+        }).catch((err) => { commit('SEND_ORDER', err); this.$router.push('/sucess') })
     }
 }
 //handle Mutations

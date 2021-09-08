@@ -39,6 +39,7 @@
                     <div class="default-form-box">
                       <label>Email <span>*</span></label>
                       <input
+                        name="email"
                         v-model="login.email"
                         type="email"
                         class="form-control"
@@ -54,6 +55,7 @@
                     <div class="default-form-box">
                       <label>Mot de passe <span>*</span></label>
                       <input
+                        name="password"
                         v-model="login.password"
                         type="password"
                         class="form-control"
@@ -132,8 +134,9 @@ export default {
       this.$auth
         .loginWith("local", { data: this.login })
         .then((res) => {
-          console.log(res.data);
-          this.$store.dispatch("user/login", res.data);
+          console.log(res);
+          // this.$router.push("/my-account")
+          // this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
           const serverMessageError = err.response.data.error;

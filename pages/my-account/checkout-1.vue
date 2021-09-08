@@ -328,7 +328,7 @@
               type="submit"
               form="form"
               class="theme-btn-one btn-black-overlay btn_sm"
-              to="payment"
+              to="/payment"
             >
               Etape suivante
             </Nuxt-link>
@@ -490,7 +490,7 @@ export default {
 
     //Submit new Adresse
     onSubmit() {
-      const userObject = this.$store.getters["user/userLogin"];
+      const userObject = this.$store.state.user.userLogin;
       // console.log(userObject.userId);
       this.invoicing.invoiceUserId = userObject.userId;
       this.$store.dispatch("user/addAdresse", this.invoicing);

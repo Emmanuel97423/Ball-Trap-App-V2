@@ -89,19 +89,25 @@ export default {
       //callback: false,
       home: "/my-account",
     },
-    localStorage: {
-      prefix: 'auth.'
-    },
+    // localStorage: {
+    //   prefix: 'auth.'
+    // },
 
     strategies: {
       local: {
+        // scheme: 'refresh',
         token: {
           property: "token",
-
+          // maxAge: 60,
           global: true,
           // required: true,
           // type: 'Bearer'
         },
+        // refreshToken: {
+        //   property: "refresh_token",
+        //   data: 'refresh_token',
+        //   maxAge: 60
+        // },
 
         user: {
           property: false,
@@ -114,8 +120,9 @@ export default {
           },
           logout:
             { url: "/auth/logout", method: "post" },
-          user: false
+          user: false,
         },
+        // autoLogout: true,
       },
     },
   },
