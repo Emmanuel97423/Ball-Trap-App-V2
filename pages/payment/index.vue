@@ -15,28 +15,28 @@
         <div id="card-element" class="form-control" style="height: 2.4em">
           <!-- Elements will create input elements here -->
 
-          <StripeElements
+          <!-- <StripeElements
             class="payment__element"
             :stripe-key="stripeKey"
             :instance-options="instanceOptions"
             :elements-options="elementsOptions"
             #default="{ elements }"
             ref="elms"
-          >
-            <!-- <StripeElement
+          > -->
+          <!-- <StripeElement
               class="card__input"
               type="fpxBank"
               :elements="elements"
               :options="cardNumberOptions"
             /></StripeElements> -->
-            <StripeElement
+          <!-- <StripeElement
               class="card__input"
               type="card"
               :elements="elements"
               :options="cardOptions"
               ref="card"
             />
-          </StripeElements>
+          </StripeElements> -->
         </div>
 
         <!-- We'll put the error messages in this element -->
@@ -65,17 +65,18 @@
         target="_blank"
         >Stripe.com</a
       >
+      Client secret : {{ orderDetails.clientSecret }}
     </div>
   </div>
 </template>
 
 <script>
-import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
+// import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
 export default {
   middleware: "auth",
   components: {
-    StripeElements,
-    StripeElement,
+    // StripeElements,
+    // StripeElement,
   },
   data() {
     return {
@@ -131,56 +132,80 @@ export default {
         products: "",
         amount: "",
         date: "",
-        token: "",
+        clientSecret: "",
       },
     };
   },
   methods: {
     purchase() {
-      //   //Validate form
-      //   //   let formObject = {};
-      //   //   const formData = new FormData(form);
-      //   //   formData.forEach((value, key) => {
-      //   //     formObject[key] = value.trim();
-      //   //   });
-      const invoicingObject = this.$store.getters["user/userDetails"];
-      console.log(invoicingObject.data.invoicingDetails);
-      //stripe token
-      //              // ref in template
-      const groupComponent = this.$refs.elms;
-      const cardComponent = this.$refs.card;
-      // Get stripe element
-      const cardElement = cardComponent.stripeElement;
-      // Access instance methods, e.g. createToken()
-      groupComponent.instance
-        .createToken(cardElement)
-        .then((result) => {
-          // Handle result.error or result.token
-          this.orderDetails.token = result.token;
-          console.log(result);
+      this.$store
+        .dispatch("order/getPaymentSecret", this.orderDetails)
+        .then(() => {
+          const invoicingObject = this.$store.getters["user/userDetails"];
+          this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
+          this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
+          this.orderDetails.products = this.$store.getters["cart/items"];
+          this.orderDetails.date = Date.now();
+          this.orderDetails.customer = invoicingObject.data.invoicingDetails;
 
-          if (result.error) {
-            this.cardErrorMessage = result.error.message;
-          } else {
-            //Order details store
-            this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
-            this.orderDetails.products = this.$store.getters["cart/items"];
-            this.orderDetails.date = Date.now();
-            this.orderDetails.customer = invoicingObject.data.invoicingDetails;
-            // console.log(this.orderDetails)
-            this.$store
-              .dispatch("order/sendOrder", this.orderDetails)
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
+          //Stripe Confirmation
+          stripe
+            .confirmCardPayment(this.orderDetails.clientSecret, {
+              payment_method: {
+                card: card,
+                billing_detail: {
+                  name: "fullName",
+                },
+              },
+            })
+            .then((result) => {
+              if (result.error) {
+                console.log(result.error.message);
+              } else if (result.paymentIntent.status === "succeeded") {
+                console.log("Charge Ok paiment intent");
+                this.$store.dispatch("order/sendOrder", this.orderDetails);
+              }
+            });
+
+          //Post order
         })
-        .catch((err) => {
-          alert("Une erreur: " + err);
+        .catch((error) => {
+          console.log(error);
         });
+
+      // console.log(invoicingObject.data.invoicingDetails);
+      // //stripe token
+      // //              // ref in template
+      // const groupComponent = this.$refs.elms;
+      // const cardComponent = this.$refs.card;
+      // // Get stripe element
+      // const cardElement = cardComponent.stripeElement;
+      // // Access instance methods, e.g. createToken()
+      // groupComponent.instance
+      //   .createToken(cardElement)
+      //   .then((result) => {
+      //     // Handle result.error or result.token
+      //     this.orderDetails.token = result.token;
+      //     console.log(result);
+
+      //     if (result.error) {
+      //       this.cardErrorMessage = result.error.message;
+      //     } else {
+      //Order details store
+
+      // console.log(this.orderDetails)
+
+      // .then((res) => {
+      //   console.log(res);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     alert("Une erreur: " + err);
+      //   });
     },
   },
   computed: {
@@ -188,12 +213,16 @@ export default {
       return this.$store.getters["cart/cartTotal"];
     },
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-      setTimeout(() => this.$nuxt.$loading.finish(), 50000);
-    });
-  },
+  //   mounted() {
+  //   if (this.$stripe) {
+  //     const elements = this.$stripe.elements();
+  //     const card = elements.create('card', {
+
+  //     });
+  //     // Add an instance of the card Element into the `card-element` <div>
+  //     card.mount('#card-element');
+  //   }
+  // },
 };
 </script>
 

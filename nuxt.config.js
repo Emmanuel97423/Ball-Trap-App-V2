@@ -58,12 +58,14 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
-
     ['nuxt-vuex-localstorage', {
       localStorage: ['cart', 'user', 'order',]
-    }]
+    }],
+    'nuxt-stripe-module',
   ],
-
+  stripe: {
+    publishableKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -111,7 +113,7 @@ export default {
 
         user: {
           property: 'user',
-          autoFetch: false,
+          // autoFetch: true,
         },
         endpoints: {
           login: {
@@ -122,7 +124,7 @@ export default {
             { url: "/auth/logout", method: "post" },
           user: { url: "/auth/user", method: "get" },
         },
-        autoLogout: true,
+        // autoLogout: true,
       },
     },
   },
