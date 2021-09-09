@@ -82,6 +82,11 @@ export default {
           text: "Dashboard",
         },
       ],
+      //data Login
+      login: {
+        email: "",
+        password: "",
+      },
     };
   },
   // Page head() Title, description for SEO
@@ -110,6 +115,19 @@ export default {
           console.log(err);
         });
     },
+  },
+  created() {
+    // // this.$auth.refreshTokens();
+    // this.login.email = this.$store.state.user.userLogin.email;
+    // this.login.password = this.$store.state.user.userLogin.password;
+    // console.log("this.login.password:", this.login.password);
+    // this.$auth.loginWith("local", { data: this.login }).then((res) => {
+    //   const user = res.data;
+    //   // console.log(res.data);
+    //   this.$auth.setUser(user);
+    //   // this.$router.push("/my-account")
+    //   // this.$store.dispatch("user/login", res.data);
+    // });
   },
 };
 </script>
