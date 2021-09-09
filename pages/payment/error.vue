@@ -8,7 +8,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$store.state.order.orderItems;
+  },
+};
 </script>
 
 <style>

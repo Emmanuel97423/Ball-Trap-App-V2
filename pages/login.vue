@@ -134,7 +134,9 @@ export default {
       this.$auth
         .loginWith("local", { data: this.login })
         .then((res) => {
-          console.log(res);
+          const user = res.data;
+          // console.log(res.data);
+          this.$auth.setUser(user);
           // this.$router.push("/my-account")
           // this.$store.dispatch("user/login", res.data);
         })

@@ -29,8 +29,9 @@ export const actions = {
     },
     //Get user Details
     getUserDetails({ commit }, id) {
-        // console.log(id)
-        this.$axios.get('/user/' + id).then((res) => {
+
+        this.$axios.get('auth/user/' + id).then((res) => {
+            // console.log(res)
             commit('USER_DETAILS', res)
         }).catch((err) => { commit('USER_DETAILS', err.response.data.message) })
     },
