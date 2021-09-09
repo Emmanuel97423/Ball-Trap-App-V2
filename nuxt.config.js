@@ -60,7 +60,7 @@ export default {
     "@nuxtjs/auth-next",
 
     ['nuxt-vuex-localstorage', {
-      localStorage: ['cart', 'user', 'order',]
+      localStorage: ['cart', 'user', 'order', 'auth']
     }]
   ],
 
@@ -85,44 +85,29 @@ export default {
   auth: {
     redirect: {
       login: "/login",
-      logout: "/",
-      //callback: false,
+      logout: "/login",
+      callback: "/login",
       home: "/my-account",
     },
-    localStorage: {
-      prefix: 'auth.'
-    },
-
     strategies: {
-      local: {
-        // scheme: 'refresh',
+      local: false,
+      cookie: {
         token: {
           property: "token",
-          // maxAge: 60,
-          global: true,
-          // required: true,
-          // type: 'Bearer'
+          required: true,
+          type: "Bearer",
         },
-        // refreshToken: {
-        //   property: "refresh_token",
-        //   data: 'refresh_token',
-        //   maxAge: 60
-        // },
-
         user: {
-          property: 'user',
-          autoFetch: false,
+          property: "user",
         },
         endpoints: {
           login: {
             url: "/auth/login",
             method: "post",
           },
-          logout:
-            { url: "/auth/logout", method: "post" },
-          user: { url: "/auth/user", method: "get" },
+          logout: { url: "/auth/logout", method: "delete" },
+          user: false,
         },
-        autoLogout: true,
       },
     },
   },
