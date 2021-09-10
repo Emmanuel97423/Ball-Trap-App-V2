@@ -18,7 +18,7 @@ export const actions = {
         this.$axios.post('/order/addOrder', item).then((res) => {
 
             commit('SEND_ORDER', res)
-            // this.$router.push('payment/sucess')
+            this.$router.push('payment/sucess')
 
         }).catch((err) => { commit('SEND_ORDER', err) })
     }
