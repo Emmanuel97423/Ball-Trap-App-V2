@@ -147,12 +147,12 @@ export default {
           this.orderDetails.products = this.$store.getters["cart/items"];
           this.orderDetails.date = Date.now();
           this.orderDetails.customer = invoicingObject.data.invoicingDetails;
-
+          let cardElement = elements.getElement("card");
           //Stripe Confirmation
-          stripe
+          this.$stripe
             .confirmCardPayment(this.orderDetails.clientSecret, {
               payment_method: {
-                card: card,
+                card: cardElement,
                 billing_detail: {
                   name: "fullName",
                 },
@@ -213,16 +213,16 @@ export default {
       return this.$store.getters["cart/cartTotal"];
     },
   },
-  //   mounted() {
-  //   if (this.$stripe) {
-  //     const elements = this.$stripe.elements();
-  //     const card = elements.create('card', {
-
-  //     });
-  //     // Add an instance of the card Element into the `card-element` <div>
-  //     card.mount('#card-element');
-  //   }
-  // },
+  mounted() {
+    if (this.$stripe) {
+      const elements = this.$stripe.elements();
+      const card = elements.create("card", {});
+      // Add an instance of the card Element into the `card-element` <div>
+      card.mount("#card-element");
+    } else {
+      console.log("stripe error");
+    }
+  },
 };
 </script>
 
