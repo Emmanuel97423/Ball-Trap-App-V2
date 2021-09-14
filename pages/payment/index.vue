@@ -141,13 +141,7 @@ export default {
       this.$store
         .dispatch("order/getPaymentSecret", this.orderDetails)
         .then(() => {
-          const invoicingObject = this.$store.getters["user/userDetails"];
-          this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
-          this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
-          this.orderDetails.products = this.$store.getters["cart/items"];
-          this.orderDetails.date = Date.now();
-          this.orderDetails.customer = invoicingObject.data.invoicingDetails;
-          let cardElement = elements.getElement("card");
+          // let cardElement = elements.getElement("card");
           //Stripe Confirmation
           this.$stripe
             .confirmCardPayment(this.orderDetails.clientSecret, {
@@ -219,6 +213,15 @@ export default {
       const card = elements.create("card", {});
       // Add an instance of the card Element into the `card-element` <div>
       card.mount("#card-element");
+
+      const invoicingObject = this.$store.state.user.userDetails;
+      this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
+      this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
+      this.orderDetails.products = this.$store.state.cart.items;
+      this.orderDetails.date = Date.now();
+      this.orderDetails.customer = invoicingObject.data.invoicingDetails;
+
+      console.log(this.orderDetails);
     } else {
       console.log("stripe error");
     }

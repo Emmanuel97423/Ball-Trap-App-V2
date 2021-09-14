@@ -1,21 +1,33 @@
 //state
 export const state = () => ({
     orderItems: [],
-    apiResponse: "",
+    // apiResponse: "",
     clientSecret: ""
+
 })
 
 //Access on order state
 export const getters = {
     orderItems: (state) => state.orderItems,
-    apiResponse: (state) => state.orderItems.data.message,
+    // apiResponse: (state) => state.orderItems.data.message,
     clientSecret: (state) => state.clientSecret
+    //product
+    //customer
+    //Order
 }
 
 //Handle actions
 export const actions = {
+    getOrderItems({ commit }) {
+        const orderItems = this.$store.state.cart.items
+        console.log('orderItems:', orderItems)
+
+    },
     //Send order 
     sendOrder({ commit }, item) {
+        //Variables 
+        //Product
+        //customer
 
         this.$axios.post('/order/addOrder', item).then((res) => {
             console.log(item)
@@ -37,6 +49,7 @@ export const actions = {
             // call stripe.confirmCardPayment() with the client secret.
         }).catch((err) => { console.log(err) });
     }
+
 }
 //handle Mutations
 export const mutations = {

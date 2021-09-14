@@ -9,9 +9,7 @@
 
 <script>
 export default {
-  mounted() {
-    this.$store.state.order.orderItems;
-  },
+
 };
 </script>
 

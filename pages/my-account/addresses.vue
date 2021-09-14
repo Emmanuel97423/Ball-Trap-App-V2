@@ -355,18 +355,27 @@ export default {
       // console.log(userObject.userId);
       this.invoicing.invoiceUserId = userObject.userId;
       this.$store.dispatch("user/addAdresse", this.invoicing);
-      this.$store.dispatch("user/getUserDetails", userObject.userId);
+      // this.$store.dispatch("user/getUserDetails", userObject.userId);
     },
   },
 
-  created() {
-    const userObject = this.$store.state.auth.user;
+  mounted() {
+    const userObject = this.$store.state.user.userLogin;
+    this.$store
+      .dispatch("user/getUserDetails", userObject.userId)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    this.$store.dispatch("user/getUserDetails", userObject.userId);
+    // const userData = this.$store.state.user.userDetails;
+    // console.log("userDetails:", userData);
   },
   computed: {
     userDetails() {
-      return this.$store.getters["user/userDetails"];
+      return this.$store.state.user.userDetails;
     },
   },
 };
