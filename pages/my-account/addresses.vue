@@ -171,7 +171,7 @@
                             required=""
                           >
                             <option value="">Choisissez une option... *</option>
-                            <option value="FRANCE">France</option>
+                            <option value="FR">France</option>
                           </select>
                           <span class="error__message">{{ errors[0] }}</span>
                         </div>
@@ -351,7 +351,7 @@ export default {
         });
     },
     onSubmit() {
-      const userObject = this.$store.state.auth.user;
+      const userObject = this.$store.state.user.userLogin;
       // console.log(userObject.userId);
       this.invoicing.invoiceUserId = userObject.userId;
       this.$store.dispatch("user/addAdresse", this.invoicing);
@@ -359,14 +359,23 @@ export default {
     },
   },
 
-  created() {
-    const userObject = this.$store.state.auth.user;
+  mounted() {
+    const userObject = this.$store.state.user.userLogin;
+    this.$store
+      .dispatch("user/getUserDetails", userObject.userId)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    this.$store.dispatch("user/getUserDetails", userObject.userId);
+    // const userData = this.$store.state.user.userDetails;
+    // console.log("userDetails:", userData);
   },
   computed: {
     userDetails() {
-      return this.$store.getters["user/userDetails"];
+      return this.$store.state.user.userDetails;
     },
   },
 };

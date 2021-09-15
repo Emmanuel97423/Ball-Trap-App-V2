@@ -132,7 +132,7 @@ export default {
   methods: {
     onSubmit() {
       this.$auth
-        .loginWith("local", { data: this.login })
+        .loginWith("cookie", { data: this.login })
         .then((res) => {
           const user = res.data;
           // console.log(res.data);

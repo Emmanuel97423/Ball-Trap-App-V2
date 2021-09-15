@@ -11,32 +11,38 @@
         >
       </p>
       <form id="payment-form" @submit.prevent="purchase">
-        <label for="card-element">Carte de débit:</label><br />
-        <div id="card-element" class="form-control" style="height: 2.4em">
+        <label for="card">Carte de débit:</label><br />
+        <div
+          name="card"
+          id="card-element"
+          class="form-control"
+          style="height: 2.4em"
+          ref="card"
+        >
           <!-- Elements will create input elements here -->
 
-          <StripeElements
+          <!-- <StripeElements
             class="payment__element"
             :stripe-key="stripeKey"
             :instance-options="instanceOptions"
             :elements-options="elementsOptions"
             #default="{ elements }"
             ref="elms"
-          >
-            <!-- <StripeElement
+          > -->
+          <!-- <StripeElement
               class="card__input"
               type="fpxBank"
               :elements="elements"
               :options="cardNumberOptions"
             /></StripeElements> -->
-            <StripeElement
+          <!-- <StripeElement
               class="card__input"
               type="card"
               :elements="elements"
               :options="cardOptions"
               ref="card"
             />
-          </StripeElements>
+          </StripeElements> -->
         </div>
 
         <!-- We'll put the error messages in this element -->
@@ -65,122 +71,171 @@
         target="_blank"
         >Stripe.com</a
       >
+      Orderdetails : {{ orderDetails }}
     </div>
   </div>
 </template>
 
 <script>
-import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
+let stripe = Stripe(
+    `pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p`
+  ),
+  elements = stripe.elements(),
+  card = undefined;
+// import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
 export default {
   middleware: "auth",
   components: {
-    StripeElements,
-    StripeElement,
+    // StripeElements,
+    // StripeElement,
   },
   data() {
     return {
-      stripeKey:
-        "pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p", // test key, don't hardcode
-      instanceOptions: {
-        // https://stripe.com/docs/js/initializing#init_stripe_js-options
-      },
-      elementsOptions: {
-        // https://stripe.com/docs/js/elements_object/create#stripe_elements-options
-      },
-      cardOptions: {
-        // reactive
-        // remember about Vue 2 reactivity limitations when dealing with options
-        value: {
-          postalCode: false,
-        },
+      // stripeKey:
+      //   "pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p", // test key, don't hardcode
+      // instanceOptions: {
+      //   // https://stripe.com/docs/js/initializing#init_stripe_js-options
+      // },
+      // elementsOptions: {
+      //   // https://stripe.com/docs/js/elements_object/create#stripe_elements-options
+      // },
+      // cardOptions: {
+      //   // reactive
+      //   // remember about Vue 2 reactivity limitations when dealing with options
+      //   value: {
+      //     postalCode: false,
+      //   },
 
-        style: {
-          base: {
-            // backgroundColor: "#d9d9d9",
+      //   style: {
+      //     base: {
+      //       // backgroundColor: "#d9d9d9",
 
-            iconColor: "#c4f0ff",
-            color: "#d9d9d9",
-            fontWeight: "500",
-            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-            fontSize: "16px",
-            fontSmoothing: "antialiased",
+      //       iconColor: "#c4f0ff",
+      //       color: "#d9d9d9",
+      //       fontWeight: "500",
+      //       fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+      //       fontSize: "16px",
+      //       fontSmoothing: "antialiased",
 
-            ":-webkit-autofill": {
-              color: "black",
-            },
-            "::placeholder": {
-              color: "rgb(100, 100, 100)",
-            },
-          },
-          complete: {
-            iconColor: "green",
-            color: "green",
-          },
+      //       ":-webkit-autofill": {
+      //         color: "black",
+      //       },
+      //       "::placeholder": {
+      //         color: "rgb(100, 100, 100)",
+      //       },
+      //     },
+      //     complete: {
+      //       iconColor: "green",
+      //       color: "green",
+      //     },
 
-          invalid: {
-            iconColor: "red",
-            color: "red",
-          },
-        },
-        // https://stripe.com/docs/stripe.js#element-options
-      },
-      cardNumberOptions: {},
-      cardErrorMessage: "",
+      //     invalid: {
+      //       iconColor: "red",
+      //       color: "red",
+      //     },
+      //   },
+      //   // https://stripe.com/docs/stripe.js#element-options
+      // },
+      // cardNumberOptions: {},
+      // cardErrorMessage: "",
       orderDetails: {
         customer: "",
         products: "",
         amount: "",
         date: "",
-        token: "",
+        clientSecret: "",
       },
     };
   },
   methods: {
     purchase() {
-      //   //Validate form
-      //   //   let formObject = {};
-      //   //   const formData = new FormData(form);
-      //   //   formData.forEach((value, key) => {
-      //   //     formObject[key] = value.trim();
-      //   //   });
-      const invoicingObject = this.$store.getters["user/userDetails"];
-      console.log(invoicingObject.data.invoicingDetails);
-      //stripe token
-      //              // ref in template
-      const groupComponent = this.$refs.elms;
-      const cardComponent = this.$refs.card;
-      // Get stripe element
-      const cardElement = cardComponent.stripeElement;
-      // Access instance methods, e.g. createToken()
-      groupComponent.instance
-        .createToken(cardElement)
-        .then((result) => {
-          // Handle result.error or result.token
-          this.orderDetails.token = result.token;
-          console.log(result);
+      this.$store
+        .dispatch("order/getPaymentSecret", this.orderDetails)
+        .then(() => {
+          // const cardElement = document.getElementById("card-element");
+          // const child = cardElement.childNodes[0];
+          // const element = this.$stripe.elements();
+          // const card = element.getElement("card");
+          // console.log();
 
-          if (result.error) {
-            this.cardErrorMessage = result.error.message;
-          } else {
-            //Order details store
-            this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
-            this.orderDetails.products = this.$store.getters["cart/items"];
-            this.orderDetails.date = Date.now();
-            this.orderDetails.customer = invoicingObject.data.invoicingDetails;
-            // console.log(this.orderDetails)
-            this.$store
-              .dispatch("order/sendOrder", this.orderDetails)
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
+          stripe
+            .createPaymentMethod("card", this.$refs.card, {
+              billing_details: {
+                name: "Jenny Rosen",
+              },
+            })
+            .then((response) => {});
+
+          //Stripe Confirmation
+          stripe
+            .confirmCardPayment(this.orderDetails.clientSecret, {
+              payment_method: {
+                card: this.$refs.card,
+                billing_details: {
+                  // address: {
+                  //   city: this.orderDetails.customer.zone,
+                  //   country: this.orderDetails.customer.country,
+                  //   line1: this.orderDetails.customer.adresse,
+                  //   line2: null,
+                  //   postal_code: this.orderDetails.customer.zip,
+                  //   state: null,
+                  // },
+                  // email: this.orderDetails.customer.email,
+
+                  name: this.orderDetails.customer.firstName,
+                  // phone: null,
+                },
+              },
+              payment_method_options: {},
+
+              // console.log(payment_method)
+            })
+            .then((result) => {
+              if (result.error) {
+                console.log(result.error.message);
+              } else if (result.paymentIntent.status === "succeeded") {
+                console.log("Charge Ok paiment intent");
+                this.$store.dispatch("order/sendOrder", this.orderDetails);
+              }
+            });
         })
-        .catch((err) => {
-          alert("Une erreur: " + err);
+        .catch((error) => {
+          console.log(error);
         });
+
+      // console.log(invoicingObject.data.invoicingDetails);
+      // //stripe token
+      // //              // ref in template
+      // const groupComponent = this.$refs.elms;
+      // const cardComponent = this.$refs.card;
+      // // Get stripe element
+      // const cardElement = cardComponent.stripeElement;
+      // // Access instance methods, e.g. createToken()
+      // groupComponent.instance
+      //   .createToken(cardElement)
+      //   .then((result) => {
+      //     // Handle result.error or result.token
+      //     this.orderDetails.token = result.token;
+      //     console.log(result);
+
+      //     if (result.error) {
+      //       this.cardErrorMessage = result.error.message;
+      //     } else {
+      //Order details store
+
+      // console.log(this.orderDetails)
+
+      // .then((res) => {
+      //   console.log(res);
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
+      //     }
+      //   })
+      //   .catch((err) => {
+      //     alert("Une erreur: " + err);
+      //   });
     },
   },
   computed: {
@@ -189,10 +244,46 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-      setTimeout(() => this.$nuxt.$loading.finish(), 50000);
-    });
+    if (this.$stripe) {
+      const elements = this.$stripe.elements();
+      const card = elements.create("card", {
+        iconStyle: "solid",
+        style: {
+          base: {
+            iconColor: "#c4f0ff",
+            color: "black",
+            fontWeight: 500,
+            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
+            fontSize: "16px",
+            fontSmoothing: "antialiased",
+
+            ":-webkit-autofill": {
+              color: "#fce883",
+            },
+            "::placeholder": {
+              color: "grey",
+            },
+          },
+          invalid: {
+            iconColor: "#FFC7EE",
+            color: "red",
+          },
+        },
+      });
+      // Add an instance of the card Element into the `card-element` <div>
+      card.mount(this.$refs.card);
+
+      const invoicingObject = this.$store.state.user.userDetails;
+      this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
+      this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
+      this.orderDetails.products = this.$store.state.cart.items;
+      this.orderDetails.date = Date.now();
+      this.orderDetails.customer = invoicingObject.data.invoicingDetails;
+
+      // console.log(this.orderDetails);
+    } else {
+      console.log("stripe error");
+    }
   },
 };
 </script>

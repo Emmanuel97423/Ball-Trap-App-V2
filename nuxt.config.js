@@ -58,12 +58,14 @@ export default {
     "@nuxtjs/strapi",
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
-
+    'nuxt-stripe-module',
     ['nuxt-vuex-localstorage', {
-      localStorage: ['cart', 'user', 'order',]
+      localStorage: ['cart', 'user', 'order', 'auth']
     }]
   ],
-
+  stripe: {
+    publishableKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -85,44 +87,29 @@ export default {
   auth: {
     redirect: {
       login: "/login",
-      logout: "/",
-      //callback: false,
+      logout: "/login",
+      callback: "/login",
       home: "/my-account",
     },
-    localStorage: {
-      prefix: 'auth.'
-    },
-
     strategies: {
-      local: {
-        // scheme: 'refresh',
+      local: false,
+      cookie: {
         token: {
           property: "token",
-          // maxAge: 60,
-          global: true,
-          // required: true,
-          // type: 'Bearer'
+          required: true,
+          type: "Bearer",
         },
-        // refreshToken: {
-        //   property: "refresh_token",
-        //   data: 'refresh_token',
-        //   maxAge: 60
-        // },
-
         user: {
-          property: 'user',
-          autoFetch: false,
+          property: "user",
         },
         endpoints: {
           login: {
             url: "/auth/login",
             method: "post",
           },
-          logout:
-            { url: "/auth/logout", method: "post" },
-          user: { url: "/auth/user", method: "get" },
+          logout: { url: "/auth/logout", method: "delete" },
+          user: false,
         },
-        autoLogout: true,
       },
     },
   },
