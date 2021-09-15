@@ -12,7 +12,7 @@ export const mutations = {
     state.items = items
   },
   add(state, item) {
-
+    console.log(item)
     const record = state.items.find(i => i._id === item._id)
     console.log(state.orderQuantity)
     if (!record) {
@@ -69,6 +69,7 @@ export const mutations = {
 
   },
 
+
 }
 //Getters
 
@@ -102,5 +103,6 @@ export const getters = {
       (accumulator, item) => accumulator + item.orderQuantity,
       0
     )
-  }
+  },
+
 }
