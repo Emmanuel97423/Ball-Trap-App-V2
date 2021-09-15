@@ -171,7 +171,7 @@
                             required=""
                           >
                             <option value="">Choisissez une option... *</option>
-                            <option value="FRANCE">France</option>
+                            <option value="FR">France</option>
                           </select>
                           <span class="error__message">{{ errors[0] }}</span>
                         </div>
@@ -351,11 +351,11 @@ export default {
         });
     },
     onSubmit() {
-      const userObject = this.$store.state.auth.user;
+      const userObject = this.$store.state.user.userLogin;
       // console.log(userObject.userId);
       this.invoicing.invoiceUserId = userObject.userId;
       this.$store.dispatch("user/addAdresse", this.invoicing);
-      // this.$store.dispatch("user/getUserDetails", userObject.userId);
+      this.$store.dispatch("user/getUserDetails", userObject.userId);
     },
   },
 

@@ -39,7 +39,7 @@ export const actions = {
     //Get Stripe getsecret 
     getPaymentSecret({ commit }, item) {
         this.$axios.post('/order/paymentSecret', item).then((response) => {
-            // console.log(res)
+            console.log(response)
             return response.data
         }).then((responseJson) => {
             let clientSecret = responseJson.client_secret;

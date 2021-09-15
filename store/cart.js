@@ -12,22 +12,22 @@ export const mutations = {
     state.items = items
   },
   add(state, item) {
-   
+
     const record = state.items.find(i => i._id === item._id)
     console.log(state.orderQuantity)
     if (!record) {
       state.items.push({
-        orderQuantity : state.orderQuantity,
+        orderQuantity: state.orderQuantity,
         ...item,
-        
+
 
       })
-      
+
     } else {
       record.orderQuantity += state.orderQuantity
     };
-    
-    
+
+
   },
   // inc(state, item) {
   //   console.log(item)
@@ -40,12 +40,12 @@ export const mutations = {
   },
 
   addToCartByComponent(state, item) {
-        const record = state.items.find(i => i._id === item._id)
+    const record = state.items.find(i => i._id === item._id)
     console.log(item)
     if (!record) {
       state.items.push({
         orderQuantity: 1,
-        
+
         ...item
       })
     } else {
@@ -62,16 +62,14 @@ export const mutations = {
       const index = state.items.findIndex(i => i._id === item._id)
       state.items.splice(index, 1)
     }
-    
+
   },
   emptyList(state) {
     state.items = []
-    
+
   },
 
 }
-
-
 //Getters
 
 export const getters = {
@@ -93,11 +91,11 @@ export const getters = {
   //        console.log(total)
   //       return total
   //     })
-  
+
   // },
- 
-  cartTotal( getters){
-    return getters.items.reduce((total, item)=> total + item.price * item.orderQuantity, 0)
+
+  cartTotal(getters) {
+    return getters.items.reduce((total, item) => total + item.price * item.orderQuantity, 0)
   },
   numberOfItems: state => {
     return state.items.reduce(

@@ -149,7 +149,7 @@
                               <option value="">
                                 Choisissez une option... *
                               </option>
-                              <option value="FRANCE">France</option>
+                              <option value="FR">France</option>
                             </select>
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
