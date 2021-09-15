@@ -11,175 +11,188 @@
         >
       </p>
       <form id="payment-form" @submit.prevent="purchase">
-        <label for="card-element">Carte de débit:</label><br />
-        <div id="card-element" class="form-control" style="height: 2.4em">
-          <!-- Elements will create input elements here -->
-
-          <StripeElements
-            class="payment__element"
-            :stripe-key="stripeKey"
-            :instance-options="instanceOptions"
-            :elements-options="elementsOptions"
-            #default="{ elements }"
-            ref="elms"
-          >
-            <!-- <StripeElement
-              class="card__input"
-              type="fpxBank"
-              :elements="elements"
-              :options="cardNumberOptions"
-            /></StripeElements> -->
-            <StripeElement
-              class="card__input"
-              type="card"
-              :elements="elements"
-              :options="cardOptions"
-              ref="card"
-            />
-          </StripeElements>
-        </div>
-
-        <!-- We'll put the error messages in this element -->
-        <div v-if="cardErrorMessage" id="card-errors" role="alert">
-          {{ cardErrorMessage }}
-        </div>
-
-        <br />
-        <button
-          id="submit"
-          class="btn btn-lg btn-black-overlay btn-block"
-          type="submit"
-        >
-          Payer
+        <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+        <button id="submit" class="btn btn-lg btn-black-overlay btn-block">
+          <div class="spinner hidden" id="spinner"></div>
+          <span id="button-text">Payer</span>
         </button>
+        <p id="card-error" role="alert"></p>
+        <!-- <p class="result-message hidden">
+          Payment succeeded, see the result in your
+          <a href="" target="_blank">Stripe dashboard.</a> Refresh the page to
+          pay again.
+        </p> -->
       </form>
     </div>
 
     <!-- <div class="col-lg-4"></div> -->
 
     <div class="stripe__policies">
-      <span>Service de paiment sécurisé avec </span
+      <span>* Paiment sécurisé grâce au service banquaire </span
       ><a
         class="stripe__link"
         href="https://stripe.com/fr/privacy"
         target="_blank"
         >Stripe.com</a
       >
+      <!-- Orderdetails : {{ orderDetails }} -->
     </div>
   </div>
 </template>
 
 <script>
-import { StripeElements, StripeElement } from "vue-stripe-elements-plus";
+// A reference to Stripe.js initialized with your real test publishable API key.
+const stripe = Stripe(process.env.stripePublishKey);
+
+// The items the customer wants to buy
+
+/* ------- UI helpers ------- */
+
+// Shows a success message when the payment is complete
+const orderComplete = (paymentIntentId) => {
+  loading(false);
+  document
+    .querySelector(".result-message a")
+    .setAttribute(
+      "href",
+      "https://dashboard.stripe.com/test/payments/" + paymentIntentId
+    );
+  document.querySelector(".result-message").classList.remove("hidden");
+  document.querySelector("button").disabled = true;
+};
+
+// Show the customer the error from Stripe if their card fails to charge
+const showError = (errorMsgText) => {
+  loading(false);
+  const errorMsg = document.querySelector("#card-error");
+  errorMsg.textContent = errorMsgText;
+  setTimeout(() => {
+    errorMsg.textContent = "";
+  }, 6000);
+};
+
+// Show a spinner on payment submission
+const loading = (isLoading) => {
+  if (isLoading) {
+    // Disable the button and show a spinner
+    document.querySelector("button").disabled = true;
+    document.querySelector("#spinner").classList.remove("hidden");
+    document.querySelector("#button-text").classList.add("hidden");
+  } else {
+    document.querySelector("button").disabled = false;
+    document.querySelector("#spinner").classList.add("hidden");
+    document.querySelector("#button-text").classList.remove("hidden");
+  }
+};
+
 export default {
   middleware: "auth",
-  components: {
-    StripeElements,
-    StripeElement,
-  },
+  components: {},
   data() {
     return {
-      stripeKey:
-        "pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p", // test key, don't hardcode
-      instanceOptions: {
-        // https://stripe.com/docs/js/initializing#init_stripe_js-options
-      },
-      elementsOptions: {
-        // https://stripe.com/docs/js/elements_object/create#stripe_elements-options
-      },
-      cardOptions: {
-        // reactive
-        // remember about Vue 2 reactivity limitations when dealing with options
-        value: {
-          postalCode: false,
-        },
-
-        style: {
-          base: {
-            // backgroundColor: "#d9d9d9",
-
-            iconColor: "#c4f0ff",
-            color: "#d9d9d9",
-            fontWeight: "500",
-            fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-            fontSize: "16px",
-            fontSmoothing: "antialiased",
-
-            ":-webkit-autofill": {
-              color: "black",
-            },
-            "::placeholder": {
-              color: "rgb(100, 100, 100)",
-            },
-          },
-          complete: {
-            iconColor: "green",
-            color: "green",
-          },
-
-          invalid: {
-            iconColor: "red",
-            color: "red",
-          },
-        },
-        // https://stripe.com/docs/stripe.js#element-options
-      },
-      cardNumberOptions: {},
-      cardErrorMessage: "",
       orderDetails: {
+        userId: "",
         customer: "",
         products: "",
         amount: "",
         date: "",
-        token: "",
+        clientSecret: "",
+      },
+      productPurchase: {
+        items: [{ id: "xl-tshirt" }],
       },
     };
   },
   methods: {
     purchase() {
-      //   //Validate form
-      //   //   let formObject = {};
-      //   //   const formData = new FormData(form);
-      //   //   formData.forEach((value, key) => {
-      //   //     formObject[key] = value.trim();
-      //   //   });
-      const invoicingObject = this.$store.getters["user/userDetails"];
-      console.log(invoicingObject.data.invoicingDetails);
-      //stripe token
-      //              // ref in template
-      const groupComponent = this.$refs.elms;
-      const cardComponent = this.$refs.card;
-      // Get stripe element
-      const cardElement = cardComponent.stripeElement;
-      // Access instance methods, e.g. createToken()
-      groupComponent.instance
-        .createToken(cardElement)
-        .then((result) => {
-          // Handle result.error or result.token
-          this.orderDetails.token = result.token;
-          console.log(result);
+      // this.$store.dispatch("order/getPaymentSecret", this.orderDetails);
+    },
+    //Fetch the payment
+    paymentInit() {
+      const payWithCard = (stripe, card, clientSecret) => {
+        loading(true);
+        stripe
+          .confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: card,
+            },
+          })
+          .then((result) => {
+            if (result.error) {
+              // Show error to your customer
+              showError(result.error.message);
+            } else {
+              // The payment succeeded!
+              // orderComplete(result.paymentIntent.id);
+              console.log("Sucess payment!!!");
+              this.$store
+                .dispatch("order/sendOrder", this.orderDetails)
+                .then(() => {
+                  this.$router.push("payment/sucess");
+                })
+                .catch((error) => {
+                  console.log(error.message);
+                });
+            }
+          });
+      };
+      // Disable the button until we have Stripe set up on the page
+      document.querySelector("button").disabled = true;
 
-          if (result.error) {
-            this.cardErrorMessage = result.error.message;
-          } else {
-            //Order details store
-            this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
-            this.orderDetails.products = this.$store.getters["cart/items"];
-            this.orderDetails.date = Date.now();
-            this.orderDetails.customer = invoicingObject.data.invoicingDetails;
-            // console.log(this.orderDetails)
-            this.$store
-              .dispatch("order/sendOrder", this.orderDetails)
-              .then((res) => {
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
+      // fetch("http://localhost:3000/api/order/paymentSecret", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(purchase),
+      // })
+      this.$axios
+        .post("order/paymentSecret", this.orderDetails)
+        .then((result) => {
+          const client_secret = result.data.client_secret;
+
+          return client_secret;
         })
-        .catch((err) => {
-          alert("Une erreur: " + err);
+        .then((data) => {
+          console.log("data:", data);
+          const elements = stripe.elements();
+
+          const style = {
+            base: {
+              color: "#32325d",
+              fontFamily: "Arial, sans-serif",
+              fontSmoothing: "antialiased",
+              fontSize: "16px",
+              "::placeholder": {
+                color: "#32325d",
+              },
+            },
+            invalid: {
+              fontFamily: "Arial, sans-serif",
+              color: "#fa755a",
+              iconColor: "#fa755a",
+            },
+          };
+
+          const card = elements.create("card", { style: style });
+          // Stripe injects an iframe into the DOM
+          card.mount("#card-element");
+
+          card.on("change", function (event) {
+            // Disable the Pay button if there are no card details in the Element
+            document.querySelector("button").disabled = event.empty;
+            document.querySelector("#card-error").textContent = event.error
+              ? event.error.message
+              : "";
+          });
+
+          var form = document.getElementById("payment-form");
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            // Complete payment when the submit button is clicked
+
+            payWithCard(stripe, card, data);
+          });
         });
     },
   },
@@ -189,10 +202,15 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-      setTimeout(() => this.$nuxt.$loading.finish(), 50000);
-    });
+    const invoicingObject = this.$store.state.user.userDetails;
+    this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
+    this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
+    this.orderDetails.products = this.$store.state.cart.items;
+    this.orderDetails.date = Date.now();
+    this.orderDetails.customer = invoicingObject.data.invoicingDetails;
+    this.orderDetails.userId = this.$store.state.user.userLogin.userId;
+
+    this.paymentInit();
   },
 };
 </script>
@@ -222,10 +240,15 @@ export default {
   font-weight: bold;
 }
 .box__title--amount {
-  margin: 1rem 0 0 0;
+  margin: 1rem 0 2rem 0;
 }
-#card-errors {
-  font-size: 12px;
+#card-error {
+  /* font-size: 12px; */
   color: red;
+}
+#payment-form button,
+span,
+p {
+  margin: 2rem 0 0 0;
 }
 </style>

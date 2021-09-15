@@ -85,6 +85,7 @@
                               type="text"
                               name="firstName"
                               class="form-control"
+                              :placeholder="userDetails.firstName"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -101,7 +102,9 @@
                               type="text"
                               name="lastName"
                               class="form-control"
+                              :placeholder="userDetails.lastName"
                             />
+
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
@@ -276,7 +279,7 @@ export default {
         });
     },
     getUserDetails() {
-      this.userLogin = this.$store.state.auth.user;
+      this.userLogin = this.$store.state.user.userLogin;
       const id = this.userLogin.userId;
       console.log(id);
       this.$store.dispatch("user/getUserDetails", id);
@@ -295,7 +298,7 @@ export default {
   },
   computed: {
     userDetails() {
-      return this.$store.getters["user/userDetails"];
+      return this.$store.state.user.userDetails.data;
     },
   },
   mounted() {

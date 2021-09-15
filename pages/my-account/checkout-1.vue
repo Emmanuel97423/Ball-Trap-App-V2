@@ -149,7 +149,7 @@
                               <option value="">
                                 Choisissez une option... *
                               </option>
-                              <option value="FRANCE">France</option>
+                              <option value="FR">France</option>
                             </select>
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -418,16 +418,16 @@ export default {
   },
   data() {
     return {
-      validate: {
-        errorMessage: null,
-        firsName: null,
-        lastName: null,
-        email: null,
-        country: null,
-        zone: null,
-        adress: null,
-        validate: null,
-      },
+      // validate: {
+      //   errorMessage: null,
+      //   firsName: null,
+      //   lastName: null,
+      //   email: null,
+      //   country: null,
+      //   zone: null,
+      //   adress: null,
+      //   validate: null,
+      // },
       enabled: true,
       formEnabled: false,
       title: "Checkout",
@@ -496,7 +496,7 @@ export default {
       this.$store.dispatch("user/addAdresse", this.invoicing);
       this.$store.dispatch("user/getUserDetails", userObject.userId);
 
-      this.$nuxt.refresh();
+      // this.$nuxt.refresh();
     },
   },
   computed: {
@@ -513,16 +513,24 @@ export default {
     cartTotal() {
       return this.$store.getters["cart/cartTotal"];
     },
-    stripePlublicKey() {
-      return process.env.STRIPE_PUBLIC_KEY;
-    },
+    // stripePlublicKey() {
+    //   return process.env.STRIPE_PUBLIC_KEY;
+    // },
     userDetails() {
       return this.$store.getters["user/userDetails"];
     },
   },
-  created() {
-    const userObject = this.$store.getters["user/userLogin"];
+  mounted() {
+    const orderItems = this.$store.state.cart.items;
+    // console.log("orderItems:", orderItems);
+
+    // this.$store.dispatch("order/getOrderItems");
+    const userObject = this.$store.state.user.userLogin;
+    // console.log("userObject:", userObject);
+
     this.$store.dispatch("user/getUserDetails", userObject.userId);
+    const userDetails = this.$store.state.user.userDetails;
+    // console.log("userDetails:", userDetails);
   },
 };
 </script>

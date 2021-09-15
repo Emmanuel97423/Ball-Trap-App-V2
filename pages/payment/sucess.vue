@@ -12,6 +12,9 @@
 <script>
 export default {
   middleware: "auth",
+  mounted() {
+    this.$store.commit("cart/emptyList");
+  },
 };
 </script>
 

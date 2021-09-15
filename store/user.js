@@ -23,10 +23,10 @@ export const actions = {
         }).catch((err) => { commit('SIGNUP', err.response.data.message) })
     },
     //Login
-    login({ commit }, item) {
-        // console.log(item)
-        commit('LOGIN', item)
-    },
+    // login({ commit }, item) {
+    //     // console.log(item)
+    //     commit('LOGIN', item)
+    // },
     //Get user Details
     getUserDetails({ commit }, id) {
 
