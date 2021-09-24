@@ -59,6 +59,7 @@
                         v-model="login.password"
                         type="password"
                         class="form-control"
+                        autocomplete="on"
                       />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>

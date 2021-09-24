@@ -60,7 +60,7 @@ export default {
     "@nuxtjs/auth-next",
     'nuxt-stripe-module',
     ['nuxt-vuex-localstorage', {
-      localStorage: ['cart', 'user', 'order', 'auth']
+      localStorage: ['cart', 'user', 'order', 'auth', 'adress']
     }]
   ],
   stripe: {

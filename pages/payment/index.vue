@@ -203,6 +203,7 @@ export default {
   },
   mounted() {
     const invoicingObject = this.$store.state.user.userDetails;
+    console.log("invoicingObject:", invoicingObject);
     this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
     this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
     this.orderDetails.products = this.$store.state.cart.items;

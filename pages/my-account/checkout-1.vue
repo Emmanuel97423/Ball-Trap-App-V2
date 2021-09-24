@@ -27,19 +27,25 @@
                 <h3>Information de facturation</h3>
               </div>
               Informations de facturation actuelle :
-              <span
-                v-if="userDetails.data.invoicingDetails"
-                class="invoice__adresse"
-              >
-                {{ userDetails.data.invoicingDetails.firstName }}
-                {{ userDetails.data.invoicingDetails.lastName }},
-                {{ userDetails.data.invoicingDetails.adresse }},
-                {{ userDetails.data.invoicingDetails.zip }},
-                {{ userDetails.data.invoicingDetails.zone }},
-                {{ userDetails.data.invoicingDetails.country }}.</span
-              >
+              <div v-if="userDetails.data.invoicingDetails">
+                <!-- <span class="invoice__adresse">
+                  
+                  {{ userDetails.data.invoicingDetails.lastName }},
+                  {{ userDetails.data.invoicingDetails.adresse }},
+                  {{ userDetails.data.invoicingDetails.zip }},
+                  {{ userDetails.data.invoicingDetails.zone }},
+                  {{ userDetails.data.invoicingDetails.country }}.</span
+                > -->
+                <ul v-for="adress in adresses" :key="adress.id">
+                  <li>
+                    <span>{{ adress.firstName }} {{ adress.lastName }}</span>
+                    , {{ adress.adresse }}, {{ adress.zip }}, {{ adress.zone }},
+                    {{ adress.country }}
+                  </li>
+                </ul>
+              </div>
               <span v-else>Aucune information n'a été renseigné</span>
-              <div v-if="!invoicingForm" class="check-out-form">
+              <div class="check-out-form">
                 <button
                   @click="formShow"
                   class="theme-btn-one btn-black-overlay btn_md"
@@ -51,7 +57,10 @@
                   v-if="formEnabled"
                   v-slot="{ handleSubmit }"
                 >
-                  <form id="form" @submit.prevent="handleSubmit(onSubmit)">
+                  <form
+                    id="formInvoice"
+                    @submit.prevent="handleSubmit(invoiceSubmit)"
+                  >
                     <div class="row">
                       <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                         <div class="form-group">
@@ -251,7 +260,7 @@
                       class="theme-btn-one btn-black-overlay btn_md"
                       type="submit"
                     >
-                      Sauvegarder les modifications
+                      Sauvegarder
                     </button>
                     <!-- {{ userDetails }} -->
                   </form>
@@ -322,16 +331,16 @@
                         <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="purchase">Etape suivante</button>
                         
                     </div> -->
-
-            <Nuxt-link
+            <p id="alert-message">{{ alertMessage }}</p>
+            <button
               v-if="selectedProducts[0]"
               type="submit"
               form="form"
               class="theme-btn-one btn-black-overlay btn_sm"
-              to="/payment"
+              @click="onSubmit"
             >
               Etape suivante
-            </Nuxt-link>
+            </button>
 
             <div v-if="!enabled" class="order_review bg-white">
               <div class="check-heading">
@@ -428,6 +437,7 @@ export default {
       //   adress: null,
       //   validate: null,
       // },
+      alertMessage: null,
       enabled: true,
       formEnabled: false,
       title: "Checkout",
@@ -451,7 +461,7 @@ export default {
       },
 
       invoicing: {
-        invoiceUserId: "",
+        invoiceUserId: null,
         firstName: "",
         lastName: "",
         company: "",
@@ -463,6 +473,7 @@ export default {
         review: "",
       },
       invoicingForm: true,
+      adresses: "",
     };
   },
 
@@ -491,15 +502,34 @@ export default {
 
     //Submit new Adresse
     onSubmit() {
+      console;
+      if (this.adresses === null) {
+        console.log("this.invoicing :", this.invoicing.invoiceUserId);
+        console.log("Donnée de facturation abscent!!!");
+        this.alertMessage =
+          "Veuillez renseigner vos coordonnées de facturation afin de poursuivre votre commande";
+      } else {
+        // const userObject = this.$store.state.user.userLogin;
+        // this.$store.dispatch("user/getUserDetails", userObject.userId);
+        // this.invoicing.invoiceUserId = userObject.userId;
+        // // this.$store.dispatch("user/addAdresse", this.invoicing);
+        // this.invoicingForm = false;
+        this.$router.push("/payment");
+      }
+    },
+    //Invoice data submit
+    invoiceSubmit() {
       const userObject = this.$store.state.user.userLogin;
 
-      this.$store.dispatch("user/getUserDetails", userObject.userId);
-
-      if (this.invoicing) {
+      try {
+        this.$store.dispatch("user/getUserDetails", userObject.userId);
         this.invoicing.invoiceUserId = userObject.userId;
         this.$store.dispatch("user/addAdresse", this.invoicing);
-        this.invoicingForm = false;
+      } catch (error) {
+        console.log(error);
       }
+      // this.$nuxt.refresh();
+      // this.$router.push("/my-account/checkout-1");
     },
   },
   computed: {
@@ -524,10 +554,20 @@ export default {
     },
   },
   mounted() {
-    const userObject = this.$store.state.user.userLogin;
-    this.$store.dispatch("user/getUserDetails", userObject.userId);
-    const userDetails = this.$store.state.user.userDetails;
+    // this.$store.dispatch("adress/getAdresses")
+    const userAdress = this.$store.state.adress.userAdresses.data;
+    console.log("userAdress:", userAdress);
+
+    this.adresses = userAdress;
+    // const userObject = this.$store.state.user.userLogin;
+    // this.$store.dispatch("user/getUserDetails", userObject.userId);
+    // const userDetails = this.$store.state.user.userDetails;
     // console.log("userDetails:", userDetails);
+
+    // console.log("userInvoiceDetails:", userInvoiceDetails);
+    // if (userInvoiceDetails === null) {
+    //   this.formEnabled = true;
+    // }
   },
 };
 </script>
@@ -564,5 +604,8 @@ export default {
 }
 .btn_md {
   margin: 0 0 1.5rem 0;
+}
+#alert-message {
+  color: red;
 }
 </style>

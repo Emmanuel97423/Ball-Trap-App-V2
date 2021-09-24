@@ -142,6 +142,7 @@
                               name="password"
                               type="password"
                               class="form-control"
+                              autocomplete="on"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -165,6 +166,7 @@
                               name="confirmPassword"
                               type="password"
                               class="form-control"
+                              autocomplete="on"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>

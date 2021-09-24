@@ -54,17 +54,18 @@
               </p>
               <address>
                 Information de facturation:
-                <span
-                  v-if="userDetails.data.invoicingDetails"
-                  class="invoice__adresse"
-                >
-                  {{ userDetails.data.firstName }}
-                  {{ userDetails.data.lastName }},
-                  {{ userDetails.data.invoicingDetails.adresse }},
-                  {{ userDetails.data.invoicingDetails.zip }},
-                  {{ userDetails.data.invoicingDetails.zone }},
-                  {{ userDetails.data.invoicingDetails.country }}</span
-                >
+                <div v-if="userDetails.data.invoicingDetails">
+                  <br />
+                  <ul v-for="adress in adresses" :key="adress.id">
+                    <li>
+                      <span>{{ adress.firstName }} {{ adress.lastName }}</span>
+                      , {{ adress.adresse }}, {{ adress.zip }},
+                      {{ adress.zone }},
+                      {{ adress.country }}
+                    </li>
+                  </ul>
+                </div>
+
                 <span v-else>Aucune information n'a été renseigné</span>
               </address>
               <button
@@ -308,7 +309,7 @@ export default {
         },
       ],
       invoicing: {
-        invoiceUserId: "",
+        userId: "",
         firstName: "",
         lastName: "",
         company: "",
@@ -319,6 +320,7 @@ export default {
         adresse: "",
         review: "",
       },
+      adresses: "",
     };
   },
 
@@ -353,8 +355,8 @@ export default {
     onSubmit() {
       const userObject = this.$store.state.user.userLogin;
       // console.log(userObject.userId);
-      this.invoicing.invoiceUserId = userObject.userId;
-      this.$store.dispatch("user/addAdresse", this.invoicing);
+      this.invoicing.userId = userObject.userId;
+      this.$store.dispatch("adress/addAdress", this.invoicing);
       this.$store.dispatch("user/getUserDetails", userObject.userId);
     },
   },
@@ -369,6 +371,10 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+
+    this.$store.dispatch("adress/getAdresses", userObject.userId);
+
+    this.adresses = this.$store.state.adress.userAdresses.data;
 
     // const userData = this.$store.state.user.userDetails;
     // console.log("userDetails:", userData);

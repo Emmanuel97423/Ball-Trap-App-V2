@@ -5,6 +5,7 @@
 
       <p>Merci pour votre confiance!</p>
       <p>Commande n°:<span>123456</span></p>
+      <p>Vous serez redirigé dans 5 secondes</p>
     </div>
   </div>
 </template>
@@ -14,6 +15,13 @@ export default {
   middleware: "auth",
   mounted() {
     this.$store.commit("cart/emptyList");
+    setTimeout(() => {
+      try {
+        this.$router.push("/my-account");
+      } catch (error) {
+        console.log(error);
+      }
+    }, 5000);
   },
 };
 </script>
