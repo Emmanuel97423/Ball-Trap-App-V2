@@ -359,14 +359,15 @@ export default {
     },
   },
 
-  created() {
-    const userObject = this.$store.state.auth.user;
+  mounted() {
+    const userObject = this.$store.state.user.userLogin;
 
     this.$store.dispatch("user/getUserDetails", userObject.userId);
   },
   computed: {
     userDetails() {
-      return this.$store.getters["user/userDetails"];
+      console.log("userDetails store", this.$store.state.user.userDetails.data);
+      return this.$store.state.user.userDetails;
     },
   },
 };
