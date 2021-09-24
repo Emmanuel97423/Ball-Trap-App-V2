@@ -1,9 +1,8 @@
 <template>
   <div>
-    
     <!-- Banner Area -->
     <section v-if="!enabled" id="common_banner_one">
-      <div class="container ">
+      <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="common_banner_text">
@@ -71,15 +70,11 @@
           </div>
         </div>
         <div class="row">
-          
           <div
-            class="col-lg-4 col-md-4 col-sm-6 col-12"
+            class="col-lg-3 col-md-4 col-sm-6 col-12"
             v-for="productItem in productItems"
             :key="productItem._id"
           >
-            
-
-            
             <ProductBox1
               :productImg1="productItem.imageUrl"
               :productImg2="productItem.imageUrl"
@@ -103,7 +98,7 @@
           <div class="col-lg-12">
             <!-- pagination start -->
             <b-pagination
-            v-if="!enabled"
+              v-if="!enabled"
               v-model="currentPage"
               pills
               :total-rows="rows"
@@ -167,16 +162,13 @@ export default {
     };
   },
   computed: {
-
     productItems() {
-       
-      return this.$store.getters['products/productItems']
-    }
+      return this.$store.getters["products/productItems"];
+    },
   },
   created() {
-    this.$store.dispatch('products/getProducts')
-   
-  }
+    this.$store.dispatch("products/getProducts");
+  },
 };
 </script>
 
