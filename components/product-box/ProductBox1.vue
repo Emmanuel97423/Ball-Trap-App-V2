@@ -2,8 +2,6 @@
   <div>
     <div class="product_wrappers_one">
       <div class="thumb">
-        
-        
         <nuxt-link :to="`/product/${productId}`">
           <img class="hover-image" :src="productImg2" alt="Product" />
         </nuxt-link>
@@ -28,17 +26,20 @@
         </div>
         <!-- start toggle -->
         <!-- v-b-toggle.offcanvas-add-cart -->
-        <button v-if="enabled"
-          
+        <button
+          v-if="enabled"
           class="add-to-cart offcanvas-toggle"
           title="Add To Cart"
-           @click="addToCartByComponent(productObject)"
-          >Poule!</button
+          @click="addToCartByComponent(productObject)"
         >
+          Poule!
+        </button>
       </div>
       <div class="content">
         <h5 class="title">
-          <nuxt-link to="/product/">{{ productTitle }}</nuxt-link>
+          <nuxt-link :to="`/product/${productId}`">{{
+            productTitle
+          }}</nuxt-link>
         </h5>
         <span class="price">
           <span class="new">{{ parseFloat(productPrice).toFixed(2) }} €</span>
@@ -254,12 +255,12 @@ export default {
     productPrice: Number,
     totalPrice: Number,
     productId: String,
-    productObject: Object
+    productObject: Object,
   },
 
   data() {
     return {
-      enabled: true,      // Product details Popup slider
+      enabled: true, // Product details Popup slider
       swiperOption: {
         slidesPerView: 1,
         slidesPerGroup: 1,
@@ -282,16 +283,14 @@ export default {
   },
 
   methods: {
-       addToCartByComponent(productObject){
-      this.$store.commit('cart/addToCartByComponent', productObject);
-      
+    addToCartByComponent(productObject) {
+      this.$store.commit("cart/addToCartByComponent", productObject);
     },
     // Product details Popup id Methods
     toggleModal() {
       this.$refs["product-details-popup"].toggle("#toggle-btn");
     },
   },
-
 };
 </script>
 

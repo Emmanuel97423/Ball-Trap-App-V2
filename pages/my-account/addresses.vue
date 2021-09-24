@@ -375,6 +375,7 @@ export default {
   },
   computed: {
     userDetails() {
+      console.log("userDetails store", this.$store.state.user.userDetails.data);
       return this.$store.state.user.userDetails;
     },
   },

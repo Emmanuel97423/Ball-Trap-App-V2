@@ -85,7 +85,7 @@
                               type="text"
                               name="firstName"
                               class="form-control"
-                              :placeholder="userDetails.firstName"
+                              :placeholder="userDetails.data.lastName"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -102,7 +102,7 @@
                               type="text"
                               name="lastName"
                               class="form-control"
-                              :placeholder="userDetails.lastName"
+                              :placeholder="userDetails.data.firstName"
                             />
 
                             <span class="error__message">{{ errors[0] }}</span>
@@ -280,13 +280,12 @@ export default {
     },
     getUserDetails() {
       this.userLogin = this.$store.state.user.userLogin;
-      const id = this.userLogin.userId;
-      console.log(id);
+      const id = this.$store.state.user.userLogin.userId;
+
       this.$store.dispatch("user/getUserDetails", id);
-      // console.log(this.$store.getters["user/userDetails"]);
     },
     onSubmit() {
-      this.userLogin = this.$store.getters["user/userLogin"];
+      this.userLogin = this.$store.state.user.userLogin;
       const id = this.userLogin.userId;
       const userObject = {
         userObjectId: id,
@@ -298,7 +297,7 @@ export default {
   },
   computed: {
     userDetails() {
-      return this.$store.state.user.userDetails.data;
+      return this.$store.state.user.userDetails;
     },
   },
   mounted() {

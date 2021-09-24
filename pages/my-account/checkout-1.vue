@@ -39,7 +39,7 @@
                 {{ userDetails.data.invoicingDetails.country }}.</span
               >
               <span v-else>Aucune information n'a été renseigné</span>
-              <div class="check-out-form">
+              <div v-if="!invoicingForm" class="check-out-form">
                 <button
                   @click="formShow"
                   class="theme-btn-one btn-black-overlay btn_md"
@@ -462,6 +462,7 @@ export default {
         adresse: "",
         review: "",
       },
+      invoicingForm: true,
     };
   },
 
@@ -491,12 +492,14 @@ export default {
     //Submit new Adresse
     onSubmit() {
       const userObject = this.$store.state.user.userLogin;
-      // console.log(userObject.userId);
-      this.invoicing.invoiceUserId = userObject.userId;
-      this.$store.dispatch("user/addAdresse", this.invoicing);
+
       this.$store.dispatch("user/getUserDetails", userObject.userId);
 
-      // this.$nuxt.refresh();
+      if (this.invoicing) {
+        this.invoicing.invoiceUserId = userObject.userId;
+        this.$store.dispatch("user/addAdresse", this.invoicing);
+        this.invoicingForm = false;
+      }
     },
   },
   computed: {
@@ -517,17 +520,11 @@ export default {
     //   return process.env.STRIPE_PUBLIC_KEY;
     // },
     userDetails() {
-      return this.$store.getters["user/userDetails"];
+      return this.$store.state.user.userDetails;
     },
   },
   mounted() {
-    const orderItems = this.$store.state.cart.items;
-    // console.log("orderItems:", orderItems);
-
-    // this.$store.dispatch("order/getOrderItems");
     const userObject = this.$store.state.user.userLogin;
-    // console.log("userObject:", userObject);
-
     this.$store.dispatch("user/getUserDetails", userObject.userId);
     const userDetails = this.$store.state.user.userDetails;
     // console.log("userDetails:", userDetails);
