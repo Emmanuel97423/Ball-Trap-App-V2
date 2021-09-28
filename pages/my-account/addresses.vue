@@ -54,7 +54,8 @@
               </p>
               <address>
                 Information de facturation:
-                <div v-if="userDetails.data.invoicingDetails">
+                <br />
+                <!-- <div v-if="userDetails.data.invoicingDetails">
                   <br />
                   <ul v-for="adress in adresses" :key="adress.id">
                     <li>
@@ -64,9 +65,66 @@
                       {{ adress.country }}
                     </li>
                   </ul>
-                </div>
+                </div> -->
+                <div class="table_page table-responsive">
+                  <table>
+                    <!-- Start Cart Table Head -->
+                    <thead>
+                      <tr>
+                        <th class="adresses_adress">Adresses</th>
+                        <th class="adresses_zip">Code postal</th>
+                        <th class="adresses_zone">Zone</th>
+                        <th class="adresses_name">Nom</th>
+                        <th class="product_quantity">Adresse par défault</th>
+                        <th class="product_total">Supprimer</th>
+                      </tr>
+                    </thead>
+                    <!-- End Cart Table Head -->
 
-                <span v-else>Aucune information n'a été renseigné</span>
+                    <!-- {{ selectedProducts }} -->
+                    <tbody>
+                      <!-- Start Cart Single Item-->
+                      <tr v-for="adress in adresses" :key="adress.id">
+                        <td class="adresses_adress">
+                          <p>{{ adress.adresse }}</p>
+                        </td>
+
+                        <td class="adresses_zip">
+                          <p>{{ adress.zip }}</p>
+                        </td>
+                        <td class="adresses_zone">
+                          <p>{{ adress.zone }}</p>
+                        </td>
+                        <td class="adresses_name">
+                          <p>{{ adress.firstName }} {{ adress.lastName }}</p>
+                        </td>
+                        <td class="adresses_default">
+                          <input
+                            type="radio"
+                            name="adress_default"
+                            value="default"
+                          />
+                        </td>
+
+                        <td class="adresses_remove">
+                          <button
+                            @click="removeAdress(adress)"
+                            class="bg-transparent remove-btn"
+                          >
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <!-- End Cart Single Item-->
+                    </tbody>
+
+                    <!-- <tbody>
+                      <tr>
+                        <td class="border-0">Aucune adresse enregistrer!</td>
+                      </tr>
+                    </tbody> -->
+                  </table>
+                </div>
               </address>
               <button
                 @click="formShow"

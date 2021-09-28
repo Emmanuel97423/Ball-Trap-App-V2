@@ -116,7 +116,9 @@ export default {
         });
     },
   },
-  created() {
+  mounted() {
+    const userObject = this.$store.state.user.userLogin;
+    this.$store.dispatch("adress/getAdresses", userObject.userId);
     // // this.$auth.refreshTokens();
     // this.login.email = this.$store.state.user.userLogin.email;
     // this.login.password = this.$store.state.user.userLogin.password;
