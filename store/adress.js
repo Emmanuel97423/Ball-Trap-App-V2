@@ -8,19 +8,25 @@ export const actions = {
     addAdress({ commit }, item) {
 
         this.$axios.post('adress/addAdress', item).then((response) => {
-            console.log(response)
+
             commit('ADD_ADRESS', response)
         }).catch((err) => { commit('ADD_ADRESS', err.response.data.message) })
     },
     //Get adresses by username
     getAdresses({ commit }, id) {
-        console.log('id:', id)
-
         this.$axios.get('adress/getAdresses/' + id).then((response) => {
-            console.log(response)
             commit('GET_ADRESSES', response)
+
         }).catch((err) => { commit('GET_ADRESSES', err.response.data.message) })
     },
+    //update
+    // updateAdress({ commit }, item) {
+    //     console.log('item:', item)
+    //     this.$axios.put('adress/updateAdress', item).then((response) => {
+    //         console.log(response)
+
+    //     })
+    // }
 }
 
 //handle Mutations

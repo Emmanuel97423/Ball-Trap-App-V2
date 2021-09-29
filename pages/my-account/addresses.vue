@@ -52,7 +52,7 @@
                   {{ userDetails.data.lastName }}</strong
                 >
               </p>
-              <address>
+              <div>
                 Information de facturation:
                 <br />
                 <!-- <div v-if="userDetails.data.invoicingDetails">
@@ -76,7 +76,7 @@
                         <th class="adresses_zone">Zone</th>
                         <th class="adresses_name">Nom</th>
                         <th class="product_quantity">Adresse par défault</th>
-                        <th class="product_total">Supprimer</th>
+                        <!-- <th class="product_total">Supprimer</th> -->
                       </tr>
                     </thead>
                     <!-- End Cart Table Head -->
@@ -84,56 +84,58 @@
                     <!-- {{ selectedProducts }} -->
                     <tbody>
                       <!-- Start Cart Single Item-->
-                      <tr v-for="adress in adresses" :key="adress.id">
+                      <tr>
                         <td class="adresses_adress">
-                          <p>{{ adress.adresse }}</p>
+                          <p>{{ adresses.adress }}</p>
                         </td>
 
                         <td class="adresses_zip">
-                          <p>{{ adress.zip }}</p>
+                          <p>{{ adresses.zip }}</p>
                         </td>
                         <td class="adresses_zone">
-                          <p>{{ adress.zone }}</p>
+                          <p>{{ adresses.zone }}</p>
                         </td>
                         <td class="adresses_name">
-                          <p>{{ adress.firstName }} {{ adress.lastName }}</p>
+                          {{ adresses.firstName }} {{ adresses.lastName }}
                         </td>
                         <td class="adresses_default">
                           <input
                             type="radio"
                             name="adress_default"
                             value="default"
+                            checked="true"
                           />
                         </td>
 
-                        <td class="adresses_remove">
+                        <!-- <td class="adresses_remove">
                           <button
                             @click="removeAdress(adress)"
                             class="bg-transparent remove-btn"
                           >
                             <i class="far fa-trash-alt"></i>
                           </button>
-                        </td>
+                        </td> -->
                       </tr>
                       <!-- End Cart Single Item-->
                     </tbody>
 
-                    <!-- <tbody>
+                    <tbody v-if="!adresses.adress">
                       <tr>
                         <td class="border-0">Aucune adresse enregistrer!</td>
                       </tr>
-                    </tbody> -->
+                    </tbody>
                   </table>
                 </div>
-              </address>
+              </div>
               <button
                 @click="formShow"
                 class="theme-btn-one btn-black-overlay btn_md"
               >
                 Editer
               </button>
-
-              <ValidationObserver v-if="formEnabled" v-slot="{ handleSubmit }">
+            </div>
+            <div v-if="formEnabled">
+              <ValidationObserver v-slot="{ handleSubmit }">
                 <form id="form" @submit.prevent="handleSubmit(onSubmit)">
                   <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
@@ -288,7 +290,7 @@
                         <div class="form-group">
                           <label for="addresse">Adresse complète</label>
                           <input
-                            v-model="invoicing.adresse"
+                            v-model="invoicing.adress"
                             type="text"
                             class="form-control"
                             id="adresse"
@@ -326,11 +328,12 @@
                     </div>
                   </div> -->
                   </div>
+
                   <button
                     class="theme-btn-one btn-black-overlay btn_md"
                     type="submit"
                   >
-                    Sauvegarder les modifications
+                    Sauvegarder
                   </button>
                 </form>
               </ValidationObserver>
@@ -375,7 +378,7 @@ export default {
         country: "",
         zone: "",
         zip: "",
-        adresse: "",
+        adress: "",
         review: "",
       },
       adresses: "",
@@ -414,21 +417,28 @@ export default {
       const userObject = this.$store.state.user.userLogin;
       // console.log(userObject.userId);
       this.invoicing.userId = userObject.userId;
-      this.$store.dispatch("adress/addAdress", this.invoicing);
+
       this.$store.dispatch("user/getUserDetails", userObject.userId);
+      // this.$store.state.adress.data;
+
+      this.$store.dispatch("adress/addAdress", this.invoicing);
+
+      setTimeout(() => {
+        console.log("Refresh");
+        this.$nuxt.refresh();
+      }, 5000);
     },
   },
 
   mounted() {
     const userObject = this.$store.state.user.userLogin;
-    this.$store
-      .dispatch("user/getUserDetails", userObject.userId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.$store.dispatch("user/getUserDetails", userObject.userId);
+    // .then((response) => {
+    //   console.log(response);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
 
     this.$store.dispatch("adress/getAdresses", userObject.userId);
 
