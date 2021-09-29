@@ -27,6 +27,7 @@
                 <h3>Information de facturation</h3>
               </div>
               Informations de facturation actuelle :
+
               <div v-if="userDetails.data.invoicingDetails">
                 <!-- <span class="invoice__adresse">
                   
@@ -36,22 +37,31 @@
                   {{ userDetails.data.invoicingDetails.zone }},
                   {{ userDetails.data.invoicingDetails.country }}.</span
                 > -->
-                <ul v-for="adress in adresses" :key="adress.id">
+                <ul>
+                  <br />
                   <li>
-                    <span>{{ adress.firstName }} {{ adress.lastName }}</span>
-                    , {{ adress.adresse }}, {{ adress.zip }}, {{ adress.zone }},
-                    {{ adress.country }}
+                    <input type="radio" checked /> {{ userAdress.firstName }}
+                    {{ userAdress.lastName }}, {{ userAdress.adress }},
+                    {{ userAdress.zip }}
                   </li>
                 </ul>
+
+                {{ invoicing.userId }}
               </div>
               <span v-else>Aucune information n'a été renseigné</span>
               <div class="check-out-form">
-                <button
+                <!-- <button
                   @click="formShow"
                   class="theme-btn-one btn-black-overlay btn_md"
                 >
                   Editer
-                </button>
+                </button> -->
+                <nuxt-link
+                  to="/my-account/addresses"
+                  class="theme-btn-one btn-black-overlay btn_md"
+                >
+                  Modifier
+                </nuxt-link>
 
                 <ValidationObserver
                   v-if="formEnabled"
@@ -218,7 +228,7 @@
                           <div class="form-group">
                             <label for="addresse">Adresse complète</label>
                             <input
-                              v-model="invoicing.adresse"
+                              v-model="invoicing.adress"
                               type="text"
                               class="form-control"
                               id="adresse"
@@ -461,7 +471,7 @@ export default {
       },
 
       invoicing: {
-        invoiceUserId: null,
+        userId: "",
         firstName: "",
         lastName: "",
         company: "",
@@ -469,7 +479,7 @@ export default {
         country: "",
         zone: "",
         zip: "",
-        adresse: "",
+        adress: "",
         review: "",
       },
       invoicingForm: true,
@@ -523,8 +533,15 @@ export default {
 
       try {
         this.$store.dispatch("user/getUserDetails", userObject.userId);
-        this.invoicing.invoiceUserId = userObject.userId;
-        this.$store.dispatch("user/addAdresse", this.invoicing);
+
+        this.$store.dispatch("adress/addAdress", this.invoicing);
+        // try {
+        //   this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
+        // } catch (err) {
+        //   console.error(err);
+        // }
+        this.userAdress();
+        console.log("this.invoicing:", this.invoicing);
       } catch (error) {
         console.log(error);
       }
@@ -552,13 +569,19 @@ export default {
     userDetails() {
       return this.$store.state.user.userDetails;
     },
+    userAdress() {
+      // this.invoicing.userId = this.$store.state.adress.userAdresses.data.userId;
+      return this.$store.state.adress.userAdresses.data;
+    },
   },
   mounted() {
     // this.$store.dispatch("adress/getAdresses")
+
     const userAdress = this.$store.state.adress.userAdresses.data;
-    console.log("userAdress:", userAdress);
 
     this.adresses = userAdress;
+
+    // this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
     // const userObject = this.$store.state.user.userLogin;
     // this.$store.dispatch("user/getUserDetails", userObject.userId);
     // const userDetails = this.$store.state.user.userDetails;

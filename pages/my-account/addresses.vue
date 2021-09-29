@@ -354,7 +354,7 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
-  data() {
+  asyncData() {
     return {
       enabled: true,
       formEnabled: false,
@@ -423,10 +423,20 @@ export default {
 
       this.$store.dispatch("adress/addAdress", this.invoicing);
 
-      setTimeout(() => {
-        console.log("Refresh");
-        this.$nuxt.refresh();
-      }, 5000);
+      setTimeout(async () => {
+        try {
+          await this.$store.dispatch("adress/getAdresses", userObject.userId);
+          try {
+            console.log("Refresh");
+            this.$nuxt.refresh();
+            // this.$router.push("/my-account/addresses");
+          } catch (error) {
+            console.log(error);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }, 2000);
     },
   },
 

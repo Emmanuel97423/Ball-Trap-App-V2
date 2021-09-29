@@ -10,6 +10,7 @@ export const actions = {
         this.$axios.post('adress/addAdress', item).then((response) => {
 
             commit('ADD_ADRESS', response)
+
         }).catch((err) => { commit('ADD_ADRESS', err.response.data.message) })
     },
     //Get adresses by username
