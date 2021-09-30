@@ -45,24 +45,30 @@
                 <table>
                   <thead>
                     <tr>
-                      <th>Commande</th>
+                      <th>Commandes</th>
                       <th>Date</th>
                       <th>Status</th>
                       <th>Total</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <!-- <tr>
-                      <td>1</td>
-                      <td>May 10, 2018</td>
-                      <td><span class="success">Completed</span></td>
-                      <td>$25.00 for 1 item</td>
+                  <tbody v-for="item in getOrderItems" :key="item.id">
+                    <tr>
+                      <td>{{ item._id }}</td>
+                      <td>{{ item.date }}</td>
+                      <td><span class="success">Payé</span></td>
+                      <td>{{ item.amount.toFixed(2) }} €</td>
                       <td>
-                        <nuxt-link to="/cart/" class="view">Voir</nuxt-link>
+                        <nuxt-link
+                          :to="`order/${item._id}`"
+                          class="view"
+                          target="_blank"
+                          >Voir</nuxt-link
+                        >
                       </td>
                     </tr>
-                    <tr>
+
+                    <!-- <tr>
                       <td>2</td>
                       <td>May 10, 2018</td>
                       <td>Processing</td>
@@ -71,7 +77,9 @@
                         <nuxt-link to="/cart/" class="view">Voir</nuxt-link>
                       </td>
                     </tr> -->
-                    <p>Vous n'avez pas encore de commande</p>
+                    <p v-if="!getOrderItems">
+                      Vous n'avez pas encore de commande
+                    </p>
                   </tbody>
                 </table>
               </div>
@@ -128,6 +136,16 @@ export default {
           console.log(err);
         });
     },
+  },
+  computed: {
+    getOrderItems() {
+      return this.$store.state.order.orders.data.orders;
+    },
+  },
+  mounted() {
+    const id = this.$store.state.user.userLogin.userId;
+    console.log("id:", id);
+    this.$store.dispatch("order/getOrders", id);
   },
 };
 </script>

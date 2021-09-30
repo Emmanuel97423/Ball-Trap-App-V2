@@ -2,7 +2,9 @@
 export const state = () => ({
     orderItems: [],
     // apiResponse: "",
-    clientSecret: ""
+    clientSecret: "",
+    orders: [],
+    order: [],
 
 })
 
@@ -36,6 +38,22 @@ export const actions = {
 
         }).catch((err) => { commit('SEND_ORDER', err) })
     },
+    //Get all orders
+    getOrders({ commit }, id) {
+        this.$axios.get('/order/allOrders/' + id).then((response) => {
+            console.log('id:', id)
+            console.log(response)
+            commit('GET_ALL_ORDERS', response)
+        })
+    },
+    //Get one order
+    getOneOrder({ commit }, id) {
+        this.$axios.get('/order/' + id).then((response) => {
+
+            console.log(response)
+            commit('GET_ONE_ORDER', response)
+        })
+    },
     //Get Stripe getsecret 
     getPaymentSecret({ commit }, item) {
         this.$axios.post('/order/paymentSecret', item).then((response) => {
@@ -58,5 +76,11 @@ export const mutations = {
     },
     PAYMENT_SECRET(state, clientSecret) {
         state.clientSecret = clientSecret
+    },
+    GET_ALL_ORDERS(state, allOrders) {
+        state.orders = allOrders
+    },
+    GET_ONE_ORDER(state, order) {
+        state.order = order;
     }
 }
