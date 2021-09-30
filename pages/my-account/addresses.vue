@@ -82,8 +82,7 @@
                     <!-- End Cart Table Head -->
 
                     <!-- {{ selectedProducts }} -->
-                    <tbody>
-                      <!-- Start Cart Single Item-->
+                    <tbody v-if="adresses">
                       <tr>
                         <td class="adresses_adress">
                           <p>{{ adresses.adress }}</p>
@@ -106,20 +105,10 @@
                             checked="true"
                           />
                         </td>
-
-                        <!-- <td class="adresses_remove">
-                          <button
-                            @click="removeAdress(adress)"
-                            class="bg-transparent remove-btn"
-                          >
-                            <i class="far fa-trash-alt"></i>
-                          </button>
-                        </td> -->
                       </tr>
-                      <!-- End Cart Single Item-->
                     </tbody>
 
-                    <tbody v-if="!adresses.adress">
+                    <tbody v-else>
                       <tr>
                         <td class="border-0">Aucune adresse enregistrer!</td>
                       </tr>

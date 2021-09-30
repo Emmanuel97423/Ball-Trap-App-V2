@@ -52,8 +52,9 @@
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody v-for="item in getOrderItems" :key="item.id">
-                    <tr>
+
+                  <tbody v-if="getOrderItems.length > 0">
+                    <tr v-for="item in getOrderItems" :key="item.id">
                       <td>{{ item._id }}</td>
                       <td>{{ item.date }}</td>
                       <td><span class="success">Payé</span></td>
@@ -77,10 +78,8 @@
                         <nuxt-link to="/cart/" class="view">Voir</nuxt-link>
                       </td>
                     </tr> -->
-                    <p v-if="!getOrderItems">
-                      Vous n'avez pas encore de commande
-                    </p>
                   </tbody>
+                  <p v-else>Vous n'avez pas encore de commande</p>
                 </table>
               </div>
             </div>
@@ -139,7 +138,12 @@ export default {
   },
   computed: {
     getOrderItems() {
-      return this.$store.state.order.orders.data.orders;
+      const ordersData = this.$store.state.order.orders.data.orders;
+      if (ordersData) {
+        return ordersData;
+      } else {
+        return false;
+      }
     },
   },
   mounted() {
