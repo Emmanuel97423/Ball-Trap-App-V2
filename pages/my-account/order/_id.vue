@@ -6,7 +6,7 @@
           <div class="invoice-wrapper">
             <!-- {{ order }} -->
             <div class="intro">
-              Bonjour <strong>{{ order.customer.firstName }}</strong
+              Bonjour <strong>{{ customer.firstName }}</strong
               >,
               <br />
               Ceci est la commande pour un paiement de
@@ -31,15 +31,15 @@
                 <div class="col-sm-6">
                   <span>Client</span>
                   <strong
-                    >{{ order.customer.firstName }}
-                    {{ order.customer.lastName }}
+                    >{{ customer.firstName }}
+                    {{ customer.lastName }}
                   </strong>
                   <p>
-                    {{ order.customer.adresse }} <br />
-                    {{ order.customer.zone }}<br />
-                    {{ order.customer.zip }} <br />
-                    {{ order.customer.country }}<br />
-                    <a href="#"> {{ order.customer.email }} </a>
+                    {{ customer.adresse }} <br />
+                    {{ customer.zone }}<br />
+                    {{ customer.zip }} <br />
+                    {{ customer.country }}<br />
+                    <a href="#"> {{ customer.email }} </a>
                   </p>
                 </div>
                 <div class="col-sm-6 text-right">
@@ -183,10 +183,13 @@ export default {
     order() {
       return this.$store.state.order.order.data;
     },
+    customer() {
+      return this.$store.state.auth.user.userObject;
+    },
   },
   mounted() {
-    const id = this.$route.params.id;
-    console.log("id:", id);
+    const id = this.$store.state.auth.user.userId;
+
     this.$store.dispatch("order/getOneOrder", id);
   },
 };

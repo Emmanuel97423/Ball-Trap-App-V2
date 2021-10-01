@@ -417,9 +417,9 @@ export default {
           await this.$store.dispatch("adress/getAdresses", userObject.userId);
           try {
             console.log("Refresh");
-            this.$forceUpdate();
+            // this.$forceUpdate();
             // this.$nuxt.refresh();
-            // this.$router.push("/my-account/addresses");
+            this.$router.push("/my-account");
           } catch (error) {
             console.log(error);
           }

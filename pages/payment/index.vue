@@ -92,10 +92,10 @@ export default {
     return {
       orderDetails: {
         userId: "",
-        customer: "",
+        // customer: "",
         products: "",
         amount: "",
-        date: "",
+        // date: "",
         clientSecret: "",
       },
       productPurchase: {
@@ -202,14 +202,14 @@ export default {
     },
   },
   mounted() {
-    const invoicingObject = this.$store.state.user.userDetails;
-    console.log("invoicingObject:", invoicingObject);
+    // const invoicingObject = this.$store.state.user.userDetails;
+
     this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
     this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
     this.orderDetails.products = this.$store.state.cart.items;
-    this.orderDetails.date = Date.now();
-    this.orderDetails.customer = invoicingObject.data.invoicingDetails;
-    this.orderDetails.userId = this.$store.state.user.userLogin.userId;
+    // this.orderDetails.date = Date.now();
+    // this.orderDetails.customer = invoicingObject.data.invoicingDetails;
+    this.orderDetails.userId = this.$store.state.auth.user.userId;
 
     this.paymentInit();
   },

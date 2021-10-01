@@ -28,7 +28,7 @@
               </div>
               Informations de facturation actuelle :
 
-              <div v-if="userDetails.data.invoicingDetails">
+              <div v-if="userAdress">
                 <!-- <span class="invoice__adresse">
                   
                   {{ userDetails.data.invoicingDetails.lastName }},
@@ -575,7 +575,8 @@ export default {
     },
   },
   mounted() {
-    // this.$store.dispatch("adress/getAdresses")
+    const id = this.$store.state.auth.user.userId;
+    this.$store.dispatch("adress/getAdresses", id);
 
     const userAdress = this.$store.state.adress.userAdresses.data;
 
