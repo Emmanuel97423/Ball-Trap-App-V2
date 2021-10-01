@@ -60,7 +60,7 @@ export default {
     "@nuxtjs/auth-next",
     'nuxt-stripe-module',
     ['nuxt-vuex-localstorage', {
-      localStorage: ['cart', 'user', 'order', 'auth', 'adress']
+      localStorage: ['cart', 'user', 'order', 'adress']
     }]
   ],
   stripe: {
@@ -86,12 +86,12 @@ export default {
 
   },
   auth: {
-    redirect: {
-      login: "/login",
-      logout: "/login",
-      callback: "/login",
-      home: "/my-account",
-    },
+    // redirect: {
+    //   login: "/login",
+    //   logout: "/login",
+    //   // callback: "/login",
+    //   // home: "/my-account",
+    // },
     strategies: {
       local: false,
       cookie: {
@@ -102,14 +102,16 @@ export default {
         },
         user: {
           property: "user",
+          // property: false
         },
         endpoints: {
           login: {
             url: "/auth/login",
             method: "post",
+            // propertyName: 'token'
           },
-          // user: { url: '/user/me', method: 'get' },
-          user: false,
+          user: { url: '/user/me', method: 'get' },
+          // user: false,
           logout: false,
 
         },

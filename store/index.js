@@ -1,5 +1,16 @@
 import cookieparser from 'cookieparser'
 
+
+export const getters = {
+  isAuthenticated(state) {
+    return state.auth.loggedIn
+  },
+
+  loggedInUser(state) {
+    return state.auth.user
+  }
+}
+
 //actions
 export const actions = {
   nuxtServerInit({ commit }, { req }) {

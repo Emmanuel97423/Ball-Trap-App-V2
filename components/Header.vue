@@ -169,7 +169,7 @@
                         <nuxt-link
                           class="active main-menu-link"
                           to="/my-account"
-                          >Compte
+                          >Mon espace
                         </nuxt-link>
                       </li>
                     </ul>

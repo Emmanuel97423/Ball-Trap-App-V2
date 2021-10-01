@@ -147,8 +147,7 @@ export default {
     },
   },
   mounted() {
-    const id = this.$store.state.user.userLogin.userId;
-    console.log("id:", id);
+    const id = this.$store.state.auth.user.userId;
     this.$store.dispatch("order/getOrders", id);
   },
 };

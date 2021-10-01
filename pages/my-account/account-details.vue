@@ -281,7 +281,7 @@ export default {
         });
     },
     getUserDetails() {
-      this.userLogin = this.$store.state.user.userLogin;
+      this.userLogin = this.$store.state.auth.user;
       const id = this.$store.state.user.userLogin.userId;
 
       this.$store.dispatch("user/getUserDetails", id);

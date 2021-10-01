@@ -40,9 +40,8 @@ export const actions = {
     },
     //Get all orders
     getOrders({ commit }, id) {
+
         this.$axios.get('/order/allOrders/' + id).then((response) => {
-            console.log('id:', id)
-            console.log(response)
             commit('GET_ALL_ORDERS', response)
         })
     },

@@ -431,21 +431,12 @@ export default {
   },
 
   mounted() {
-    const userObject = this.$store.state.user.userLogin;
+    const userObject = this.$store.state.auth.user;
     this.$store.dispatch("user/getUserDetails", userObject.userId);
-    // .then((response) => {
-    //   console.log(response);
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
 
     this.$store.dispatch("adress/getAdresses", userObject.userId);
 
     this.adresses = this.$store.state.adress.userAdresses.data;
-
-    // const userData = this.$store.state.user.userDetails;
-    // console.log("userDetails:", userData);
   },
   computed: {
     userDetails() {
