@@ -60,10 +60,8 @@
                       <td><span class="success">Payé</span></td>
                       <td>{{ item.amount.toFixed(2) }} €</td>
                       <td>
-                        <nuxt-link
-                          :to="`order/${item._id}`"
-                          class="view"
-                          target="_blank"
+                        {{ item._id }}
+                        <nuxt-link :to="`order/${item._id}`" class="view"
                           >Voir</nuxt-link
                         >
                       </td>
@@ -139,16 +137,25 @@ export default {
   computed: {
     getOrderItems() {
       const ordersData = this.$store.state.order.orders.data.orders;
-      if (ordersData) {
-        return ordersData;
-      } else {
-        return false;
-      }
+
+      return ordersData;
+      // if (ordersData) {
+      //   return ordersData;
+      // } else {
+      //   return false;
+      // }
+    },
+    userId() {
+      return this.$store.state.auth.user.userId;
     },
   },
   mounted() {
     const id = this.$store.state.auth.user.userId;
-    this.$store.dispatch("order/getOrders", id);
+    if (id) {
+      this.$store.dispatch("order/getOrders", id);
+    } else {
+      console.log("Une erreur mounted");
+    }
   },
 };
 </script>

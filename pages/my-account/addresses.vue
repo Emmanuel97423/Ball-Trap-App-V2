@@ -46,26 +46,14 @@
               </p>
               <h5 class="billing-address">Adresse</h5>
 
-              <p>
+              <p v-if="adresses">
                 <strong
-                  >{{ userDetails.data.firstName }}
-                  {{ userDetails.data.lastName }}</strong
-                >
+                  >{{ adresses.firstName }} {{ adresses.lastName }}
+                </strong>
               </p>
               <div>
                 Information de facturation:
                 <br />
-                <!-- <div v-if="userDetails.data.invoicingDetails">
-                  <br />
-                  <ul v-for="adress in adresses" :key="adress.id">
-                    <li>
-                      <span>{{ adress.firstName }} {{ adress.lastName }}</span>
-                      , {{ adress.adresse }}, {{ adress.zip }},
-                      {{ adress.zone }},
-                      {{ adress.country }}
-                    </li>
-                  </ul>
-                </div> -->
                 <div class="table_page table-responsive">
                   <table>
                     <!-- Start Cart Table Head -->
@@ -370,7 +358,7 @@ export default {
         adress: "",
         review: "",
       },
-      adresses: "",
+      // adresses: "",
     };
   },
 
@@ -431,16 +419,19 @@ export default {
   },
 
   mounted() {
-    const userObject = this.$store.state.auth.user;
-    this.$store.dispatch("user/getUserDetails", userObject.userId);
+    try {
+      const userObject = this.$store.state.auth.user;
 
-    this.$store.dispatch("adress/getAdresses", userObject.userId);
+      this.$store.dispatch("user/getUserDetails", userObject.userId);
 
-    this.adresses = this.$store.state.adress.userAdresses.data;
+      this.$store.dispatch("adress/getAdresses", userObject.userId);
+    } catch (error) {
+      console.log(error);
+    }
   },
   computed: {
-    userDetails() {
-      return this.$store.state.user.userDetails;
+    adresses() {
+      return this.$store.state.adress.userAdresses.data;
     },
   },
 };

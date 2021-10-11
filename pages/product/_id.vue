@@ -543,7 +543,7 @@ export default {
     //       }).catch((err) => {console.log(err)})
     // },
   },
-  created() {
+  mounted() {
     // this.dataTest()
     this.outOfStock();
     const id = this.$route.params.id;

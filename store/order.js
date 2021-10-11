@@ -12,7 +12,8 @@ export const state = () => ({
 export const getters = {
     orderItems: (state) => state.orderItems,
     // apiResponse: (state) => state.orderItems.data.message,
-    clientSecret: (state) => state.clientSecret
+    clientSecret: (state) => state.clientSecret,
+    orders: (state) => state.orders
     //product
     //customer
     //Order
@@ -22,7 +23,7 @@ export const getters = {
 export const actions = {
     getOrderItems({ commit }) {
         const orderItems = this.$store.state.cart.items
-        console.log('orderItems:', orderItems)
+
 
     },
     //Send order 
@@ -42,15 +43,20 @@ export const actions = {
     getOrders({ commit }, id) {
 
         this.$axios.get('/order/allOrders/' + id).then((response) => {
+
             commit('GET_ALL_ORDERS', response)
         })
     },
     //Get one order
     getOneOrder({ commit }, id) {
-        this.$axios.get('/order/' + id).then((response) => {
+        console.log('id:', id)
 
-            console.log(response)
+        this.$axios.get(`/order/${id}`).then((response) => {
+
+
             commit('GET_ONE_ORDER', response)
+        }).catch((error) => {
+            console.log('error:', error)
         })
     },
     //Get Stripe getsecret 

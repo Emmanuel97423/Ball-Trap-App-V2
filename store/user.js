@@ -30,7 +30,6 @@ export const actions = {
     //Get user Details
     getUserDetails({ commit }, id) {
 
-
         this.$axios.get('auth/user/' + id).then((res) => {
             // console.log(res)
             commit('USER_DETAILS', res)

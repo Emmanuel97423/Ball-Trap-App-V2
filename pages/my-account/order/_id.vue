@@ -178,7 +178,20 @@ export default {
   //   async asyncData({ params }) {
   //     const slug = params.slug; // When calling /abc the slug will be "abc"
   //     return { slug };
-  //   },
+  // //   },
+  // async asyncData({ params, $http, error }) {
+  //   const id = params.id;
+  //   console.log("id-params:", id);
+
+  //   try {
+  //     // Using the nuxtjs/http module here exposed via context.app
+  //     this.$store.dispatch("order/getOneOrder", id);
+  //     // const post = await $http.$get(`https://api.nuxtjs.dev/posts/${id}`)
+  //     // return { post };
+  //   } catch (e) {
+  //     error(e); // Show the nuxt error page with the thrown error
+  //   }
+  // },
   computed: {
     order() {
       return this.$store.state.order.order.data;
@@ -187,10 +200,13 @@ export default {
       return this.$store.state.auth.user.userObject;
     },
   },
-  mounted() {
-    const id = this.$store.state.auth.user.userId;
-
-    this.$store.dispatch("order/getOneOrder", id);
+  async mounted() {
+    console.log(this.$route.params.id);
+    // console.log("params:", params);
+    const id = this.$route.params.id;
+    // console.log("id:", id);
+    // const id = this.$store.state.auth.user.userId;
+    await this.$store.dispatch("order/getOneOrder", id);
   },
 };
 </script>
