@@ -119,6 +119,7 @@ export default {
   mounted() {
     const userObject = this.$store.state.auth.user;
     this.$store.dispatch("adress/getAdresses", userObject.userId);
+    this.$store.dispatch("order/getOrders", userObject.userId);
     // // this.$auth.refreshTokens();
     // this.login.email = this.$store.state.user.userLogin.email;
     // this.login.password = this.$store.state.user.userLogin.password;

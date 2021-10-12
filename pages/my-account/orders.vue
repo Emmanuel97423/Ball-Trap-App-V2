@@ -151,6 +151,7 @@ export default {
   },
   beforeMounted() {
     const id = this.$store.state.auth.user.userId;
+    console.log("id:", id);
     if (id) {
       this.$store.dispatch("order/getOrders", id);
     } else {
