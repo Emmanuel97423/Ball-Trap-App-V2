@@ -125,17 +125,16 @@
               v-for="productItem in productItems.slice(0, 8)"
               :key="productItem.id"
             >
-              
-            <ProductBox1
-              :productImg1="productItem.imageUrl"
-              :productImg2="productItem.imageUrl"
-              :productTagClass="productItem.productTagClass"
-              :productTag="productItem.productTag"
-              :productTitle="productItem.name"
-              :productPrice="productItem.price"
-              :productId="productItem._id"
-              :productObject="productItem"
-            />
+              <ProductBox1
+                :productImg1="productItem.imageUrl"
+                :productImg2="productItem.imageUrl"
+                :productTagClass="productItem.productTagClass"
+                :productTag="productItem.productTag"
+                :productTitle="productItem.name"
+                :productPrice="productItem.price"
+                :productId="productItem._id"
+                :productObject="productItem"
+              />
             </div>
           </b-tab>
 
@@ -337,7 +336,7 @@
     </section>
 
     <!-- Instagram Arae -->
-    <div v-if="!enabled"><InstagramArea /></div>
+    <!-- <div v-if="!enabled"><InstagramArea /></div> -->
   </div>
 </template>
 
@@ -362,217 +361,6 @@ export default {
     return {
       enabled: false,
       title: "Home",
-      // Product Items Data
-      // productItems: [
-      //   {
-      //     id: 1,
-      //     productImg1: require("assets/img/product-image/product1.png"),
-      //     productImg2: require("assets/img/product-image/product2.png"),
-      //     productTagClass: "",
-      //     productTag: "",
-      //     productTitle: "Gilet Ball Trap",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 38.5,
-      //     totalPrice: 180.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 2,
-      //     productImg1: require("assets/img/product-image/product3.png"),
-      //     productImg2: require("assets/img/product-image/product4.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "Cartouches",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 130.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 3,
-      //     productImg1: require("assets/img/product-image/product5.png"),
-      //     productImg2: require("assets/img/product-image/product6.png"),
-      //     productTagClass: "hot",
-      //     productTag: "hot",
-      //     productTitle: "Tee-shirt homme",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 50.5,
-      //     totalPrice: 160.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 4,
-      //     productImg1: require("assets/img/product-image/product7.png"),
-      //     productImg2: require("assets/img/product-image/product8.png"),
-      //     productTagClass: "",
-      //     productTag: "",
-      //     productTitle: "Casquette",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 5,
-      //     productImg1: require("assets/img/product-image/product9.png"),
-      //     productImg2: require("assets/img/product-image/product10.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "Fusil 1",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 99.5,
-      //     totalPrice: 155.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 6,
-      //     productImg1: require("assets/img/product-image/product11.png"),
-      //     productImg2: require("assets/img/product-image/product12.png"),
-      //     productTagClass: "hot",
-      //     productTag: "hot",
-      //     productTitle: "Casquette 2",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 7,
-      //     productImg1: require("assets/img/product-image/product13.png"),
-      //     productImg2: require("assets/img/product-image/product14.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "T-Shirt Form Girls",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 48.5,
-      //     totalPrice: 200.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 8,
-      //     productImg1: require("assets/img/product-image/product15.png"),
-      //     productImg2: require("assets/img/product-image/product1.png"),
-      //     productTagClass: "",
-      //     productTag: "",
-      //     productTitle: "T-Shirt Form Girls",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 80.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 9,
-      //     productImg1: require("assets/img/product-image/product2.png"),
-      //     productImg2: require("assets/img/product-image/product3.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "Blue Dress For Woman",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 300,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 10,
-      //     productImg1: require("assets/img/product-image/product4.png"),
-      //     productImg2: require("assets/img/product-image/product5.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "Black T-Shirt For Woman",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 330.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 11,
-      //     productImg1: require("assets/img/product-image/product6.png"),
-      //     productImg2: require("assets/img/product-image/product7.png"),
-      //     productTagClass: "hot",
-      //     productTag: "hot",
-      //     productTitle: "T-Shirt Form Girls",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 328,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 12,
-      //     productImg1: require("assets/img/product-image/product8.png"),
-      //     productImg2: require("assets/img/product-image/product9.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "T-Shirt Form Girls",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 13,
-      //     productImg1: require("assets/img/product-image/product10.png"),
-      //     productImg2: require("assets/img/product-image/product11.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "Blue Dress For Woman",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 14,
-      //     productImg1: require("assets/img/product-image/product12.png"),
-      //     productImg2: require("assets/img/product-image/product13.png"),
-      //     productTagClass: "hot",
-      //     productTag: "hot",
-      //     productTitle: "Black T-Shirt For Woman",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 738.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 15,
-      //     productImg1: require("assets/img/product-image/product14.png"),
-      //     productImg2: require("assets/img/product-image/product15.png"),
-      //     productTagClass: "new",
-      //     productTag: "new",
-      //     productTitle: "T-Shirt Form Girls",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 158.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      //   {
-      //     id: 16,
-      //     productImg1: require("assets/img/product-image/product1.png"),
-      //     productImg2: require("assets/img/product-image/product2.png"),
-      //     productTagClass: "hot",
-      //     productTag: "hot",
-      //     productTitle: "White Black Line Dress",
-      //     productDescription:
-      //       "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-      //     productPrice: 18.5,
-      //     totalPrice: 320.0,
-      //     quantity: 1,
-      //   },
-      // ],
 
       // Blog Items Data
       blogItems: [
@@ -666,17 +454,14 @@ export default {
       ],
     };
   },
-    computed: {
-
+  computed: {
     productItems() {
-       
-      return this.$store.getters['products/productItems']
-    }
+      return this.$store.getters["products/productItems"];
+    },
   },
-    created() {
-    this.$store.dispatch('products/getProducts')
-   
-  }
+  created() {
+    this.$store.dispatch("products/getProducts");
+  },
 };
 </script>
 

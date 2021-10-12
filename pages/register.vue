@@ -224,28 +224,21 @@ export default {
     onSubmit() {
       let registerForm = document.getElementById("registerForm");
       const signupError = this.$store.state.user.userSignup;
-      // const blob = this.register.idFile;
+      console.log("signupError:", signupError);
+
       const formData = new FormData(registerForm);
 
-      // formData.append("idFile", blob);
-      // formData.append("firstName", this.register.firstName);
-      // formData.append("lastName", this.register.lastName);
-      // formData.append("email", this.register.email);
+      // for (var value of formData.values()) {
+      //   console.log(value);
+      // }
 
-      for (var value of formData.values()) {
-        console.log(value);
-      }
-      // const formObject = {};
-      // formData.forEach((value, key) => {
-      //   formObject[key] = value.trim();
-      // });
-
-      // console.log(formObject);
       this.$store.dispatch("user/signup", formData);
 
-      this.$refs.registerForm.setErrors({
-        email: [signupError],
-      });
+      if (signupError) {
+        this.$refs.registerForm.setErrors({
+          email: [signupError],
+        });
+      }
     },
   },
 };

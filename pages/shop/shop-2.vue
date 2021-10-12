@@ -110,7 +110,7 @@
     </section>
 
     <!-- Instagram Arae -->
-    <InstagramArea />
+    <!-- <InstagramArea /> -->
   </div>
 </template>
 

@@ -17,10 +17,11 @@ export const actions = {
     //Send order 
     signup({ commit }, item) {
         this.$axios.post('/user/signup', item).then((res) => {
-            // console.log("hello")
-            commit('SIGNUP', res)
+
+            commit('SIGNUP', res.data.message)
             this.$router.push('/my-account')
         }).catch((err) => { commit('SIGNUP', err.response.data.message) })
+
     },
     //Login
     // login({ commit }, item) {
