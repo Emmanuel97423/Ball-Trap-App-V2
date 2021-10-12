@@ -85,7 +85,7 @@
                               type="text"
                               name="firstName"
                               class="form-control"
-                              :placeholder="userDetails.data.lastName"
+                              :placeholder="userDetails.data.firstName"
                             />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
@@ -102,7 +102,7 @@
                               type="text"
                               name="lastName"
                               class="form-control"
-                              :placeholder="userDetails.data.firstName"
+                              :placeholder="userDetails.data.lastName"
                             />
 
                             <span class="error__message">{{ errors[0] }}</span>
@@ -290,14 +290,19 @@ export default {
       }
     },
     onSubmit() {
-      this.userLogin = this.$store.state.user.userLogin;
-      const id = this.userLogin.userId;
-      const userObject = {
-        userObjectId: id,
-        userDetailsObject: this.accountDetails,
-      };
-      // console.log(userObject);
-      this.$store.dispatch("user/update", userObject);
+      try {
+        this.userLogin = this.$store.state.user.userLogin;
+        const id = this.$store.state.auth.user.userId;
+        const userObject = {
+          userObjectId: id,
+          userDetailsObject: this.accountDetails,
+        };
+        // console.log(userObject);
+        this.$store.dispatch("user/update", userObject);
+        this.$router.push("/my-account");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
   computed: {
