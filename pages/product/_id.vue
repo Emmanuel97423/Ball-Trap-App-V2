@@ -64,10 +64,10 @@
                   {{ product.description }}
                 </p>
                 <br />
-                <span v-if="product.quantity"
+                <span v-if="product.quantity > 0"
                   >Qté: <em>Reste {{ product.quantity }}</em></span
                 >
-                <span v-else>Qté: <em>Reste 0</em></span>
+                <span v-else>Qté: <em>Rupture</em></span>
                 <!-- <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
                     <option value="size">Taille</option>
@@ -168,14 +168,14 @@
                     </li>
                   </ul>
                   <button
-                    v-if="!outOfStock()"
+                    v-if="product.quantity > 0"
                     class="theme-btn-one btn-black-overlay btn_sm"
                     @click="addToCart(product)"
                   >
                     Ajouter
                   </button>
                   <!-- Out of stock -->
-                  <p v-else>RUPTURE</p>
+                  <p v-else>Non disponible</p>
                   {{ message }}
                   <!-- <AddToCart
                   :productId="product._id"
@@ -528,12 +528,12 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-    outOfStock() {
-      const stock = this.product.quantity;
-      if (stock < 1) {
-        return false;
-      }
-    },
+    // outOfStock() {
+    //   const stock = this.product.quantity;
+    //   if (stock < 1) {
+    //     return false;
+    //   }
+    // },
     // dataTest (){
     //   this.$axios.get("/product/" + this.$route.params.id)
     //       .then((res) => {
@@ -545,7 +545,7 @@ export default {
   },
   mounted() {
     // this.dataTest()
-    this.outOfStock();
+    // this.outOfStock();
     const id = this.$route.params.id;
     this.$store.dispatch("products/getOneProduct", id);
   },

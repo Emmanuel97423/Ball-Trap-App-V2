@@ -3,7 +3,12 @@
     <div class="product_wrappers_one">
       <div class="thumb">
         <nuxt-link :to="`/product/${productId}`">
-          <img class="hover-image" :src="productImg2" alt="Product" />
+          <img
+            class="hover-image"
+            :src="productImg2"
+            alt="Product"
+            loading="lazy"
+          />
         </nuxt-link>
         <span class="badges">
           <span :class="productTagClass">{{ productTag }}</span>
@@ -29,7 +34,7 @@
         <button
           v-if="enabled"
           class="add-to-cart offcanvas-toggle"
-          title="Add To Cart"
+          title="Ajouter au panier"
           @click="addToCartByComponent(productObject)"
         >
           Poule!
