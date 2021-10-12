@@ -11,6 +11,19 @@
           />
         </nuxt-link>
         <span class="badges">
+          <!-- {{ productObject.quantity }} -->
+          <span
+            class="badges__stock"
+            v-if="productObject.quantity > 0"
+            id="stock"
+            >En stock</span
+          >
+          <span
+            class="badges__stock"
+            v-if="productObject.quantity < 1"
+            id="no-stock"
+            >Rupture</span
+          >
           <span :class="productTagClass">{{ productTag }}</span>
         </span>
         <div v-if="!enabled" class="actions">
@@ -299,4 +312,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.badges__stock {
+  color: white;
+  display: flex;
+}
+#stock {
+  background-color: green;
+}
+#no-stock {
+  background-color: red;
+}
+</style>
