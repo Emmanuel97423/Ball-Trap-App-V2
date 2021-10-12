@@ -21,7 +21,7 @@
     <section id="shop_main_area" class="ptb-100">
       <div class="container">
         <div class="row">
-          <div v-if="!enabled" class="col-lg-6 col-md-12">
+          <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
               <div class="customs_selects">
                 <select name="product" class="customs_sel_box">
@@ -33,8 +33,8 @@
                 </select>
               </div>
             </div>
-          </div>
-          <div v-if="!enabled" class="col-lg-6 col-md-12">
+          </div> -->
+          <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_shot">
               <div class="product_shot_title">
                 <p>Sort By:</p>
@@ -67,7 +67,7 @@
                 </ul>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="row">
           <div
