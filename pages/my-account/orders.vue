@@ -149,7 +149,7 @@ export default {
       return this.$store.state.auth.user.userId;
     },
   },
-  mounted() {
+  beforeMounted() {
     const id = this.$store.state.auth.user.userId;
     if (id) {
       this.$store.dispatch("order/getOrders", id);
