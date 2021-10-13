@@ -134,6 +134,7 @@
                 :productPrice="productItem.price"
                 :productId="productItem._id"
                 :productObject="productItem"
+                :productQuantity="productItem.quantity"
               />
             </div>
           </b-tab>
@@ -145,13 +146,15 @@
               :key="productItem.id"
             >
               <ProductBox1
-                :productImg1="productItem.productImg1"
-                :productImg2="productItem.productImg2"
+                :productImg1="productItem.imageUrl"
+                :productImg2="productItem.imageUrl"
                 :productTagClass="productItem.productTagClass"
                 :productTag="productItem.productTag"
-                :productTitle="productItem.productTitle"
-                :productPrice="productItem.productPrice"
-                :productDescription="productItem.productDescription"
+                :productTitle="productItem.name"
+                :productPrice="productItem.price"
+                :productId="productItem._id"
+                :productObject="productItem"
+                :productQuantity="productItem.quantity"
               />
             </div>
           </b-tab>
@@ -163,13 +166,15 @@
               :key="productItem.id"
             >
               <ProductBox1
-                :productImg1="productItem.productImg1"
-                :productImg2="productItem.productImg2"
+                :productImg1="productItem.imageUrl"
+                :productImg2="productItem.imageUrl"
                 :productTagClass="productItem.productTagClass"
                 :productTag="productItem.productTag"
-                :productTitle="productItem.productTitle"
-                :productPrice="productItem.productPrice"
-                :productDescription="productItem.productDescription"
+                :productTitle="productItem.name"
+                :productPrice="productItem.price"
+                :productId="productItem._id"
+                :productObject="productItem"
+                :productQuantity="productItem.quantity"
               />
             </div>
           </b-tab>
@@ -181,13 +186,15 @@
               :key="productItem.id"
             >
               <ProductBox1
-                :productImg1="productItem.productImg1"
-                :productImg2="productItem.productImg2"
+                :productImg1="productItem.imageUrl"
+                :productImg2="productItem.imageUrl"
                 :productTagClass="productItem.productTagClass"
                 :productTag="productItem.productTag"
-                :productTitle="productItem.productTitle"
-                :productPrice="productItem.productPrice"
-                :productDescription="productItem.productDescription"
+                :productTitle="productItem.name"
+                :productPrice="productItem.price"
+                :productId="productItem._id"
+                :productObject="productItem"
+                :productQuantity="productItem.quantity"
               />
             </div>
           </b-tab>
@@ -199,13 +206,15 @@
               :key="productItem.id"
             >
               <ProductBox1
-                :productImg1="productItem.productImg1"
-                :productImg2="productItem.productImg2"
+                :productImg1="productItem.imageUrl"
+                :productImg2="productItem.imageUrl"
                 :productTagClass="productItem.productTagClass"
                 :productTag="productItem.productTag"
-                :productTitle="productItem.productTitle"
-                :productPrice="productItem.productPrice"
-                :productDescription="productItem.productDescription"
+                :productTitle="productItem.name"
+                :productPrice="productItem.price"
+                :productId="productItem._id"
+                :productObject="productItem"
+                :productQuantity="productItem.quantity"
               />
             </div>
           </b-tab>

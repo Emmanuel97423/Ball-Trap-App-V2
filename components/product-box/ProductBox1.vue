@@ -11,17 +11,11 @@
           />
         </nuxt-link>
         <span class="badges">
-          <!-- {{ productObject.quantity }} -->
-          <span
-            class="badges__stock"
-            v-if="productObject.quantity > 0"
-            id="stock"
+          <!-- {{ productQuantity }} -->
+          <span class="badges__stock" v-if="productQuantity > 0" id="stock"
             >En stock</span
           >
-          <span
-            class="badges__stock"
-            v-if="productObject.quantity < 1"
-            id="no-stock"
+          <span class="badges__stock" v-if="productQuantity < 1" id="no-stock"
             >Rupture</span
           >
           <span :class="productTagClass">{{ productTag }}</span>
@@ -273,7 +267,8 @@ export default {
     productPrice: Number,
     totalPrice: Number,
     productId: String,
-    productObject: Object,
+    productQuantity: Number,
+    // productObject: Object,
   },
 
   data() {
@@ -322,5 +317,8 @@ export default {
 }
 #no-stock {
   background-color: red;
+}
+.add-to-cart {
+  background-color: black;
 }
 </style>

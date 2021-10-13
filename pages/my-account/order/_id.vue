@@ -200,13 +200,13 @@ export default {
       return this.$store.state.auth.user.userObject;
     },
   },
-  async mounted() {
+  beforeMounted() {
     console.log(this.$route.params.id);
     // console.log("params:", params);
     const id = this.$route.params.id;
     // console.log("id:", id);
     // const id = this.$store.state.auth.user.userId;
-    await this.$store.dispatch("order/getOneOrder", id);
+    this.$store.dispatch("order/getOneOrder", id);
   },
 };
 </script>

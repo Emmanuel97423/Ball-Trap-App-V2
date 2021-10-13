@@ -83,8 +83,10 @@
               :productTitle="productItem.name"
               :productPrice="productItem.price"
               :productId="productItem._id"
+              :productQuantity="productItem.quantity"
               :productObject="productItem"
             />
+            <!-- {{ productItem.quantity }} -->
             <!-- <ProductBox1
               :productImg1="productItem.productImg1"
               :productImg2="productItem.productImg2"
@@ -166,7 +168,7 @@ export default {
       return this.$store.getters["products/productItems"];
     },
   },
-  created() {
+  mounted() {
     this.$store.dispatch("products/getProducts");
   },
 };
