@@ -280,15 +280,15 @@ export default {
           console.log(err);
         });
     },
-    getUserDetails() {
-      // this.userLogin = this.$store.state.auth.user;
-      try {
-        const id = this.$store.state.auth.user.userId;
-        this.$store.dispatch("user/getUserDetails", id);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    // getUserDetails() {
+    //   // this.userLogin = this.$store.state.auth.user;
+    //   try {
+    //     const id = this.$store.state.auth.user.userId;
+    //     this.$store.dispatch("user/getUserDetails", id);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // },
     onSubmit() {
       try {
         this.userLogin = this.$store.state.user.userLogin;
@@ -310,8 +310,13 @@ export default {
       return this.$store.state.user.userDetails;
     },
   },
-  mounted() {
-    return this.getUserDetails();
+  created() {
+    try {
+      const id = this.$store.state.auth.user.userId;
+      this.$store.dispatch("user/getUserDetails", id);
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>

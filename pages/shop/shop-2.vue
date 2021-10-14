@@ -165,10 +165,11 @@ export default {
   },
   computed: {
     productItems() {
-      return this.$store.getters["products/productItems"];
+      // return this.$store.getters["products/productItems"];
+      return this.$store.state.products.productItems;
     },
   },
-  mounted() {
+  created() {
     this.$store.dispatch("products/getProducts");
   },
 };

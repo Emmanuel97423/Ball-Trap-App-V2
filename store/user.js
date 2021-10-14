@@ -38,7 +38,7 @@ export const actions = {
     },
     //Update account
     update({ commit }, item) {
-        console.log(item)
+
         this.$axios.put('user/update/' + item.userObjectId, item.userDetailsObject).then((res) => {
             console.log(res)
         }).catch((err) => { console.log(err) })

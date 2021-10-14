@@ -200,13 +200,20 @@ export default {
       return this.$store.state.auth.user.userObject;
     },
   },
-  beforeMounted() {
+  created() {
     console.log(this.$route.params.id);
     // console.log("params:", params);
     const id = this.$route.params.id;
     // console.log("id:", id);
     // const id = this.$store.state.auth.user.userId;
-    this.$store.dispatch("order/getOneOrder", id);
+    this.$store
+      .dispatch("order/getOneOrder", id)
+      .then((res) => {
+        console.log("Api sucess");
+      })
+      .catch((err) => {
+        console.log("Api error", err);
+      });
   },
 };
 </script>

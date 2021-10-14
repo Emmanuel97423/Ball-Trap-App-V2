@@ -68,6 +68,7 @@
                   >Qté: <em>Reste {{ product.quantity }}</em></span
                 >
                 <span v-else>Qté: <em>Rupture</em></span>
+                <!-- productquantity : {{ product.quantity }} -->
                 <!-- <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
                     <option value="size">Taille</option>
@@ -139,12 +140,12 @@
                 </div>
                 <form id="product_count_form_two">
                   <div class="product_count_one">
-                    <b-form-spinbutton
+                    <!-- <b-form-spinbutton
                       id="sb-inline"
                       v-model="orderQuantity"
                       inline
                       class="border-0"
-                    ></b-form-spinbutton>
+                    ></b-form-spinbutton> -->
                   </div>
                 </form>
                 <div class="links_Product_areas">
@@ -492,6 +493,7 @@ export default {
 
       // Product Quanity Increment/ Decrement Data
       orderQuantity: 1,
+
       //error message
       message: "",
     };
@@ -513,17 +515,59 @@ export default {
 
   computed: {
     product() {
-      return this.$store.getters["products/product"];
+      // return this.$store.getters["products/product"];
+      return this.$store.state.products.product;
     },
   },
   methods: {
     addToCart(product) {
-      if (this.product.quantity < this.orderQuantity) {
-        this.message = "Stock Insufisant";
-      } else {
-        this.$store.commit("cart/orderQuantity", this.orderQuantity);
-        this.$store.commit("cart/add", product);
-      }
+      // console.log("product:", product);
+      this.$store
+        .dispatch("products/decrementStock", product._id)
+        .then((result) => {
+          console.log("decrement action", result);
+          if (result) {
+            this.$store.commit("cart/add", product);
+          } else {
+            console.log("Stock Insuffisant");
+          }
+        })
+        .catch((err) => {
+          console.log("decrement error:", err);
+        });
+      // this.$store
+      //   .dispatch("products/getProducts")
+      //   .then(() => {
+      //     console.log("Api products sucess");
+      //     this.$store
+      //       .dispatch("products/decrementStock", this.$route.params.id)
+      //       .then(() => {
+      //         console.log("Decrement stock sucess");
+      //       })
+      //       .catch((error) => {
+      //         console.log("Error", error);
+      //       });
+      //   })
+      //   .catch((err) => {
+      //     console.log("Error", err);
+      //   });
+      // this.stock -= this.orderQuantity;
+      // if (this.stock <= -1) {
+      //   this.message = "Stock Insufisant";
+      // } else {
+      //   try {
+      //     this.$store.commit("cart/orderQuantity", this.orderQuantity);
+      //     console.log("Mutation orderQuantity OK");
+      //     try {
+      //       this.$store.commit("cart/add", product);
+      //       console.log("Mutation add to cart OK", product);
+      //     } catch (e) {
+      //       console.log("Mutation add to cart ERROR", e);
+      //     }
+      //   } catch (e) {
+      //     console.log("Error mutation orderQuantity", e);
+      //   }
+      // }
     },
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
@@ -543,12 +587,21 @@ export default {
     //       }).catch((err) => {console.log(err)})
     // },
   },
-  mounted() {
+  created() {
     // this.dataTest()
     // this.outOfStock();
     const id = this.$route.params.id;
-    this.$store.dispatch("products/getOneProduct", id);
+
+    this.$store
+      .dispatch("products/getOneProduct", id)
+      .then(() => {
+        console.log("Api sucess");
+      })
+      .catch((err) => {
+        console.log("Api error", err);
+      });
   },
+  beforeDestroy() {},
 };
 </script>
 

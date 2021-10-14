@@ -149,7 +149,7 @@ export default {
       return this.$store.state.auth.user.userId;
     },
   },
-  beforeMounted() {
+  created() {
     const id = this.$store.state.auth.user.userId;
     console.log("id:", id);
     if (id) {

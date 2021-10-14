@@ -38,14 +38,16 @@
         </div>
         <!-- start toggle -->
         <!-- v-b-toggle.offcanvas-add-cart -->
-        <button
-          v-if="enabled"
+        <!-- <button
+          v-if="productQuantity > 0"
           class="add-to-cart offcanvas-toggle"
           title="Ajouter au panier"
-          @click="addToCartByComponent(productObject)"
+          @click="
+            addToCartByComponent(productObject, productId, productQuantity)
+          "
         >
           Poule!
-        </button>
+        </button> -->
       </div>
       <div class="content">
         <h5 class="title">
@@ -219,12 +221,12 @@
                   </div>
                   <form id="product_count_form_one">
                     <div class="product_count_one">
-                      <b-form-spinbutton
+                      <!-- <b-form-spinbutton
                         id="sb-inline"
                         v-model="value"
                         inline
                         class="border-0"
-                      ></b-form-spinbutton>
+                      ></b-form-spinbutton> -->
                       <nuxt-link
                         to="#"
                         class="theme-btn-one btn-black-overlay btn_sm"
@@ -268,7 +270,7 @@ export default {
     totalPrice: Number,
     productId: String,
     productQuantity: Number,
-    // productObject: Object,
+    productObject: Object,
   },
 
   data() {
@@ -296,7 +298,14 @@ export default {
   },
 
   methods: {
-    addToCartByComponent(productObject) {
+    addToCartByComponent(productObject, productId, productQuantity) {
+      console.log("productQuantity:", this.productQuantity);
+      console.log("productId:", productId);
+      console.log("productObject:", productObject);
+      const stock = this.$store.state.products.productItems;
+
+      // if (productObject.quantity) console.log("productObject:", productObject);
+
       this.$store.commit("cart/addToCartByComponent", productObject);
     },
     // Product details Popup id Methods

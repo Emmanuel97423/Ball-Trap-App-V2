@@ -418,12 +418,11 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     try {
       const userObject = this.$store.state.auth.user;
 
       this.$store.dispatch("user/getUserDetails", userObject.userId);
-
       this.$store.dispatch("adress/getAdresses", userObject.userId);
     } catch (error) {
       console.log(error);

@@ -12,18 +12,24 @@ export const mutations = {
     state.items = items
   },
   add(state, item) {
-    console.log(item)
+
+
+
     const record = state.items.find(i => i._id === item._id)
-    console.log(state.orderQuantity)
+    console.log('record:', record)
+
     if (!record) {
       state.items.push({
         orderQuantity: state.orderQuantity,
         ...item,
-
-
       })
 
-    } else {
+    }
+    else if (record.quantity < record.orderQuantity) {
+      console.log('Stock insuffisant')
+
+    }
+    else {
       record.orderQuantity += state.orderQuantity
     };
 
@@ -41,7 +47,7 @@ export const mutations = {
 
   addToCartByComponent(state, item) {
     const record = state.items.find(i => i._id === item._id)
-    console.log(item)
+
     if (!record) {
       state.items.push({
         orderQuantity: 1,
@@ -55,6 +61,7 @@ export const mutations = {
 
   remove(state, item) {
     const record = state.items.find(i => i._id === item._id)
+    console.log('record:', record)
 
     if (record.orderQuantity > 1) {
       record.orderQuantity--

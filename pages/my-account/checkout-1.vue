@@ -574,13 +574,19 @@ export default {
       return this.$store.state.adress.userAdresses.data;
     },
   },
-  mounted() {
+  created() {
     const id = this.$store.state.auth.user.userId;
-    this.$store.dispatch("adress/getAdresses", id);
+    this.$store
+      .dispatch("adress/getAdresses", id)
+      .then(() => {
+        const userAdress = this.$store.state.adress.userAdresses.data;
 
-    const userAdress = this.$store.state.adress.userAdresses.data;
-
-    this.adresses = userAdress;
+        this.adresses = userAdress;
+        console.log("Api sucess");
+      })
+      .catch((err) => {
+        console.log("Api error", err);
+      });
 
     // this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
     // const userObject = this.$store.state.user.userLogin;
