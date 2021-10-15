@@ -51,7 +51,7 @@
       </div>
       <div class="content">
         <h5 class="title">
-          <nuxt-link :to="`/product/${productId}`">{{
+          <nuxt-link :to="`/product/${productId}`" v-on:click="loading()">{{
             productTitle
           }}</nuxt-link>
         </h5>
@@ -221,12 +221,12 @@
                   </div>
                   <form id="product_count_form_one">
                     <div class="product_count_one">
-                      <!-- <b-form-spinbutton
+                      <b-form-spinbutton
                         id="sb-inline"
                         v-model="value"
                         inline
                         class="border-0"
-                      ></b-form-spinbutton> -->
+                      ></b-form-spinbutton>
                       <nuxt-link
                         to="#"
                         class="theme-btn-one btn-black-overlay btn_sm"
@@ -257,6 +257,8 @@
 </template>
 
 <script>
+const spinner = document.getElementById("spinner__app");
+
 export default {
   name: "ProductBox1",
   props: {
@@ -311,6 +313,10 @@ export default {
     // Product details Popup id Methods
     toggleModal() {
       this.$refs["product-details-popup"].toggle("#toggle-btn");
+    },
+    loading() {
+      console.log("loading:");
+      spinner.style.display = "block";
     },
   },
 };
