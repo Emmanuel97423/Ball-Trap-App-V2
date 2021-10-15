@@ -661,7 +661,7 @@ export default {
               title: "Mes commandes",
             },
             {
-              href: "/my-account/adresses",
+              href: "/my-account/addresses",
               title: "Adresses",
             },
             {
