@@ -177,7 +177,7 @@
 </template>
 
 <script>
-const apiURL = "http://localhost:3000/api";
+const apiURL = "https://trap-one-api.herokuapp.com/api";
 export default {
   middleware: "auth",
   //   async asyncData({ params }) {
