@@ -555,12 +555,16 @@ export default {
     },
 
     addToCart(product) {
-      console.log("product:", product);
+      // console.log("product:", product);
       this.$store
         .dispatch("products/decrementStock", product._id)
         .then((result) => {
           console.log("decrement action", result);
+
           if (result == true) {
+            this.$store.commit("cart/orderQuantity", this.orderQuantity);
+            console.log("this.orderQuantity:", this.orderQuantity);
+
             this.$store.commit("cart/add", product);
           } else {
             this.showAlert();
