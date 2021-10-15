@@ -192,6 +192,7 @@ export default {
   //     error(e); // Show the nuxt error page with the thrown error
   //   }
   // },
+
   computed: {
     order() {
       return this.$store.state.order.order.data;
@@ -214,6 +215,12 @@ export default {
       .catch((err) => {
         console.log("Api error", err);
       });
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$nuxt.refresh();
+      console.log("mounted, 5s");
+    }, 2000);
   },
 };
 </script>

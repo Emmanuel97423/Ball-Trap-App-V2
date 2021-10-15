@@ -13,8 +13,6 @@ export const mutations = {
   },
   add(state, item) {
 
-
-
     const record = state.items.find(i => i._id === item._id)
     console.log('record:', record)
 
@@ -42,6 +40,7 @@ export const mutations = {
 
   // },
   orderQuantity(state, orderQuantity) {
+    console.log('orderQuantity:', orderQuantity)
     state.orderQuantity = orderQuantity
   },
 
