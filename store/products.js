@@ -32,6 +32,7 @@ export const actions = {
     decrementStock({ commit, state }, id) {
 
         const n = state.productItems.find(product => product._id === id)
+        console.log('n:', n.quantity)
 
         if (n.quantity <= 0) {
             console.log("Quantité indisponible")
@@ -43,6 +44,16 @@ export const actions = {
             return true
 
         }
+
+
+    },
+
+    incrementStock({ commit, state }, id) {
+        console.log('id:', id)
+
+        const n = state.productItems.find(product => product._id === id)
+
+        commit('INCREMENT_STOCK', n)
 
 
     }
@@ -76,5 +87,11 @@ export const mutations = {
         // }
 
 
+    },
+    INCREMENT_STOCK(state, item) {
+        const n = state.productItems.find(product => product._id === item._id)
+        n.quantity++
+
+        state.product.quantity++
     }
 }

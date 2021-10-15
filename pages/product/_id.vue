@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- <div>
+      <b-spinner class="spinner" label="Loading..."></b-spinner>
+    </div> -->
     <!-- Banner Area -->
     <section v-if="!enabled" id="common_banner_one">
       <div class="container">
@@ -78,6 +81,24 @@
                     <option value="large">L</option>
                   </select>
                 </div> -->
+                <b-alert
+                  :show="dismissCountDown"
+                  dismissible
+                  variant="warning"
+                  @dismissed="dismissCountDown = 0"
+                  @dismiss-count-down="countDownChanged"
+                >
+                  <p>
+                    Stock insufisant
+                    <!-- {{ dismissCountDown }} seconds... -->
+                  </p>
+                  <b-progress
+                    variant="warning"
+                    :max="dismissSecs"
+                    :value="dismissCountDown"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
                 <div v-if="!enabled" class="variable-single-item">
                   <span>Color</span>
                   <div class="product-variable-color">
@@ -459,6 +480,11 @@ export default {
   },
   data() {
     return {
+      //Alter data
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+
       enabled: true,
       title: this.$route.params.slug,
 
@@ -520,17 +546,33 @@ export default {
     },
   },
   methods: {
+    //Alert
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
+    },
+
     addToCart(product) {
-      // console.log("product:", product);
+      console.log("product:", product);
       this.$store
         .dispatch("products/decrementStock", product._id)
         .then((result) => {
           console.log("decrement action", result);
-          if (result) {
+          if (result == true) {
             this.$store.commit("cart/add", product);
           } else {
+            this.showAlert();
             console.log("Stock Insuffisant");
           }
+          // if (result) {
+          //   this.$store.commit("cart/add", product);
+          //   this.$store.commit("cart/orderQuantity", this.orderQuantity);
+          // } else {
+          //   this.showAlert();
+          //   console.log("Stock Insuffisant");
+          // }
         })
         .catch((err) => {
           console.log("decrement error:", err);
@@ -605,4 +647,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+/* .spinner {
+} */
+</style>
