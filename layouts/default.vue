@@ -36,7 +36,7 @@ export default {
   margin-bottom: 70px;
 } */
 #footer__app {
-  position: absolute;
+  position: float;
   left: 0;
   bottom: 0;
   width: 100%;

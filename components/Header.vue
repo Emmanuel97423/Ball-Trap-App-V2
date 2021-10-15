@@ -270,7 +270,7 @@
                   action-hover-color--golden
                 "
               >
-                <li v-if="!enabled">
+                <li v-if="enabled">
                   <a
                     v-b-toggle.search_sidebar
                     class="search_width offcanvas-toggle"
@@ -299,7 +299,7 @@
                     }}</span>
                   </a>
                 </li>
-                <li v-if="!enabled">
+                <li v-if="enabled">
                   <a
                     v-b-toggle.offcanvas-about
                     class="offacnvas offside-about offcanvas-toggle"
@@ -538,8 +538,8 @@
         "
       >
         <form class="d-flex flex-column justify-content-center w-100">
-          <input type="search" placeholder="Type keyword(s) here" />
-          <button class="btn btn-lg btn-golden">Search</button>
+          <input type="search" placeholder="Vos mots clés" />
+          <button class="btn btn-lg btn-golden">Rechercher</button>
         </form>
       </div>
     </b-sidebar>
@@ -557,211 +557,189 @@ export default {
       menu: [
         {
           href: "/",
-          title: "Home",
+          title: "Accueil",
         },
+
         {
-          title: "Shop",
+          title: "Catalogue",
           child: [
             {
-              title: "Shop Layout",
-              child: [
-                {
-                  href: "/shop",
-                  title: "Shop Four Grid",
-                },
-                {
-                  href: "/shop/shop-2",
-                  title: "Shop Three Grid",
-                },
-                {
-                  href: "/shop/shop-3",
-                  title: "Shop List View",
-                },
-                {
-                  href: "/shop/shop-4",
-                  title: "Shop Left Sidebar",
-                },
-                {
-                  href: "/shop/shop-5",
-                  title: "Shop Right Sidebar",
-                },
-              ],
+              href: "/shop/shop-2",
+              title: "Tous",
             },
             {
-              title: "Shop Pages",
-              child: [
-                {
-                  href: "/cart/",
-                  title: "Cart View One",
-                },
-                {
-                  href: "/cart/cart-2",
-                  title: "Cart View Two",
-                },
-                {
-                  href: "/cart/empty-cart",
-                  title: "Empty Cart",
-                },
-                {
-                  href: "/my-account/checkout-1",
-                  title: "Checkout View One",
-                },
-                {
-                  href: "/my-account/checkout-2",
-                  title: "Checkout View Two",
-                },
-                {
-                  href: "/my-account/wishlist",
-                  title: "Wishlist",
-                },
-                {
-                  href: "/my-account/compare",
-                  title: "Compare",
-                },
-                {
-                  href: "/my-account/order-tracking",
-                  title: "Order Tracking",
-                },
-              ],
+              href: "/shop/shop-2",
+              title: "Textile",
             },
             {
-              title: "Product Single",
-              child: [
-                {
-                  href: "/product",
-                  title: "Product Single",
-                },
-                {
-                  href: "/product/product-single-2",
-                  title: "Product Single Two",
-                },
-              ],
+              href: "/shop/shop-2",
+              title: "Accessoire",
             },
+            {
+              // title: "Shop Layout",
+              // child: [
+              //   {
+              //     href: "/shop/shop-2",
+              //     title: "Tous",
+              //   },
+              //   {
+              //     href: "/shop/shop-2",
+              //     title: "Textile",
+              //   },
+              //   {
+              //     href: "/shop/shop-2",
+              //     title: "Accessoire",
+              //   },
+              //   // {
+              //   //   href: "/shop/shop-4",
+              //   //   title: "Shop Left Sidebar",
+              //   // },
+              //   // {
+              //   //   href: "/shop/shop-5",
+              //   //   title: "Shop Right Sidebar",
+              //   // },
+              // ],
+            },
+            // {
+            //   title: "Shop Pages",
+            //   child: [
+            //     {
+            //       href: "/cart/",
+            //       title: "Cart View One",
+            //     },
+            //     {
+            //       href: "/cart/cart-2",
+            //       title: "Cart View Two",
+            //     },
+            //     {
+            //       href: "/cart/empty-cart",
+            //       title: "Empty Cart",
+            //     },
+            //     {
+            //       href: "/my-account/checkout-1",
+            //       title: "Checkout View One",
+            //     },
+            //     {
+            //       href: "/my-account/checkout-2",
+            //       title: "Checkout View Two",
+            //     },
+            //     {
+            //       href: "/my-account/wishlist",
+            //       title: "Wishlist",
+            //     },
+            //     {
+            //       href: "/my-account/compare",
+            //       title: "Compare",
+            //     },
+            //     {
+            //       href: "/my-account/order-tracking",
+            //       title: "Order Tracking",
+            //     },
+            //   ],
+            // },
+            // {
+            //   title: "Product Single",
+            //   child: [
+            //     {
+            //       href: "/product",
+            //       title: "Product Single",
+            //     },
+            //     {
+            //       href: "/product/product-single-2",
+            //       title: "Product Single Two",
+            //     },
+            //   ],
+            // },
           ],
         },
         {
-          title: "Blogs",
+          // href: "/my-account",
+          title: "Mon espace",
           child: [
             {
-              href: "/blog",
-              title: "Blog Grid View One",
+              href: "/my-account/orders",
+              title: "Mes commandes",
             },
             {
-              href: "/blog/blog-2",
-              title: "Blog Grid View Two",
+              href: "/my-account/adresses",
+              title: "Adresses",
             },
             {
-              href: "/blog/blog-3",
-              title: "Blog List View",
-            },
-            {
-              href: "/blog/blog-single",
-              title: "Blog Single View One",
-            },
-            {
-              href: "/blog/blog-single-2",
-              title: "Blog Single View TWo",
+              href: "/my-account/account-details",
+              title: "Compte",
             },
           ],
         },
-        {
-          title: "Pages",
-          child: [
-            {
-              href: "/faq",
-              title: "Frequently Questions",
-            },
-            {
-              href: "/privacy-policy",
-              title: "Privacy Policy",
-            },
-            {
-              href: "/404",
-              title: "404 Page",
-            },
-            {
-              href: "/contact-us",
-              title: "Contact Us One",
-            },
-            {
-              href: "/contact-us/contact-us-2",
-              title: "Contact Us Two",
-            },
-            {
-              href: "/coming-soon",
-              title: "Coming Soon",
-            },
-            {
-              href: "/my-account",
-              title: "My Account",
-            },
-            {
-              href: "/login",
-              title: "Login",
-            },
-          ],
-        },
-        {
-          href: "/about-us",
-          title: "About Us",
-        },
+        // {
+        //   title: "Blogs",
+        //   child: [
+        //     {
+        //       href: "/blog",
+        //       title: "Blog Grid View One",
+        //     },
+        //     {
+        //       href: "/blog/blog-2",
+        //       title: "Blog Grid View Two",
+        //     },
+        //     {
+        //       href: "/blog/blog-3",
+        //       title: "Blog List View",
+        //     },
+        //     {
+        //       href: "/blog/blog-single",
+        //       title: "Blog Single View One",
+        //     },
+        //     {
+        //       href: "/blog/blog-single-2",
+        //       title: "Blog Single View TWo",
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: "Pages",
+        //   child: [
+        //     {
+        //       href: "/faq",
+        //       title: "Frequently Questions",
+        //     },
+        //     {
+        //       href: "/privacy-policy",
+        //       title: "Privacy Policy",
+        //     },
+        //     {
+        //       href: "/404",
+        //       title: "404 Page",
+        //     },
+        //     {
+        //       href: "/contact-us",
+        //       title: "Contact Us One",
+        //     },
+        //     {
+        //       href: "/contact-us/contact-us-2",
+        //       title: "Contact Us Two",
+        //     },
+        //     {
+        //       href: "/coming-soon",
+        //       title: "Coming Soon",
+        //     },
+        //     {
+        //       href: "/my-account",
+        //       title: "My Account",
+        //     },
+        //     {
+        //       href: "/login",
+        //       title: "Login",
+        //     },
+        //   ],
+        // },
+        // {
+        //   href: "/about-us",
+        //   title: "About Us",
+        // },
       ],
 
       // Product Items Data
-      productItems: [
-        {
-          id: 1,
-          productImg1: require("assets/img/product-image/product1.png"),
-          productImg2: require("assets/img/product-image/product2.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "Cartouche",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 38.5,
-          totalPrice: 180.0,
-          quantity: 1,
-        },
-        {
-          id: 2,
-          productImg1: require("assets/img/product-image/product2.png"),
-          productImg2: require("assets/img/product-image/product4.png"),
-          productTagClass: "new",
-          productTag: "new",
-          productTitle: "Cartouche",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-          totalPrice: 130.0,
-          quantity: 1,
-        },
-        {
-          id: 3,
-          productImg1: require("assets/img/product-image/product4.png"),
-          productImg2: require("assets/img/product-image/product6.png"),
-          productTagClass: "hot",
-          productTag: "hot",
-          productTitle: "Tee-shirt",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 50.5,
-          totalPrice: 160.0,
-          quantity: 1,
-        },
-        {
-          id: 4,
-          productImg1: require("assets/img/product-image/product7.png"),
-          productImg2: require("assets/img/product-image/product8.png"),
-          productTagClass: "",
-          productTag: "",
-          productTitle: "Gilet",
-          productDescription:
-            "Vivamus suscipit tortor eget felis porttitor volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Nulla porttitoraccumsan tincidunt. Pellentesque in ipsum id orci porta dapibus.",
-          productPrice: 738.5,
-          totalPrice: 320.0,
-          quantity: 1,
-        },
-      ],
+      productItems: [],
     };
   },
 
