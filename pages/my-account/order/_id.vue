@@ -215,6 +215,12 @@ export default {
         console.log("Api error", err);
       });
   },
+  mounted() {
+    setTimeout(() => {
+      this.$nuxt.refresh();
+      console.log("mounted, 5s");
+    }, 2000);
+  },
 };
 </script>
 
