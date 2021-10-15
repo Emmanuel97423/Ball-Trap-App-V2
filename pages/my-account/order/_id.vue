@@ -192,6 +192,7 @@ export default {
   //     error(e); // Show the nuxt error page with the thrown error
   //   }
   // },
+
   computed: {
     order() {
       return this.$store.state.order.order.data;
