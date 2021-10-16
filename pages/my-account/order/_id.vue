@@ -4,13 +4,18 @@
       <div class="row">
         <div class="col-md-12">
           <div class="invoice-wrapper">
+            <p v-if="$fetchState.pending">
+              <!-- <span class="loading"></span> -->
+              <Spinner></Spinner>
+            </p>
+            <p v-else-if="$fetchState.error">Une erreur est survenue! 🤬</p>
             <!-- {{ order }} -->
             <div class="intro">
               Bonjour <strong>{{ customer.firstName }}</strong
               >,
               <br />
               Ceci est la commande pour un paiement de
-              <strong> {{ order.amount.toFixed(2) }} €</strong>
+              <strong> {{ order.amount }} €</strong>
             </div>
 
             <div class="payment-info">
@@ -173,7 +178,12 @@
 </template>
 
 <script>
+const apiURL = "https://trap-one-api.herokuapp.com/api";
+import Spinner from "~/components/spinner";
 export default {
+  components: {
+    Spinner,
+  },
   middleware: "auth",
   //   async asyncData({ params }) {
   //     const slug = params.slug; // When calling /abc the slug will be "abc"
@@ -192,36 +202,54 @@ export default {
   //     error(e); // Show the nuxt error page with the thrown error
   //   }
   // },
+  data() {
+    return { order: {}, customer: {} };
+  },
+  async fetch() {
+    try {
+      this.order = await this.$http.$get(
+        `${apiURL}/order/${this.$route.params.id}`
+      );
+      console.log("this.order", this.order);
 
+      try {
+        this.customer = await this.$http.$get(
+          `${apiURL}/auth/user/${this.$store.state.auth.user.userId}`
+        );
+        console.log("this.customer", this.customer);
+      } catch (error) {
+        console.error("error", error);
+      }
+    } catch (error) {
+      console.error("error", error);
+    }
+  },
   computed: {
-    order() {
-      return this.$store.state.order.order.data;
-    },
-    customer() {
-      return this.$store.state.auth.user.userObject;
-    },
+    // order() {
+    //   return this.$store.state.order.order.data;
+    // },
+    // customer() {
+    //   return this.$store.state.auth.user.userObject;
+    // },
   },
-  created() {
-    console.log(this.$route.params.id);
-    // console.log("params:", params);
-    const id = this.$route.params.id;
-    // console.log("id:", id);
-    // const id = this.$store.state.auth.user.userId;
-    this.$store
-      .dispatch("order/getOneOrder", id)
-      .then((res) => {
-        console.log("Api sucess");
-      })
-      .catch((err) => {
-        console.log("Api error", err);
-      });
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$nuxt.refresh();
-      console.log("mounted, 5s");
-    }, 2000);
-  },
+  // created() {
+  //   console.log(this.$route.params.id);
+  //   // console.log("params:", params);
+  //   const id = this.$route.params.id;
+  //   // console.log("id:", id);
+  //   // const id = this.$store.state.auth.user.userId;
+  //   this.$store
+  //     .dispatch("order/getOneOrder", id)
+  //     .then((res) => {
+  //       console.log("Api sucess");
+  //     })
+  //     .catch((err) => {
+  //       console.log("Api error", err);
+  //     });
+  // },
+  // mounted() {
+  //   console.log(this.$store.state.auth.user.userObject.userId);
+  // },
 };
 </script>
 
