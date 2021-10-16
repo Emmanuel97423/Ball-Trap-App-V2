@@ -5,7 +5,8 @@
         <div class="col-md-12">
           <div class="invoice-wrapper">
             <p v-if="$fetchState.pending">
-              <span class="loading"></span>
+              <!-- <span class="loading"></span> -->
+              <Spinner></Spinner>
             </p>
             <p v-else-if="$fetchState.error">Une erreur est survenue! 🤬</p>
             <!-- {{ order }} -->
@@ -178,7 +179,11 @@
 
 <script>
 const apiURL = "https://trap-one-api.herokuapp.com/api";
+import Spinner from "~/components/spinner";
 export default {
+  components: {
+    Spinner,
+  },
   middleware: "auth",
   //   async asyncData({ params }) {
   //     const slug = params.slug; // When calling /abc the slug will be "abc"
@@ -242,9 +247,9 @@ export default {
   //       console.log("Api error", err);
   //     });
   // },
-  mounted() {
-    console.log(this.$store.state.auth.user.userObject.userId);
-  },
+  // mounted() {
+  //   console.log(this.$store.state.auth.user.userObject.userId);
+  // },
 };
 </script>
 
