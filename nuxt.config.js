@@ -51,7 +51,9 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [],
+  buildModules: [
+    '@nuxtjs/pwa',
+  ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -61,6 +63,7 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
     'nuxt-stripe-module',
+    '@nuxtjs/pwa',
     ['nuxt-vuex-localstorage', {
       localStorage: ['cart', 'user', 'order', 'adress', 'products']
     }]
@@ -120,4 +123,17 @@ export default {
       },
     },
   },
+  pwa: {
+    icon: {
+      /* icon options */
+      fileName: 'sample-logo-512x512.png',
+      purpose: 'maskable'
+    },
+    manifest: {
+      name: 'Trap One App',
+      lang: 'fr',
+      useWebmanifestExtension: false,
+      background_color: '#ffffff'
+    }
+  }
 };
