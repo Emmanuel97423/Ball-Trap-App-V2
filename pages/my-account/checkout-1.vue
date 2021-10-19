@@ -50,18 +50,18 @@
               </div>
               <span v-else>Aucune information n'a été renseigné</span>
               <div class="check-out-form">
-                <!-- <button
+                <button
                   @click="formShow"
                   class="theme-btn-one btn-black-overlay btn_md"
                 >
                   Editer
-                </button> -->
-                <nuxt-link
+                </button>
+                <!-- <nuxt-link
                   to="/my-account/addresses"
                   class="theme-btn-one btn-black-overlay btn_md"
                 >
                   Modifier
-                </nuxt-link>
+                </nuxt-link> -->
 
                 <ValidationObserver
                   v-if="formEnabled"
@@ -418,23 +418,27 @@
         </div>
       </div>
     </section>
+    <Modal @modal="formShow"></Modal>
   </div>
 </template>
 
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 // import { Nuxt, Builder, Utils } from 'nuxt'
-
+import Modal from "~/components/modal/adressModal";
 import paymentButton from "~/components/paymentButton";
 export default {
   name: "checkout-1",
   middleware: "auth",
   components: {
     paymentButton,
-
+    Modal,
     ValidationProvider,
     ValidationObserver,
   },
+  // props: {
+  //   formShow:Function
+  // },
   data() {
     return {
       // validate: {
@@ -507,7 +511,8 @@ export default {
     },
     //Show form object
     formShow() {
-      this.formEnabled = true;
+      // this.formEnabled = true;
+      this.$bvModal.show("modal-1");
     },
 
     //Submit new Adresse
