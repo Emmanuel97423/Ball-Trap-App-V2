@@ -127,7 +127,7 @@ export default {
     icon: {
       /* icon options */
       fileName: 'sample-logo-512x512.png',
-      purpose: 'maskable'
+      purpose: 'any'
     },
     manifest: {
       name: 'Trap One App',
