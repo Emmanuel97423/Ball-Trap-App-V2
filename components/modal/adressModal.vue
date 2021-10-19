@@ -264,8 +264,9 @@ export default {
           try {
             // console.log("Refresh");
             // this.$forceUpdate();
-            this.$nuxt.refresh();
+            // this.$nuxt.refresh();
             this.$bvModal.hide("modal-1");
+            this.$emit("refresh");
             // this.$router.push("/my-account");
           } catch (error) {
             console.log(error);

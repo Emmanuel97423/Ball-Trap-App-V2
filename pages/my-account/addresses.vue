@@ -111,7 +111,7 @@
                 Editer
               </button>
             </div>
-            <Modal @modal="formShow"></Modal>
+            <Modal @modal="formShow" @refresh="refresh"></Modal>
           </div>
         </div>
       </div>
@@ -179,6 +179,10 @@ export default {
     };
   },
   methods: {
+    refresh() {
+      this.$nuxt.refresh();
+    },
+
     formShow() {
       // this.formEnabled = true;
       this.$bvModal.show("modal-1");

@@ -341,7 +341,9 @@
                         <button id="btn__pay" class="theme-btn-one btn-black-overlay btn_sm" type="submit" @click="purchase">Etape suivante</button>
                         
                     </div> -->
-            <p id="alert-message">{{ alertMessage }}</p>
+            <p id="alert-message" v-if="active">
+              {{ alertMessage }}
+            </p>
             <button
               v-if="selectedProducts[0]"
               type="submit"
@@ -418,7 +420,7 @@
         </div>
       </div>
     </section>
-    <Modal @modal="formShow"></Modal>
+    <Modal @modal="formShow" @refresh="refresh"></Modal>
   </div>
 </template>
 
@@ -451,6 +453,7 @@ export default {
       //   adress: null,
       //   validate: null,
       // },
+      active: false,
       alertMessage: null,
       enabled: true,
       formEnabled: false,
@@ -505,24 +508,30 @@ export default {
     };
   },
   methods: {
-    //Purchase order
-    purchase() {
-      //    console.log( this.$store.getters['order/apiResponse'])
-    },
     //Show form object
     formShow() {
       // this.formEnabled = true;
       this.$bvModal.show("modal-1");
     },
+    refresh() {
+      this.updateAdress();
+      this.$nuxt.refresh();
+      // this.$forceUpdate();
+      console.log("refresh checkout");
+    },
 
-    //Submit new Adresse
+    //Etape suivante payment
     onSubmit() {
-      console;
-      if (this.adresses === null) {
-        console.log("this.invoicing :", this.invoicing.invoiceUserId);
+      // console;
+      if (this.userAdress === null) {
+        console.log("this.invoicing :", this.userAdress);
         console.log("Donnée de facturation abscent!!!");
+        this.active = true;
         this.alertMessage =
           "Veuillez renseigner vos coordonnées de facturation afin de poursuivre votre commande";
+        setTimeout(() => {
+          this.active = false;
+        }, 4000);
       } else {
         // const userObject = this.$store.state.user.userLogin;
         // this.$store.dispatch("user/getUserDetails", userObject.userId);
@@ -553,6 +562,20 @@ export default {
       // this.$nuxt.refresh();
       // this.$router.push("/my-account/checkout-1");
     },
+    updateAdress() {
+      const id = this.$store.state.auth.user.userId;
+      this.$store
+        .dispatch("adress/getAdresses", id)
+        .then(() => {
+          const userAdress = this.$store.state.adress.userAdresses.data;
+
+          this.adresses = userAdress;
+          console.log("Api sucess");
+        })
+        .catch((err) => {
+          console.log("Api error", err);
+        });
+    },
   },
   computed: {
     id() {
@@ -579,7 +602,7 @@ export default {
       return this.$store.state.adress.userAdresses.data;
     },
   },
-  created() {
+  mounted() {
     const id = this.$store.state.auth.user.userId;
     this.$store
       .dispatch("adress/getAdresses", id)
