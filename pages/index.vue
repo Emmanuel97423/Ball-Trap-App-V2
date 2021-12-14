@@ -18,7 +18,7 @@
     </section>
 
     <!-- Product variation -->
-    <section id="product_variation_one" class="pt-100">
+    <section id="product_variation_one" class="pt-15">
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-4 col-md-6">

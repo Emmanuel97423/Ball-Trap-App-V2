@@ -47,6 +47,9 @@ img {
 .pt-100 {
   padding-top: 100px;
 }
+.pt-15 {
+  padding-top: 15px;
+}
 
 a {
   text-decoration: none;
@@ -490,8 +493,8 @@ button {
   padding: 25px 30px 30px 30px;
   background: #fff;
   box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.1);
-  transform: perspective(600px) rotateX(-90deg);
-  transform-origin: 0 0 0;
+  /* transform: perspective(600px) rotateX(-90deg); */
+  /* transform-origin: 0 0 0; */
   left: 0;
   right: 0;
   opacity: 0;
@@ -500,11 +503,28 @@ button {
   z-index: 99;
   top: 100%;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
 }
 
 .mega-menu-inner {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: red;
+}
+.mega-menu-item {
+  width: 100%;
+  max-height: 250px;
+  display: flex;
+  justify-content: flex-start;
+  /* justify-content:space-between; */
+  border-bottom: 1px solid rgb(175, 175, 175);
+  margin: 0 0 1rem 0;
+  padding: 0 0 1rem 0;
+  column-gap: 3rem;
+  background: green;
 }
 
 .mega-menu-item-title {
@@ -515,6 +535,17 @@ button {
   display: block;
   margin-bottom: 13px;
   color: #24262b;
+}
+
+.mega-menu-sub {
+  width: 100%;
+  max-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  background: pink;
 }
 
 .mega-menu-sub > li {
@@ -1843,7 +1874,7 @@ button {
 #banner_one {
   background-image: url("../img/common/slideshow.jpg");
 
-  padding: 200px 0;
+  padding: 20px 0;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -2195,6 +2226,7 @@ button {
   text-overflow: ellipsis;
   display: block;
   font-size: 16px;
+  /* text-transform: capitalize; */
 }
 
 .product_wrappers_one .content .price {

@@ -48,19 +48,31 @@
                         ></nuxt-link>
 
                         <!-- Mega Menu -->
-                        <div v-if="!enabled" class="mega-menu">
+                        <div v-if="enabled" class="mega-menu">
                           <ul class="mega-menu-inner">
                             <!-- Mega Menu Sub Link -->
                             <li class="mega-menu-item">
                               <a href="#" class="mega-menu-item-title"
-                                >Textiles</a
+                                >Vêtements</a
                               >
                               <ul class="mega-menu-sub">
                                 <li>
-                                  <nuxt-link to="#">Hommes</nuxt-link>
+                                  <nuxt-link to="#">Casquettes</nuxt-link>
                                 </li>
                                 <li>
-                                  <nuxt-link to="#">Femmes</nuxt-link>
+                                  <nuxt-link to="#">Doudounes</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Gants</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Gilets</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Lycra</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">T-Shirt</nuxt-link>
                                 </li>
                               </ul>
                             </li>
@@ -71,19 +83,55 @@
                               >
                               <ul class="mega-menu-sub">
                                 <li>
-                                  <nuxt-link to="#">Fusils</nuxt-link>
+                                  <nuxt-link to="#"
+                                    >Bouchons oreilles</nuxt-link
+                                  >
                                 </li>
                                 <li>
-                                  <nuxt-link to="#">Cartouches </nuxt-link>
+                                  <nuxt-link to="#">Casques</nuxt-link>
                                 </li>
                                 <li>
-                                  <nuxt-link to="#">Entretiens</nuxt-link>
+                                  <nuxt-link to="#">Déplombant</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Graisse</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Kit de Nettoyage</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Huile entretien</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Lunettes</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#"
+                                    >Malette de transport</nuxt-link
+                                  >
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Oeilleres</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Repose canon</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#"
+                                    >Sacs de transport</nuxt-link
+                                  >
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Serviette de tir</nuxt-link>
+                                </li>
+                                <li>
+                                  <nuxt-link to="#">Snap lock</nuxt-link>
                                 </li>
                               </ul>
                             </li>
 
                             <!-- Mega Menu Sub Link -->
-                            <li class="mega-menu-item">
+                            <!-- <li class="mega-menu-item">
                               <div class="menu-banner">
                                 <nuxt-link to="/shop" class="menu-banner-link">
                                   <img
@@ -95,7 +143,7 @@
                                   />
                                 </nuxt-link>
                               </div>
-                            </li>
+                            </li> -->
                           </ul>
                         </div>
                       </li>

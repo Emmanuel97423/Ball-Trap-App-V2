@@ -50,7 +50,9 @@
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
                 <h3 v-if="this.$route.params.id">
-                  {{ product.name }}
+                  {{
+                    product.name.charAt(0).toUpperCase() + product.name.slice(1)
+                  }}
                 </h3>
                 <h3 v-else>Test fiche produit hello</h3>
 
@@ -618,6 +620,9 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
+    // capitalizeFirstLetter(string) {
+    //   return string.charAt(0).toUpperCase() + string.slice(1);
+    // },
     // outOfStock() {
     //   const stock = this.product.quantity;
     //   if (stock < 1) {
@@ -652,6 +657,4 @@ export default {
 </script>
 
 <style scoped>
-/* .spinner {
-} */
 </style>
