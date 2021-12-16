@@ -49,12 +49,12 @@
           <div class="col-lg-8">
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
-                <h3 v-if="this.$route.params.id">
+                <!-- <h3 v-if="this.$route.params.id">
                   {{
                     product.name.charAt(0).toUpperCase() + product.name.slice(1)
                   }}
-                </h3>
-                <h3 v-else>Test fiche produit hello</h3>
+                </h3> -->
+                <!-- <h3 v-else>Test fiche produit hello</h3> -->
 
                 <div v-if="!enabled" class="reviews_rating">
                   <i class="fas fa-star"></i>
@@ -472,6 +472,7 @@
 </template>
 
 <script>
+const apiURL = "https://trap-one-api.herokuapp.com/api";
 import ProductBox1 from "../../components/product-box/ProductBox1";
 import InstagramArea from "../../components/instagram/InstagramArea";
 import AddToCart from "../../components/AddToCart";
@@ -486,6 +487,8 @@ export default {
   },
   data() {
     return {
+      //Product data
+      product: {},
       //Alter data
       dismissSecs: 5,
       dismissCountDown: 0,
@@ -530,6 +533,16 @@ export default {
       message: "",
     };
   },
+  async fetch() {
+    try {
+      this.product = await this.$http.$get(
+        `${apiURL}/product/${this.$route.params.id}`
+      );
+      // console.log("product", this.product);
+    } catch (error) {
+      console.log("error", error);
+    }
+  },
 
   // Page head() Title, description for SEO
   head() {
@@ -545,12 +558,12 @@ export default {
     };
   },
 
-  computed: {
-    product() {
-      // return this.$store.getters["products/product"];
-      return this.$store.state.products.product;
-    },
-  },
+  // computed: {
+  //   product() {
+  //     // return this.$store.getters["products/product"];
+  //     return this.$store.state.products.product;
+  //   },
+  // },
   methods: {
     //Alert
     countDownChanged(dismissCountDown) {
@@ -642,21 +655,21 @@ export default {
     //       }).catch((err) => {console.log(err)})
     // },
   },
-  created() {
-    // this.dataTest()
-    // this.outOfStock();
-    const id = this.$route.params.id;
+  // created() {
+  //   // this.dataTest()
+  //   // this.outOfStock();
+  //   const id = this.$route.params.id;
 
-    this.$store
-      .dispatch("products/getOneProduct", id)
-      .then(() => {
-        console.log("Api sucess");
-      })
-      .catch((err) => {
-        console.log("Api error", err);
-      });
-  },
-  beforeDestroy() {},
+  //   this.$store
+  //     .dispatch("products/getOneProduct", id)
+  //     .then(() => {
+  //       console.log("Api sucess");
+  //     })
+  //     .catch((err) => {
+  //       console.log("Api error", err);
+  //     });
+  // },
+  // beforeDestroy() {},
 };
 </script>
 

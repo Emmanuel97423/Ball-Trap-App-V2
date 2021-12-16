@@ -48,7 +48,7 @@
                         ></nuxt-link>
 
                         <!-- Mega Menu -->
-                        <div v-if="enabled" class="mega-menu">
+                        <div v-if="!enabled" class="mega-menu">
                           <ul class="mega-menu-inner">
                             <!-- Mega Menu Sub Link -->
                             <li class="mega-menu-item">
