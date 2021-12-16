@@ -101,7 +101,7 @@
                         >
                       </td>
                       <td class="product-price">
-                        {{ item.price.toFixed(2) }} €
+                        {{ item.priceTtc.toFixed(2) }} €
                       </td>
                       <td class="product_quantity">
                         <!-- <label>quantité</label>  -->
@@ -109,7 +109,7 @@
                         {{ item.orderQuantity }}
                       </td>
                       <td class="product_total">
-                        {{ (item.price * item.orderQuantity).toFixed(2) }}
+                        {{ (item.priceTtc * item.orderQuantity).toFixed(2) }}
                         €
                       </td>
                     </tr>
@@ -157,7 +157,7 @@
                 <div class="field">Livraison <span>0.00 €</span></div>
                 <!-- <div class="field">Discount <span>4.5%</span></div> -->
                 <div class="field grand-total">
-                  Total <span>{{ order.amount }} €</span>
+                  Total <span>{{ order.amount.toFixed(2) }} €</span>
                 </div>
               </div>
 

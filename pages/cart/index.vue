@@ -61,7 +61,9 @@
                           productItem.name
                         }}</nuxt-link>
                       </td>
-                      <td class="product-price">{{ productItem.price }} €</td>
+                      <td class="product-price">
+                        {{ productItem.priceTtc }} €
+                      </td>
                       <td class="product_quantity">
                         <!-- <label>quantité</label>  -->
                         <!-- <input min="1" max="100"   :value="productItem.orderQuantity"  type="number" @click="inc(productItem)"> -->
@@ -70,7 +72,7 @@
                       <td class="product_total">
                         {{
                           (
-                            productItem.price * productItem.orderQuantity
+                            productItem.priceTtc * productItem.orderQuantity
                           ).toFixed(2)
                         }}
                         €
