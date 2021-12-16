@@ -56,7 +56,10 @@
           }}</nuxt-link>
         </h5>
         <span class="price">
-          <span class="new">{{ parseFloat(productPrice).toFixed(2) }} €</span>
+          <span class="new"
+            >{{ parseFloat(productPrice).toFixed(2) }} €
+            <span id="tax">T.T.C</span></span
+          >
         </span>
       </div>
 
@@ -157,7 +160,7 @@
                     <i class="fas fa-star"></i>
                     <span>(2 Avis)</span>
                   </div>
-                  <h4>{{ productPrice }}€</h4>
+                  <h4>{{ productPrice }}€ T.T.C</h4>
                   <p>{{ productDescription }}</p>
                   <div class="variable-single-item">
                     <span>Couleur</span>
@@ -335,5 +338,8 @@ export default {
 }
 .add-to-cart {
   background-color: black;
+}
+#tax {
+  font-size: 12px;
 }
 </style>

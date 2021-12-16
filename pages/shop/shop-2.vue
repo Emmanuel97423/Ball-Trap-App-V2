@@ -81,7 +81,7 @@
               :productTagClass="productItem.productTagClass"
               :productTag="productItem.productTag"
               :productTitle="productItem.name"
-              :productPrice="productItem.price"
+              :productPrice="productItem.priceTtc"
               :productId="productItem._id"
               :productQuantity="productItem.quantity"
               :productObject="productItem"

@@ -64,7 +64,11 @@
                   <i class="fas fa-star"></i>
                   <span>(2 avis clients)</span>
                 </div>
-                <h4>{{ parseFloat(product.price).toFixed(2) }} €</h4>
+
+                <h4>
+                  {{ parseFloat(product.priceTtc).toFixed(2) }} €
+                  <span id="tax">T.T.C</span>
+                </h4>
                 <p>
                   {{ product.description }}
                 </p>
@@ -657,4 +661,7 @@ export default {
 </script>
 
 <style scoped>
+#tax {
+  font-size: 12px;
+}
 </style>
