@@ -447,7 +447,7 @@
                       >{{ productItem.orderQuantity }} x
                     </span>
                     <span class="offcanvas-cart-item-details-price"
-                      >{{ productItem.price.toFixed(2) }}€</span
+                      >{{ productItem.priceTtc }}€</span
                     >
                   </div>
                 </div>

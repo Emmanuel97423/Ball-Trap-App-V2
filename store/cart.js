@@ -85,7 +85,8 @@ export const getters = {
   },
   price: state => {
     return state.items.reduce(
-      (accumulator, item) => accumulator + item.price * item.orderQuantity,
+      (accumulator, item) => accumulator + item.priceTtc * item.orderQuantity,
+
       0
     )
   },
@@ -102,7 +103,7 @@ export const getters = {
   // },
 
   cartTotal(getters) {
-    return getters.items.reduce((total, item) => total + item.price * item.orderQuantity, 0)
+    return getters.items.reduce((total, item) => total + item.priceTtc * item.orderQuantity, 0)
   },
   numberOfItems: state => {
     return state.items.reduce(

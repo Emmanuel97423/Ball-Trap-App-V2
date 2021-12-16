@@ -487,7 +487,7 @@ export default {
   data() {
     return {
       //Product data
-      product: {},
+      // product: {},
       //Alter data
       dismissSecs: 5,
       dismissCountDown: 0,
@@ -532,16 +532,16 @@ export default {
       message: "",
     };
   },
-  async fetch() {
-    try {
-      this.product = await this.$http.$get(
-        `${apiURL}/product/${this.$route.params.id}`
-      );
-      // console.log("product", this.product);
-    } catch (error) {
-      console.log("error", error);
-    }
-  },
+  // async fetch() {
+  //   try {
+  //     this.product = await this.$http.$get(
+  //       `${apiURL}/product/${this.$route.params.id}`
+  //     );
+  //     // console.log("product", this.product);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // },
 
   // Page head() Title, description for SEO
   head() {
@@ -557,12 +557,12 @@ export default {
     };
   },
 
-  // computed: {
-  //   product() {
-  //     // return this.$store.getters["products/product"];
-  //     return this.$store.state.products.product;
-  //   },
-  // },
+  computed: {
+    product() {
+      // return this.$store.getters["products/product"];
+      return this.$store.state.products.product;
+    },
+  },
   methods: {
     //Alert
     countDownChanged(dismissCountDown) {
@@ -654,20 +654,20 @@ export default {
     //       }).catch((err) => {console.log(err)})
     // },
   },
-  // created() {
-  //   // this.dataTest()
-  //   // this.outOfStock();
-  //   const id = this.$route.params.id;
+  created() {
+    // this.dataTest()
+    // this.outOfStock();
+    const id = this.$route.params.id;
 
-  //   this.$store
-  //     .dispatch("products/getOneProduct", id)
-  //     .then(() => {
-  //       console.log("Api sucess");
-  //     })
-  //     .catch((err) => {
-  //       console.log("Api error", err);
-  //     });
-  // },
+    this.$store
+      .dispatch("products/getOneProduct", id)
+      .then(() => {
+        console.log("Api sucess");
+      })
+      .catch((err) => {
+        console.log("Api error", err);
+      });
+  },
   // beforeDestroy() {},
 };
 </script>
