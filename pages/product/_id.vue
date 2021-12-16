@@ -49,12 +49,12 @@
           <div class="col-lg-8">
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
-                <!-- <h3 v-if="this.$route.params.id">
+                <h3 v-if="this.$route.params.id">
                   {{
                     product.name.charAt(0).toUpperCase() + product.name.slice(1)
                   }}
-                </h3> -->
-                <!-- <h3 v-else>Test fiche produit hello</h3> -->
+                </h3>
+                <h3 v-else>Test fiche produit hello</h3>
 
                 <div v-if="!enabled" class="reviews_rating">
                   <i class="fas fa-star"></i>
