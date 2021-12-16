@@ -131,7 +131,7 @@
                 :productTagClass="productItem.productTagClass"
                 :productTag="productItem.productTag"
                 :productTitle="productItem.name"
-                :productPrice="productItem.price"
+                :productPrice="productItem.priceTtc"
                 :productId="productItem._id"
                 :productObject="productItem"
                 :productQuantity="productItem.quantity"
