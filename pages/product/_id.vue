@@ -50,9 +50,7 @@
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
                 <h3 v-if="this.$route.params.id">
-                  {{
-                    product.name.charAt(0).toUpperCase() + product.name.slice(1)
-                  }}
+                  {{ product.name }}
                 </h3>
                 <h3 v-else>Test fiche produit hello</h3>
 
