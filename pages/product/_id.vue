@@ -228,6 +228,7 @@
               <b-tabs>
                 <b-tab title="Description" active id="description">
                   <div class="product_description">
+                    <p>{{ product.description }}</p>
                     <!-- <p>
                       Curabitur arcu erat, accumsan id imperdiet et, porttitor
                       at sem. Vestibulum ac diam sit amet quam vehicula
