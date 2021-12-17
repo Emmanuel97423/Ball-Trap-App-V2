@@ -62,7 +62,7 @@
                         }}</nuxt-link>
                       </td>
                       <td class="product-price">
-                        {{ productItem.priceTtc }} €
+                        {{ productItem.priceTtc.toFixed(2) }} €
                       </td>
                       <td class="product_quantity">
                         <!-- <label>quantité</label>  -->
