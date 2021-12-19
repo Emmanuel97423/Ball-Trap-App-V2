@@ -10,7 +10,7 @@ export default {
   //Environement variables 
   env: {
     stripePublishKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
-    apiUrl: process.env.BASE_URL || " http://localhost:3000/api",
+    apiUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api",
     // baseUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api"
   },
 
