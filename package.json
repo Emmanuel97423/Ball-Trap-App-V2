@@ -1,14 +1,14 @@
 {
-  "name": "Trap-One-app",
+  "name": "Exo trap",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt generate",
+    "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
-    "heroku-postbuild": "npm run build"
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@nuxt/utils": "^2.15.7",
