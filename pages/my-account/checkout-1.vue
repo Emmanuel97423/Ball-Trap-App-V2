@@ -305,7 +305,7 @@
                       <td>
                         {{
                           (
-                            productItem.price * productItem.orderQuantity
+                            productItem.priceTtc * productItem.orderQuantity
                           ).toFixed(2)
                         }}
                         €
