@@ -52,7 +52,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // '@nuxtjs/pwa',
+    '@nuxtjs/pwa',
     // 'nuxt-purgecss',
   ],
 
@@ -126,17 +126,17 @@ export default {
       },
     },
   },
-  // pwa: {
-  //   icon: {
-  //     /* icon options */
-  //     fileName: 'sample-logo-512x512.png',
-  //     purpose: 'any'
-  //   },
-  //   manifest: {
-  //     name: 'Trap One App',
-  //     lang: 'fr',
-  //     useWebmanifestExtension: false,
-  //     background_color: '#ffffff'
-  //   }
-  // }
+  pwa: {
+    icon: {
+      /* icon options */
+      fileName: 'sample-logo-512x512.png',
+      purpose: 'any'
+    },
+    manifest: {
+      name: 'Trap One App',
+      lang: 'fr',
+      useWebmanifestExtension: false,
+      background_color: '#ffffff'
+    }
+  }
 };
