@@ -8,7 +8,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
-    "postinstall": "npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@nuxt/utils": "^2.15.7",
