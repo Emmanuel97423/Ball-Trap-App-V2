@@ -298,7 +298,7 @@
             <div class="mobile-header-left">
               <ul class="mobile-menu-logo">
                 <li>
-                  <h3>Trap One Logo</h3>
+                  <h3>Exo Trap</h3>
                   <nuxt-link v-if="!enabled" to="/">
                     <div class="logo">
                       <img :src="require('@/assets/img/logo.png')" alt="logo" />
