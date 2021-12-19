@@ -64,7 +64,7 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
     'nuxt-stripe-module',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     ['nuxt-vuex-localstorage', {
       localStorage: ['cart', 'user', 'order', 'adress', 'products']
     }]
@@ -79,7 +79,7 @@ export default {
       compact: true,
     },
 
-    analyse: true,
+    analyse: false,
     transpile: ["vee-validate/dist/rules"]
 
   },
@@ -126,17 +126,17 @@ export default {
       },
     },
   },
-  pwa: {
-    icon: {
-      /* icon options */
-      fileName: 'sample-logo-512x512.png',
-      purpose: 'any'
-    },
-    manifest: {
-      name: 'Trap One App',
-      lang: 'fr',
-      useWebmanifestExtension: false,
-      background_color: '#ffffff'
-    }
-  }
+  // pwa: {
+  //   icon: {
+  //     /* icon options */
+  //     fileName: 'sample-logo-512x512.png',
+  //     purpose: 'any'
+  //   },
+  //   manifest: {
+  //     name: 'Trap One App',
+  //     lang: 'fr',
+  //     useWebmanifestExtension: false,
+  //     background_color: '#ffffff'
+  //   }
+  // }
 };
