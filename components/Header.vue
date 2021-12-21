@@ -21,7 +21,7 @@
                 <!-- Start Header Logo -->
                 <div class="header-logo">
                   <div class="logo">
-                    <h3>Trap One Logo</h3>
+                    <h3>Exo-Trap</h3>
                     <nuxt-link v-if="!enabled" to="/"
                       ><img :src="require('@/assets/img/logo.png')" alt="logo"
                     /></nuxt-link>
