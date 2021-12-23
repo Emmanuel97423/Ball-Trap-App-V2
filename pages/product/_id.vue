@@ -24,7 +24,7 @@
     <section id="product_single_one" class="ptb-100">
       <div class="container">
         <div class="row area_boxed">
-          <div class="col-lg-4">
+          <div class="col-lg-4 col-img">
             <div class="product_single_one_img">
               <swiper
                 class="swiper product-single-2-slider"
@@ -676,6 +676,14 @@ export default {
 #tax {
   font-size: 12px;
 }
+@media only screen and (min-width: 768px) {
+  /* tablettes et ordinateurs */
+
+  .col-img {
+    max-width: 26%;
+  }
+}
+
 /* .container__products {
   max-width: 1160px;
   min-width: 100px;
