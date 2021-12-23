@@ -677,7 +677,7 @@ export default {
   font-size: 12px;
 }
 .container__products {
-  max-width: 1170px;
+  max-width: 1160px;
   align-self: center;
 }
 </style>
