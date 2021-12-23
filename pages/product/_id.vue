@@ -676,8 +676,9 @@ export default {
 #tax {
   font-size: 12px;
 }
-.container__products {
+/* .container__products {
   max-width: 1160px;
+  min-width: 100px;
   align-self: center;
-}
+} */
 </style>
