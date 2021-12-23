@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container__products">
     <!-- <div>
       <b-spinner class="spinner" label="Loading..."></b-spinner>
     </div> -->
@@ -675,5 +675,9 @@ export default {
 <style scoped>
 #tax {
   font-size: 12px;
+}
+.container__products {
+  max-width: 1170px;
+  align-self: center;
 }
 </style>

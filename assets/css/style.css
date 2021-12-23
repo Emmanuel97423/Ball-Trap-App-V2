@@ -111,6 +111,7 @@ p {
   font-weight: 400;
   font-family: "Poppins", sans-serif;
   margin-bottom: 0;
+  text-align: justify;
 }
 
 p:last-child {
@@ -3045,6 +3046,7 @@ button {
 
 #product_single_one .modal_product_content_one p {
   padding-top: 20px;
+  text-align: justify;
 }
 
 #product_single_one .links_Product_areas {
