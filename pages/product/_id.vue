@@ -21,8 +21,9 @@
     </section>
 
     <!-- Product Single Area -->
-    <section id="product_single_one" class="ptb-100">
+    <section id="product_single_one" class="ptb-25">
       <div class="container">
+        <div class="back-link"><a onclick="history.back()">Retour</a></div>
         <div class="row area_boxed">
           <div class="col-lg-4 col-img">
             <div class="product_single_one_img">
@@ -683,7 +684,18 @@ export default {
     max-width: 26%;
   }
 }
-
+.back-link {
+  width: 26%;
+  display: flex;
+  justify-content: flex-start;
+}
+.back-link:first-child {
+  /* flex: 10%; */
+  margin: 0 0 40px 0;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
 /* .container__products {
   max-width: 1160px;
   min-width: 100px;

@@ -20,6 +20,7 @@
     <!-- Shop Main Area -->
     <section id="shop_main_area" class="ptb-100">
       <div class="container">
+        <div class="back-link"><a onclick="history.back()">Retour</a></div>
         <div class="row">
           <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
@@ -175,4 +176,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.back-link {
+  width: 26%;
+  display: flex;
+  justify-content: flex-start;
+}
+.back-link:first-child {
+  /* flex: 10%; */
+  margin: 0 0 40px 0;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
