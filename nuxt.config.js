@@ -129,11 +129,11 @@ export default {
   pwa: {
     icon: {
       /* icon options */
-      fileName: 'sample-logo-512x512.png',
+      fileName: 'ball_trap.jpg',
       purpose: 'any'
     },
     manifest: {
-      name: 'Trap One App',
+      name: 'Exo-Trap',
       lang: 'fr',
       useWebmanifestExtension: false,
       background_color: '#ffffff'
