@@ -154,6 +154,12 @@ export default {
             this.$refs.loginForm.setErrors({
               email: [err.response.data.error],
             });
+          } else if (
+            serverMessageError === "Veuillez confirmer votre e-mail!"
+          ) {
+            this.$refs.loginForm.setErrors({
+              email: [err.response.data.error],
+            });
           }
         });
     },
