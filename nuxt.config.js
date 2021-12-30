@@ -88,7 +88,7 @@ export default {
   },
   strapi: {},
   axios: {
-    // baseURL: " http://localhost:3000/api",
+    // baseURL: " http://localhost:8080/api",
     baseURL: "https://trap-one-api.herokuapp.com/api"
 
 
@@ -129,11 +129,11 @@ export default {
   pwa: {
     icon: {
       /* icon options */
-      fileName: 'sample-logo-512x512.png',
+      fileName: 'ball_trap.jpg',
       purpose: 'any'
     },
     manifest: {
-      name: 'Trap One App',
+      name: 'Exo-Trap',
       lang: 'fr',
       useWebmanifestExtension: false,
       background_color: '#ffffff'

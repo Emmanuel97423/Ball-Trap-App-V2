@@ -18,7 +18,7 @@
     </section>
 
     <!-- Shop Main Area -->
-    <section id="shop_main_area" class="ptb-100">
+    <section id="shop_main_area" class="ptb-25">
       <div class="container">
         <div class="back-link"><a onclick="history.back()">Retour</a></div>
         <div class="row">
