@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 //state
 export const state = () => ({
     userSignup: [],
@@ -12,15 +14,19 @@ export const getters = {
     userSignup: (state) => state.userSignup,
     userLogin: (state) => state.userLogin,
 }
+
 //Handle actions
 export const actions = {
+
     //Send order 
     signup({ commit }, item) {
+        console.log('item:', item)
         this.$axios.post('/user/signup', item).then((res) => {
 
-            commit('SIGNUP', res.data.message)
+            commit('SIGNUP', res.data)
             this.$router.push('/my-account')
-        }).catch((err) => { commit('SIGNUP', err.response.data.message) })
+        }).catch((err) => { commit('SIGNUP', err.response.data) })
+
 
     },
     //Login

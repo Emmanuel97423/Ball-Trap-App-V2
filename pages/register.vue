@@ -37,7 +37,7 @@
                     v-slot="{ errors }"
                   >
                     <div class="default-form-box">
-                      <label for="firstName">Nom <span>*</span></label>
+                      <label for="firstName">Pseudo <span>*</span></label>
                       <input
                         v-model="register.firstName"
                         id="firstName"
@@ -50,7 +50,7 @@
                   </ValidationProvider>
 
                   <!-- LastName -->
-
+                  <!-- 
                   <ValidationProvider
                     name="lastName"
                     rules="required|alpha"
@@ -67,7 +67,7 @@
                       />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
-                  </ValidationProvider>
+                  </ValidationProvider> -->
 
                   <!-- Email      -->
 
@@ -133,30 +133,35 @@
 
                   <!-- ID picture -->
 
-                  <ValidationProvider
+                  <!-- <ValidationProvider
                     name="idFile"
                     rules="required|ext:jpg,png"
                     v-slot="{ validate, errors }"
-                  >
-                    <div class="default-form-box">
-                      <label for="idFile"
+                  > -->
+                  <!-- <div class="default-form-box"> -->
+                  <!-- <label for="idFile"
                         >Photocopie de votre pièce d'identité
                         <span>*</span></label
-                      >
-                      <input
+                      > -->
+                  <!-- <input
                         type="file"
                         id="idFile"
                         name="idFile"
                         @change="validate"
-                      />
-                      <!-- <b-form-file
+                        
+                      /> -->
+                  <!-- <b-form-file
                         v-model="register.idFile"
                         class="mt-3"
+                        type="file"
+                        id="idFile"
+                        name="idFile"
+                        @change="validate"
                         plain
                       ></b-form-file> -->
-                      <span class="error__message">{{ errors[0] }}</span>
-                    </div>
-                  </ValidationProvider>
+                  <!-- <span class="error__message">{{ errors[0] }}</span> -->
+                  <!-- </div> -->
+                  <!-- </ValidationProvider> -->
                   <div class="login_submit">
                     <button
                       class="theme-btn-one btn-black-overlay btn_md"
@@ -224,19 +229,26 @@ export default {
     onSubmit() {
       let registerForm = document.getElementById("registerForm");
       const signupError = this.$store.state.user.userSignup;
-      console.log("signupError:", signupError);
+      // console.log("signupError:", signupError);
+      // this._register
+      // console.log("this._register:", this.register);
 
       const formData = new FormData(registerForm);
 
-      // for (var value of formData.values()) {
-      //   console.log(value);
+      // for (let [key, value] of formData.entries()) {
+      //   console.log(key, value);
       // }
+      this.$store.dispatch("user/signup", this.register);
 
-      this.$store.dispatch("user/signup", formData);
+      // this.$store.dispatch("user/signup", formData);
 
-      if (signupError) {
+      if (signupError.message) {
         this.$refs.registerForm.setErrors({
-          email: [signupError],
+          email: [signupError.message],
+        });
+      } else if (signupError.passwordError) {
+        this.$refs.registerForm.setErrors({
+          password: [signupError.passwordError],
         });
       }
     },
