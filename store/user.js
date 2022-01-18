@@ -20,7 +20,7 @@ export const actions = {
 
     //Send order 
     signup({ commit }, item) {
-        console.log('item:', item)
+
         this.$axios.post('/user/signup', item).then((res) => {
 
             commit('SIGNUP', res.data)

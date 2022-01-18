@@ -72,12 +72,12 @@
                       Se connecter
                     </button>
                   </div>
-                  <div class="remember_area">
+                  <!-- <div class="remember_area">
                     <label class="checkbox-default">
                       <input type="checkbox" />
                       <span>Se Rappeler de moi</span>
                     </label>
-                  </div>
+                  </div> -->
 
                   <nuxt-link to="/register">Créer un compte?</nuxt-link>
                 </form>
