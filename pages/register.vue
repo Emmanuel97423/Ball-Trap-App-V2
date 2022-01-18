@@ -167,8 +167,10 @@
                       class="theme-btn-one btn-black-overlay btn_md"
                       type="submit"
                     >
-                      Pool!
+                      Pull!
                     </button>
+                    <nuxt-link to="/login">Se connecter</nuxt-link>
+                    <!-- <a href="/login">Se connecter</a> -->
                   </div>
                 </form>
               </ValidationObserver>
@@ -261,4 +263,16 @@ export default {
   color: red;
   font-size: 12px;
 } */
+
+.login_submit {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login_submit,
+a {
+  margin: 10px 0 0 0;
+  text-decoration-line: underline;
+}
 </style>

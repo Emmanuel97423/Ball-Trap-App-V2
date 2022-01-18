@@ -69,8 +69,9 @@
                       class="theme-btn-one btn-black-overlay btn_md"
                       type="submit"
                     >
-                      Se connecter
+                      Pull!
                     </button>
+                    <nuxt-link to="/register">Créer un compte?</nuxt-link>
                   </div>
                   <!-- <div class="remember_area">
                     <label class="checkbox-default">
@@ -78,8 +79,6 @@
                       <span>Se Rappeler de moi</span>
                     </label>
                   </div> -->
-
-                  <nuxt-link to="/register">Créer un compte?</nuxt-link>
                 </form>
               </ValidationObserver>
             </div>
@@ -167,5 +166,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.login_submit {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login_submit,
+a {
+  margin: 10px 0 0 0;
+  text-decoration-line: underline;
+}
 </style>
