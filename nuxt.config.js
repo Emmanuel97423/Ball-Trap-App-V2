@@ -12,6 +12,7 @@ export default {
     stripePublishKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
     apiUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api",
     // baseUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api"
+    RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY || '6Le0-00eAAAAAL4skgRDMB6y_F04__ymqVOlCd12',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -67,12 +68,23 @@ export default {
     // '@nuxtjs/pwa',
     ['nuxt-vuex-localstorage', {
       localStorage: ['cart', 'user', 'order', 'adress', 'products']
-    }]
+    }],
+    '@nuxtjs/recaptcha',
   ],
   stripe: {
     publishableKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
   },
-
+  // publicRuntimeConfig: {
+  //   recaptcha: {
+  //     /* reCAPTCHA options */
+  //     // hideBadge: Boolean, // Hide badge element (v3 & v2 via size=invisible)
+  //     // language: String,   // Recaptcha language (v2)
+  //     // siteKey: String,    // Site key for requests
+  //     // version: Number,     // Version
+  //     // size: String,       // Size: 'compact', 'normal', 'invisible' (v2)
+  //     siteKey: process.env.RECAPTCHA_SITE_KEY // for example
+  //   }
+  // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     babel: {
@@ -138,5 +150,14 @@ export default {
       useWebmanifestExtension: false,
       background_color: '#ffffff'
     }
-  }
+  },
+  recaptcha: {
+    /* reCAPTCHA options */
+    hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
+    // language: fr,   // Recaptcha language (v2)
+    siteKey: '6Le0-00eAAAAAL4skgRDMB6y_F04__ymqVOlCd12',    // Site key for requests
+    version: 2,     // Version
+    size: 'compact',        // Size: 'compact', 'normal', 'invisible' (v2)
+
+  },
 };

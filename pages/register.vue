@@ -162,7 +162,9 @@
                   <!-- <span class="error__message">{{ errors[0] }}</span> -->
                   <!-- </div> -->
                   <!-- </ValidationProvider> -->
+
                   <div class="login_submit">
+                    <recaptcha />
                     <button
                       class="theme-btn-one btn-black-overlay btn_md"
                       type="submit"
@@ -228,9 +230,30 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      let registerForm = document.getElementById("registerForm");
-      const signupError = this.$store.state.user.userSignup;
+    async onSubmit() {
+      try {
+        const token = await this.$recaptcha.getResponse();
+        // console.log("ReCaptcha token:", token);
+        this.$store.dispatch("user/signup", this.register);
+        let registerForm = document.getElementById("registerForm");
+        const signupError = this.$store.state.user.userSignup;
+
+        if (signupError.message) {
+          this.$refs.registerForm.setErrors({
+            email: [signupError.message],
+          });
+        } else if (signupError.passwordError) {
+          this.$refs.registerForm.setErrors({
+            password: [signupError.passwordError],
+          });
+        }
+        // send token to server alongside your form data
+        // at the end you need to reset recaptcha
+        await this.$recaptcha.reset();
+      } catch (error) {
+        console.log("Login error:", error);
+      }
+
       // console.log("signupError:", signupError);
       // this._register
       // console.log("this._register:", this.register);
@@ -240,19 +263,8 @@ export default {
       // for (let [key, value] of formData.entries()) {
       //   console.log(key, value);
       // }
-      this.$store.dispatch("user/signup", this.register);
 
       // this.$store.dispatch("user/signup", formData);
-
-      if (signupError.message) {
-        this.$refs.registerForm.setErrors({
-          email: [signupError.message],
-        });
-      } else if (signupError.passwordError) {
-        this.$refs.registerForm.setErrors({
-          password: [signupError.passwordError],
-        });
-      }
     },
   },
 };
@@ -263,16 +275,10 @@ export default {
   color: red;
   font-size: 12px;
 } */
-
-.login_submit {
+/* .login_submit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.login_submit,
-a {
-  margin: 10px 0 0 0;
-  text-decoration-line: underline;
-}
+} */
 </style>
