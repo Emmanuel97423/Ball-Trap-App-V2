@@ -162,9 +162,8 @@
                   <!-- <span class="error__message">{{ errors[0] }}</span> -->
                   <!-- </div> -->
                   <!-- </ValidationProvider> -->
-
+                  <recaptcha />
                   <div class="login_submit">
-                    <recaptcha />
                     <button
                       class="theme-btn-one btn-black-overlay btn_md"
                       type="submit"
@@ -275,10 +274,15 @@ export default {
   color: red;
   font-size: 12px;
 } */
-/* .login_submit {
+.login_submit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-} */
+}
+.login_submit,
+a {
+  margin: 10px 0 0 0;
+  text-decoration-line: underline;
+}
 </style>
