@@ -230,6 +230,34 @@
                 <b-tab title="Description" active id="description">
                   <div class="product_description">
                     <p>{{ product.description }}</p>
+                    <br />
+                    <div>
+                      <h3>POUR ARME DE CATÉGORIE X</h3>
+                      <br />
+                      <p>
+                        Arme de catégorie X, merci de nous fournir les documents
+                        suivants :
+                      </p>
+                      <ul>
+                        <li>Pièce d'identité recto (CNI ou passeport)</li>
+                        <li>Pièce d'identité Verso (CNI)</li>
+                        <li>Justificatif de domicile (- de 3 mois)</li>
+                        <li>Permis de chasser</li>
+                        <li>Licence de Tir en cours de validité</li>
+                        <li>Licence de Tir FFT Verso</li>
+                        <li>
+                          Validation du permis de chasser de l'année en cours ou
+                          licence de Tir FFBT ou FFTir en cours de validité
+                          signée et tamponnée par le médecin.
+                        </li>
+                      </ul>
+
+                      <p>
+                        Lire notre dossier La Chasse en France, le permis de
+                        chasser, les espèces chassables. Equipez-vous d'un
+                        coffre fort pour armes et munitions.
+                      </p>
+                    </div>
                     <!-- <p>
                       Curabitur arcu erat, accumsan id imperdiet et, porttitor
                       at sem. Vestibulum ac diam sit amet quam vehicula
