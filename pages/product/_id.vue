@@ -437,34 +437,41 @@
     </section>
 
     <!-- Related Product -->
-    <!-- <section id="related_product" class="pb-100">
+    <section id="related_product" class="pb-100">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="center_heading">
               <h2>Vous pourriez aussi aimer</h2>
-              <p>Mauris luctus nisi sapien tristique dignissim ornare</p>
             </div>
           </div>
         </div>
         <div class="row">
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
-            v-for="productItem in product"
-            :key="productItem.id"
+            v-for="item in relatedProducts"
+            :key="item._id"
           >
+            <p v-if="$fetchState.pending">
+              <!-- <span class="loading"></span> -->
+              <Spinner></Spinner>
+            </p>
+            <p v-else-if="$fetchState.error">Une erreur est survenue! 🤬</p>
             <ProductBox1
-              :productImg1="productItem.productImg1"
-              :productImg2="productItem.productImg2"
-              :productTagClass="productItem.productTagClass"
-              :productTag="productItem.productTag"
-              :productTitle="productItem.productTitle"
-              :productPrice="productItem.productPrice"
+              class="mt-3"
+              :productImg1="item.imageUrl"
+              :productImg2="item.imageUrl"
+              :productTagClass="item.productTagClass"
+              :productTag="item.productTag"
+              :productTitle="item.name"
+              :productPrice="item.priceTtc"
+              :productQuantity="item.quantity"
+              :productId="item._id"
             />
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
 
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
@@ -479,6 +486,7 @@ import AddToCart from "../../components/AddToCart";
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
+  scrollToTop: true,
   name: "product-single-2",
   components: {
     ProductBox1,
@@ -531,18 +539,20 @@ export default {
 
       //error message
       message: "",
+      //related Product
+      relatedProducts: "",
     };
   },
-  // async fetch() {
-  //   try {
-  //     this.product = await this.$http.$get(
-  //       `${apiURL}/product/${this.$route.params.id}`
-  //     );
-  //     // console.log("product", this.product);
-  //   } catch (error) {
-  //     console.log("error", error);
-  //   }
-  // },
+  async fetch() {
+    try {
+      this.relatedProducts = await this.$http.$get(
+        `${apiURL}/product/allProduct`
+      );
+      // console.log("products", this.relatedProducts);
+    } catch (error) {
+      console.error("error", error);
+    }
+  },
 
   // Page head() Title, description for SEO
   head() {
@@ -551,8 +561,8 @@ export default {
       meta: [
         {
           hid: "description",
-          name: "description",
-          content: "Shop page - AndShop Ecommerce Vue js, Nuxt js Template",
+          name: this.product.name,
+          content: this.product.description,
         },
       ],
     };
@@ -637,6 +647,7 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
+
     // capitalizeFirstLetter(string) {
     //   return string.charAt(0).toUpperCase() + string.slice(1);
     // },
