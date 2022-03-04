@@ -116,12 +116,25 @@
               <h6>© tous droits réservés 2021 <span>Trap-One</span></h6>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-            <div class="copyright_right">
-              <img
-                :src="require('@/assets/img/common/payment.png')"
-                alt="img"
-              />
+          <div
+            class="
+              d-flex
+              flex-row-reverse
+              align-items-center
+              bd-highligh
+              col-lg-6 col-md-6 col-sm-6 col-12
+            "
+          >
+            <div class="copyright_left mr-3">
+              <a href="./legal/politique-de-confidentialité"
+                ><h6>Politique de confidentialité</h6></a
+              >
+            </div>
+            <!-- <div class="copyright_left mr-3">
+              <h6>Coordonnées</h6>
+            </div> -->
+            <div class="copyright_left mr-3">
+              <a href="./legal"><h6>Condition générale de ventes</h6></a>
             </div>
           </div>
         </div>
@@ -140,4 +153,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style "scoped">
+.copyright_right {
+  display: flex;
+  justify-content: flex-end;
+}
+.copyright_right :nth-child(1) {
+  margin-right: 1rem;
+  background-color: red;
+}
+</style>
