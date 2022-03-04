@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mt-15">
     <!-- footer Area -->
     <!-- <footer id="footer_one">
       <div class="container">

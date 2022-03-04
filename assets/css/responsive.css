@@ -70,9 +70,9 @@
     padding: 80px 0;
     background-position: 95%;
   }
-  #product_variation_one .container-fluid .row .col-lg-4:last-child {
+  /* #product_variation_one .container-fluid .row .col-lg-4:last-child {
     display: none;
-  }
+  } */
   .banner_text_one h1 {
     font-size: 115px;
     line-height: 110px;

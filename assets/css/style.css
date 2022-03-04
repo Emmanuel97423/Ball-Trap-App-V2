@@ -1928,6 +1928,7 @@ button {
 
 .product_variation_one_boxed img {
   width: 100%;
+  opacity: 30%;
 }
 
 .product_var_one_text_center {
@@ -2458,6 +2459,7 @@ button {
   padding: 15px 0;
   border-top: 1px solid #ededed;
   background: #000;
+  margin:15px 0 0 0;
 }
 
 .copyright_left h6 {

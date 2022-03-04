@@ -22,82 +22,83 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
               <img
                 :src="require('@/assets/img/offer/shot-gun.jpg')"
                 alt="img"
               />
               <div class="product_var_one_text">
-                <h4 class="color_one">Outdoor</h4>
-                <h2 class="color_two">Nouvelle</h2>
-                <h4 class="color_two">Collection</h4>
+                <h4 class="color_one">Ball trap</h4>
+                <h2 class="color_two">Accessoires</h2>
+                <!-- <h4 class="color_two">Collection</h4> -->
                 <nuxt-link
                   to="/shop/shop-2"
                   class="theme-btn-one bg-black btn_sm"
-                  >Poule!</nuxt-link
+                  >Pull!</nuxt-link
                 >
               </div>
             </div>
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
               <img
+                class="opacity-25"
                 :src="require('@/assets/img/offer/shot-gun.jpg')"
                 alt="img"
               />
               <div class="product_var_one_text">
-                <h4 class="color_one">Hiver</h4>
-                <h2>Cold</h2>
-                <h4>Collection</h4>
+                <!-- <h4 class="color_one">Hiver</h4> -->
+                <h2 class="text-light">Armes</h2>
+                <h4 class="color_one">Catégorie C.</h4>
                 <nuxt-link
                   to="/shop/shop-2"
                   class="theme-btn-one bg-black btn_sm"
-                  >Poule!</nuxt-link
+                  >Pull!</nuxt-link
                 >
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
               <img
                 :src="require('@/assets/img/offer/gilet-castelani.jpg')"
                 alt="img"
               />
               <div class="product_var_one_text_center">
-                <h2 class="color_one">10% Offert</h2>
+                <h2 class="color_one">Textiles</h2>
                 <h4>Notre selection du mois</h4>
                 <nuxt-link
                   to="/shop/shop-2"
                   class="theme-btn-one bg-black btn_sm"
-                  >Poule!</nuxt-link
+                  >Pull!</nuxt-link
                 >
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
               <img
                 :src="require('@/assets/img/offer/shot-gun.jpg')"
                 alt="img"
               />
               <div class="product_var_one_text">
-                <h2>Nouvel</h2>
-                <h4 class="color_one">Arrivage</h4>
+                <h2 class="text-light">Munitions</h2>
+                <!-- <h4 class="color_one">Arrivage</h4> -->
                 <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
-                  >Poule!</nuxt-link
+                  >Pull!</nuxt-link
                 >
               </div>
             </div>
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
               <img
                 :src="require('@/assets/img/offer/shot-gun.jpg')"
                 alt="img"
               />
               <div class="product_var_one_text">
-                <h2>Cartouches</h2>
-                <h4 class="color_one">Offre</h4>
+                <h2 class="text-light">ARMES</h2>
+                <h4 class="color_one">Catégorie D.</h4>
                 <nuxt-link
                   to="/shop/shop-2"
                   class="theme-btn-one bg-black btn_sm"
-                  >Poule!</nuxt-link
+                  >Pull!</nuxt-link
                 >
               </div>
             </div>
@@ -107,7 +108,7 @@
     </section>
 
     <!-- Hot Product Area -->
-    <section v-if="!enabled" id="hot_Product_area" class="ptb-100">
+    <!-- <section v-if="!enabled" id="hot_Product_area" class="ptb-100">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -220,7 +221,7 @@
           </b-tab>
         </b-tabs>
       </div>
-    </section>
+    </section> -->
 
     <!-- Offer Time Area -->
     <section v-if="enabled" id="offer_timer_one">
