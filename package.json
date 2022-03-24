@@ -17,7 +17,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/recaptcha": "^1.0.4",
     "@nuxtjs/strapi": "^0.3.4",
-    "@stripe/stripe-js": "^1.17.1",
+    "@stripe/stripe-js": "^1.24.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "cookieparser": "^0.1.0",
