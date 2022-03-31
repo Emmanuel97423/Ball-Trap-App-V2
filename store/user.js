@@ -24,7 +24,7 @@ export const actions = {
         this.$axios.post('/user/signup', item).then((res) => {
 
             commit('SIGNUP', res.data)
-            this.$router.push('/my-account')
+            this.$router.push('/confirmEmailPage')
         }).catch((err) => { commit('SIGNUP', err.response.data) })
 
 

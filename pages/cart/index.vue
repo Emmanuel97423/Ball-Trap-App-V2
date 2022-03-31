@@ -93,7 +93,7 @@
                             </div> -->
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6 col-md-6">
             <div
               class="coupon_code left"
               data-aos="fade-up"
@@ -111,7 +111,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-lg-6 col-md-6">
             <div
               class="coupon_code right"
@@ -135,17 +135,76 @@
                   <p class="cart_amount">{{ cartTotal.toFixed(2) }}€</p>
                 </div>
                 <div class="checkout_btn">
-                  <nuxt-link
+                  <!-- <nuxt-link
                     to="/my-account/checkout-1"
                     class="theme-btn-one btn-black-overlay btn_sm"
+                    @click="isLoggedIn"
                     >Commander</nuxt-link
+                  > -->
+                  <button
+                    id="toggle-btn"
+                    class="theme-btn-one btn-black-overlay btn_sm"
+                    @click="isLoggedIn"
                   >
+                    Commander
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <b-modal
+        id="parent-modal"
+        ref="my-modal"
+        hide-footer
+        title="Information"
+        modal-class="modal-connect"
+        dialog-class="dialog__class--cart"
+        content-class="content__class--cart"
+      >
+        <div id="login-modal">
+          <div
+            class="
+              d-flex
+              justify-content-center
+              align-items-center
+              d-block
+              text-center
+            "
+          >
+            <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
+            <h3 class="ml-2">Vous n'êtes pas connecter</h3>
+          </div>
+
+          <div class="modal__button">
+            <!-- <button
+              class="mt-2 theme-btn-one btn-black-overlay btn_sm"
+              block
+              @click="toggleModal"
+            >
+              Se connecter
+            </button> -->
+            <nuxt-link
+              to="/login"
+              class="theme-btn-one btn-black-overlay btn_sm"
+              >Se connecter</nuxt-link
+            >
+            <nuxt-link
+              to="/register"
+              class="theme-btn-one btn-black-overlay btn_sm"
+              >S'inscrire</nuxt-link
+            >
+            <!-- <button
+              class="mt-2 theme-btn-one btn-black-overlay btn_sm"
+              block
+              @click="toggleModal"
+            >
+              S'inscrire'
+            </button> -->
+          </div>
+        </div>
+      </b-modal>
     </section>
   </div>
 </template>
@@ -179,6 +238,22 @@ export default {
   methods: {
     removeProductItem(productItem) {
       this.$store.commit("cart/remove", productItem);
+    },
+    toggleModal() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs["my-modal"].toggle("#toggle-btn");
+    },
+    isLoggedIn() {
+      this.$auth.loggedIn;
+
+      if (!this.$auth.loggedIn) {
+        console.log("this.$auth.loggedIn:", this.$auth.loggedIn);
+        this.toggleModal();
+      } else {
+        console.log("this.$auth.loggedIn:", this.$auth.loggedIn);
+        this.$router.push({ path: "my-account/checkout-1" });
+      }
     },
     // refresh(productItem){
     //     console.log(this.value)
@@ -223,5 +298,27 @@ export default {
 };
 </script>
 
-<style>
+<style >
+.modal__button {
+  text-align: center;
+  width: 100%;
+  margin: 25px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  row-gap: 10px;
+}
+.modal-connect {
+  width: 100%;
+  padding: 20px 0 0 0;
+}
+.dialog__class--cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content__class--cart {
+  width: 50%;
+}
 </style>
