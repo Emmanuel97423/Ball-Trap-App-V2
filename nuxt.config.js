@@ -71,6 +71,10 @@ export default {
     }],
     '@nuxtjs/recaptcha',
   ],
+  bootstrapVue: {
+    // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
+    icons: true
+  },
   stripe: {
     publishableKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
   },

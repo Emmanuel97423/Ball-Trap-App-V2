@@ -93,7 +93,7 @@
                             </div> -->
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6 col-md-6">
             <div
               class="coupon_code left"
               data-aos="fade-up"
@@ -111,7 +111,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-lg-6 col-md-6">
             <div
               class="coupon_code right"
@@ -164,8 +164,17 @@
         content-class="content__class--cart"
       >
         <div id="login-modal">
-          <div class="d-block text-center">
-            <h3>Vous n'êtes pas connecter</h3>
+          <div
+            class="
+              d-flex
+              justify-content-center
+              align-items-center
+              d-block
+              text-center
+            "
+          >
+            <b-icon icon="exclamation-circle-fill" variant="warning"></b-icon>
+            <h3 class="ml-2">Vous n'êtes pas connecter</h3>
           </div>
 
           <div class="modal__button">
