@@ -68,6 +68,10 @@
                   {{ parseFloat(product.priceTtc).toFixed(2) }} €
                   <span id="tax">T.T.C</span>
                 </h4>
+                <button v-if="product.quantity > 0" class="btn__stock--green">
+                  Disponible
+                </button>
+                <button v-else class="btn__stock--red">Indisponible</button>
                 <p>
                   {{ product.description }}
                 </p>
@@ -76,10 +80,7 @@
                   >Qté: <em>Reste {{ product.quantity }}</em></span
                 >
                 <span v-else>Qté: <em>Rupture</em></span> -->
-                <button v-if="product.quantity > 0" class="btn__stock--green">
-                  Disponible
-                </button>
-                <button v-else class="btn__stock--red">Indisponible</button>
+
                 <!-- productquantity : {{ product.quantity }} -->
                 <!-- <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
@@ -840,6 +841,7 @@ export default {
   letter-spacing: 1px;
   cursor: default;
   text-transform: uppercase;
+  margin: 20px 0 0 0;
 }
 .btn__stock--red {
   background-color: red;
@@ -850,6 +852,7 @@ export default {
   letter-spacing: 1px;
   cursor: default;
   text-transform: uppercase;
+  margin: 20px 0 0 0;
 }
 .stock-alert {
   margin: 20px 0 0 0;

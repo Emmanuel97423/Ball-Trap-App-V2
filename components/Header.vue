@@ -439,9 +439,12 @@
                   />
                 </nuxt-link>
                 <div class="offcanvas-cart-item-content">
-                  <nuxt-link to="#" class="offcanvas-cart-item-link">{{
-                    productItem.name
-                  }}</nuxt-link>
+                  {{ productItem._id }}
+                  <nuxt-link
+                    :to="{ path: '/product/' + productItem._id }"
+                    class="offcanvas-cart-item-link"
+                    >{{ productItem.name }}</nuxt-link
+                  >
                   <div class="offcanvas-cart-item-details">
                     <span class="offcanvas-cart-item-details-quantity"
                       >{{ productItem.orderQuantity }} x
