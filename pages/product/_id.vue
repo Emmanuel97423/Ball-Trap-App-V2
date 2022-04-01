@@ -201,6 +201,7 @@
                   >
                     Ajouter
                   </button>
+
                   <!-- Out of stock -->
                   <p v-else>Non disponible</p>
                   {{ message }}
@@ -503,6 +504,63 @@
 
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
+    <b-modal
+      id="parent-modal"
+      ref="my-modal-purchase"
+      hide-footer
+      title="Information"
+      modal-class="modal-connect"
+      dialog-class="dialog__class--cart"
+      content-class="content__class--cart"
+    >
+      <div id="login-modal">
+        <div
+          class="
+            d-flex
+            justify-content-center
+            align-items-center
+            d-block
+            text-center
+          "
+        >
+          <b-icon
+            id="icon-check-purchase"
+            icon="check"
+            variant="success"
+          ></b-icon>
+          <h3 class="ml-2">Article ajouter au panier</h3>
+        </div>
+
+        <div class="modal__button">
+          <!-- <button
+              class="mt-2 theme-btn-one btn-black-overlay btn_sm"
+              block
+              @click="toggleModal"
+            >
+              Se connecter
+            </button> -->
+
+          <button
+            class="theme-btn-one btn-black-overlay btn_sm"
+            @click="closeModal"
+          >
+            Continuer mes achats
+          </button>
+          <nuxt-link
+            to="/my-account/checkout-1"
+            class="theme-btn-one btn-black-overlay btn_sm"
+            >Commander</nuxt-link
+          >
+          <!-- <button
+              class="mt-2 theme-btn-one btn-black-overlay btn_sm"
+              block
+              @click="toggleModal"
+            >
+              S'inscrire'
+            </button> -->
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -616,13 +674,11 @@ export default {
       this.$store
         .dispatch("products/decrementStock", product._id)
         .then((result) => {
-          console.log("decrement action", result);
-
           if (result == true) {
             this.$store.commit("cart/orderQuantity", this.orderQuantity);
             console.log("this.orderQuantity:", this.orderQuantity);
-
             this.$store.commit("cart/add", product);
+            this.toggleModal();
           } else {
             this.showAlert();
             console.log("Stock Insuffisant");
@@ -671,6 +727,14 @@ export default {
       //     console.log("Error mutation orderQuantity", e);
       //   }
       // }
+    },
+    toggleModal() {
+      // We pass the ID of the button that we want to return focus to
+      // when the modal has hidden
+      this.$refs["my-modal-purchase"].toggle("#toggle-btn");
+    },
+    closeModal() {
+      this.$refs["my-modal-purchase"].hide();
     },
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
@@ -734,6 +798,31 @@ export default {
   text-decoration: underline;
   font-weight: bold;
   cursor: pointer;
+}
+.modal__button {
+  text-align: center;
+  width: 100%;
+  margin: 25px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  row-gap: 10px;
+}
+.modal-connect {
+  width: 100%;
+  padding: 20px 0 0 0;
+}
+.dialog__class--cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content__class--cart {
+  width: 50%;
+}
+#icon-check-purchase {
+  font-size: 35px;
 }
 /* .container__products {
   max-width: 1160px;

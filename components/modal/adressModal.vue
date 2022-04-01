@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="container">
     <b-modal
       id="modal-1"
       hide-footer
       centered
       title="Editez vos coordonnées de facturation"
+      content-class="content__modal--adress"
     >
       <ValidationObserver v-slot="{ handleSubmit }">
         <form id="form" @submit.prevent="handleSubmit(onSubmit)">
@@ -280,5 +281,8 @@ export default {
 };
 </script>
 
-<style>
+<style >
+.content__modal--adress {
+  padding: 2rem;
+}
 </style>
