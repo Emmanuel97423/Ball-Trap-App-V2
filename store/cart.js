@@ -12,9 +12,10 @@ export const mutations = {
     state.items = items
   },
   add(state, item) {
+    console.log('item:', item)
 
     const record = state.items.find(i => i._id === item._id)
-    console.log('record:', record)
+
 
     if (!record) {
       state.items.push({

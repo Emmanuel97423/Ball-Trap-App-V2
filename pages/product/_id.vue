@@ -72,10 +72,14 @@
                   {{ product.description }}
                 </p>
                 <br />
-                <span v-if="product.quantity > 0"
+                <!-- <span v-if="product.quantity > 0"
                   >Qté: <em>Reste {{ product.quantity }}</em></span
                 >
-                <span v-else>Qté: <em>Rupture</em></span>
+                <span v-else>Qté: <em>Rupture</em></span> -->
+                <button v-if="product.quantity > 0" class="btn__stock--green">
+                  Disponible
+                </button>
+                <button v-else class="btn__stock--red">Indisponible</button>
                 <!-- productquantity : {{ product.quantity }} -->
                 <!-- <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
@@ -86,7 +90,9 @@
                     <option value="large">L</option>
                   </select>
                 </div> -->
+                <br />
                 <b-alert
+                  class="stock-alert"
                   :show="dismissCountDown"
                   dismissible
                   variant="warning"
@@ -94,7 +100,7 @@
                   @dismiss-count-down="countDownChanged"
                 >
                   <p>
-                    Stock insufisant
+                    Dernière article en cours de commande: stock insufisant.
                     <!-- {{ dismissCountDown }} seconds... -->
                   </p>
                   <b-progress
@@ -203,7 +209,8 @@
                   </button>
 
                   <!-- Out of stock -->
-                  <p v-else>Non disponible</p>
+                  <!-- <p v-else>Non disponible</p> -->
+                  <br />
                   {{ message }}
                   <!-- <AddToCart
                   :productId="product._id"
@@ -824,9 +831,27 @@ export default {
 #icon-check-purchase {
   font-size: 35px;
 }
-/* .container__products {
-  max-width: 1160px;
-  min-width: 100px;
-  align-self: center;
-} */
+.btn__stock--green {
+  background-color: green;
+  color: #fff;
+  font-weight: 200;
+  font-size: 12px;
+  padding: 5px;
+  letter-spacing: 1px;
+  cursor: default;
+  text-transform: uppercase;
+}
+.btn__stock--red {
+  background-color: red;
+  color: #fff;
+  font-weight: 200;
+  font-size: 12px;
+  padding: 5px;
+  letter-spacing: 1px;
+  cursor: default;
+  text-transform: uppercase;
+}
+.stock-alert {
+  margin: 20px 0 0 0;
+}
 </style>
