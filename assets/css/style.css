@@ -1876,7 +1876,7 @@ button {
    Banner Area 
 ---------------------------*/
 
-#banner_one {
+/* #banner_one {
   background-image: url("../img/common/slideshow.jpg");
 
   padding: 20px 0;
@@ -1884,7 +1884,7 @@ button {
   align-items: center;
   background-size: cover;
   background-repeat: no-repeat;
-}
+} */
 
 .banner_text_one h1 {
   font-size: 150px;
