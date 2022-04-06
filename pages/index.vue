@@ -1,22 +1,6 @@
 <template>
   <div class="home-page">
-    <!-- Banner Area -->
-    <!-- <section id="banner_one">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="banner_text_one">
-              <h1>Lorem ipsum<span>Lorem</span></h1>
-              <h3>Economisez 50%</h3>
-              <nuxt-link to="#" class="theme-btn-one bg-black btn_md"
-                >Achetez maintenant</nuxt-link
-              >
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </section> -->
+    <!--Slider-->
     <div id="carousel-home">
       <Carousel />
     </div>
@@ -27,84 +11,95 @@
         <div class="row">
           <div class="col-lg-4 col-md-6">
             <div class="product_variation_one_boxed img-zoom-hover bg-black">
-              <img
-                :src="require('@/assets/img/offer/shot-gun.jpg')"
-                alt="img"
-              />
-              <div class="product_var_one_text">
-                <h4 class="color_one">Ball trap</h4>
-                <h2 class="color_two">Accessoires</h2>
-                <!-- <h4 class="color_two">Collection</h4> -->
-                <nuxt-link
-                  to="/shop/shop-2"
-                  class="theme-btn-one bg-black btn_sm"
-                  >Pull!</nuxt-link
-                >
-              </div>
+              <nuxt-link to="/shop/shop-2">
+                <img
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  alt="img"
+                />
+                <div class="product_var_one_text">
+                  <h4 class="color_one">Ball trap</h4>
+                  <h2 class="color_two">Accessoires</h2>
+                  <!-- <h4 class="color_two">Collection</h4> -->
+                  <nuxt-link
+                    to="/shop/shop-2"
+                    class="theme-btn-one bg-black btn_sm"
+                    >Pull!</nuxt-link
+                  >
+                </div>
+              </nuxt-link>
             </div>
+
             <div class="product_variation_one_boxed img-zoom-hover bg-black">
-              <img
-                class="opacity-25"
-                :src="require('@/assets/img/offer/shot-gun.jpg')"
-                alt="img"
-              />
-              <div class="product_var_one_text">
-                <!-- <h4 class="color_one">Hiver</h4> -->
-                <h2 class="text-light">Armes</h2>
-                <h4 class="color_one">Catégorie C.</h4>
-                <nuxt-link
-                  to="/shop/shop-2"
-                  class="theme-btn-one bg-black btn_sm"
-                  >Pull!</nuxt-link
-                >
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
-              <img
-                :src="require('@/assets/img/offer/gilet-castelani.jpg')"
-                alt="img"
-              />
-              <div class="product_var_one_text_center">
-                <h2 class="color_one">Textiles</h2>
-                <h4>Notre selection du mois</h4>
-                <nuxt-link
-                  to="/shop/shop-2"
-                  class="theme-btn-one bg-black btn_sm"
-                  >Pull!</nuxt-link
-                >
-              </div>
+              <nuxt-link to="/shop/shop-2">
+                <img
+                  class="opacity-25"
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  alt="img"
+                />
+                <div class="product_var_one_text">
+                  <!-- <h4 class="color_one">Hiver</h4> -->
+                  <h2 class="text-light">Armes</h2>
+                  <h4 class="color_one">Catégorie C.</h4>
+                  <nuxt-link
+                    to="/shop/shop-2"
+                    class="theme-btn-one bg-black btn_sm"
+                    >Pull!</nuxt-link
+                  >
+                </div>
+              </nuxt-link>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
-              <img
-                :src="require('@/assets/img/offer/shot-gun.jpg')"
-                alt="img"
-              />
-              <div class="product_var_one_text">
-                <h2 class="text-light">Munitions</h2>
-                <!-- <h4 class="color_one">Arrivage</h4> -->
-                <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
-                  >Pull!</nuxt-link
-                >
+            <nuxt-link to="/shop/shop-2">
+              <div class="product_variation_one_boxed img-zoom-hover bg-black">
+                <img
+                  :src="require('@/assets/img/offer/gilet-castelani.jpg')"
+                  alt="img"
+                />
+                <div class="product_var_one_text_center">
+                  <h2 class="color_one">Textiles</h2>
+                  <h4>Notre selection du mois</h4>
+                  <nuxt-link
+                    to="/shop/shop-2"
+                    class="theme-btn-one bg-black btn_sm"
+                    >Pull!</nuxt-link
+                  >
+                </div>
               </div>
+            </nuxt-link>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+              <nuxt-link to="/shop/shop-2">
+                <img
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  alt="img"
+                />
+                <div class="product_var_one_text">
+                  <h2 class="text-light">Munitions</h2>
+                  <!-- <h4 class="color_one">Arrivage</h4> -->
+                  <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                    >Pull!</nuxt-link
+                  >
+                </div>
+              </nuxt-link>
             </div>
             <div class="product_variation_one_boxed img-zoom-hover bg-black">
-              <img
-                :src="require('@/assets/img/offer/shot-gun.jpg')"
-                alt="img"
-              />
-              <div class="product_var_one_text">
-                <h2 class="text-light">ARMES</h2>
-                <h4 class="color_one">Catégorie D.</h4>
-                <nuxt-link
-                  to="/shop/shop-2"
-                  class="theme-btn-one bg-black btn_sm"
-                  >Pull!</nuxt-link
-                >
-              </div>
+              <nuxt-link to="#">
+                <img
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  alt="img"
+                />
+                <div class="product_var_one_text">
+                  <h2 class="text-light">ARMES</h2>
+                  <h4 class="color_one">Catégorie D.</h4>
+                  <nuxt-link
+                    to="/shop/shop-2"
+                    class="theme-btn-one bg-black btn_sm"
+                    >Pull!</nuxt-link
+                  >
+                </div>
+              </nuxt-link>
             </div>
           </div>
         </div>
