@@ -186,15 +186,16 @@
               Se connecter
             </button> -->
             <nuxt-link
-              to="/login"
-              class="theme-btn-one btn-black-overlay btn_sm"
-              >Se connecter</nuxt-link
-            >
-            <nuxt-link
               to="/register"
               class="theme-btn-one btn-black-overlay btn_sm"
               >S'inscrire</nuxt-link
             >
+            <nuxt-link
+              to="/login"
+              class="theme-btn-one btn-black-overlay btn_sm"
+              >Se connecter</nuxt-link
+            >
+
             <!-- <button
               class="mt-2 theme-btn-one btn-black-overlay btn_sm"
               block
