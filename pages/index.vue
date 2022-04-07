@@ -50,23 +50,39 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <nuxt-link to="/shop/shop-2">
-              <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+              <nuxt-link to="/shop/shop-2">
                 <img
-                  :src="require('@/assets/img/offer/gilet-castelani.jpg')"
+                  id="visit-card"
+                  :src="require('@/assets/img/carte-de-visite.png')"
                   alt="img"
                 />
-                <div class="product_var_one_text_center">
-                  <h2 class="color_one">Textiles</h2>
-                  <h4>Notre selection du mois</h4>
+                <!-- <div class="product_var_one_text">
+                  <h2 class="text-light">Munitions</h2>
+                  <h4 class="color_one">Arrivage</h4>
+                  <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                    >Pull!</nuxt-link
+                  >
+                </div> -->
+              </nuxt-link>
+            </div>
+            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+              <nuxt-link to="#">
+                <img
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  alt="img"
+                />
+                <div class="product_var_one_text">
+                  <h2 class="text-light">Textiles</h2>
+                  <h4 class="color_one">Ball Trap</h4>
                   <nuxt-link
                     to="/shop/shop-2"
                     class="theme-btn-one bg-black btn_sm"
                     >Pull!</nuxt-link
                   >
                 </div>
-              </div>
-            </nuxt-link>
+              </nuxt-link>
+            </div>
           </div>
           <div class="col-lg-4 col-md-6">
             <div class="product_variation_one_boxed img-zoom-hover bg-black">
@@ -490,6 +506,11 @@ h1 {
 }
 #carousel-home {
   height: auto;
+}
+#visit-card {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 /* @media only screen and (max-width:768px) {
   #carousel-home {

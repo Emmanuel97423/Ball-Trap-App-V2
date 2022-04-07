@@ -22,7 +22,10 @@
           >
         </div>
       </b-carousel-slide>
-      <b-carousel-slide img-src="https://picsum.photos/2000/600?grayscale">
+      <b-carousel-slide
+        img-src="https://picsum.photos/2000/600?grayscale"
+        img-height="10"
+      >
         <!-- <div class="banner_text_one">
           <h1>Lorem ipsum<span>Lorem</span></h1>
           <h3>Economisez 50%</h3>
