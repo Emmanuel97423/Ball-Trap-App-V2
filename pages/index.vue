@@ -66,7 +66,10 @@
                 </div> -->
               </nuxt-link>
             </div>
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div
+              id="textile-card"
+              class="product_variation_one_boxed img-zoom-hover bg-black"
+            >
               <nuxt-link to="#">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
@@ -511,6 +514,9 @@ h1 {
   width: 100%;
   height: auto;
   object-fit: contain;
+}
+#textile-card {
+  height: 287px;
 }
 /* @media only screen and (max-width:768px) {
   #carousel-home {
