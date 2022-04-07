@@ -10,7 +10,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div class="product_variation_one_boxed img-zoom-hover">
               <nuxt-link to="/shop/shop-2">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
@@ -29,7 +29,7 @@
               </nuxt-link>
             </div>
 
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div class="product_variation_one_boxed img-zoom-hover">
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="opacity-25"
@@ -50,7 +50,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div class="product_variation_one_boxed img-zoom-hover">
               <nuxt-link to="/shop/shop-2">
                 <img
                   id="visit-card"
@@ -68,7 +68,7 @@
             </div>
             <div
               id="textile-card"
-              class="product_variation_one_boxed img-zoom-hover bg-black"
+              class="product_variation_one_boxed img-zoom-hover"
             >
               <nuxt-link to="#">
                 <img
@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div class="product_variation_one_boxed img-zoom-hover">
               <nuxt-link to="/shop/shop-2">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
@@ -103,7 +103,7 @@
                 </div>
               </nuxt-link>
             </div>
-            <div class="product_variation_one_boxed img-zoom-hover bg-black">
+            <div class="product_variation_one_boxed img-zoom-hover">
               <nuxt-link to="#">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
