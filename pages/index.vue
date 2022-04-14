@@ -9,8 +9,11 @@
     <section id="product_variation_one" class="pt-15">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover">
+          <div id="col-1" class="col-lg-4 col-md-12">
+            <div
+              id="equipement-card"
+              class="product_variation_one_boxed img-zoom-hover"
+            >
               <nuxt-link to="/shop/shop-2">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
@@ -29,7 +32,10 @@
               </nuxt-link>
             </div>
 
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div
+              id="weapon-card"
+              class="product_variation_one_boxed img-zoom-hover"
+            >
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="opacity-25"
@@ -49,8 +55,11 @@
               </nuxt-link>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover">
+          <div id="visit-card-col" class="col-lg-4 col-md-6">
+            <div
+              id="visit-card-div"
+              class="product_variation_one_boxed img-zoom-hover"
+            >
               <nuxt-link to="/shop/shop-2">
                 <img
                   id="visit-card"
@@ -88,7 +97,10 @@
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div
+              id="munitions-card"
+              class="product_variation_one_boxed img-zoom-hover"
+            >
               <nuxt-link to="/shop/shop-2">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
@@ -103,7 +115,10 @@
                 </div>
               </nuxt-link>
             </div>
-            <div class="product_variation_one_boxed img-zoom-hover">
+            <div
+              id="weapon-d"
+              class="product_variation_one_boxed img-zoom-hover"
+            >
               <nuxt-link to="#">
                 <img
                   :src="require('@/assets/img/offer/shot-gun.jpg')"
@@ -514,18 +529,68 @@ h1 {
   width: 100%;
   height: auto;
   object-fit: contain;
+  margin: 0 0 0 0;
 }
 #textile-card {
-  height: 287px;
+  height: 267px;
 }
+
+#textile-card,
+#equipement-card,
+#weapon-card,
+#visit-card-div,
+#munitions-card {
+  margin: 0 0 15px 0;
+}
+#visit-card-col {
+  padding: 0;
+}
+
 /* @media only screen and (max-width:768px) {
   #carousel-home {
     height: 600px;
   }
 } */
-@media only screen and (max-width: 501px) {
+@media only screen and (max-width: 1440px) {
+  #textile-card {
+    height: 194px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #textile-card {
+    height: 127px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #weapon-card {
+    height: 250px;
+  }
+  #equipement-card {
+    height: 250px;
+  }
+  #textile-card {
+    height: 160px;
+  }
+  #visit-card-col {
+    padding: 0 0 0 15px;
+  }
+}
+@media only screen and (max-width: 425px) {
   #carousel-home {
     display: none;
+  }
+  #visit-card-col {
+    padding: 0 15px 0 15px;
+  }
+  #equipement-card,
+  #weapon-card,
+  #munitions-card,
+  #weapon-d,
+  #textile-card {
+    height: 200px;
+  }
+  #weapon-d {
+    margin: 0 0 15px 0;
   }
 }
 </style>

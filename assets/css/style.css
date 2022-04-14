@@ -18,6 +18,7 @@ Default CSS
 =================================================*/
 
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap");
+
 html,
 body {
   height: 100%;
@@ -39,6 +40,7 @@ img {
   padding-top: 100px;
   padding-bottom: 100px;
 }
+
 .ptb-25 {
   padding-top: 25px;
   padding-bottom: 80px;
@@ -51,6 +53,7 @@ img {
 .pt-100 {
   padding-top: 100px;
 }
+
 .pt-15 {
   padding-top: 15px;
 }
@@ -316,17 +319,20 @@ button {
 .header-top-bg--black {
   background: #24262b;
 }
+
 .header-top-bg--white {
   background: #fff;
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
 .header-top-contact a,
 .header-top-user-link a {
   line-height: 40px;
   margin-right: 40px;
   position: relative;
 }
+
 .header-top-contact a::after,
 .header-top-user-link a::after {
   position: absolute;
@@ -426,25 +432,25 @@ button {
   width: 60%;
 }
 
-.main-menu nav > ul > li {
+.main-menu nav>ul>li {
   position: relative;
   display: inline-block;
   padding-left: 33px;
 }
 
-.main-menu nav > ul > .has-dropdown {
+.main-menu nav>ul>.has-dropdown {
   margin-right: 5px;
 }
 
-.main-menu nav > ul > .has-dropdown:last-child {
+.main-menu nav>ul>.has-dropdown:last-child {
   margin-right: 0;
 }
 
-.main-menu nav > ul > .has-megaitem {
+.main-menu nav>ul>.has-megaitem {
   position: static;
 }
 
-.main-menu nav > ul > li > a {
+.main-menu nav>ul>li>a {
   display: block;
   line-height: 24px;
   padding: 25px 30px;
@@ -454,12 +460,12 @@ button {
   font-weight: 700;
 }
 
-.main-menu-style-4 nav > ul > li > a {
+.main-menu-style-4 nav>ul>li>a {
   padding: 10px 30px;
 }
 
-.sub-menu > li > a,
-.mega-menu-sub > li > a {
+.sub-menu>li>a,
+.mega-menu-sub>li>a {
   font-weight: 500;
   display: block;
   line-height: 35px;
@@ -469,8 +475,8 @@ button {
   transition: all 0.5s ease;
 }
 
-.sub-menu > li > a:hover,
-.mega-menu-sub > li > a:hover {
+.sub-menu>li>a:hover,
+.mega-menu-sub>li>a:hover {
   transform: translateX(10px);
 }
 
@@ -519,6 +525,7 @@ button {
   justify-content: flex-start;
   background-color: red;
 }
+
 .mega-menu-item {
   width: 100%;
   max-height: 250px;
@@ -553,18 +560,18 @@ button {
   background: pink;
 }
 
-.mega-menu-sub > li {
+.mega-menu-sub>li {
   display: block;
 }
 
-.main-menu nav > ul > li:hover .sub-menu,
-.main-menu nav > ul > li:hover .mega-menu {
+.main-menu nav>ul>li:hover .sub-menu,
+.main-menu nav>ul>li:hover .mega-menu {
   opacity: 1;
   visibility: visible;
   transform: perspective(600px) rotateX(0deg);
 }
 
-.menu-banner > a {
+.menu-banner>a {
   display: block;
   width: 100%;
 }
@@ -575,12 +582,12 @@ button {
 
 /*Main Menu Link Normal Color*/
 
-.menu-color--black nav > ul > li > a {
+.menu-color--black nav>ul>li>a {
   color: #24262b;
 }
 
-.menu-color--black .sub-menu > li > a,
-.menu-color--black .mega-menu-sub > li > a {
+.menu-color--black .sub-menu>li>a,
+.menu-color--black .mega-menu-sub>li>a {
   color: #24262b;
 }
 
@@ -588,12 +595,12 @@ button {
   color: #24262b;
 }
 
-.menu-color--white nav > ul > li > a {
+.menu-color--white nav>ul>li>a {
   color: #fff;
 }
 
-.menu-color--white .sub-menu > li > a,
-.menu-color--white .mega-menu-sub > li > a {
+.menu-color--white .sub-menu>li>a,
+.menu-color--white .mega-menu-sub>li>a {
   color: #24262b;
 }
 
@@ -603,12 +610,12 @@ button {
 
 /*Main Menu Link Hover Color*/
 
-.menu-hover-color--golden nav > ul > li > a:hover {
+.menu-hover-color--golden nav>ul>li>a:hover {
   color: var(--main-theme-color);
 }
 
-.menu-hover-color--golden .sub-menu > li > a:hover,
-.menu-hover-color--golden .mega-menu-sub > li > a:hover {
+.menu-hover-color--golden .sub-menu>li>a:hover,
+.menu-hover-color--golden .mega-menu-sub>li>a:hover {
   color: var(--main-theme-color);
 }
 
@@ -616,12 +623,12 @@ button {
   color: var(--main-theme-color);
 }
 
-.menu-hover-color--green nav > ul > li > a:hover {
+.menu-hover-color--green nav>ul>li>a:hover {
   color: #047b42;
 }
 
-.menu-hover-color--green .sub-menu > li > a:hover,
-.menu-hover-color--green .mega-menu-sub > li > a:hover {
+.menu-hover-color--green .sub-menu>li>a:hover,
+.menu-hover-color--green .mega-menu-sub>li>a:hover {
   color: #047b42;
 }
 
@@ -629,12 +636,12 @@ button {
   color: #047b42;
 }
 
-.menu-hover-color--pink nav > ul > li > a:hover {
+.menu-hover-color--pink nav>ul>li>a:hover {
   color: #ff365d;
 }
 
-.menu-hover-color--pink .sub-menu > li > a:hover,
-.menu-hover-color--pink .mega-menu-sub > li > a:hover {
+.menu-hover-color--pink .sub-menu>li>a:hover,
+.menu-hover-color--pink .mega-menu-sub>li>a:hover {
   color: #ff365d;
 }
 
@@ -642,12 +649,12 @@ button {
   color: #ff365d;
 }
 
-.menu-hover-color--aqua nav > ul > li > a:hover {
+.menu-hover-color--aqua nav>ul>li>a:hover {
   color: #66cec4;
 }
 
-.menu-hover-color--aqua .sub-menu > li > a:hover,
-.menu-hover-color--aqua .mega-menu-sub > li > a:hover {
+.menu-hover-color--aqua .sub-menu>li>a:hover,
+.menu-hover-color--aqua .mega-menu-sub>li>a:hover {
   color: #66cec4;
 }
 
@@ -1219,11 +1226,11 @@ button {
   padding: 7px 5px;
 }
 
-.offcanvas-menu > ul > li {
+.offcanvas-menu>ul>li {
   border-bottom: 1px solid transparent;
 }
 
-.offcanvas-menu > ul > li:last-child {
+.offcanvas-menu>ul>li:last-child {
   border-bottom: none;
 }
 
@@ -1256,13 +1263,13 @@ button {
   font-weight: 900;
 }
 
-.offcanvas-menu .active > .offcanvas-menu-expand:last-child,
-.sub-menu > .active .offcanvas-menu-expand:last-child {
+.offcanvas-menu .active>.offcanvas-menu-expand:last-child,
+.sub-menu>.active .offcanvas-menu-expand:last-child {
   border-bottom: none;
 }
 
-.offcanvas-menu .active > .offcanvas-menu-expand::after,
-.sub-menu > .active .offcanvas-menu-expand::after {
+.offcanvas-menu .active>.offcanvas-menu-expand::after,
+.sub-menu>.active .offcanvas-menu-expand::after {
   color: var(--main-theme-color);
   transform: rotate(90deg);
 }
@@ -1928,7 +1935,6 @@ button {
 
 .product_variation_one_boxed img {
   width: 100%;
-  
 }
 
 .product_var_one_text_center {
@@ -2116,7 +2122,7 @@ button {
   color: #fff;
 }
 
-.product_wrappers_one .thumb .badges span + span {
+.product_wrappers_one .thumb .badges span+span {
   margin-top: 10px;
 }
 
@@ -2160,7 +2166,7 @@ button {
   line-height: 1;
 }
 
-.product_wrappers_one .thumb .actions .action + .action {
+.product_wrappers_one .thumb .actions .action+.action {
   margin-top: 10px;
 }
 
@@ -2331,13 +2337,13 @@ button {
   position: relative;
 }
 
-.instgram_post > a {
+.instgram_post>a {
   display: block;
   position: relative;
   z-index: 1;
 }
 
-.instgram_post > a::before {
+.instgram_post>a::before {
   content: "";
   position: absolute;
   left: 0;
@@ -2353,7 +2359,7 @@ button {
   transition: all 0.3s ease-out 0s;
 }
 
-.instgram_post > a i {
+.instgram_post>a i {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -2370,11 +2376,11 @@ button {
   opacity: 0;
 }
 
-.instgram_post > a:hover::before {
+.instgram_post>a:hover::before {
   opacity: 0.7;
 }
 
-.instgram_post > a:hover i {
+.instgram_post>a:hover i {
   opacity: 1;
   transform: scale(1) translate(-50%, -50%);
 }
@@ -2459,7 +2465,7 @@ button {
   padding: 15px 0;
   border-top: 1px solid #ededed;
   background: #000;
-  margin:15px 0 0 0;
+  margin: 0 0 0 0;
 }
 
 .copyright_left h6 {
@@ -2576,7 +2582,7 @@ button {
   margin-top: 15px;
 }
 
-.variable-single-item > span {
+.variable-single-item>span {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
@@ -2643,7 +2649,7 @@ button {
   font-weight: 900;
 }
 
-.product-variable-color label input:checked ~ span::after {
+.product-variable-color label input:checked~span::after {
   content: "\f00c";
 }
 
@@ -2706,8 +2712,7 @@ button {
   font-size: 16px;
   line-height: 1;
   height: 45px;
-  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
-    no-repeat right;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right;
   -webkit-appearance: none;
   background-position-x: 170px;
   border: 1px solid;
@@ -2801,10 +2806,7 @@ button {
   margin-bottom: 30px;
 }
 
-#shop_main_area
-  .row:nth-child(2)
-  .col-lg-12:first-child
-  .product_wrappers_list {
+#shop_main_area .row:nth-child(2) .col-lg-12:first-child .product_wrappers_list {
   margin-top: 30px;
 }
 
@@ -2870,11 +2872,11 @@ button {
   border-radius: 50%;
 }
 
-.custom_boxed:hover input ~ .checkmark {
+.custom_boxed:hover input~.checkmark {
   background-color: var(--main-theme-color);
 }
 
-.custom_boxed input:checked ~ .checkmark {
+.custom_boxed input:checked~.checkmark {
   background-color: var(--main-theme-color);
 }
 
@@ -2884,7 +2886,7 @@ button {
   display: none;
 }
 
-.custom_boxed input:checked ~ .checkmark:after {
+.custom_boxed input:checked~.checkmark:after {
   display: block;
 }
 
@@ -2932,8 +2934,7 @@ button {
   padding-bottom: 10px;
 }
 
-.price_filter
-  .ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all {
+.price_filter .ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all {
   background: #312620 none repeat scroll 0 0;
   border: medium none;
   border-radius: 0;
@@ -2969,7 +2970,7 @@ button {
   /* overflow: hidden; */
 }
 
-.price_slider_amount > span {
+.price_slider_amount>span {
   font-size: 14px;
   font-weight: 500;
   color: #544842;
@@ -2978,7 +2979,7 @@ button {
   font-family: "Jost", sans-serif;
 }
 
-.price_slider_amount > input[type="text"] {
+.price_slider_amount>input[type="text"] {
   height: auto;
   margin-left: 0;
   text-align: left;
@@ -2990,7 +2991,7 @@ button {
   font-family: "Jost", sans-serif;
 }
 
-.price_slider_amount > input[type="submit"] {
+.price_slider_amount>input[type="submit"] {
   float: left;
   text-transform: uppercase;
   transition: all 400ms ease-out 0s;
@@ -3779,7 +3780,7 @@ table {
   cursor: pointer;
 }
 
-.custome-radio input[type="radio"]:checked + .form-check-label::before {
+.custome-radio input[type="radio"]:checked+.form-check-label::before {
   border-color: var(--main-theme-color);
 }
 
@@ -3794,11 +3795,11 @@ table {
   margin-right: 8px;
 }
 
-.custome-radio input[type="radio"]:checked + .form-check-label::after {
+.custome-radio input[type="radio"]:checked+.form-check-label::after {
   opacity: 1;
 }
 
-.custome-radio input[type="radio"] + .form-check-label::after {
+.custome-radio input[type="radio"]+.form-check-label::after {
   content: "";
   background-color: var(--main-theme-color);
   height: 10px;
@@ -4176,14 +4177,7 @@ table {
   font-weight: 600;
 }
 
-.compare-table
-  .table
-  tbody
-  tr
-  td.pro-addtocart
-  .add-to-cart
-  .pro-remove
-  button {
+.compare-table .table tbody tr td.pro-addtocart .add-to-cart .pro-remove button {
   border: none;
   background-color: transparent;
   padding: 0;
