@@ -68,6 +68,7 @@
                   {{ parseFloat(product.priceTtc).toFixed(2) }} €
                   <span id="tax">T.T.C</span>
                 </h4>
+                <SelectSize />
                 <button v-if="product.quantity > 0" class="btn__stock--green">
                   Disponible
                 </button>
@@ -578,6 +579,7 @@ import ProductBox1 from "../../components/product-box/ProductBox1";
 import InstagramArea from "../../components/instagram/InstagramArea";
 import AddToCart from "../../components/AddToCart";
 import { mapState, mapActions, mapMutations } from "vuex";
+import SelectSize from "@/components/product/SelectSize";
 
 export default {
   scrollToTop: true,
@@ -586,6 +588,7 @@ export default {
     ProductBox1,
     InstagramArea,
     AddToCart,
+    SelectSize,
   },
   data() {
     return {
