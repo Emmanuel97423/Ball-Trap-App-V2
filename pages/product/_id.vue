@@ -113,8 +113,8 @@
                     height="4px"
                   ></b-progress>
                 </b-alert>
-                <div v-if="!enabled" class="variable-single-item">
-                  <span>Color</span>
+                <div v-if="enabled" class="variable-single-item">
+                  <span>Couleurs</span>
                   <div class="product-variable-color">
                     <label for="modal-product-color-red1">
                       <input
@@ -173,6 +173,37 @@
                     </label>
                   </div>
                 </div>
+                <ul class="assurances-product">
+                  <li class="assurances-product-list">
+                    <div class="assurances-product-icon">
+                      <b-icon icon="credit-card-2-back"></b-icon>
+                    </div>
+                    <div class="assurances-product-text">
+                      <h5>Paiement 100% Sécurisé</h5>
+                      <span>3D Secure</span>
+                    </div>
+                  </li>
+                  <li id="middle-assurances" class="assurances-product-list">
+                    <div class="assurances-product-icon">
+                      <b-icon icon="arrow-left-right"></b-icon>
+                    </div>
+                    <div class="assurances-product-text">
+                      <h5>Satisfait ou remboursé</h5>
+                      <a href="./legal"
+                        ><span>Après réception (2 jours)</span></a
+                      >
+                    </div>
+                  </li>
+                  <li class="assurances-product-list">
+                    <div class="assurances-product-icon">
+                      <b-icon icon="cash-stack"></b-icon>
+                    </div>
+                    <div class="assurances-product-text">
+                      <h5>Jusqu'à 4x sans frais</h5>
+                      <!-- <span>3D Secure</span> -->
+                    </div>
+                  </li>
+                </ul>
                 <form id="product_count_form_two ">
                   <div class="product_count_one pt-15">
                     <b-form-spinbutton
@@ -217,37 +248,6 @@
                   >
                     Ajouter au panier
                   </button>
-                  <ul class="assurances-product">
-                    <li class="assurances-product-list">
-                      <div class="assurances-product-icon">
-                        <b-icon icon="credit-card-2-back"></b-icon>
-                      </div>
-                      <div class="assurances-product-text">
-                        <h5>Paiement 100% Sécurisé</h5>
-                        <span>3D Secure</span>
-                      </div>
-                    </li>
-                    <li class="assurances-product-list">
-                      <div class="assurances-product-icon">
-                        <b-icon icon="arrow-left-right"></b-icon>
-                      </div>
-                      <div class="assurances-product-text">
-                        <h5>Satisfait ou remboursé</h5>
-                        <a href="./legal"
-                          ><span>Après réception (2 jours)</span></a
-                        >
-                      </div>
-                    </li>
-                    <li class="assurances-product-list">
-                      <div class="assurances-product-icon">
-                        <b-icon icon="cash-stack"></b-icon>
-                      </div>
-                      <div class="assurances-product-text">
-                        <h5>Jusqu'à 4x sans frais</h5>
-                        <!-- <span>3D Secure</span> -->
-                      </div>
-                    </li>
-                  </ul>
 
                   <!-- Out of stock -->
                   <!-- <p v-else>Non disponible</p> -->
@@ -832,13 +832,7 @@ export default {
 #tax {
   font-size: 12px;
 }
-@media only screen and (min-width: 768px) {
-  /* tablettes et ordinateurs */
 
-  .col-img {
-    max-width: 26%;
-  }
-}
 .back-link {
   width: 26%;
   display: flex;
@@ -904,14 +898,14 @@ export default {
 .assurances-product {
   margin: 20px 0 0 0;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
 }
 .assurances-product li {
-  margin: 15px 0 0 0;
+  margin: 0 15px 0 0;
   display: flex;
-
   align-items: center;
 }
+
 .assurances-product-icon {
   font-size: 40px;
   margin: 0 10px 0 0;
@@ -922,6 +916,11 @@ export default {
 }
 .assurances-product-text span {
   font-size: 14px;
+}
+#middle-assurances {
+  border-left: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
+  padding: 0 20px;
 }
 .signup-mention {
   background-color: rgba(255, 0, 0, 0.3);
@@ -937,5 +936,23 @@ export default {
 }
 .signup-mention-icon {
   color: rgba(255, 0, 0, 0.8);
+}
+/*Responsive*/
+@media (max-width: 768px) {
+  .assurances-product {
+    flex-direction: column;
+  }
+  #middle-assurances {
+    border-left: none;
+    border-right: none;
+    padding: 0;
+  }
+}
+@media only screen and (min-width: 768px) {
+  /* tablettes et ordinateurs */
+
+  .col-img {
+    max-width: 26%;
+  }
 }
 </style>
