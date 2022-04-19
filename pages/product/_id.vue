@@ -203,6 +203,13 @@
                       >
                     </li>
                   </ul>
+                  <div v-if="!this.$auth.loggedIn" class="signup-mention">
+                    <b-icon
+                      class="signup-mention-icon"
+                      icon="exclamation-circle-fill"
+                    ></b-icon>
+                    <p>Toute commande débouche sur la création d'un compte</p>
+                  </div>
                   <button
                     v-if="product.quantity > 0"
                     class="theme-btn-one btn-black-overlay btn_sm"
@@ -915,5 +922,20 @@ export default {
 }
 .assurances-product-text span {
   font-size: 14px;
+}
+.signup-mention {
+  background-color: rgba(255, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin: 15px 0 0 0;
+}
+.signup-mention p {
+  color: red;
+  padding: 15px;
+}
+.signup-mention-icon {
+  color: rgba(255, 0, 0, 0.8);
 }
 </style>
