@@ -68,7 +68,7 @@
                   {{ parseFloat(product.priceTtc).toFixed(2) }} €
                   <span id="tax">T.T.C</span>
                 </h4>
-                <SizeChart />
+                <SizeChart :productName="product.name"></SizeChart>
                 <SelectSize />
                 <button v-if="product.quantity > 0" class="btn__stock--green">
                   Disponible
