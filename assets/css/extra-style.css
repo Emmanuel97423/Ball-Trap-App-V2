@@ -7,30 +7,33 @@
 /* Page Transition for Vue Start */
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 1.5s;
-  transition-property: opacity;
-  transition-timing-function: ease;
+    transition-duration: 1.5s;
+    transition-property: opacity;
+    transition-timing-function: ease;
 }
 
 .fade-enter,
 .fade-leave-active {
-  opacity: 0
+    opacity: 0
 }
+
 /* Page Transition for Vue End */
 
 /* --Slider Arrow Style--*/
-.swiper-button-prev, .swiper-button-next {
+.swiper-button-prev,
+.swiper-button-next {
     background: var(--main-theme-color);
     color: #fff;
-    width: 30px!important;
-    height: 30px!important;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 50%;
     box-shadow: 0px 1px 3px -1px #000;
     transition: .4s all ease-in-out;
 }
 
-.swiper-button-prev:after, .swiper-button-next:after {
-    font-size: 12px!important;
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    font-size: 12px !important;
 }
 
 .owl-theme .owl-nav {
@@ -38,16 +41,19 @@
     top: -58px;
     right: 3px;
 }
+
 .owl-theme .owl-nav [class*='owl-'] {
     color: transparent;
     background: transparent;
     position: relative;
     height: 30px;
     width: 30px;
-    border-radius: 50%!important;
+    border-radius: 50% !important;
     padding: 0;
 }
-.owl-prev:after, .owl-next:after {
+
+.owl-prev:after,
+.owl-next:after {
     position: absolute;
     height: 30px;
     width: 30px;
@@ -64,10 +70,13 @@
     top: 0;
     left: 0;
 }
-.owl-prev:hover:after, .owl-next:hover:after {
+
+.owl-prev:hover:after,
+.owl-next:hover:after {
     background: #fff;
     color: #000;
 }
+
 .owl-prev:after {
     content: "<";
 }
@@ -90,16 +99,19 @@
 .common_banner_text .breadcrumb li.active {
     color: var(--main-theme-color);
 }
+
 .common_banner_text .breadcrumb li a {
     color: #fff;
 }
-.breadcrumb-item + .breadcrumb-item::before {
+
+.breadcrumb-item+.breadcrumb-item::before {
     color: #fff;
 }
 
 .common_banner_text .breadcrumb li a:hover {
     color: var(--main-theme-color);
 }
+
 /* Common Banner CSS */
 
 
@@ -109,13 +121,17 @@
 .mobile-menu-navbar-wrap {
     display: none;
 }
-.offside-about, .offcanvas-toggle {
+
+.offside-about,
+.offcanvas-toggle {
     cursor: pointer;
 }
+
 .b-sidebar-header {
     margin-bottom: 30px;
     padding: 0;
 }
+
 .b-sidebar-header .close {
     width: 40px;
     height: 40px;
@@ -126,24 +142,30 @@
     background-color: #EFEFEF;
     opacity: 1;
 }
+
 .b-sidebar-header .close:hover {
-    opacity: 1!important;
+    opacity: 1 !important;
 }
-.b-sidebar.b-sidebar-right > .b-sidebar-header .close {
+
+.b-sidebar.b-sidebar-right>.b-sidebar-header .close {
     margin-left: auto;
     margin-right: 0;
 }
-.b-sidebar > .b-sidebar-header .close {
+
+.b-sidebar>.b-sidebar-header .close {
     float: none;
     font-size: 2rem;
 }
+
 #offcanvas-about .close {
     background-color: #fff;
 }
 
-.offcanvas-mobile-menu-section, #offcanvas-about {
+.offcanvas-mobile-menu-section,
+#offcanvas-about {
     background: #24262b !important;
 }
+
 @media (min-width: 576px) {
     .b-sidebar {
         width: 400px;
@@ -153,19 +175,22 @@
 .b-sidebar {
     padding: 20px;
 }
+
 .b-sidebar-backdrop.bg-dark {
-    background-color: rgba(0, 0, 0, 0.6)!important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
 }
+
 .mobile-menu-navbar-wrap .navbar {
     display: block;
 }
 
 /* Search Sidebar CSS */
 #search_sidebar {
-    background-color: rgba(0, 0, 0, 0.8)!important;
+    background-color: rgba(0, 0, 0, 0.8) !important;
     width: 100%;
     height: 100%;
 }
+
 .search-sidebar-content-wrap form input[type=search] {
     width: 80%;
     color: white;
@@ -185,19 +210,22 @@
 .search-sidebar-content-wrap form input[type=search]:focus {
     border-color: var(--main-theme-color);
 }
+
 /* Navbar CSS */
 
 /* -------------------------
     Hot Product Area Start
 ---------------------------*/
-.hot-product-area-tabs .tab-content > .active {
+.hot-product-area-tabs .tab-content>.active {
     display: flex;
     transition: ease all 1s;
 }
+
 .hot-product-area-tabs .nav-tabs {
     justify-content: center;
     border-bottom: none;
- }
+}
+
 .hot-product-area-tabs .nav-tabs li {
     font-size: 16px;
     font-weight: 500;
@@ -216,17 +244,21 @@
     padding: 0;
     padding-bottom: 5px;
 }
+
 .hot-product-area-tabs .nav-tabs li a:hover {
     color: inherit;
     border-bottom: 3px solid transparent;
 }
+
 .hot-product-area-tabs .nav-tabs li a.active {
     color: var(--main-theme-color);
     border-bottom: 3px solid var(--main-theme-color);
 }
+
 .hot-product-area-tabs .tab-content .product_wrappers_one {
     margin-top: 30px;
 }
+
 /* -------------------------
     Hot Product Area End
 ---------------------------*/
@@ -237,18 +269,22 @@
 #product_slider_one .swiper-wrapper {
     margin-bottom: 30px;
 }
+
 #product_slider_one .swiper-pagination span {
     width: 6px;
     height: 6px;
     margin: 5px 7px;
     background: var(--heading-color);
 }
-#product_slider_one .swiper-container-horizontal > .swiper-pagination-bullets {
+
+#product_slider_one .swiper-container-horizontal>.swiper-pagination-bullets {
     bottom: 0;
 }
+
 #product_slider_one .swiper-pagination .swiper-pagination-bullet {
     opacity: 1;
 }
+
 #product_slider_one .swiper-pagination .swiper-pagination-bullet-active {
     background: var(--main-theme-color);
     width: 20px;
@@ -259,6 +295,7 @@
     padding: 0;
     border: transparent;
 }
+
 #product_slider_one .close_modal_icon {
     position: absolute;
     right: 30px;
@@ -273,8 +310,8 @@
     transition: .3s;
     display: inline-block;
     background: #fff;
-    padding: 0!important;
-    border: 0!important;
+    padding: 0 !important;
+    border: 0 !important;
 }
 
 #product_slider_one .close_modal_icon:hover {
@@ -282,6 +319,7 @@
     color: #fff;
     transform: rotate(90deg);
 }
+
 /* -------------------------
  product_slider_one Modal   
 ---------------------------*/
@@ -289,27 +327,33 @@
 /* ---------------------------------
     hop Sidebar Page 
 -------------------------------------*/
-.price_slider_amount .simple-range-slider .simple-range-slider-bg-bar .simple-range-slider-bar{
-    background: #312620!important;
+.price_slider_amount .simple-range-slider .simple-range-slider-bg-bar .simple-range-slider-bar {
+    background: #312620 !important;
 }
+
 .price_slider_amount .simple-range-slider .simple-range-slider-bg-bar {
-    border-radius: 4px!important;
-    margin-left: 0!important;
+    border-radius: 4px !important;
+    margin-left: 0 !important;
 }
-.simple-range-slider-popover, .simple-range-slider-popover-arrow {
+
+.simple-range-slider-popover,
+.simple-range-slider-popover-arrow {
     display: none;
 }
+
 .price_slider_amount .simple-range-slider .simple-range-slider-bg-bar .simple-range-slider-anchor {
-    width: 20px!important;
-    height: 20px!important;
-    background: #fff!important;
-    border-radius: 50%!important;
-    border: 3px solid #312620!important;
-    box-shadow: none!important;
+    width: 20px !important;
+    height: 20px !important;
+    background: #fff !important;
+    border-radius: 50% !important;
+    border: 3px solid #312620 !important;
+    box-shadow: none !important;
 }
+
 .price_slider_amount .simple-range-slider .simple-range-slider-bg-bar .simple-range-slider-anchor .simple-range-slider-handle:focus {
-    box-shadow: none!important;
+    box-shadow: none !important;
 }
+
 /* ---------------------------------
     Shop Sidebar Page 
 -------------------------------------*/
@@ -321,43 +365,50 @@
     border-color: transparent;
     box-shadow: none;
 }
+
 .product_count_one .b-form-spinbutton {
     padding: 0.375rem 0;
-    display: flex!important;
-    align-items: center!important;
+    display: flex !important;
+    align-items: center !important;
 }
+
 .product_count_one .b-form-spinbutton output {
-    border: 0!important;
+    border: 0 !important;
 }
-.product_count_one .b-form-spinbutton output > bdi {
+
+.product_count_one .b-form-spinbutton output>bdi {
     min-height: 38px;
     border-radius: 0;
     margin: 0 3px;
     border: 1px solid #ddd;
-    width: 56px;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .product_count_one .b-form-spinbutton button {
-    border-radius: 50%!important;
+    border-radius: 50% !important;
     width: 24px;
     height: 24px;
     background-color: black;
-    color: #fff!important;
+    color: #fff !important;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0;
-    border-radius: 50%!important;
+    border-radius: 50% !important;
 }
+
 .product_count_one .b-form-spinbutton button:hover {
-    color: #fff!important;
+    color: #fff !important;
 }
+
 .product_count_one .b-icon.bi {
     width: 20px;
     height: 20px;
 }
+
 /* -------------------------
  product_slider_one Modal   
 ---------------------------*/
@@ -368,15 +419,21 @@
 .product_details_tabs .nav-tabs .nav-link.active {
     color: var(--main-theme-color);
 }
-.product_details_tabs .nav-tabs .nav-link.active, .product_details_tabs .nav-tabs .nav-link:hover, .product_details_tabs .nav-tabs .nav-link:focus {
+
+.product_details_tabs .nav-tabs .nav-link.active,
+.product_details_tabs .nav-tabs .nav-link:hover,
+.product_details_tabs .nav-tabs .nav-link:focus {
     border-color: transparent;
 }
+
 .product_details_tabs .nav-tabs .nav-link {
     padding: 0;
 }
+
 .product_single_one_img .iiz__btn.iiz__hint {
     display: none;
 }
+
 /* ---------------------------------
     Product Single Page 
 -------------------------------------*/
@@ -384,24 +441,30 @@
 /* ---------------------------------
     Product Single Two Page 
 -------------------------------------*/
-.product-single-2-slider .swiper-button-prev, .product-single-2-slider .swiper-button-next {
-    background: black!important;
+.product-single-2-slider .swiper-button-prev,
+.product-single-2-slider .swiper-button-next {
+    background: black !important;
     color: #fff;
-    width: 25px!important;
-    height: 35px!important;
+    width: 25px !important;
+    height: 35px !important;
     border-radius: 0;
     box-shadow: 0px 1px 3px -1px #000;
     transition: .4s all ease-in-out;
 }
-.product-single-2-slider .swiper-button-prev:hover, .product-single-2-slider .swiper-button-next:hover {
-    background: var(--main-theme-color)!important;
+
+.product-single-2-slider .swiper-button-prev:hover,
+.product-single-2-slider .swiper-button-next:hover {
+    background: var(--main-theme-color) !important;
 }
+
 .product-single-2-slider .swiper-button-next {
     right: 0;
 }
+
 .product-single-2-slider .swiper-button-prev {
     left: 0;
 }
+
 /* ---------------------------------
     Product Single Two Page 
 -------------------------------------*/
@@ -412,6 +475,7 @@
 .erorr_wrapper form {
     padding-bottom: 30px;
 }
+
 /* ---------------------------------
     Error Page 
 -------------------------------------*/
@@ -422,9 +486,11 @@
 #cart_area_two .product_count_one {
     justify-content: center;
 }
+
 .product_remove .remove-btn {
     transition: .3s ease all;
 }
+
 .product_remove .remove-btn:hover {
     color: var(--main-theme-color);
 }
@@ -437,12 +503,14 @@
        CheckOut Page 
 -------------------------------------*/
 .btn-secondary {
-    color: inherit!important;
+    color: inherit !important;
 }
+
 .payment-inner button {
     position: relative;
     margin-bottom: .5rem;
 }
+
 .payment-inner button label {
     position: absolute;
     height: 100%;
@@ -451,6 +519,7 @@
     top: 0;
     opacity: 0;
 }
+
 /* ---------------------------------
        CheckOut Page 
 -------------------------------------*/
@@ -461,10 +530,16 @@
 .btn-secondary:hover {
     color: inherit;
 }
-.btn-secondary:not(:disabled):not(.disabled):active:focus, .btn-secondary:not(:disabled):not(.disabled).active:focus, .show > .btn-secondary.dropdown-toggle:focus {
+
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show>.btn-secondary.dropdown-toggle:focus {
     box-shadow: none;
 }
-.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show>.btn-secondary.dropdown-toggle {
     color: inherit;
 }
 
@@ -476,11 +551,13 @@
     border-top: 3px solid #f79837;
     border-top: 3px solid var(--main-theme-color);
     margin-bottom: 0;
-    color: var(--main-theme-color)!important;
+    color: var(--main-theme-color) !important;
 }
+
 .user-actions h3 i {
     margin-right: 5px;
 }
+
 /* ---------------------------------
        CheckOut Two Page 
 -------------------------------------*/
@@ -491,12 +568,15 @@
 .faqs_area_wrapper .card-header {
     cursor: pointer;
 }
+
 .faqs_area_wrapper .collapse {
     padding: 0;
 }
+
 .faqs_area_wrapper .collapse .card-body {
     padding: 20px;
 }
+
 /* ---------------------------------
    Faqs Page 
 -------------------------------------*/
@@ -508,19 +588,29 @@
     border-radius: 0;
     margin-top: 5px;
 }
-#about_progressbar .progress .progress-bar, #about_progressbar .progress .progress-bar.progress-bar-default {
-    background-color: rgb(177, 147, 97) ;
+
+#about_progressbar .progress .progress-bar,
+#about_progressbar .progress .progress-bar.progress-bar-default {
+    background-color: rgb(177, 147, 97);
 }
-#about_progressbar .progress  .progress-bar{
+
+#about_progressbar .progress .progress-bar {
     animation-name: animateBar;
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
     animation-duration: 2.0s;
 }
+
 @keyframes animateBar {
-    0% {transform: translateX(-100%);}
-    100% {transform: translateX(0);}
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
+
 /* ---------------------------------
     About Page 
 -------------------------------------*/
@@ -533,12 +623,13 @@
     background-color: var(--main-theme-color);
     color: #fff;
     border-radius: 0.25rem;
-    padding: 0.5rem 1rem!important;
+    padding: 0.5rem 1rem !important;
 }
 
 .dashboard_tab_button li a.nuxt-link-exact-active {
     background: #000;
 }
+
 /* ---------------------------------
     My Account Page 
 -------------------------------------*/
@@ -549,6 +640,7 @@
 .left-sidebar button {
     z-index: 99;
 }
+
 /* -------------------------
   Blog single Page Area
 ---------------------------*/

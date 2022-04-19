@@ -74,10 +74,10 @@
                   Disponible
                 </button>
                 <button v-else class="btn__stock--red">Indisponible</button>
-                <p>
+                <p class="pt-15">
                   {{ product.description }}
                 </p>
-                <br />
+
                 <!-- <span v-if="product.quantity > 0"
                   >Qté: <em>Reste {{ product.quantity }}</em></span
                 >
@@ -93,7 +93,7 @@
                     <option value="large">L</option>
                   </select>
                 </div> -->
-                <br />
+
                 <b-alert
                   class="stock-alert"
                   :show="dismissCountDown"
@@ -173,8 +173,8 @@
                     </label>
                   </div>
                 </div>
-                <form id="product_count_form_two">
-                  <div class="product_count_one">
+                <form id="product_count_form_two ">
+                  <div class="product_count_one pt-15">
                     <b-form-spinbutton
                       id="sb-inline"
                       v-model="orderQuantity"
@@ -210,6 +210,37 @@
                   >
                     Ajouter au panier
                   </button>
+                  <ul class="assurances-product">
+                    <li class="assurances-product-list">
+                      <div class="assurances-product-icon">
+                        <b-icon icon="credit-card-2-back"></b-icon>
+                      </div>
+                      <div class="assurances-product-text">
+                        <h5>Paiement 100% Sécurisé</h5>
+                        <span>3D Secure</span>
+                      </div>
+                    </li>
+                    <li class="assurances-product-list">
+                      <div class="assurances-product-icon">
+                        <b-icon icon="arrow-left-right"></b-icon>
+                      </div>
+                      <div class="assurances-product-text">
+                        <h5>Satisfait ou remboursé</h5>
+                        <a href="./legal"
+                          ><span>Après réception (2 jours)</span></a
+                        >
+                      </div>
+                    </li>
+                    <li class="assurances-product-list">
+                      <div class="assurances-product-icon">
+                        <b-icon icon="cash-stack"></b-icon>
+                      </div>
+                      <div class="assurances-product-text">
+                        <h5>Jusqu'à 4x sans frais</h5>
+                        <!-- <span>3D Secure</span> -->
+                      </div>
+                    </li>
+                  </ul>
 
                   <!-- Out of stock -->
                   <!-- <p v-else>Non disponible</p> -->
@@ -847,7 +878,7 @@ export default {
   letter-spacing: 1px;
   cursor: default;
   text-transform: uppercase;
-  margin: 20px 0 0 0;
+  margin: 15px 0 0 0;
 }
 .btn__stock--red {
   background-color: red;
@@ -858,9 +889,31 @@ export default {
   letter-spacing: 1px;
   cursor: default;
   text-transform: uppercase;
-  margin: 20px 0 0 0;
+  margin: 15px 0 0 0;
 }
 .stock-alert {
   margin: 20px 0 0 0;
+}
+.assurances-product {
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.assurances-product li {
+  margin: 15px 0 0 0;
+  display: flex;
+
+  align-items: center;
+}
+.assurances-product-icon {
+  font-size: 40px;
+  margin: 0 10px 0 0;
+}
+.assurances-product-text h5 {
+  font-weight: bold;
+  font-size: 16px;
+}
+.assurances-product-text span {
+  font-size: 14px;
 }
 </style>
