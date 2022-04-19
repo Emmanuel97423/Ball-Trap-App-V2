@@ -175,12 +175,12 @@
                 </div>
                 <form id="product_count_form_two">
                   <div class="product_count_one">
-                    <!-- <b-form-spinbutton
+                    <b-form-spinbutton
                       id="sb-inline"
                       v-model="orderQuantity"
                       inline
                       class="border-0"
-                    ></b-form-spinbutton> -->
+                    ></b-form-spinbutton>
                   </div>
                 </form>
                 <div class="links_Product_areas">
@@ -208,7 +208,7 @@
                     class="theme-btn-one btn-black-overlay btn_sm"
                     @click="addToCart(product)"
                   >
-                    Ajouter
+                    Ajouter au panier
                   </button>
 
                   <!-- Out of stock -->
