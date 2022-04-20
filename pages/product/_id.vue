@@ -280,7 +280,7 @@
                   <div class="product_description">
                     <p>{{ product.description }}</p>
                     <br />
-                    <div>
+                    <!-- <div>
                       <h3>POUR ARME DE CATÉGORIE X</h3>
                       <br />
                       <p>
@@ -306,7 +306,7 @@
                         chasser, les espèces chassables. Equipez-vous d'un
                         coffre fort pour armes et munitions.
                       </p>
-                    </div>
+                    </div> -->
                     <!-- <p>
                       Curabitur arcu erat, accumsan id imperdiet et, porttitor
                       at sem. Vestibulum ac diam sit amet quam vehicula
