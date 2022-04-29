@@ -16,7 +16,8 @@
             >
               <nuxt-link to="/shop/shop-2">
                 <img
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  class="img"
+                  :src="require('@/assets/img/common/accessory-cat.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -39,7 +40,7 @@
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="opacity-25"
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/common/arme-cat-C.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -81,7 +82,7 @@
             >
               <nuxt-link to="#">
                 <img
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/common/textil-cat.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -121,7 +122,7 @@
             >
               <nuxt-link to="#">
                 <img
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/common/arme-cat-D.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -534,6 +535,10 @@ h1 {
 #textile-card {
   height: 267px;
 }
+
+/* .img {
+
+} */
 
 #textile-card,
 #equipement-card,
