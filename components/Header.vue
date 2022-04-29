@@ -854,6 +854,9 @@ export default {
 </script>
 
 <style>
+.header {
+  height: 138px;
+}
 /* Mobile Menu Multi Dropdown Items Start */
 .v-sidebar-menu .vsm--toggle-btn {
   display: none;
