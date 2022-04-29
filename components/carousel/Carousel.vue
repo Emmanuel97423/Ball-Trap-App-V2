@@ -13,7 +13,7 @@
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide img-src="https://picsum.photos/id/237/2000/600">
+      <b-carousel-slide img-src="https://picsum.photos/id/237/2000/350">
         <div class="banner_text_one">
           <h1>Lorem ipsum<span>Lorem</span></h1>
           <h3>Economisez 50%</h3>
@@ -23,7 +23,7 @@
         </div>
       </b-carousel-slide>
       <b-carousel-slide
-        img-src="https://picsum.photos/2000/600?grayscale"
+        img-src="https://picsum.photos/2000/350?grayscale"
         img-height="10"
       >
         <!-- <div class="banner_text_one">
@@ -35,7 +35,7 @@
         </div> -->
       </b-carousel-slide>
       <!--Slide 2-->
-      <b-carousel-slide img-src="https://picsum.photos/seed/picsum/2000/600">
+      <b-carousel-slide img-src="https://picsum.photos/seed/picsum/2000/350">
       </b-carousel-slide>
     </b-carousel>
   </div>
