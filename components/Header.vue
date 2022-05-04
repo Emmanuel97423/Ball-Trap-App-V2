@@ -21,9 +21,10 @@
                 <!-- Start Header Logo -->
                 <div class="header-logo">
                   <div class="logo">
-                    <h3>Exo-Trap</h3>
-                    <nuxt-link v-if="!enabled" to="/"
-                      ><img :src="require('@/assets/img/logo.png')" alt="logo"
+                    <nuxt-link to="/"
+                      ><img
+                        :src="require('@/assets/img/logo-exo-trap.png')"
+                        alt="logo"
                     /></nuxt-link>
                   </div>
                 </div>
@@ -35,12 +36,12 @@
                 >
                   <nav>
                     <ul>
-                      <li>
+                      <li class="nav-home">
                         <nuxt-link class="active main-menu-link" to="/"
                           >Accueil</nuxt-link
                         >
                       </li>
-                      <li class="has-dropdown has-megaitem">
+                      <li class="has-dropdown has-megaitem nav-catalog">
                         <nuxt-link
                           class="active main-menu-link"
                           to="/shop/shop-2"
@@ -854,8 +855,9 @@ export default {
 </script>
 
 <style>
-.header {
-  height: 138px;
+.nav-catalog a {
+  border-left: 1px solid #e2e2e2;
+  border-right: 1px solid #e2e2e2;
 }
 /* Mobile Menu Multi Dropdown Items Start */
 .v-sidebar-menu .vsm--toggle-btn {
