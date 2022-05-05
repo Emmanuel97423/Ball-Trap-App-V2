@@ -299,10 +299,12 @@
             <div class="mobile-header-left">
               <ul class="mobile-menu-logo">
                 <li>
-                  <h3>Exo-Trap</h3>
-                  <nuxt-link v-if="!enabled" to="/">
+                  <nuxt-link to="/">
                     <div class="logo">
-                      <img :src="require('@/assets/img/logo.png')" alt="logo" />
+                      <img
+                        :src="require('@/assets/img/logo-exo-trap.png')"
+                        alt="logo-exo-trap"
+                      />
                     </div>
                   </nuxt-link>
                 </li>

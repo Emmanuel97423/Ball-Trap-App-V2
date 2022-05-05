@@ -128,10 +128,18 @@ p:last-child {
 ul {
   padding: 0;
   margin: 0;
-  height: 140px;
+  height: 135px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  ul {
+
+    height: 40px;
+
+  }
 }
 
 ul li {

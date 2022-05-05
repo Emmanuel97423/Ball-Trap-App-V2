@@ -9,7 +9,8 @@
       reproduction, intégrale ou partielle, est systématiquement soumise à
       l'autorisation du propriétaire. Dans un souci de communication de tiers
       envers le site EXO TRAP, des liaisons hypertextes sont autorisées sur
-      demande auprès de la société par mail à : pull@exo-trap.re
+      demande auprès de la société par mail à : pull@exo-trap.re,
+      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
       <br />
       <br />
       <h3>1-Acceptation</h3>

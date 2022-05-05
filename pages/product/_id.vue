@@ -71,9 +71,11 @@
                 <SizeChart :productName="product.name"></SizeChart>
                 <SelectSize />
                 <button v-if="product.quantity > 0" class="btn__stock--green">
-                  Disponible
+                  Stock disponible
                 </button>
-                <button v-else class="btn__stock--red">Indisponible</button>
+                <button v-else class="btn__stock--red">
+                  Stock indisponible
+                </button>
                 <p class="pt-15">
                   {{ product.description }}
                 </p>
@@ -173,6 +175,19 @@
                     </label>
                   </div>
                 </div>
+
+                <!--Counter quantity-->
+
+                <form id="product_count_form_two ">
+                  <div class="product_count_one pt-15">
+                    <b-form-spinbutton
+                      id="sb-inline"
+                      v-model="orderQuantity"
+                      inline
+                      class="border-0"
+                    ></b-form-spinbutton>
+                  </div>
+                </form>
                 <ul class="assurances-product">
                   <li class="assurances-product-list">
                     <div class="assurances-product-icon">
@@ -204,18 +219,9 @@
                     </div>
                   </li>
                 </ul>
-                <form id="product_count_form_two ">
-                  <div class="product_count_one pt-15">
-                    <b-form-spinbutton
-                      id="sb-inline"
-                      v-model="orderQuantity"
-                      inline
-                      class="border-0"
-                    ></b-form-spinbutton>
-                  </div>
-                </form>
+
                 <div class="links_Product_areas">
-                  <ul>
+                  <!-- <ul>
                     <li v-if="!enabled">
                       <nuxt-link
                         to="/my-account/wishlist"
@@ -233,13 +239,13 @@
                         Compare</nuxt-link
                       >
                     </li>
-                  </ul>
+                  </ul> -->
                   <div v-if="!this.$auth.loggedIn" class="signup-mention">
                     <b-icon
                       class="signup-mention-icon"
                       icon="exclamation-circle-fill"
                     ></b-icon>
-                    <p>Toute commande débouche sur la création d'un compte</p>
+                    <p>Toute commande nécessite la création d'un compte</p>
                   </div>
                   <button
                     v-if="product.quantity > 0"
@@ -596,7 +602,7 @@
           </button>
           <nuxt-link
             to="/my-account/checkout-1"
-            class="theme-btn-one btn-black-overlay btn_sm"
+            class="theme-btn-one btn-green-overlay btn_sm"
             >Commander</nuxt-link
           >
           <!-- <button
@@ -829,6 +835,10 @@ export default {
 </script>
 
 <style scoped>
+.btn-green-overlay {
+  background-color: green;
+  color: #fff;
+}
 #tax {
   font-size: 12px;
 }
