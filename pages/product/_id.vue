@@ -76,6 +76,10 @@
                 <button v-else class="btn__stock--red">
                   Stock indisponible
                 </button>
+                <StockAlert
+                  v-if="product.quantity === 0"
+                  :productQuantity="product.quantity"
+                ></StockAlert>
                 <p class="pt-15">
                   {{ product.description }}
                 </p>
@@ -626,6 +630,7 @@ import AddToCart from "../../components/AddToCart";
 import { mapState, mapActions, mapMutations } from "vuex";
 import SelectSize from "@/components/product/SelectSize";
 import SizeChart from "@/components/product/SizeChart";
+import StockAlert from "@/components/product/StockAlert";
 
 export default {
   scrollToTop: true,
@@ -636,6 +641,7 @@ export default {
     AddToCart,
     SelectSize,
     SizeChart,
+    StockAlert,
   },
   data() {
     return {
