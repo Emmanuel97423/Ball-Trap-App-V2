@@ -7,7 +7,10 @@
     </div>
 
     <!-- Product variation -->
-    <section id="product_variation_one" class="pt-15 categories-section">
+    <section
+      id="product_variation_one"
+      class="pt-15 categories-section categorie-section"
+    >
       <div class="container-fluid">
         <div class="row">
           <div id="col-1" class="col-lg-4 col-md-12">
@@ -23,7 +26,7 @@
                 />
                 <div class="product_var_one_text">
                   <h4 class="color_one">Ball trap</h4>
-                  <h2 class="color_two">Accessoires</h2>
+                  <h2 class="color_two text-light">Accessoires</h2>
                   <!-- <h4 class="color_two">Collection</h4> -->
                   <nuxt-link
                     to="/shop/shop-2"
@@ -141,7 +144,9 @@
         </div>
       </div>
     </section>
-
+    <!--Call To Action-->
+    <CallToActionHomePage />
+    <!--And call to action-->
     <!-- Hot Product Area -->
     <!-- <section v-if="!enabled" id="hot_Product_area" class="ptb-100">
       <div class="container">
@@ -393,6 +398,7 @@ import BlogItem1 from "~/components/blog/BlogItem1";
 // import carousel from "vue-owl-carousel";
 import Carousel from "~/components/carousel/Carousel";
 import NavCategories from "@/components/header/Categories";
+import CallToActionHomePage from "@/components/call-to-action/CallToActionHomePage";
 
 export default {
   name: "Home",
@@ -403,6 +409,7 @@ export default {
     BlogItem1,
     Carousel,
     NavCategories,
+    CallToActionHomePage,
   },
 
   data() {
@@ -530,7 +537,8 @@ h1 {
   height: auto;
 }
 .categories-section {
-  max-width: 1400px;
+  /* max-width: 1400px; */
+
   margin: 0 auto;
 }
 #visit-card {
@@ -539,9 +547,21 @@ h1 {
   object-fit: contain;
   margin: 0 0 0 0;
 }
-/* #textile-card {
-  height: 267px;
-} */
+#textile-card {
+  height: 600px;
+}
+.text-light {
+  background-color: #000;
+  text-align: center;
+  margin: 0 0 10px 0;
+  padding: 10px 20px;
+}
+#equipement-card h2 {
+  width: 150%;
+}
+#munitions-card h2 {
+  width: 150%;
+}
 
 /* .img {
 
@@ -554,6 +574,47 @@ h1 {
 #munitions-card {
   margin: 0 0 15px 0;
 }
+
+@media only screen and (max-width: 1440px) {
+  #textile-card {
+    height: 400px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  #textile-card {
+    height: 350px;
+  }
+  .text-light {
+    font-size: 18px;
+    background-color: #000;
+    text-align: center;
+    margin: 0 0 10px 0;
+    padding: 5px 15px;
+  }
+  #equipement-card h2 {
+    width: 150%;
+    text-align: center;
+  }
+  #munitions-card h2 {
+    width: 150%;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #carousel-home {
+    display: none;
+  }
+  #textile-card {
+    height: 420px;
+  }
+  #weapon-card {
+    height: 250px;
+  }
+  #equipement-card {
+    height: 250px;
+  }
+}
+
 /* #visit-card-col {
   padding: 0;
 } */
@@ -563,11 +624,13 @@ h1 {
     height: 600px;
   }
 } */
+
 /* @media only screen and (max-width: 1440px) {
   #textile-card {
     height: 194px;
   }
 }
+
 @media only screen and (max-width: 1024px) {
   #textile-card {
     height: 127px;
