@@ -14,10 +14,8 @@
           "
         >
           <div class="container">
-            <div class="row">
-              <div
-                class="col-12 d-flex align-items-center justify-content-between"
-              >
+            <div>
+              <div class="header-content">
                 <!-- Start Header Logo -->
                 <div class="header-logo">
                   <div class="logo">
@@ -36,17 +34,34 @@
                 >
                   <nav>
                     <ul>
-                      <li class="nav-home">
-                        <nuxt-link class="active main-menu-link" to="/"
-                          >Accueil</nuxt-link
-                        >
+                      <li>
+                        <div class="nav-top-bar-home">
+                          <nuxt-link class="active main-menu-link" to="/"
+                            >Parcourir</nuxt-link
+                          >
+                          <nuxt-link class="active main-menu-link" to="/"
+                            >à propos</nuxt-link
+                          >
+                          <nuxt-link class="active main-menu-link" to="/"
+                            >Aide</nuxt-link
+                          >
+                          <nuxt-link class="active main-menu-link" to="/login"
+                            >Connexion</nuxt-link
+                          >
+                          <nuxt-link
+                            id="subscribe-btn"
+                            class="bg-black justify-center"
+                            to="/register"
+                            >S'inscrire</nuxt-link
+                          >
+                        </div>
                       </li>
                       <li class="has-dropdown has-megaitem nav-catalog">
-                        <nuxt-link
+                        <!-- <nuxt-link
                           class="active main-menu-link"
                           to="/shop/shop-2"
                           >Catalogue <i class="fa fa-angle-down"></i
-                        ></nuxt-link>
+                        ></nuxt-link> -->
 
                         <!-- Mega Menu -->
                         <div v-if="!enabled" class="mega-menu">
@@ -214,13 +229,13 @@
                       <!-- <li>
                         <nuxt-link to="#">A propos</nuxt-link>
                       </li> -->
-                      <li>
+                      <!-- <li>
                         <nuxt-link
                           class="active main-menu-link"
                           to="/my-account"
                           >Mon espace
                         </nuxt-link>
-                      </li>
+                      </li> -->
                     </ul>
                   </nav>
                 </div>
@@ -228,6 +243,7 @@
 
                 <!-- Start Header Action Link -->
                 <ul
+                  v-if="this.$auth.loggedIn"
                   class="
                     header-action-link
                     action-color--black
@@ -278,6 +294,11 @@
         </div>
       </div>
     </header>
+    <div>
+      <NavCategories />
+    </div>
+    <!--Categories nav-->
+
     <!-- Start Header Area -->
 
     <!-- Start Mobile Header -->
@@ -603,6 +624,7 @@
 
 <script>
 export default {
+  components: {},
   data() {
     return {
       enabled: true,
@@ -857,9 +879,36 @@ export default {
 </script>
 
 <style>
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  align-self: flex-start;
+}
 .nav-catalog a {
   border-left: 1px solid #e2e2e2;
   border-right: 1px solid #e2e2e2;
+}
+.nav-top-bar-home {
+  display: flex;
+  flex-flow: row nowrap;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 90px;
+  margin: 0px;
+}
+.nav-top-bar-home a {
+  padding: 18px;
+  font-size: 1rem;
+}
+#subscribe-btn {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
 }
 /* Mobile Menu Multi Dropdown Items Start */
 .v-sidebar-menu .vsm--toggle-btn {

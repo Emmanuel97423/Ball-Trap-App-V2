@@ -1,12 +1,13 @@
 <template>
   <div class="home-page">
+    <NavCategories />
     <!--Slider-->
     <div id="carousel-home">
       <Carousel />
     </div>
 
     <!-- Product variation -->
-    <section id="product_variation_one" class="pt-15">
+    <section id="product_variation_one" class="pt-15 categories-section">
       <div class="container-fluid">
         <div class="row">
           <div id="col-1" class="col-lg-4 col-md-12">
@@ -17,7 +18,7 @@
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="img"
-                  :src="require('@/assets/img/common/accessory-cat.jpg')"
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -40,7 +41,7 @@
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="opacity-25"
-                  :src="require('@/assets/img/common/arme-cat-C.jpg')"
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -57,7 +58,7 @@
             </div>
           </div>
           <div id="visit-card-col" class="col-lg-4 col-md-6">
-            <div
+            <!-- <div
               id="visit-card-div"
               class="product_variation_one_boxed img-zoom-hover"
             >
@@ -66,16 +67,16 @@
                   id="visit-card"
                   :src="require('@/assets/img/carte-de-visite.png')"
                   alt="img"
-                />
-                <!-- <div class="product_var_one_text">
+                /> -->
+            <!-- <div class="product_var_one_text">
                   <h2 class="text-light">Munitions</h2>
                   <h4 class="color_one">Arrivage</h4>
                   <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
                     >Pull!</nuxt-link
                   >
                 </div> -->
-              </nuxt-link>
-            </div>
+            <!-- </nuxt-link>
+            </div> -->
             <div
               id="textile-card"
               class="product_variation_one_boxed img-zoom-hover"
@@ -122,7 +123,7 @@
             >
               <nuxt-link to="#">
                 <img
-                  :src="require('@/assets/img/common/arme-cat-D.jpg')"
+                  :src="require('@/assets/img/offer/shot-gun.jpg')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -391,6 +392,7 @@ import InstagramArea from "../components/instagram/InstagramArea";
 import BlogItem1 from "~/components/blog/BlogItem1";
 // import carousel from "vue-owl-carousel";
 import Carousel from "~/components/carousel/Carousel";
+import NavCategories from "@/components/header/Categories";
 
 export default {
   name: "Home",
@@ -400,6 +402,7 @@ export default {
     InstagramArea,
     BlogItem1,
     Carousel,
+    NavCategories,
   },
 
   data() {
@@ -526,15 +529,19 @@ h1 {
 #carousel-home {
   height: auto;
 }
+.categories-section {
+  max-width: 1400px;
+  margin: 0 auto;
+}
 #visit-card {
   width: 100%;
   height: auto;
   object-fit: contain;
   margin: 0 0 0 0;
 }
-#textile-card {
+/* #textile-card {
   height: 267px;
-}
+} */
 
 /* .img {
 
@@ -547,16 +554,16 @@ h1 {
 #munitions-card {
   margin: 0 0 15px 0;
 }
-#visit-card-col {
+/* #visit-card-col {
   padding: 0;
-}
+} */
 
 /* @media only screen and (max-width:768px) {
   #carousel-home {
     height: 600px;
   }
 } */
-@media only screen and (max-width: 1440px) {
+/* @media only screen and (max-width: 1440px) {
   #textile-card {
     height: 194px;
   }
@@ -565,8 +572,8 @@ h1 {
   #textile-card {
     height: 127px;
   }
-}
-@media only screen and (max-width: 768px) {
+} */
+/* @media only screen and (max-width: 768px) {
   #weapon-card {
     height: 250px;
   }
@@ -597,5 +604,5 @@ h1 {
   #weapon-d {
     margin: 0 0 15px 0;
   }
-}
+} */
 </style>
