@@ -18,7 +18,7 @@
     </section>
 
     <!-- My Account-Area -->
-    <section id="my-account_area" class="ptb-100">
+    <section id="my-account_area" class="pt-100">
       <div class="container">
         <div class="row">
           <div class="col-sm-12 col-md-3 col-lg-3">

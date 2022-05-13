@@ -51,14 +51,13 @@
                             to="/login"
                             >Connexion</nuxt-link
                           >
-                          <nuxt-link
+                          <a
                             v-if="this.$auth.user"
-                            class="active main-menu-link"
-                            to="/"
+                            class="active main-menu-link btn-logout"
                             @click="logout"
                           >
                             Déconnexion
-                          </nuxt-link>
+                          </a>
                           <nuxt-link
                             v-if="!this.$auth.user"
                             id="subscribe-btn"
@@ -905,6 +904,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.btn-logout {
+  cursor: pointer;
 }
 .logo {
   align-self: flex-start;

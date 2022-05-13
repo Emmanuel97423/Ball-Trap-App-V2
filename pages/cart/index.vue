@@ -15,7 +15,7 @@
         </section> -->
 
     <!-- Cart-Area -->
-    <section id="cart_area_one" class="ptb-100">
+    <section id="cart_area_one" class="pt-100">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
