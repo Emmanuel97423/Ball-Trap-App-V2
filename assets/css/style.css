@@ -2476,7 +2476,7 @@ button {
 
 #copyright_one {
   padding: 15px 0;
-  border-top: 1px solid #ededed;
+  /* border-top: 1px solid #ededed; */
   background: #000;
   margin: 0 0 0 0;
 }

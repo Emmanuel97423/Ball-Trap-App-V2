@@ -387,6 +387,7 @@
 
     <!-- Instagram Arae -->
     <!-- <div v-if="!enabled"><InstagramArea /></div> -->
+    <FooterNav />
   </div>
 </template>
 
@@ -399,6 +400,7 @@ import BlogItem1 from "~/components/blog/BlogItem1";
 import Carousel from "~/components/carousel/Carousel";
 import NavCategories from "@/components/header/Categories";
 import CallToActionHomePage from "@/components/call-to-action/CallToActionHomePage";
+import FooterNav from "@/components/footer/FooterNav";
 
 export default {
   name: "Home",
@@ -410,6 +412,7 @@ export default {
     Carousel,
     NavCategories,
     CallToActionHomePage,
+    FooterNav,
   },
 
   data() {
