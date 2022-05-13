@@ -45,10 +45,22 @@
                           <nuxt-link class="active main-menu-link" to="/"
                             >Aide</nuxt-link
                           >
-                          <nuxt-link class="active main-menu-link" to="/login"
+                          <nuxt-link
+                            v-if="!this.$auth.user"
+                            class="active main-menu-link"
+                            to="/login"
                             >Connexion</nuxt-link
                           >
                           <nuxt-link
+                            v-if="this.$auth.user"
+                            class="active main-menu-link"
+                            to="/"
+                            @click="logout"
+                          >
+                            Déconnexion
+                          </nuxt-link>
+                          <nuxt-link
+                            v-if="!this.$auth.user"
                             id="subscribe-btn"
                             class="bg-black justify-center"
                             to="/register"
@@ -873,6 +885,16 @@ export default {
     // For Delete/Remove Product Item
     removeProductItem(productItem) {
       this.$store.commit("cart/remove", productItem);
+    },
+    logout() {
+      this.$auth
+        .logout("local")
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
