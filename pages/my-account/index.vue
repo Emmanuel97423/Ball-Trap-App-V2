@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Banner Area -->
-    <section v-if="!enabled" id="common_banner_one">
+    <section v-if="enabled" id="common_banner_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -18,15 +18,15 @@
     </section>
 
     <!-- My Account-Area -->
-    <section id="my-account_area" class="pt-100">
+    <section id="my-account_area" class="ptb-100">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-3 col-lg-3">
+          <div class="col-sm-12 col-md-3 col-lg-3 dashboard_container">
             <!-- Nav tabs -->
             <div class="dashboard_tab_button">
               <b-navbar-nav>
                 <b-nav-item to="/my-account">Tableau de bord</b-nav-item>
-                <b-nav-item to="/my-account/orders">Commande</b-nav-item>
+                <b-nav-item to="/my-account/orders">Commandes</b-nav-item>
                 <!-- <b-nav-item v-if="!enabled" to="/my-account/downloads"
                   >Downloads</b-nav-item
                 > -->
@@ -70,16 +70,16 @@ export default {
   data() {
     return {
       enabled: true,
-      title: "My Account",
+      title: "Mon compte",
 
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
-          text: "Home",
+          text: "Accueil",
           to: "/",
         },
         {
-          text: "Dashboard",
+          text: "Tableau de bord",
         },
       ],
       //data Login
@@ -136,4 +136,9 @@ export default {
 </script>
 
 <style>
+/* @media only screen and (max-width: 768px) {
+  #common_banner_one {
+    display: none;
+  }
+} */
 </style>

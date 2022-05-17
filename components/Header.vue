@@ -60,8 +60,7 @@
                           </a>
                           <nuxt-link
                             v-if="!this.$auth.user"
-                            id="subscribe-btn"
-                            class="bg-black justify-center"
+                            class="bg-black justify-center subscribe-btn"
                             to="/register"
                             >S'inscrire</nuxt-link
                           >
@@ -345,8 +344,9 @@
             <!-- End Mobile Left Side -->
 
             <!-- Start Mobile Right Side -->
-            <div v-if="enabled" class="mobile-right-side">
+            <div class="mobile-right-side">
               <ul
+                v-if="enabled"
                 class="
                   header-action-link
                   action-color--black
@@ -410,6 +410,39 @@
         <!-- Start Mobile Menu Nav -->
         <div class="offcanvas-menu">
           <sidebar-menu :menu="menu" />
+          <div class="login-mobile-container">
+            <nuxt-link
+              v-if="!this.$auth.user"
+              class="
+                active
+                main-menu-link
+                bg-white
+                justify-center
+                subscribe-btn
+              "
+              to="/login"
+              >Connexion</nuxt-link
+            >
+            <a
+              v-if="this.$auth.user"
+              class="
+                active
+                main-menu-link
+                bg-black
+                justify-center
+                subscribe-btn
+              "
+              @click="logout"
+            >
+              Déconnexion
+            </a>
+            <nuxt-link
+              v-if="!this.$auth.user"
+              class="bg-black justify-center subscribe-btn"
+              to="/register"
+              >S'inscrire</nuxt-link
+            >
+          </div>
         </div>
         <!-- End Mobile Menu Nav -->
       </div>
@@ -642,13 +675,13 @@ export default {
 
       // Mobile Menu Item Data
       menu: [
-        {
-          href: "/",
-          title: "Accueil",
-        },
+        // {
+        //   href: "/",
+        //   title: "Accueil",
+        // },
 
         {
-          title: "Catalogue",
+          title: "Parcourir",
           child: [
             {
               href: "/shop/shop-2",
@@ -662,85 +695,18 @@ export default {
               href: "/shop/shop-2",
               title: "Accessoire",
             },
-            {
-              // title: "Shop Layout",
-              // child: [
-              //   {
-              //     href: "/shop/shop-2",
-              //     title: "Tous",
-              //   },
-              //   {
-              //     href: "/shop/shop-2",
-              //     title: "Textile",
-              //   },
-              //   {
-              //     href: "/shop/shop-2",
-              //     title: "Accessoire",
-              //   },
-              //   // {
-              //   //   href: "/shop/shop-4",
-              //   //   title: "Shop Left Sidebar",
-              //   // },
-              //   // {
-              //   //   href: "/shop/shop-5",
-              //   //   title: "Shop Right Sidebar",
-              //   // },
-              // ],
-            },
-            // {
-            //   title: "Shop Pages",
-            //   child: [
-            //     {
-            //       href: "/cart/",
-            //       title: "Cart View One",
-            //     },
-            //     {
-            //       href: "/cart/cart-2",
-            //       title: "Cart View Two",
-            //     },
-            //     {
-            //       href: "/cart/empty-cart",
-            //       title: "Empty Cart",
-            //     },
-            //     {
-            //       href: "/my-account/checkout-1",
-            //       title: "Checkout View One",
-            //     },
-            //     {
-            //       href: "/my-account/checkout-2",
-            //       title: "Checkout View Two",
-            //     },
-            //     {
-            //       href: "/my-account/wishlist",
-            //       title: "Wishlist",
-            //     },
-            //     {
-            //       href: "/my-account/compare",
-            //       title: "Compare",
-            //     },
-            //     {
-            //       href: "/my-account/order-tracking",
-            //       title: "Order Tracking",
-            //     },
-            //   ],
-            // },
-            // {
-            //   title: "Product Single",
-            //   child: [
-            //     {
-            //       href: "/product",
-            //       title: "Product Single",
-            //     },
-            //     {
-            //       href: "/product/product-single-2",
-            //       title: "Product Single Two",
-            //     },
-            //   ],
-            // },
           ],
         },
+        // {
+        //   href: "/",
+        //   title: "A propos",
+        // },
+        // {
+        //   href: "/",
+        //   title: "Aide",
+        // },
+
         {
-          // href: "/my-account",
           title: "Mon espace",
           child: [
             {
@@ -757,73 +723,6 @@ export default {
             },
           ],
         },
-
-        // {
-        //   title: "Blogs",
-        //   child: [
-        //     {
-        //       href: "/blog",
-        //       title: "Blog Grid View One",
-        //     },
-        //     {
-        //       href: "/blog/blog-2",
-        //       title: "Blog Grid View Two",
-        //     },
-        //     {
-        //       href: "/blog/blog-3",
-        //       title: "Blog List View",
-        //     },
-        //     {
-        //       href: "/blog/blog-single",
-        //       title: "Blog Single View One",
-        //     },
-        //     {
-        //       href: "/blog/blog-single-2",
-        //       title: "Blog Single View TWo",
-        //     },
-        //   ],
-        // },
-        // {
-        //   title: "Pages",
-        //   child: [
-        //     {
-        //       href: "/faq",
-        //       title: "Frequently Questions",
-        //     },
-        //     {
-        //       href: "/privacy-policy",
-        //       title: "Privacy Policy",
-        //     },
-        //     {
-        //       href: "/404",
-        //       title: "404 Page",
-        //     },
-        //     {
-        //       href: "/contact-us",
-        //       title: "Contact Us One",
-        //     },
-        //     {
-        //       href: "/contact-us/contact-us-2",
-        //       title: "Contact Us Two",
-        //     },
-        //     {
-        //       href: "/coming-soon",
-        //       title: "Coming Soon",
-        //     },
-        //     {
-        //       href: "/my-account",
-        //       title: "My Account",
-        //     },
-        //     {
-        //       href: "/login",
-        //       title: "Login",
-        //     },
-        //   ],
-        // },
-        // {
-        //   href: "/about-us",
-        //   title: "About Us",
-        // },
       ],
 
       // Product Items Data
@@ -900,6 +799,15 @@ export default {
 </script>
 
 <style>
+.login-mobile-container {
+  margin: 15px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.login-mobile-container :nth-child(1) {
+  margin: 0 0 15px 0;
+}
 .header-content {
   display: flex;
   justify-content: space-between;
@@ -929,10 +837,11 @@ export default {
   padding: 18px;
   font-size: 1rem;
 }
-#subscribe-btn {
+.subscribe-btn {
   padding: 10px 20px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 /* Mobile Menu Multi Dropdown Items Start */
 .v-sidebar-menu .vsm--toggle-btn {

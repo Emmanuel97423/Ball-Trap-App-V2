@@ -131,7 +131,7 @@ ul {
   /* height: 135px; */
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  /* align-items: center; */
 }
 
 @media (max-width: 768px) {
@@ -231,9 +231,11 @@ ul li {
 }
 
 #common_banner_one {
-  background-image: url("../img/common/common_bg.png");
+  background-image: url("../img/slide/breadcrumb-bg.jpg");
   padding: 90px 0;
   background-repeat: no-repeat;
+  height: 100px;
+  background-position: 0 70%
 }
 
 .common_banner_text {
@@ -4212,6 +4214,16 @@ table {
 
 .dashboard_tab_button {
   margin-bottom: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard_container {
+    /* display: none; */
+  }
+
+  #my-account_area {
+    margin: 150px 0 0 0;
+  }
 }
 
 @media (min-width: 768px) {

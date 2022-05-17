@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <!-- footer Area -->
     <!-- <footer id="footer_one">
       <div class="container">
@@ -113,11 +113,14 @@
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6 col-12">
             <div class="copyright_left">
-              <h6>© tous droits réservés 2021 <span>Trap-One</span></h6>
+              <h6>
+                © tous droits réservés {{ yearNow }}. <span>exo-trap.re</span>
+              </h6>
             </div>
           </div>
           <div
             class="
+              legals-links
               d-flex
               flex-row-reverse
               align-items-center
@@ -148,18 +151,30 @@ export default {
   data() {
     return {
       enabled: true,
+      year: "",
     };
+  },
+
+  computed: {
+    yearNow() {
+      const date = new Date();
+      return date.getFullYear();
+    },
   },
 };
 </script>
 
-<style "scoped">
+<style >
 .copyright_right {
   display: flex;
   justify-content: flex-end;
 }
 .copyright_right :nth-child(1) {
   margin-right: 1rem;
-  background-color: red;
+}
+@media only screen and (max-width: 425px) {
+  .legals-links {
+    margin: 15px 0 0 0;
+  }
 }
 </style>

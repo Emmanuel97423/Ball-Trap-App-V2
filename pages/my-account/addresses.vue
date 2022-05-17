@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Banner Area -->
-    <section v-if="!enabled" id="common_banner_one">
+    <section v-if="enabled" id="common_banner_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
@@ -18,10 +18,10 @@
     </section>
 
     <!-- My Account-Area -->
-    <section id="my-account_area" class="pt-100">
+    <section id="my-account_area" class="ptb-100">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-3 col-lg-3">
+          <div class="col-sm-12 col-md-3 col-lg-3 dashboard_container">
             <!-- Nav tabs -->
             <div class="dashboard_tab_button">
               <b-navbar-nav>
@@ -137,15 +137,15 @@ export default {
     return {
       enabled: true,
       formEnabled: false,
-      title: "Address",
+      title: "Adresse",
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
-          text: "Home",
+          text: "Accueil",
           to: "/",
         },
         {
-          text: "Addresses",
+          text: "Adresses",
         },
       ],
       invoicing: {

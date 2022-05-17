@@ -5,15 +5,18 @@
       <Nuxt id="nuxt__app" v-if="enabled" />
     </transition>
     <Spinner id="spinner__app"></Spinner>
+    <div><FooterNav /></div>
     <Footer id="footer__app" v-if="enabled" />
   </div>
 </template>
 
 <script>
 import Spinner from "../components/spinner";
+import FooterNav from "@/components/footer/FooterNav";
 export default {
   components: {
     Spinner,
+    FooterNav,
   },
   data() {
     return {
