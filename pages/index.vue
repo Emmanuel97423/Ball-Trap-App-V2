@@ -145,7 +145,7 @@
       </div>
     </section>
     <!--Call To Action-->
-    <CallToActionHomePage />
+
     <!--And call to action-->
     <!-- Hot Product Area -->
     <!-- <section v-if="!enabled" id="hot_Product_area" class="ptb-100">
@@ -384,10 +384,29 @@
         </div>
       </div>
     </section>
-
+    <section v-if="enabled" id="special_offer_one">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 offset-lg-4 col-md-12 col-sm-12 col-12">
+            <div class="offer_banner_one text-center">
+              <h5>TRENDING</h5>
+              <h2>New Fashion</h2>
+              <p>
+                Consectetur adipisicing elit. Dolores nisi distinctio magni,
+                iure deserunt doloribus optio
+              </p>
+              <nuxt-link to="/shop" class="theme-btn-one bg-whites btn_md"
+                >Shop Now</nuxt-link
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="call-to-action"><CallToActionHomePage /></div>
     <!-- Instagram Arae -->
     <!-- <div v-if="!enabled"><InstagramArea /></div> -->
-    <FooterNav />
+    <div class="footer-nav"><FooterNav /></div>
   </div>
 </template>
 
@@ -551,7 +570,11 @@ h1 {
   margin: 0 0 0 0;
 }
 #textile-card {
-  height: 600px;
+  height: auto;
+}
+#textile-card img {
+  width: 100%;
+  height: 525px;
 }
 .text-light {
   background-color: #000;
@@ -579,13 +602,16 @@ h1 {
 }
 
 @media only screen and (max-width: 1440px) {
-  #textile-card {
+  /* #textile-card {
     height: 400px;
-  }
+  } */
 }
 @media only screen and (max-width: 1024px) {
   #textile-card {
     height: 350px;
+  }
+  #textile-card img {
+    height: 395px;
   }
   .text-light {
     font-size: 18px;
@@ -610,65 +636,19 @@ h1 {
   #textile-card {
     height: 420px;
   }
+  #textile-card img {
+    height: 425px;
+  }
   #weapon-card {
     height: 250px;
   }
   #equipement-card {
     height: 250px;
-  }
-}
-
-/* #visit-card-col {
-  padding: 0;
-} */
-
-/* @media only screen and (max-width:768px) {
-  #carousel-home {
-    height: 600px;
-  }
-} */
-
-/* @media only screen and (max-width: 1440px) {
-  #textile-card {
-    height: 194px;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  #textile-card {
-    height: 127px;
-  }
-} */
-/* @media only screen and (max-width: 768px) {
-  #weapon-card {
-    height: 250px;
-  }
-  #equipement-card {
-    height: 250px;
-  }
-  #textile-card {
-    height: 160px;
-  }
-  #visit-card-col {
-    padding: 0 0 0 15px;
   }
 }
 @media only screen and (max-width: 425px) {
-  #carousel-home {
-    display: none;
-  }
-  #visit-card-col {
-    padding: 0 15px 0 15px;
-  }
-  #equipement-card,
-  #weapon-card,
-  #munitions-card,
-  #weapon-d,
-  #textile-card {
-    height: 200px;
-  }
-  #weapon-d {
+  #product_variation_one {
     margin: 0 0 15px 0;
   }
-} */
+}
 </style>

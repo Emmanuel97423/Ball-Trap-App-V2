@@ -20,7 +20,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 300px;
+  height: 370px;
   background-image: url("~/assets/img/call-to-actions/call-to-action-home.jpg");
   background-position: 50% 60%;
 }

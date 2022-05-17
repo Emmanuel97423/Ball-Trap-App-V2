@@ -99,7 +99,6 @@ export default {
 }
 .box ul {
   margin: 30px 0 0 0;
-
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -116,6 +115,7 @@ export default {
 .list {
   display: flex;
   justify-content: space-between;
+  flex-flow: row wrap;
 }
 .title__bold {
   font-weight: bold;
@@ -128,7 +128,16 @@ export default {
 
 @media only screen and (max-width: 768px) {
   .list {
-    flex-direction: column;
+    height: auto;
+    /* flex-direction: column; */
+  }
+  .list ul {
+    margin: 180px 0 0 0;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .list ul {
+    margin: 180px 50px 0 0;
   }
 }
 </style>

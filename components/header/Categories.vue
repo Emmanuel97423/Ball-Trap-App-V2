@@ -69,4 +69,10 @@ export default {
   font-weight: 600;
   white-space: nowrap;
 }
+
+@media only screen and (max-width: 425px) {
+  .nav-categories ul {
+    justify-content: flex-start;
+  }
+}
 </style>
