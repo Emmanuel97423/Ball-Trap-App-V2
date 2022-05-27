@@ -322,9 +322,9 @@ export default {
 </script>
 
 <style>
-#my-account_area {
+/* #my-account_area {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-}
+} */
 </style>
