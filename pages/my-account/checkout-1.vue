@@ -543,11 +543,14 @@ export default {
             "/order/create-checkout-session",
             this.selectedProducts
           );
-
-          // this.$router.push({
-          //   name: "stripeCheckout",
-          //   path: stripeCheckoutSession.data.session.url,
-          // });
+          console.log(
+            "stripeCheckoutSession:",
+            typeof stripeCheckoutSession.data.session.url
+          );
+          this.$router.push({
+            name: "stripeCheckout",
+            path: stripeCheckoutSession.data.session.url,
+          });
         } catch (error) {
           console.log(error);
         }
