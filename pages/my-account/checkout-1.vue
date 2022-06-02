@@ -539,19 +539,15 @@ export default {
         // // this.$store.dispatch("user/addAdresse", this.invoicing);
         // this.invoicingForm = false;
         try {
-          console.log("this.selectedProducts:", this.selectedProducts);
           const stripeCheckoutSession = await this.$axios.post(
             "/order/create-checkout-session",
             this.selectedProducts
           );
-          console.log(
-            "stripeCheckoutSession:",
-            typeof stripeCheckoutSession.data.session.url
-          );
-          this.$router.push({
-            name: "stripeCheckout",
-            path: stripeCheckoutSession.data.session.url,
-          });
+
+          // this.$router.push({
+          //   name: "stripeCheckout",
+          //   path: stripeCheckoutSession.data.session.url,
+          // });
         } catch (error) {
           console.log(error);
         }
