@@ -521,7 +521,7 @@ export default {
     },
 
     //Etape suivante payment
-    onSubmit() {
+    async onSubmit() {
       // console;
       if (this.userAdress === null) {
         console.log("this.invoicing :", this.userAdress);
@@ -538,7 +538,23 @@ export default {
         // this.invoicing.invoiceUserId = userObject.userId;
         // // this.$store.dispatch("user/addAdresse", this.invoicing);
         // this.invoicingForm = false;
-        this.$router.push("/payment");
+        try {
+          console.log("this.selectedProducts:", this.selectedProducts);
+          const stripeCheckoutSession = await this.$axios.post(
+            "/order/create-checkout-session",
+            this.selectedProducts
+          );
+          console.log(
+            "stripeCheckoutSession:",
+            typeof stripeCheckoutSession.data.session.url
+          );
+          this.$router.push({
+            name: "stripeCheckout",
+            path: stripeCheckoutSession.data.session.url,
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
     //Invoice data submit

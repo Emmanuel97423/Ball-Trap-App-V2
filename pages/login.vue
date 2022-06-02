@@ -143,9 +143,7 @@ export default {
         .loginWith("cookie", { data: this.login })
         .then((res) => {
           const user = res.data;
-
           this.$auth.setUser(user);
-
           this.$store.commit("user/LOGIN", user);
           this.$router.push("/my-account");
           // this.$store.dispatch("user/login", res.data);
