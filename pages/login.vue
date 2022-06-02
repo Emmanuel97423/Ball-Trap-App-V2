@@ -147,7 +147,7 @@ export default {
           this.$auth.setUser(user);
 
           this.$store.commit("user/LOGIN", user);
-          // this.$router.push("/my-account")
+          this.$router.push("/my-account");
           // this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
