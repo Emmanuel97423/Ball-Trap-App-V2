@@ -64,7 +64,9 @@
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                     <div class="forgot-password">
-                      <nuxt-link to="#">Mot de passe oublié?</nuxt-link>
+                      <nuxt-link to="/resetting/request"
+                        >Mot de passe oublié?</nuxt-link
+                      >
                     </div>
                   </ValidationProvider>
                   <div class="login_submit">
@@ -201,13 +203,23 @@ export default {
 .forgot-password a:hover {
   text-decoration-line: underline;
 }
-#login_area {
-}
+
 .login-container {
-  width: 60%;
-  /* background-color: red; */
+  width: 70%;
 }
+
 .account_form h3 {
   margin: 0 0 20px 0;
+}
+
+@media (max-width: 1024px) {
+  .login-container {
+    width: 80%;
+  }
+}
+@media (max-width: 375px) {
+  .login-container {
+    width: 100%;
+  }
 }
 </style>

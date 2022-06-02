@@ -15,6 +15,7 @@ export const actions = {
     // List all products
     getProducts({ commit }) {
         this.$axios.get('/product/allProduct').then(res => {
+            console.log('res:', res)
             commit('SET_PRODUCTS', res.data)
         })
     },
