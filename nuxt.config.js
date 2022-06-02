@@ -100,7 +100,7 @@ export default {
 
   },
   server: {
-    port: process.env.PORT || 8080,
+    port: process.env.PORT || 4000,
   },
   strapi: {},
   axios: {

@@ -19,11 +19,11 @@
 
     <!-- Login-Area -->
     <section id="login_area" class="ptb-100">
-      <div class="container">
+      <div class="container login-container">
         <div class="row">
           <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
             <div class="account_form">
-              <h3>Connexion</h3>
+              <h3>Bienvenue à la maison, shooter!</h3>
               <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
                 <form
                   id="loginForm"
@@ -63,6 +63,11 @@
                       />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
+                    <div class="forgot-password">
+                      <nuxt-link to="/resetting/request"
+                        >Mot de passe oublié?</nuxt-link
+                      >
+                    </div>
                   </ValidationProvider>
                   <div class="login_submit">
                     <button
@@ -71,7 +76,9 @@
                     >
                       Pull!
                     </button>
-                    <nuxt-link to="/register">Créer un compte?</nuxt-link>
+                    <nuxt-link to="/register"
+                      ><span>Ou </span>créer un compte</nuxt-link
+                    >
                   </div>
                   <!-- <div class="remember_area">
                     <label class="checkbox-default">
@@ -166,16 +173,53 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .login_submit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.login_submit,
-a {
-  margin: 10px 0 0 0;
+.login_submit a {
+  margin: 25px 0 0 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgb(105, 105, 105);
+}
+.login_submit span {
+  text-transform: lowercase;
+  font-weight: 400;
+  color: rgb(158, 156, 156);
+}
+.forgot-password {
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+.forgot-password a {
+  text-decoration: none;
+  color: rgb(158, 156, 156);
+}
+.forgot-password a:hover {
   text-decoration-line: underline;
+}
+
+.login-container {
+  width: 70%;
+}
+
+.account_form h3 {
+  margin: 0 0 20px 0;
+}
+
+@media (max-width: 1024px) {
+  .login-container {
+    width: 80%;
+  }
+}
+@media (max-width: 375px) {
+  .login-container {
+    width: 100%;
+  }
 }
 </style>
