@@ -79,17 +79,17 @@ export default {
   stripe: {
     publishableKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
   },
-  // publicRuntimeConfig: {
-  //   recaptcha: {
-  //     /* reCAPTCHA options */
-  //     // hideBadge: Boolean, // Hide badge element (v3 & v2 via size=invisible)
-  //     // language: String,   // Recaptcha language (v2)
-  //     // siteKey: String,    // Site key for requests
-  //     // version: Number,     // Version
-  //     // size: String,       // Size: 'compact', 'normal', 'invisible' (v2)
-  //     siteKey: process.env.RECAPTCHA_SITE_KEY // for example
-  //   }
-  // },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BROWSER_BASE_URL
+    }
+  },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     babel: {
@@ -105,10 +105,13 @@ export default {
   },
   strapi: {},
   axios: {
-    // baseURL: " http://localhost:8080/api",
-    baseURL: "https://trap-one-api.herokuapp.com/api"
-
-
+    baseURL: " http://localhost:8080/api",
+    // baseURL: "https://trap-one-api.herokuapp.com/api",
+    proxy: false
+  },
+  proxy: {
+    '/api/': 'http://localhost:8080',
+    // '/api2/': 'http://api.another-website.com'
   },
   auth: {
     // redirect: {

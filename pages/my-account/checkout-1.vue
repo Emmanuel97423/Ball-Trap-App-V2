@@ -548,10 +548,6 @@ export default {
               },
             }
           );
-          console.log(
-            "stripeCheckoutSession:",
-            typeof stripeCheckoutSession.data.session.url
-          );
           this.$router.push({
             name: "stripeCheckout",
             path: stripeCheckoutSession.data.session.url,
