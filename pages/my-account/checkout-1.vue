@@ -344,15 +344,25 @@
             <p id="alert-message" v-if="active">
               {{ alertMessage }}
             </p>
-            <button
-              v-if="selectedProducts[0]"
-              type="submit"
-              form="form"
-              class="theme-btn-one btn-black-overlay btn_sm"
-              @click="onSubmit"
-            >
-              Etape suivante
-            </button>
+
+            <div class="checkout-payment">
+              <button
+                v-if="selectedProducts[0] && !stripe.url"
+                type="submit"
+                form="form"
+                class="theme-btn-one btn-black-overlay btn_sm"
+                @click="onSubmit"
+              >
+                Etape suivante
+              </button>
+
+              <a
+                v-if="stripe.url && selectedProducts[0]"
+                :href="`${stripe.url}`"
+                class="theme-btn-one btn-white-overlay btn_sm btn-pay"
+                >Passer au paiement</a
+              >
+            </div>
 
             <div v-if="!enabled" class="order_review bg-white">
               <div class="check-heading">
@@ -491,6 +501,9 @@ export default {
       },
       invoicingForm: true,
       adresses: "",
+      stripe: {
+        url: "",
+      },
     };
   },
 
@@ -543,15 +556,28 @@ export default {
             "/order/create-checkout-session",
             this.selectedProducts,
             {
-              headers: {
-                "Access-Control-Allow-Origin": "*",
-              },
+              progress: true,
             }
           );
-          this.$router.push({
-            name: "stripeCheckout",
-            path: stripeCheckoutSession.data.session.url,
-          });
+          const stripeCheckoutUrlWithDomain =
+            stripeCheckoutSession.data.session.url;
+          this.stripe.url = stripeCheckoutUrlWithDomain;
+          console.log(
+            "stripeCheckoutUrlWithDomain:",
+            stripeCheckoutUrlWithDomain
+          );
+          // const stripeCheckoutUrlWithoutDomain =
+          //   stripeCheckoutUrlWithDomain.replace(
+          //     /^(?:\S+\.\S+?\/|\/)?(\S+)$/gm,
+          //     ""
+          //   );
+          // console.log(
+          //   "stripeCheckoutUrlWithoutDomain:",
+          //   stripeCheckoutUrlWithoutDomain
+          // );
+          // this.$router.push({
+          //   path: stripeCheckoutSession.data.session.url,
+          // });
         } catch (error) {
           console.log(error);
         }
@@ -681,5 +707,16 @@ export default {
 }
 #alert-message {
   color: red;
+}
+.checkout-payment {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: flex-end;
+}
+.btn-pay {
+  text-align: center;
+  background-color: green;
+  color: #fff;
+  transition: all 0.2s linear;
 }
 </style>
