@@ -3,8 +3,8 @@
     <div class="container">
       <i class="fas fa-check"><h2>Paiement validée!</h2></i>
 
-      <p>Merci pour votre confiance!</p>
-      <p>Commande n°:<span>123456</span></p>
+      <p>Merci pour votre confiance !</p>
+
       <p>Vous serez redirigé dans 5 secondes</p>
     </div>
   </div>
@@ -12,9 +12,40 @@
 
 <script>
 export default {
+  data() {
+    return {
+      customer: "",
+      orderDetails: {
+        userId: "",
+        // customer: "",
+        products: "",
+        amount: "",
+        // date: "",
+        clientSecret: "",
+      },
+    };
+  },
   middleware: "auth",
+  methods: {
+    async success() {
+      const sessionId = await this.$route.query.session_id;
+      const data = await this.$axios.get("/paymentSucess", {
+        params: { session_id: sessionId },
+      });
+      this.customer = data;
+      this.$store.commit("cart/emptyList");
+    },
+  },
   mounted() {
-    this.$store.commit("cart/emptyList");
+    this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
+    this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
+    this.orderDetails.products = this.$store.state.cart.items;
+    // this.orderDetails.date = Date.now();
+    // this.orderDetails.customer = invoicingObject.data.invoicingDetails;
+    this.orderDetails.userId = this.$store.state.auth.user.userId;
+
+    this.success();
+    this.$store.dispatch("order/sendOrder", this.orderDetails);
     setTimeout(() => {
       try {
         this.$router.push("/my-account");
