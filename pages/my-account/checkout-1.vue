@@ -541,7 +541,12 @@ export default {
         try {
           const stripeCheckoutSession = await this.$axios.post(
             "/order/create-checkout-session",
-            this.selectedProducts
+            this.selectedProducts,
+            {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
           );
           console.log(
             "stripeCheckoutSession:",
