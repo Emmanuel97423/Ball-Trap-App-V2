@@ -355,12 +355,16 @@
               >
                 Etape suivante
               </button> -->
+              <p v-if="!stripe.url && selectedProducts[0]">
+                Service paiement temporairement indisponible. Veuillez réessayez
+                plus tard.
+              </p>
 
               <a
                 v-if="stripe.url && selectedProducts[0]"
                 :href="`${stripe.url}`"
-                class="theme-btn-one btn-white-overlay btn_sm btn-pay"
-                >Passer au paiement</a
+                class="theme-btn-one btn-black-overlay btn_sm btn-pay"
+                >Etape suivante</a
               >
             </div>
 
@@ -716,7 +720,7 @@ export default {
 }
 .btn-pay {
   text-align: center;
-  background-color: green;
+
   color: #fff;
   transition: all 0.2s linear;
 }
