@@ -346,7 +346,7 @@
             </p>
 
             <div class="checkout-payment">
-              <button
+              <!-- <button
                 v-if="selectedProducts[0] && !stripe.url"
                 type="submit"
                 form="form"
@@ -354,7 +354,7 @@
                 @click="onSubmit"
               >
                 Etape suivante
-              </button>
+              </button> -->
 
               <a
                 v-if="stripe.url && selectedProducts[0]"
@@ -645,6 +645,7 @@ export default {
     },
   },
   mounted() {
+    this.onSubmit();
     const id = this.$store.state.auth.user.userId;
     this.$store
       .dispatch("adress/getAdresses", id)
