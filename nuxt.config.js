@@ -5,6 +5,7 @@ export default {
     base: "/",
 
   },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -101,17 +102,13 @@ export default {
 
   },
   server: {
-    port: process.env.PORT || 4000,
+    port: process.env.PORT || 3000,
   },
   strapi: {},
   axios: {
     // baseURL: " http://localhost:8080/api",
     baseURL: "https://trap-one-api.herokuapp.com/api",
     proxy: false
-  },
-  proxy: {
-    '/api/': 'http://localhost:8080',
-    // '/api2/': 'http://api.another-website.com'
   },
   auth: {
     // redirect: {

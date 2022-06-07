@@ -12,11 +12,10 @@ export const mutations = {
     state.items = items
   },
   add(state, item) {
+    console.log('state:', state)
     console.log('item:', item)
 
     const record = state.items.find(i => i._id === item._id)
-
-
     if (!record) {
       state.items.push({
         orderQuantity: state.orderQuantity,

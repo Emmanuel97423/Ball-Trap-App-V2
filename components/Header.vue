@@ -507,7 +507,6 @@
                   />
                 </nuxt-link>
                 <div class="offcanvas-cart-item-content">
-                  {{ productItem._id }}
                   <nuxt-link
                     :to="{ path: '/product/' + productItem._id }"
                     class="offcanvas-cart-item-link"
@@ -668,7 +667,6 @@
 
 <script>
 export default {
-  components: {},
   data() {
     return {
       enabled: true,
@@ -729,20 +727,20 @@ export default {
       productItems: [],
     };
   },
-
-  mounted: function () {
+  mounted() {
     // Menu Js
     this.$nextTick(function () {
       window.onscroll = function () {
         myFunction();
       };
+      const header = document.getElementById("header");
 
-      var header = document.getElementById("header");
-      var mobile_header = document.getElementById("mobile_header");
-      var sticky = header.offsetTop;
+      const mobile_header = document.getElementById("mobile_header");
+
+      const sticky = header.offsetTop;
 
       function myFunction() {
-        if (window.pageYOffset > sticky) {
+        if (window.pageYOffset) {
           header.classList.add("sticky");
           mobile_header.classList.add("sticky");
         } else {
@@ -753,7 +751,22 @@ export default {
     });
     // Menu End
   },
-
+  methods: {
+    // For Delete/Remove Product Item
+    removeProductItem(productItem) {
+      this.$store.commit("cart/remove", productItem);
+    },
+    logout() {
+      this.$auth
+        .logout("local")
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
   computed: {
     id() {
       return this.$route.params.id;
@@ -776,23 +789,6 @@ export default {
         total += productItem.productPrice * productItem.quantity;
       });
       return total;
-    },
-  },
-
-  methods: {
-    // For Delete/Remove Product Item
-    removeProductItem(productItem) {
-      this.$store.commit("cart/remove", productItem);
-    },
-    logout() {
-      this.$auth
-        .logout("local")
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
   },
 };
@@ -860,4 +856,11 @@ export default {
   box-shadow: 3px 0px 0px 0px var(--main-theme-color) inset;
 }
 /* Mobile Menu Multi Dropdown Items End */
+
+.offcanvas-cart {
+  flex-direction: column;
+}
+.offcanvas-cart-item-link {
+  font-size: 14px;
+}
 </style>

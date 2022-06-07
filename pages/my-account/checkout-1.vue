@@ -346,7 +346,7 @@
             </p>
 
             <div class="checkout-payment">
-              <button
+              <!-- <button
                 v-if="selectedProducts[0] && !stripe.url"
                 type="submit"
                 form="form"
@@ -354,13 +354,17 @@
                 @click="onSubmit"
               >
                 Etape suivante
-              </button>
+              </button> -->
+              <p v-if="!stripe.url && selectedProducts[0]">
+                Service paiement temporairement indisponible. Veuillez réessayez
+                plus tard.
+              </p>
 
               <a
                 v-if="stripe.url && selectedProducts[0]"
                 :href="`${stripe.url}`"
-                class="theme-btn-one btn-white-overlay btn_sm btn-pay"
-                >Passer au paiement</a
+                class="theme-btn-one btn-black-overlay btn_sm btn-pay"
+                >Etape suivante</a
               >
             </div>
 
@@ -645,6 +649,7 @@ export default {
     },
   },
   mounted() {
+    this.onSubmit();
     const id = this.$store.state.auth.user.userId;
     this.$store
       .dispatch("adress/getAdresses", id)
@@ -715,7 +720,7 @@ export default {
 }
 .btn-pay {
   text-align: center;
-  background-color: green;
+
   color: #fff;
   transition: all 0.2s linear;
 }

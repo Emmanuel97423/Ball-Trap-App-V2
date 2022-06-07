@@ -39,7 +39,7 @@
                       class="theme-btn-one btn-black-overlay btn_md"
                       type="submit"
                     >
-                      Réinitialiser mon de passe
+                      Réinitialiser mon mot de passe
                     </button>
                     <nuxt-link to="/login"
                       ><span>Ou </span>Se connecter</nuxt-link
