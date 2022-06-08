@@ -70,6 +70,7 @@
                 </h4>
                 <SizeChart :productName="product.name"></SizeChart>
                 <SelectSize />
+                <SelectSize2 />
                 <button v-if="product.quantity > 0" class="btn__stock--green">
                   Stock disponible
                 </button>
@@ -629,6 +630,7 @@ import InstagramArea from "../../components/instagram/InstagramArea";
 import AddToCart from "../../components/AddToCart";
 import { mapState, mapActions, mapMutations } from "vuex";
 import SelectSize from "@/components/product/SelectSize";
+import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 
@@ -640,6 +642,7 @@ export default {
     InstagramArea,
     AddToCart,
     SelectSize,
+    SelectSize2,
     SizeChart,
     StockAlert,
   },
