@@ -21,12 +21,14 @@ export default {
   align-items: center;
   width: 100%;
   height: 370px;
-  background-image: url("~/assets/img/call-to-actions/call-to-action-home.jpg");
+  background-image: url("~/assets/img/call-to-actions/promo.jpg");
   background-position: 50% 60%;
+  object-fit: cover;
 }
 .box h2 {
   background-color: #fff;
   padding: 10px 20px;
+  margin: 50px 0 0 0;
 }
 .box a {
   margin: 20px 0 0 0;

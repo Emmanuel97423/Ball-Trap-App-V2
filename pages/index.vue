@@ -21,7 +21,7 @@
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="img"
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/banner/accessoires.png')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -44,7 +44,7 @@
               <nuxt-link to="/shop/shop-2">
                 <img
                   class="opacity-25"
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/banner/fusil-ball-trap.png')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -86,7 +86,7 @@
             >
               <nuxt-link to="#">
                 <img
-                  :src="require('@/assets/img/common/textil-cat.jpg')"
+                  :src="require('@/assets/img/banner/textile.png')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -108,7 +108,7 @@
             >
               <nuxt-link to="/shop/shop-2">
                 <img
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/banner/munitions.png')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -126,7 +126,7 @@
             >
               <nuxt-link to="#">
                 <img
-                  :src="require('@/assets/img/offer/shot-gun.jpg')"
+                  :src="require('@/assets/img/banner/fusil-ball-trap.png')"
                   alt="img"
                 />
                 <div class="product_var_one_text">
@@ -567,12 +567,12 @@ h1 {
   margin: 0 0 0 0;
 }
 #textile-card {
-  height: auto;
+  height: 530px;
 }
-#textile-card img {
+/* #textile-card img {
   width: 100%;
-  height: 525px;
-}
+  height: auto;
+} */
 .text-light {
   background-color: #000;
   text-align: center;
@@ -605,11 +605,11 @@ h1 {
 }
 @media only screen and (max-width: 1024px) {
   #textile-card {
-    height: 350px;
+    height: 370px;
   }
-  #textile-card img {
+  /* #textile-card img {
     height: 395px;
-  }
+  } */
   .text-light {
     font-size: 18px;
     background-color: #000;
@@ -637,10 +637,10 @@ h1 {
     height: 425px;
   }
   #weapon-card {
-    height: 250px;
+    height: 200px;
   }
   #equipement-card {
-    height: 250px;
+    height: 200px;
   }
 }
 @media only screen and (max-width: 425px) {
