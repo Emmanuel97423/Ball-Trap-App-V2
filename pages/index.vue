@@ -86,6 +86,7 @@
             >
               <nuxt-link to="#">
                 <img
+                  class="textile-img"
                   :src="require('@/assets/img/banner/textile.png')"
                   alt="img"
                 />
@@ -560,24 +561,18 @@ h1 {
 
   margin: 0 auto;
 }
-#visit-card {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin: 0 0 0 0;
-}
 #textile-card {
-  height: 530px;
+  text-align: center;
 }
-/* #textile-card img {
-  width: 100%;
-  height: auto;
-} */
+.textile-img {
+  width: 93%;
+}
 .text-light {
   background-color: #000;
+  font-size: 24px;
   text-align: center;
-  margin: 0 0 10px 0;
-  padding: 10px 20px;
+  /* margin: 0 0 10px 0;
+  padding: 10px 20px; */
 }
 #equipement-card h2 {
   width: 150%;
@@ -590,26 +585,40 @@ h1 {
 
 } */
 
-#textile-card,
-#equipement-card,
-#weapon-card,
-#visit-card-div,
+/* #textile-card,*/
+
 #munitions-card {
   margin: 0 0 15px 0;
 }
+/* #weapon-card, */
+#equipement-card {
+  margin: 0 0 15px 0;
+}
+@media only screen and (min-width: 768px) {
+  #weapon-card {
+    margin: 0 0 15px 0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .textile-img {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .textile-img {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+}
+/* @media only screen and (max-width: 1440px) {
 
-@media only screen and (max-width: 1440px) {
-  /* #textile-card {
-    height: 400px;
-  } */
 }
 @media only screen and (max-width: 1024px) {
   #textile-card {
     height: 370px;
   }
-  /* #textile-card img {
-    height: 395px;
-  } */
+
   .text-light {
     font-size: 18px;
     background-color: #000;
@@ -630,14 +639,12 @@ h1 {
   #carousel-home {
     display: none;
   }
-  #textile-card {
-    height: 420px;
-  }
+  
   #textile-card img {
     height: 425px;
   }
   #weapon-card {
-    height: 200px;
+    height: 20z0px;
   }
   #equipement-card {
     height: 200px;
@@ -647,5 +654,5 @@ h1 {
   #product_variation_one {
     margin: 0 0 15px 0;
   }
-}
+} */
 </style>

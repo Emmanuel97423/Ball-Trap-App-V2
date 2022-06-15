@@ -52,15 +52,36 @@
                     rules="required"
                     v-slot="{ errors }"
                   >
-                    <div class="default-form-box">
+                    <div class="default-form-box password-login-button">
                       <label>Mot de passe <span>*</span></label>
-                      <input
-                        name="password"
-                        v-model="login.password"
-                        type="password"
-                        class="form-control"
-                        autocomplete="on"
-                      />
+                      <button>
+                        <input
+                          v-if="!login.showPassword"
+                          name="password"
+                          v-model="login.password"
+                          type="password"
+                          class="form-control"
+                          autocomplete="on"
+                        />
+                        <input
+                          v-else
+                          name="password"
+                          v-model="login.password"
+                          class="form-control"
+                          autocomplete="on"
+                        />
+                        <i
+                          v-if="!login.showPassword"
+                          class="fa fa-solid fa-eye"
+                          @click.stop.prevent="showPassword()"
+                        ></i>
+                        <i
+                          v-else
+                          class="fa fa-solid fa-eye-slash"
+                          @click.stop.prevent="showPassword()"
+                        ></i>
+                      </button>
+
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                     <div class="forgot-password">
@@ -109,6 +130,7 @@ export default {
       login: {
         email: "",
         password: "",
+        showPassword: false,
       },
 
       // Breadcrumb Items Data
@@ -167,6 +189,17 @@ export default {
           }
         });
     },
+    showPassword() {
+      if (this.login.showPassword === false) {
+        this.login.showPassword = true;
+        console.log("this.login.showPassword:", this.login.showPassword);
+      } else {
+        this.login.showPassword = false;
+      }
+      setTimeout(() => {
+        this.login.showPassword = false;
+      }, 3000);
+    },
   },
 };
 </script>
@@ -208,6 +241,25 @@ export default {
 
 .account_form h3 {
   margin: 0 0 20px 0;
+}
+
+.fa-eye,
+.fa-eye-slash {
+  cursor: pointer;
+  /* color: rgb(183, 183, 183); */
+}
+.password-login-button input {
+  border: none;
+}
+
+.password-login-button button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fff;
 }
 
 @media (max-width: 1024px) {
