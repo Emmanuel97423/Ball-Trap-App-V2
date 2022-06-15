@@ -599,6 +599,12 @@ h1 {
     margin: 0 0 15px 0;
   }
 }
+@media only screen and (max-width: 767px) {
+  .textile-img {
+    width: 100%;
+    margin: 0 0 15px 0;
+  }
+}
 @media only screen and (max-width: 576px) {
   .textile-img {
     width: 100%;
