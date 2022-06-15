@@ -24,6 +24,7 @@ export default {
   background-image: url("~/assets/img/call-to-actions/promo.jpg");
   background-position: 50% 60%;
   object-fit: cover;
+  margin: 15px 0 0 0;
 }
 .box h2 {
   background-color: #fff;
