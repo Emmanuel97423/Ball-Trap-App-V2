@@ -1,5 +1,5 @@
 <template>
-  <div class="container-select-size pt-15">
+  <div class="container-select-size">
     <div
       v-for="(value, index) in size"
       :key="index"
