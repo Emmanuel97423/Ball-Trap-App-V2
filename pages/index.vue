@@ -422,6 +422,8 @@ import CallToActionHomePage from "@/components/call-to-action/CallToActionHomePa
 
 export default {
   name: "Home",
+  middleware: "auth",
+
   components: {
     ProductBox1,
     Timer,

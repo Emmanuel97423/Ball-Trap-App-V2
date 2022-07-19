@@ -124,6 +124,8 @@ import InstagramArea from "~/components/instagram/InstagramArea";
 
 export default {
   name: "shop-three-grid",
+  middleware: "auth",
+
   components: {
     ProductBox1,
     InstagramArea,
