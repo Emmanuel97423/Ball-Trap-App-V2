@@ -24,7 +24,7 @@
     "bootstrap-icons": "^1.8.1",
     "bootstrap-vue": "^2.21.2",
     "cookieparser": "^0.1.0",
-    "core-js": "^3.9.1",
+    "core-js": "^3.21.1",
     "js-cookie": "^3.0.0",
     "nuxt": "^2.15.3",
     "nuxt-stripe-module": "^3.2.0",
