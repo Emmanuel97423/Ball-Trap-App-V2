@@ -1,30 +1,36 @@
 <template>
   <div class="container-select-size pt-15">
     <div
-      v-for="(value, index) in options"
+      v-for="(value, index) in size"
       :key="index"
       class="box-size"
       :class="{ 'select-size-active': activeOptions.indexOf(index) > -1 }"
       @click="handleCLick(index)"
     >
-      <div>{{ value.text }}</div>
+      <div>{{ value }}</div>
     </div>
+    <div></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "SelectSize2",
+  props: {
+    // productVariants: Array,
+    size: Array,
+  },
   data() {
     return {
       selected: null,
+
       options: [
-        { value: "XS", text: "XS" },
-        { value: "S", text: "S" },
-        { value: "M", text: "M" },
-        { value: "L", text: "L" },
-        { value: "XL", text: "XL" },
-        { value: "XXL", text: "XXL" },
+        // { value: "XS", text: "XS" },
+        // { value: "S", text: "S" },
+        // { value: "M", text: "M" },
+        // { value: "L", text: "L" },
+        // { value: "XL", text: "XL" },
+        // { value: "XXL", text: "XXL" },
         // { value: { C: "3PO" }, text: "This is an option with object value" },
         // { value: "d", text: "This one is disabled", disabled: true },
       ],
@@ -54,6 +60,21 @@ export default {
     changeColor() {
       this.isLoading = !this.isLoading;
     },
+  },
+  mounted() {
+    // console.log("this.productByGamme:", this.productByGamme);
+    // const uniqueArray = (a) =>
+    //   [...new Set(a.map((o) => JSON.stringify(o)))].map((s) => JSON.parse(s));
+    // let gammeOption = [];
+    // this.productByGamme.map((product) => {
+    //   console.log("product:", product.stock);
+    //   const gammes = product.gamme.replace("¤", " ").split(" ");
+    //   const gammesValues = product.gammesValue.replace("¤", " ").split(" ");
+    //   const obj = { value: gammesValues[1], text: gammesValues[1] };
+    //   gammeOption.push(obj);
+    // });
+    // this.options = uniqueArray(gammeOption);
+    // console.log("this.options:", this.options);
   },
 };
 </script>

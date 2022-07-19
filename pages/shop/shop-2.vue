@@ -71,9 +71,10 @@
           </div> -->
         </div>
         <div class="row">
+          {{ productsGammes }}
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
-            v-for="productItem in productItems"
+            v-for="productItem in productsGammes"
             :key="productItem._id"
           >
             <ProductBox1
@@ -81,8 +82,8 @@
               :productImg2="productItem.imageUrl"
               :productTagClass="productItem.productTagClass"
               :productTag="productItem.productTag"
-              :productTitle="productItem.name"
-              :productPrice="productItem.priceTtc"
+              :productTitle="productItem.libelle"
+              :productPrice="productItem.pvTtc"
               :productId="productItem._id"
               :productQuantity="productItem.quantity"
               :productObject="productItem"
@@ -131,7 +132,7 @@ export default {
     return {
       enabled: true,
       title: "Shop",
-      products: "",
+      productsGammes: "",
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -173,6 +174,16 @@ export default {
   created() {
     this.$store.dispatch("products/getProducts");
   },
+  async fetch() {
+    try {
+      const products = await this.$axios.get("/gammes");
+      this.productsGammes = products.data;
+      console.log("this.productsGammes:", this.productsGammes);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  },
+  fetchOnServer: false,
 };
 </script>
 

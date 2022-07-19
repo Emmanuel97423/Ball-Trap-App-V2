@@ -1,31 +1,31 @@
 // Etat du Store > State
 export const state = () => ({
     productItems: [],
-    product: {
+    product: {},
+    productSearchByGammes: [],
+    gammes: []
 
-    },
 })
 //Date access on State
 export const getters = {
     productItems: (state) => state.productItems,
-    product: (state) => state.product
+    product: (state) => state.product,
+    // gammes: (state) => state.productSearchByGammes
 }
 //Handle action
 export const actions = {
     // List all products
     getProducts({ commit }) {
         this.$axios.get('/product/allProduct').then(res => {
-            console.log('res:', res)
             commit('SET_PRODUCTS', res.data)
-        })
+        }).catch(err => { console.log(err) });
     },
     //One product data request
     getOneProduct({ commit }, id) {
 
         this.$axios
-            .get("/product/" + id)
+            .get("/gammes/productGamme/" + id)
             .then((res) => {
-
                 commit('SET_ONE_PRODUCT', res.data)
             }).catch((err) => { console.log(err) })
     },
@@ -57,7 +57,20 @@ export const actions = {
         commit('INCREMENT_STOCK', n)
 
 
+    },
+    searchByCodeGamme({ commit }, codeGamme) {
+        this.$axios.get('/product/search/' + codeGamme).then((response) => {
+
+            commit('SET_SEARCH_BY_GAMME', response.data)
+        }).catch((err) => { console.error(err) })
+    },
+    gammes({ commit }, gamme) {
+        this.$axios.get('/gammes/gamme/' + gamme).then((response) => {
+
+            commit('SET_SEARCH_GAMMES', response.data)
+        }).catch((err) => { console.error(err) })
     }
+
 }
 //Handle mutations
 export const mutations = {
@@ -67,7 +80,12 @@ export const mutations = {
     SET_ONE_PRODUCT(state, product) {
         state.product = product;
     },
-
+    SET_SEARCH_BY_GAMME(state, productSearchByGammes) {
+        state.productSearchByGammes = productSearchByGammes
+    },
+    SET_GAMME(state, gammes) {
+        state.product.gammes = gammes;
+    },
     //DECREMENTION STOCK
     DECREMENT_STOCK(state, item) {
 

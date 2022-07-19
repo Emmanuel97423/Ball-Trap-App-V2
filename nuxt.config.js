@@ -13,7 +13,8 @@ export default {
   env: {
     stripePublishKey: 'pk_test_51JSFvUGiJRPLuK6CPyrQaQVCr4qRgXE2oVJRAFBqBss9PJ9vQiaScliPpx1Z0veH7MS4PTQObU4CS5EzKYtCKc3v00SjPAg67p',
     apiUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api",
-    // baseUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api"
+    // apiUrl: process.env.BASE_URL || "http://localhost:8080/api",
+    baseUrl: process.env.BASE_URL || "https://trap-one-api.herokuapp.com/api",
     RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY || '6Le0-00eAAAAAL4skgRDMB6y_F04__ymqVOlCd12',
   },
 

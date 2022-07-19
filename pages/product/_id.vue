@@ -31,8 +31,17 @@
                 class="swiper product-single-2-slider"
                 :options="swiperOption"
               >
-                <swiper-slide>
-                  <img :src="product.imageUrl" alt="img" />
+                <swiper-slide
+                  v-for="(product, index) in productVariants"
+                  :key="index"
+                >
+                  <!-- {{ product }} -->
+                  <img
+                    v-if="product.imageUrl"
+                    :src="product.imageUrl"
+                    alt="img"
+                  />
+                  <!-- <img v-else /> -->
                 </swiper-slide>
 
                 <div
@@ -44,6 +53,7 @@
                   slot="button-next"
                 ></div>
               </swiper>
+              <!-- <img v-else src="@/assets/img/common/textil-cat.jpg" /> -->
             </div>
           </div>
 
@@ -51,7 +61,7 @@
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
                 <h3 v-if="this.$route.params.id">
-                  {{ product.name }}
+                  {{ product.libelle }}
                 </h3>
                 <h3 v-else>Test fiche produit hello</h3>
 
@@ -65,13 +75,15 @@
                 </div>
 
                 <h4>
-                  {{ parseFloat(product.priceTtc).toFixed(2) }} €
+                  {{ parseFloat(product.pvTtc).toFixed(2) }} €
                   <span id="tax">T.T.C</span>
                 </h4>
-                <SizeChart :productName="product.name"></SizeChart>
-                <SelectSize />
-                <SelectSize2 />
-                <button v-if="product.quantity > 0" class="btn__stock--green">
+                <SizeChart :productName="product.libelle"></SizeChart>
+                <!-- <SelectSize /> -->
+
+                <SelectSize2 :size="uniqueSize" />
+
+                <button v-if="product.stock > 0" class="btn__stock--green">
                   Stock disponible
                 </button>
                 <button v-else class="btn__stock--red">
@@ -120,8 +132,12 @@
                     height="4px"
                   ></b-progress>
                 </b-alert>
+
                 <div v-if="enabled" class="variable-single-item">
                   <span>Couleurs</span>
+                  <!-- <div v-for="(product, index) in productByGamme" :key="index">
+                    {{ product }}
+                  </div> -->
                   <div class="product-variable-color">
                     <label for="modal-product-color-red1">
                       <input
@@ -193,7 +209,7 @@
                     ></b-form-spinbutton>
                   </div>
                 </form>
-                <ul class="assurances-product">
+                <ul v-if="!enabled" class="assurances-product">
                   <li class="assurances-product-list">
                     <div class="assurances-product-icon">
                       <b-icon icon="credit-card-2-back"></b-icon>
@@ -351,7 +367,7 @@
                   </div>
                 </b-tab>
 
-                <b-tab title="Informations additionnels" id="additional">
+                <!-- <b-tab title="Informations additionnels" id="additional">
                   <div class="product_additional">
                     <ul>
                       <li>Poids: <span>400 g</span></li>
@@ -368,7 +384,7 @@
                       </li>
                     </ul>
                   </div>
-                </b-tab>
+                </b-tab> -->
 
                 <!-- <b-tab title="Avis" id="review">
                   <div class="product_reviews">
@@ -649,7 +665,13 @@ export default {
   data() {
     return {
       //Product data
-      // product: {},
+      product: [],
+      productGamme: null,
+      codeGamme: null,
+      gammes: null,
+      productVariants: [],
+      size: [],
+      mainImage: null,
       //Alter data
       dismissSecs: 5,
       dismissCountDown: 0,
@@ -696,16 +718,6 @@ export default {
       relatedProducts: "",
     };
   },
-  async fetch() {
-    try {
-      this.relatedProducts = await this.$http.$get(
-        `${apiURL}/product/allProduct`
-      );
-      // console.log("products", this.relatedProducts);
-    } catch (error) {
-      console.error("error", error);
-    }
-  },
 
   // Page head() Title, description for SEO
   head() {
@@ -714,7 +726,7 @@ export default {
       meta: [
         {
           hid: "description",
-          name: this.product.name,
+          name: this.product.libelle,
           content: this.product.description,
         },
       ],
@@ -722,10 +734,21 @@ export default {
   },
 
   computed: {
-    product() {
-      // return this.$store.getters["products/product"];
-      return this.$store.state.products.product;
+    uniqueSize() {
+      return [...new Set(this.size)];
     },
+    // product() {
+    //   // return this.$store.getters["products/product"];
+    //   return this.$store.state.products.product;
+    // },
+    productByGamme() {
+      return this.$store.state.products.productSearchByGammes;
+    },
+
+    // gammes() {
+    //   const gammes = this.$store.state.products.productSearchByGammes.gammes;
+    //   return gammes;
+    // },
   },
   methods: {
     //Alert
@@ -735,7 +758,6 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
-
     addToCart(product) {
       // console.log("product:", product);
       this.$store
@@ -825,21 +847,45 @@ export default {
     //       }).catch((err) => {console.log(err)})
     // },
   },
-  created() {
+  mounted() {
     // this.dataTest()
     // this.outOfStock();
-    const id = this.$route.params.id;
-
-    this.$store
-      .dispatch("products/getOneProduct", id)
-      .then(() => {
-        console.log("Api sucess");
-      })
-      .catch((err) => {
-        console.log("Api error", err);
-      });
+    // const id = this.$route.params.id;
+    // const code = this.$store.state.products.product.codeArticleGamme;
+    // this.codeGamme = code;
+    // this.$store.dispatch("products/getOneProduct", id);
+    // this.$store.dispatch("products/searchByCodeGamme", this.codeGamme);
   },
-  // beforeDestroy() {},
+  async fetch() {
+    let variantsArray = [];
+    let sizeArray = [];
+    try {
+      const id = this.$route.params.id;
+      const productGamme = await this.$axios.get("/gammes/productGamme/" + id);
+      this.product = productGamme.data;
+      // this.mainImage = variantsArray[0]
+    } catch (error) {
+      console.log("error:", error);
+    }
+
+    try {
+      this.product.variantId.map(async (id) => {
+        const productVariant = await this.$axios.get("/product/" + id);
+        this.productVariants.push(productVariant.data);
+        this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
+      });
+    } catch (error) {
+      console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
+    }
+
+    try {
+      this.productVariants = variantsArray;
+      // this.size = sizeArray;
+    } catch (error) {
+      console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
+    }
+  },
+  fetchOnServer: false,
 };
 </script>
 
