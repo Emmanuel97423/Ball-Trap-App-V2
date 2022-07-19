@@ -30,6 +30,7 @@
               <swiper
                 class="swiper product-single-2-slider"
                 :options="swiperOption"
+                ref="swiperImage"
               >
                 <swiper-slide
                   v-for="(product, index) in productVariants"
@@ -80,65 +81,24 @@
                 </h4>
                 <SizeChart :productName="product.libelle"></SizeChart>
                 <!-- <SelectSize /> -->
-
-                <SelectSize2 :size="uniqueSize" />
-
-                <button v-if="product.stock > 0" class="btn__stock--green">
-                  Stock disponible
-                </button>
-                <button v-else class="btn__stock--red">
-                  Stock indisponible
-                </button>
-                <StockAlert
-                  v-if="product.quantity === 0"
-                  :productQuantity="product.quantity"
-                ></StockAlert>
-                <p class="pt-15">
-                  {{ product.description }}
-                </p>
-
-                <!-- <span v-if="product.quantity > 0"
-                  >Qté: <em>Reste {{ product.quantity }}</em></span
-                >
-                <span v-else>Qté: <em>Rupture</em></span> -->
-
-                <!-- productquantity : {{ product.quantity }} -->
-                <!-- <div class="customs_selects">
-                  <select name="product" class="customs_sel_box">
-                    <option value="size">Taille</option>
-                    <option value="xl">XL</option>
-                    <option value="small">S</option>
-                    <option value="medium">M</option>
-                    <option value="large">L</option>
-                  </select>
-                </div> -->
-
-                <b-alert
-                  class="stock-alert"
-                  :show="dismissCountDown"
-                  dismissible
-                  variant="warning"
-                  @dismissed="dismissCountDown = 0"
-                  @dismiss-count-down="countDownChanged"
-                >
-                  <p>
-                    Dernière article en cours de commande: stock insufisant.
-                    <!-- {{ dismissCountDown }} seconds... -->
-                  </p>
-                  <b-progress
-                    variant="warning"
-                    :max="dismissSecs"
-                    :value="dismissCountDown"
-                    height="4px"
-                  ></b-progress>
-                </b-alert>
-
+                <div class="pt-15">
+                  <span>Tailles</span>
+                  <SelectSize2 :size="uniqueSize" />
+                </div>
                 <div v-if="enabled" class="variable-single-item">
                   <span>Couleurs</span>
-                  <!-- <div v-for="(product, index) in productByGamme" :key="index">
-                    {{ product }}
-                  </div> -->
-                  <div class="product-variable-color">
+                  <div class="product-image-variants">
+                    <div
+                      v-for="(product, index) in uniqueColor"
+                      :key="index"
+                      class="image-variants"
+                    >
+                      {{ product }}
+                      <!-- <img :src="product" @click="selectColor(index)" /> -->
+                    </div>
+                  </div>
+
+                  <!-- <div class="product-variable-color">
                     <label for="modal-product-color-red1">
                       <input
                         name="modal-product-color"
@@ -194,8 +154,58 @@
                       />
                       <span class="product-color-light-blue"></span>
                     </label>
-                  </div>
+                  </div> -->
                 </div>
+
+                <button v-if="product.stock > 0" class="btn__stock--green">
+                  Stock disponible
+                </button>
+                <button v-else class="btn__stock--red">
+                  Stock indisponible
+                </button>
+                <StockAlert
+                  v-if="product.quantity === 0"
+                  :productQuantity="product.quantity"
+                ></StockAlert>
+                <p class="pt-15">
+                  {{ product.description }}
+                </p>
+
+                <!-- <span v-if="product.quantity > 0"
+                  >Qté: <em>Reste {{ product.quantity }}</em></span
+                >
+                <span v-else>Qté: <em>Rupture</em></span> -->
+
+                <!-- productquantity : {{ product.quantity }} -->
+                <!-- <div class="customs_selects">
+                  <select name="product" class="customs_sel_box">
+                    <option value="size">Taille</option>
+                    <option value="xl">XL</option>
+                    <option value="small">S</option>
+                    <option value="medium">M</option>
+                    <option value="large">L</option>
+                  </select>
+                </div> -->
+
+                <b-alert
+                  class="stock-alert"
+                  :show="dismissCountDown"
+                  dismissible
+                  variant="warning"
+                  @dismissed="dismissCountDown = 0"
+                  @dismiss-count-down="countDownChanged"
+                >
+                  <p>
+                    Dernière article en cours de commande: stock insufisant.
+                    <!-- {{ dismissCountDown }} seconds... -->
+                  </p>
+                  <b-progress
+                    variant="warning"
+                    :max="dismissSecs"
+                    :value="dismissCountDown"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
 
                 <!--Counter quantity-->
 
@@ -671,6 +681,7 @@ export default {
       gammes: null,
       productVariants: [],
       size: [],
+      color: [],
       mainImage: null,
       //Alter data
       dismissSecs: 5,
@@ -694,7 +705,7 @@ export default {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
-        autoplay: true,
+        autoplay: false,
       },
 
       // Breadcrumb Items Data
@@ -737,20 +748,23 @@ export default {
     uniqueSize() {
       return [...new Set(this.size)];
     },
-    // product() {
-    //   // return this.$store.getters["products/product"];
-    //   return this.$store.state.products.product;
-    // },
+    uniqueColor() {
+      return [...new Set(this.color)];
+    },
     productByGamme() {
       return this.$store.state.products.productSearchByGammes;
     },
-
-    // gammes() {
-    //   const gammes = this.$store.state.products.productSearchByGammes.gammes;
-    //   return gammes;
-    // },
   },
   methods: {
+    // changeSwiperIndex() {
+    //   console.log("ref index", this.$refs.swiperImage.$swiper.activeIndex);
+    //   this.$refs.swiperImage.$swiper.activeIndex = 0;
+    // },
+
+    selectColor(index) {
+      console.log("ref index", this.$refs.swiperImage.$swiper);
+      this.$refs.swiperImage.$swiper.activeIndex = index;
+    },
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -772,50 +786,10 @@ export default {
             this.showAlert();
             console.log("Stock Insuffisant");
           }
-          // if (result) {
-          //   this.$store.commit("cart/add", product);
-          //   this.$store.commit("cart/orderQuantity", this.orderQuantity);
-          // } else {
-          //   this.showAlert();
-          //   console.log("Stock Insuffisant");
-          // }
         })
         .catch((err) => {
           console.log("decrement error:", err);
         });
-      // this.$store
-      //   .dispatch("products/getProducts")
-      //   .then(() => {
-      //     console.log("Api products sucess");
-      //     this.$store
-      //       .dispatch("products/decrementStock", this.$route.params.id)
-      //       .then(() => {
-      //         console.log("Decrement stock sucess");
-      //       })
-      //       .catch((error) => {
-      //         console.log("Error", error);
-      //       });
-      //   })
-      //   .catch((err) => {
-      //     console.log("Error", err);
-      //   });
-      // this.stock -= this.orderQuantity;
-      // if (this.stock <= -1) {
-      //   this.message = "Stock Insufisant";
-      // } else {
-      //   try {
-      //     this.$store.commit("cart/orderQuantity", this.orderQuantity);
-      //     console.log("Mutation orderQuantity OK");
-      //     try {
-      //       this.$store.commit("cart/add", product);
-      //       console.log("Mutation add to cart OK", product);
-      //     } catch (e) {
-      //       console.log("Mutation add to cart ERROR", e);
-      //     }
-      //   } catch (e) {
-      //     console.log("Error mutation orderQuantity", e);
-      //   }
-      // }
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
@@ -828,37 +802,9 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-
-    // capitalizeFirstLetter(string) {
-    //   return string.charAt(0).toUpperCase() + string.slice(1);
-    // },
-    // outOfStock() {
-    //   const stock = this.product.quantity;
-    //   if (stock < 1) {
-    //     return false;
-    //   }
-    // },
-    // dataTest (){
-    //   this.$axios.get("/product/" + this.$route.params.id)
-    //       .then((res) => {
-
-    //           console.log(res.data._id)
-
-    //       }).catch((err) => {console.log(err)})
-    // },
-  },
-  mounted() {
-    // this.dataTest()
-    // this.outOfStock();
-    // const id = this.$route.params.id;
-    // const code = this.$store.state.products.product.codeArticleGamme;
-    // this.codeGamme = code;
-    // this.$store.dispatch("products/getOneProduct", id);
-    // this.$store.dispatch("products/searchByCodeGamme", this.codeGamme);
   },
   async fetch() {
     let variantsArray = [];
-    let sizeArray = [];
     try {
       const id = this.$route.params.id;
       const productGamme = await this.$axios.get("/gammes/productGamme/" + id);
@@ -873,6 +819,7 @@ export default {
         const productVariant = await this.$axios.get("/product/" + id);
         this.productVariants.push(productVariant.data);
         this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
+        this.color.push(productVariant.data.gammesValueConvert.gammesValue[0]);
       });
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
@@ -1001,6 +948,20 @@ export default {
 }
 .signup-mention-icon {
   color: rgba(255, 0, 0, 0.8);
+}
+.product-image-variants {
+  width: 40%;
+  display: flex;
+
+  /* flex-direction: row; */
+}
+.product-image-variants img {
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid black;
+}
+.image-variants {
+  margin: 0 5px 0 0;
 }
 /*Responsive*/
 @media (max-width: 768px) {

@@ -96,6 +96,10 @@ export default {
   build: {
     babel: {
       compact: true,
+      plugins: [
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-proposal-private-methods',
+      ],
     },
 
     analyse: false,
