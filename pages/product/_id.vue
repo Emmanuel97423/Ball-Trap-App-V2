@@ -722,10 +722,10 @@ export default {
       console.log("ref index", this.$refs.swiperImage.$swiper);
       this.$refs.swiperImage.$swiper.activeIndex = index;
     },
-    showColorSelect() {
-      this.showColorOptions.isInactive = false;
-      this.showColorOptions.isActive = true;
-    },
+    // showColorSelect() {
+    //   this.showColorOptions.isInactive = false;
+    //   this.showColorOptions.isActive = true;
+    // },
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -763,8 +763,13 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-    sizeClickEvent(playload) {
-      this.showColorSelect();
+    async sizeClickEvent(playload) {
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 767 ~ sizeClickEvent ~ playload",
+        playload
+      );
+      this.showColorOptions.isInactive = false;
+      this.showColorOptions.isActive = true;
       // try {
       //   // this.product
       //   this.productVariants.map((product) => {
