@@ -7,7 +7,7 @@
       :class="{ 'select-size-active': activeOptions.indexOf(index) > -1 }"
       @click="handleCLick(index)"
     >
-      <div>{{ value }}</div>
+      <div @click="sizeClick(value)">{{ value }}</div>
     </div>
     <div></div>
   </div>
@@ -60,21 +60,9 @@ export default {
     changeColor() {
       this.isLoading = !this.isLoading;
     },
-  },
-  mounted() {
-    // console.log("this.productByGamme:", this.productByGamme);
-    // const uniqueArray = (a) =>
-    //   [...new Set(a.map((o) => JSON.stringify(o)))].map((s) => JSON.parse(s));
-    // let gammeOption = [];
-    // this.productByGamme.map((product) => {
-    //   console.log("product:", product.stock);
-    //   const gammes = product.gamme.replace("¤", " ").split(" ");
-    //   const gammesValues = product.gammesValue.replace("¤", " ").split(" ");
-    //   const obj = { value: gammesValues[1], text: gammesValues[1] };
-    //   gammeOption.push(obj);
-    // });
-    // this.options = uniqueArray(gammeOption);
-    // console.log("this.options:", this.options);
+    sizeClick(value) {
+      this.$emit("size-click-event", { size: value });
+    },
   },
 };
 </script>

@@ -19,9 +19,13 @@
         </div>
       </div>
     </section>
+    <div class="container" v-if="$fetchState.pending">
+      <!-- <span class="loading"></span> -->
+      <Spinner></Spinner>
+    </div>
 
     <!-- Product Single Area -->
-    <section id="product_single_one" class="ptb-25">
+    <section v-else id="product_single_one" class="ptb-25">
       <div class="container">
         <div class="back-link"><a onclick="history.back()">Retour</a></div>
         <div class="row area_boxed">
@@ -82,79 +86,18 @@
                 <SizeChart :productName="product.libelle"></SizeChart>
                 <!-- <SelectSize /> -->
                 <div class="pt-15">
-                  <span>Tailles</span>
-                  <SelectSize2 :size="uniqueSize" />
+                  <!-- <span>Tailles</span> -->
+                  <SelectSize2
+                    :size="uniqueSize"
+                    @size-click-event="sizeClickEvent"
+                  />
                 </div>
-                <div v-if="enabled" class="variable-single-item">
-                  <span>Couleurs</span>
-                  <div class="product-image-variants">
-                    <div
-                      v-for="(product, index) in uniqueColor"
-                      :key="index"
-                      class="image-variants"
-                    >
-                      {{ product }}
-                      <!-- <img :src="product" @click="selectColor(index)" /> -->
-                    </div>
-                  </div>
 
-                  <!-- <div class="product-variable-color">
-                    <label for="modal-product-color-red1">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-red1"
-                        class="color-select"
-                        type="radio"
-                        checked=""
-                      />
-                      <span class="product-color-red"></span>
-                    </label>
-                    <label for="modal-product-color-tomato2">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-tomato2"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-tomato"></span>
-                    </label>
-                    <label for="modal-product-color-green3">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-green3"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-green"></span>
-                    </label>
-                    <label for="modal-product-color-light-green4">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-light-green4"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-light-green"></span>
-                    </label>
-                    <label for="modal-product-color-blue5">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-blue5"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-blue"></span>
-                    </label>
-                    <label for="modal-product-color-light-blue6">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-light-blue6"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-light-blue"></span>
-                    </label>
-                  </div> -->
+                <div class="color-select" :class="showColorOptions">
+                  <SelectColor
+                    :colors="color"
+                    :colorLibelle="uniqueColorLibelle"
+                  />
                 </div>
 
                 <button v-if="product.stock > 0" class="btn__stock--green">
@@ -650,7 +593,7 @@
 </template>
 
 <script>
-const apiURL = "https://trap-one-api.herokuapp.com/api";
+// const apiURL = "https://trap-one-api.herokuapp.com/api";
 import ProductBox1 from "../../components/product-box/ProductBox1";
 import InstagramArea from "../../components/instagram/InstagramArea";
 import AddToCart from "../../components/AddToCart";
@@ -659,6 +602,7 @@ import SelectSize from "@/components/product/SelectSize";
 import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
+import SelectColor from "@/components/product/SelectColor";
 
 export default {
   scrollToTop: true,
@@ -671,6 +615,7 @@ export default {
     SelectSize2,
     SizeChart,
     StockAlert,
+    SelectColor,
   },
   data() {
     return {
@@ -679,9 +624,11 @@ export default {
       productGamme: null,
       codeGamme: null,
       gammes: null,
+      gammesLibelle: null,
       productVariants: [],
       size: [],
       color: [],
+      colorLibelle: [],
       mainImage: null,
       //Alter data
       dismissSecs: 5,
@@ -706,6 +653,13 @@ export default {
           prevEl: ".swiper-button-prev",
         },
         autoplay: false,
+      },
+
+      showColorOptions: {
+        isActive: false,
+        isInactive: true,
+        colorSelectHide: true,
+        colorSelectShow: false,
       },
 
       // Breadcrumb Items Data
@@ -751,6 +705,9 @@ export default {
     uniqueColor() {
       return [...new Set(this.color)];
     },
+    uniqueColorLibelle() {
+      return [...new Set(this.colorLibelle)];
+    },
     productByGamme() {
       return this.$store.state.products.productSearchByGammes;
     },
@@ -764,6 +721,10 @@ export default {
     selectColor(index) {
       console.log("ref index", this.$refs.swiperImage.$swiper);
       this.$refs.swiperImage.$swiper.activeIndex = index;
+    },
+    showColorSelect() {
+      this.showColorOptions.isInactive = false;
+      this.showColorOptions.isActive = true;
     },
     //Alert
     countDownChanged(dismissCountDown) {
@@ -802,9 +763,27 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
+    sizeClickEvent(playload) {
+      this.showColorSelect();
+      // try {
+      //   // this.product
+      //   this.productVariants.map((product) => {
+      //     // const gamme = await this.$axios.get("gammes/gamme/GA00001");
+      //     console.log(
+      //       "🚀 ~ file: _id.vue ~ line 843 ~ this.productVariants.map ~ product",
+      //       product
+      //     );
+      //   });
+      // } catch (error) {
+      //   console.log("🚀 ~ file: _id.vue ~ line 840 ~ fetch ~ error", error);
+      // }
+    },
   },
   async fetch() {
     let variantsArray = [];
+
+    //Fetching product gamme data
+
     try {
       const id = this.$route.params.id;
       const productGamme = await this.$axios.get("/gammes/productGamme/" + id);
@@ -813,6 +792,7 @@ export default {
     } catch (error) {
       console.log("error:", error);
     }
+    //Fetching product variants data
 
     try {
       this.product.variantId.map(async (id) => {
@@ -825,13 +805,49 @@ export default {
       console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
     }
 
+    //Data binding pushing
+
     try {
       this.productVariants = variantsArray;
       // this.size = sizeArray;
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
     }
+    try {
+      const gammeLibelle = await this.$axios.get("/gammes/gamme/GA00001");
+      this.gammesLibelle = gammeLibelle.data;
+      const libelleArray = [];
+      this.gammesLibelle.map((libelle) => {
+        libelleArray.push(libelle.elementsGammeLibelle);
+      });
+      const filtreColor = (arr, requete) => {
+        return arr.filter(
+          (el) =>
+            el
+              .toLowerCase()
+              .split(" ")
+              .map((w) => w[0])
+              .join("")
+              .indexOf(requete.toLowerCase()) !== -1
+        );
+      };
+      const arrayTemp = [];
+      this.color.map((item) => {
+        arrayTemp.push(filtreColor(libelleArray, item));
+      });
+      arrayTemp.map((item) => {
+        item.map((string) => {
+          this.colorLibelle.push(string);
+        });
+      });
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
+        error
+      );
+    }
   },
+
   fetchOnServer: false,
 };
 </script>
@@ -949,20 +965,29 @@ export default {
 .signup-mention-icon {
   color: rgba(255, 0, 0, 0.8);
 }
-.product-image-variants {
-  width: 40%;
-  display: flex;
 
-  /* flex-direction: row; */
+/* Select color */
+/* .colorSelectHide {
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+  overflow: hidden;
 }
-.product-image-variants img {
-  width: 100%;
-  cursor: pointer;
-  border: 1px solid black;
+.colorSelectShow {
+  max-height: 500px;
+  transition: max-height 0.25s ease-in;
+} */
+.active {
+  /* display: flex; */
+  max-height: 100px;
+  transition: max-height 3s ease-in;
 }
-.image-variants {
-  margin: 0 5px 0 0;
+.isInactive {
+  /* display: none; */
+  max-height: 0;
+  /* transition: max-height 3s ease-out; */
+  overflow: hidden;
 }
+
 /*Responsive*/
 @media (max-width: 768px) {
   .assurances-product {
