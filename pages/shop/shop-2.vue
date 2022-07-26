@@ -71,7 +71,6 @@
           </div> -->
         </div>
         <div class="row">
-          {{ productsGammes }}
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
             v-for="productItem in productsGammes"
@@ -178,11 +177,21 @@ export default {
   },
   async fetch() {
     try {
-      const products = await this.$axios.get("/gammes");
-      this.productsGammes = products.data;
+      const productsGammes = await this.$axios.get("/gammes");
+      this.productsGammes = productsGammes.data;
       console.log("this.productsGammes:", this.productsGammes);
     } catch (error) {
       console.log("error:", error);
+    }
+    try {
+      const products = await this.$axios.get("/product/allProduct");
+      products.data.map((product) => {
+        if (!product.codeGamme) {
+          this.productsGammes.push(product);
+        }
+      });
+    } catch (error) {
+      console.log("🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~ error", error);
     }
   },
   fetchOnServer: false,

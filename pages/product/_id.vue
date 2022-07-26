@@ -792,6 +792,13 @@ export default {
     } catch (error) {
       console.log("error:", error);
     }
+
+    // try {
+    //    const products = await this.$axios.get("/product/allProduct/" + id);
+    //   this.product = products.data;
+    // } catch (error) {
+    // console.log("🚀 ~ file: _id.vue ~ line 799 ~ fetch ~ error", error)
+    // }
     //Fetching product variants data
 
     try {
