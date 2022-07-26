@@ -284,6 +284,7 @@ input[type="number"],
 input[type="password"],
 input[type="email"],
 input[type="date"],
+input,
 select {
   min-height: 45px;
   background: #fff;
@@ -311,6 +312,7 @@ input[type="number"]:focus,
 input[type="password"]:focus,
 input[type="date"]:focus,
 select:focus,
+input:focus,
 textarea:focus {
   background-color: #fff;
   outline: none;

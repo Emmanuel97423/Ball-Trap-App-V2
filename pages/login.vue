@@ -54,7 +54,8 @@
                   >
                     <div class="default-form-box password-login-button">
                       <label>Mot de passe <span>*</span></label>
-                      <button>
+
+                      <div class="password-login-input">
                         <input
                           v-if="!login.showPassword"
                           name="password"
@@ -70,17 +71,19 @@
                           class="form-control"
                           autocomplete="on"
                         />
-                        <i
-                          v-if="!login.showPassword"
-                          class="fa fa-solid fa-eye"
-                          @click.stop.prevent="showPassword()"
-                        ></i>
-                        <i
-                          v-else
-                          class="fa fa-solid fa-eye-slash"
-                          @click.stop.prevent="showPassword()"
-                        ></i>
-                      </button>
+                        <button class="btn-login-password">
+                          <i
+                            v-if="!login.showPassword"
+                            class="fa fa-solid fa-eye"
+                            @click.stop.prevent="showPassword()"
+                          ></i>
+                          <i
+                            v-else
+                            class="fa fa-solid fa-eye-slash"
+                            @click.stop.prevent="showPassword()"
+                          ></i>
+                        </button>
+                      </div>
 
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
@@ -196,9 +199,9 @@ export default {
       } else {
         this.login.showPassword = false;
       }
-      setTimeout(() => {
-        this.login.showPassword = false;
-      }, 3000);
+      // setTimeout(() => {
+      //   this.login.showPassword = false;
+      // }, 5000);
     },
   },
 };
@@ -248,18 +251,50 @@ export default {
   cursor: pointer;
   /* color: rgb(183, 183, 183); */
 }
-.password-login-button input {
+/* .password-login-button input {
   border: none;
+}
+.password-login-button input:focus {
+  border: none;
+} */
+
+.password-login-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-login-input button {
+  flex: 1 1 50px;
+}
+
+.password-login-button input {
+  border-radius: 5px 0 0 5px;
 }
 
 .password-login-button button {
   width: 100%;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0 5px 5px 0;
   border: 1px solid #ddd;
+  border-left: none;
   background-color: #fff;
+
+  /* background-color: #e8f0fe; */
+  /* border: none;
+  border-color: transparent;
+  outline: none;
+  box-shadow: none;
+  border-color: transparent; */
+}
+.password-login-button button:visited {
+  background-color: #fff;
+  outline: none;
+  box-sizing: none;
+  border: 1px solid var(--main-theme-color) !important;
 }
 
 @media (max-width: 1024px) {
