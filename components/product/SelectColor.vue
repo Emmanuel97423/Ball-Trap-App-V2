@@ -4,20 +4,22 @@
 
     <div class="product-image-variants">
       <div
-        v-for="(product, index) in colorLibelle"
+        v-for="(libelle, index) in colorLibelle"
         :key="index"
         class="image-variants"
+        @click="handleCLick(libelle)"
       >
         <input
           type="radio"
-          :id="`${product.replace(' ', '-').toLowerCase()}`"
+          :id="`${libelle.replace(' ', '-').toLowerCase()}`"
           name="color"
-          :value="`${product.replace(' ', '-').toLowerCase()}`"
+          :value="`${libelle.replace(' ', '-').toLowerCase()}`"
         />
-        <label :for="`${product.replace(' ', '-').toLowerCase()}`">{{
-          product.toLowerCase().charAt(0).toUpperCase() +
-          product.toLowerCase().slice(1)
+        <label :for="`${libelle.replace(' ', '-').toLowerCase()}`">{{
+          libelle.toLowerCase().charAt(0).toUpperCase() +
+          libelle.toLowerCase().slice(1)
         }}</label>
+
         <!-- <img :src="product" @click="selectColor(index)" /> -->
       </div>
     </div>
@@ -89,6 +91,11 @@ export default {
     colors: Array,
     colorLibelle: Array,
   },
+  methods: {
+    async handleCLick(value) {
+      this.$emit("color-click-event", { color: value });
+    },
+  },
 };
 </script>
 
@@ -104,7 +111,13 @@ export default {
   cursor: pointer;
   border: 1px solid black;
 }
+.product-image-variants label {
+  font-size: 12px;
+}
 .image-variants {
   margin: 0 5px 0 0;
+}
+input[type="radio"] {
+  vertical-align: middle;
 }
 </style>
