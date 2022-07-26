@@ -97,6 +97,7 @@
                   <SelectColor
                     :colors="color"
                     :colorLibelle="uniqueColorLibelle"
+                    @color-click-event="colorClickEvent"
                   />
                 </div>
 
@@ -106,10 +107,26 @@
                 <button v-else class="btn__stock--red">
                   Stock indisponible
                 </button>
-                <StockAlert
+                <form id="product_count_form_two" :class="showQuantityOptions">
+                  <div
+                    class="product_count_one pt-15"
+                    @click="clickQuantitySelect"
+                  >
+                    <b-form-spinbutton
+                      id="sb-inline"
+                      v-model="quantitySelected.orderQuantity"
+                      inline
+                      class="border-0"
+                      min="1"
+                      :max="quantitySelected.max"
+                    ></b-form-spinbutton>
+                  </div>
+                </form>
+                {{ purchaseProductDetails }}
+                <!-- <StockAlert
                   v-if="product.quantity === 0"
                   :productQuantity="product.quantity"
-                ></StockAlert>
+                ></StockAlert> -->
                 <p class="pt-15">
                   {{ product.description }}
                 </p>
@@ -130,7 +147,7 @@
                   </select>
                 </div> -->
 
-                <b-alert
+                <!-- <b-alert
                   class="stock-alert"
                   :show="dismissCountDown"
                   dismissible
@@ -140,7 +157,7 @@
                 >
                   <p>
                     Dernière article en cours de commande: stock insufisant.
-                    <!-- {{ dismissCountDown }} seconds... -->
+                    {{ dismissCountDown }} seconds...
                   </p>
                   <b-progress
                     variant="warning"
@@ -148,20 +165,10 @@
                     :value="dismissCountDown"
                     height="4px"
                   ></b-progress>
-                </b-alert>
+                </b-alert> -->
 
                 <!--Counter quantity-->
 
-                <form id="product_count_form_two ">
-                  <div class="product_count_one pt-15">
-                    <b-form-spinbutton
-                      id="sb-inline"
-                      v-model="orderQuantity"
-                      inline
-                      class="border-0"
-                    ></b-form-spinbutton>
-                  </div>
-                </form>
                 <ul v-if="!enabled" class="assurances-product">
                   <li class="assurances-product-list">
                     <div class="assurances-product-icon">
@@ -661,6 +668,19 @@ export default {
         colorSelectHide: true,
         colorSelectShow: false,
       },
+      showQuantityOptions: {
+        isActive: false,
+        isInactive: true,
+      },
+      quantitySelected: {
+        orderQuantity: 1,
+        max: 2,
+      },
+      purchaseProductDetails: {
+        size: "",
+        color: "",
+        stock: "",
+      },
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -675,7 +695,6 @@ export default {
       ],
 
       // Product Quanity Increment/ Decrement Data
-      orderQuantity: 1,
 
       //error message
       message: "",
@@ -717,15 +736,21 @@ export default {
     //   console.log("ref index", this.$refs.swiperImage.$swiper.activeIndex);
     //   this.$refs.swiperImage.$swiper.activeIndex = 0;
     // },
-
+    clickQuantitySelect() {
+      this.orderQuantity;
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 727 ~ clickQuantitySelect ~ orderQuantity",
+        this.quantitySelected.orderQuantity
+      );
+    },
     selectColor(index) {
       console.log("ref index", this.$refs.swiperImage.$swiper);
       this.$refs.swiperImage.$swiper.activeIndex = index;
     },
-    showColorSelect() {
-      this.showColorOptions.isInactive = false;
-      this.showColorOptions.isActive = true;
-    },
+    // showColorSelect() {
+    //   this.showColorOptions.isInactive = false;
+    //   this.showColorOptions.isActive = true;
+    // },
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -763,8 +788,70 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-    sizeClickEvent(playload) {
-      this.showColorSelect();
+    async sizeClickEvent(payload) {
+      const productColorFilter = (arr, request) => {
+        return arr.filter(async (el) => {
+          if (
+            request.size.toLowerCase() ===
+            el.gammesValueConvert.gammesValue[1].toLowerCase()
+          ) {
+            this.color.push(el.gammesValueConvert.gammesValue[0]);
+
+            this.purchaseProductDetails.size =
+              el.gammesValueConvert.gammesValue[1];
+            try {
+              const gammeLibelle = await this.$axios.get(
+                "/gammes/gamme/GA00001"
+              );
+              this.gammesLibelle = gammeLibelle.data;
+              const libelleArray = [];
+              this.gammesLibelle.map((libelle) => {
+                libelleArray.push(libelle.elementsGammeLibelle);
+              });
+              const filtreColor = (arr, requete) => {
+                return arr.filter(
+                  (el) =>
+                    el
+                      .toLowerCase()
+                      .split(" ")
+                      .map((w) => w[0])
+                      .join("")
+                      .indexOf(requete.toLowerCase()) !== -1
+                );
+              };
+              const arrayTemp = [];
+              this.color.map((item) => {
+                arrayTemp.push(filtreColor(libelleArray, item));
+              });
+              arrayTemp.map((item) => {
+                item.map((string) => {
+                  this.colorLibelle.push(string);
+                });
+              });
+            } catch (error) {
+              console.log(
+                "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
+                error
+              );
+            }
+
+            return el;
+          }
+          // console.log(
+          //   "🚀 ~ file: _id.vue ~ line 777 ~ returnarr.filter ~ el.gammesValueConvert.gammesValue[1]",
+          //   el.gammesValueConvert.gammesValue[1].toLowerCase()
+          // );
+
+          // el.gammesValueConvert.gammesValue[1]
+          //   .toLowerCase()
+          //   .indexOf(request.size.toLowerCase()) !== -1;
+        });
+      };
+      productColorFilter(this.productVariants, payload);
+
+      this.showColorOptions.isInactive = false;
+      this.showColorOptions.isActive = true;
+
       // try {
       //   // this.product
       //   this.productVariants.map((product) => {
@@ -777,6 +864,37 @@ export default {
       // } catch (error) {
       //   console.log("🚀 ~ file: _id.vue ~ line 840 ~ fetch ~ error", error);
       // }
+    },
+    async colorClickEvent(payload) {
+      const colorCode = payload.color
+        .split(" ")
+        .map((el) => el.charAt(0))
+        .join()
+        .replace(",", "");
+      this.purchaseProductDetails.color = colorCode;
+      this.showQuantityOptions.isActive = true;
+      this.showQuantityOptions.isInactive = false;
+      const filterProductVariants = (arr, size, color) => {
+        return arr.filter((el) => {
+          if (
+            el.gammesValueConvert.gammesValue[1].toLowerCase() ===
+              size.toLowerCase() &&
+            el.gammesValueConvert.gammesValue[0].toLowerCase() ===
+              color.toLowerCase()
+          ) {
+            console.log(
+              "🚀 ~ file: _id.vue ~ line 879 ~ returnarr.filter ~ el",
+              (this.purchaseProductDetails.stock = el.stock)
+            );
+          }
+        });
+      };
+
+      filterProductVariants(
+        this.productVariants,
+        this.purchaseProductDetails.size,
+        this.purchaseProductDetails.color
+      );
     },
   },
   async fetch() {
@@ -792,6 +910,13 @@ export default {
     } catch (error) {
       console.log("error:", error);
     }
+
+    // try {
+    //    const products = await this.$axios.get("/product/allProduct/" + id);
+    //   this.product = products.data;
+    // } catch (error) {
+    // console.log("🚀 ~ file: _id.vue ~ line 799 ~ fetch ~ error", error)
+    // }
     //Fetching product variants data
 
     try {
@@ -799,7 +924,7 @@ export default {
         const productVariant = await this.$axios.get("/product/" + id);
         this.productVariants.push(productVariant.data);
         this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
-        this.color.push(productVariant.data.gammesValueConvert.gammesValue[0]);
+        // this.color.push(productVariant.data.gammesValueConvert.gammesValue[0]);
       });
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
@@ -813,39 +938,39 @@ export default {
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
     }
-    try {
-      const gammeLibelle = await this.$axios.get("/gammes/gamme/GA00001");
-      this.gammesLibelle = gammeLibelle.data;
-      const libelleArray = [];
-      this.gammesLibelle.map((libelle) => {
-        libelleArray.push(libelle.elementsGammeLibelle);
-      });
-      const filtreColor = (arr, requete) => {
-        return arr.filter(
-          (el) =>
-            el
-              .toLowerCase()
-              .split(" ")
-              .map((w) => w[0])
-              .join("")
-              .indexOf(requete.toLowerCase()) !== -1
-        );
-      };
-      const arrayTemp = [];
-      this.color.map((item) => {
-        arrayTemp.push(filtreColor(libelleArray, item));
-      });
-      arrayTemp.map((item) => {
-        item.map((string) => {
-          this.colorLibelle.push(string);
-        });
-      });
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
-        error
-      );
-    }
+    // try {
+    //   const gammeLibelle = await this.$axios.get("/gammes/gamme/GA00001");
+    //   this.gammesLibelle = gammeLibelle.data;
+    //   const libelleArray = [];
+    //   this.gammesLibelle.map((libelle) => {
+    //     libelleArray.push(libelle.elementsGammeLibelle);
+    //   });
+    //   const filtreColor = (arr, requete) => {
+    //     return arr.filter(
+    //       (el) =>
+    //         el
+    //           .toLowerCase()
+    //           .split(" ")
+    //           .map((w) => w[0])
+    //           .join("")
+    //           .indexOf(requete.toLowerCase()) !== -1
+    //     );
+    //   };
+    //   const arrayTemp = [];
+    //   this.color.map((item) => {
+    //     arrayTemp.push(filtreColor(libelleArray, item));
+    //   });
+    //   arrayTemp.map((item) => {
+    //     item.map((string) => {
+    //       this.colorLibelle.push(string);
+    //     });
+    //   });
+    // } catch (error) {
+    //   console.log(
+    //     "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
+    //     error
+    //   );
+    // }
   },
 
   fetchOnServer: false,

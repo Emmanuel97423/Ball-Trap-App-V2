@@ -5,9 +5,9 @@
       :key="index"
       class="box-size"
       :class="{ 'select-size-active': activeOptions.indexOf(index) > -1 }"
-      @click="handleCLick(index)"
+      @click="handleCLick(index, value)"
     >
-      <div @click="sizeClick(value)">{{ value }}</div>
+      <div>{{ value }}</div>
     </div>
     <div></div>
   </div>
@@ -41,8 +41,10 @@ export default {
     };
   },
   methods: {
-    handleCLick(index) {
+    handleCLick(index, value) {
       let pos = this.activeOptions.indexOf(index);
+      this.$emit("size-click-event", { size: value });
+
       console.log("pos:", pos);
       // pos === -1
       //   ? this.activeOptions.push(index)
