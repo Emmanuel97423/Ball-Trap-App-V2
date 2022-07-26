@@ -764,12 +764,71 @@ export default {
       this.$store.commit("cart/remove", product);
     },
     async sizeClickEvent(playload) {
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 767 ~ sizeClickEvent ~ playload",
-        playload
-      );
+      const productColorFilter = (arr, request) => {
+        // console.log(
+        //   "🚀 ~ file: _id.vue ~ line 768 ~ productColorFilter ~ request",
+        //   request.size.toLowerCase()
+        // );
+
+        return arr.filter(async (el) => {
+          if (
+            request.size.toLowerCase() ===
+            el.gammesValueConvert.gammesValue[1].toLowerCase()
+          ) {
+            this.color.push(el.gammesValueConvert.gammesValue[0]);
+            try {
+              const gammeLibelle = await this.$axios.get(
+                "/gammes/gamme/GA00001"
+              );
+              this.gammesLibelle = gammeLibelle.data;
+              const libelleArray = [];
+              this.gammesLibelle.map((libelle) => {
+                libelleArray.push(libelle.elementsGammeLibelle);
+              });
+              const filtreColor = (arr, requete) => {
+                return arr.filter(
+                  (el) =>
+                    el
+                      .toLowerCase()
+                      .split(" ")
+                      .map((w) => w[0])
+                      .join("")
+                      .indexOf(requete.toLowerCase()) !== -1
+                );
+              };
+              const arrayTemp = [];
+              this.color.map((item) => {
+                arrayTemp.push(filtreColor(libelleArray, item));
+              });
+              arrayTemp.map((item) => {
+                item.map((string) => {
+                  this.colorLibelle.push(string);
+                });
+              });
+            } catch (error) {
+              console.log(
+                "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
+                error
+              );
+            }
+
+            return el;
+          }
+          // console.log(
+          //   "🚀 ~ file: _id.vue ~ line 777 ~ returnarr.filter ~ el.gammesValueConvert.gammesValue[1]",
+          //   el.gammesValueConvert.gammesValue[1].toLowerCase()
+          // );
+
+          // el.gammesValueConvert.gammesValue[1]
+          //   .toLowerCase()
+          //   .indexOf(request.size.toLowerCase()) !== -1;
+        });
+      };
+      productColorFilter(this.productVariants, playload);
+
       this.showColorOptions.isInactive = false;
       this.showColorOptions.isActive = true;
+
       // try {
       //   // this.product
       //   this.productVariants.map((product) => {
@@ -811,7 +870,7 @@ export default {
         const productVariant = await this.$axios.get("/product/" + id);
         this.productVariants.push(productVariant.data);
         this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
-        this.color.push(productVariant.data.gammesValueConvert.gammesValue[0]);
+        // this.color.push(productVariant.data.gammesValueConvert.gammesValue[0]);
       });
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
@@ -825,39 +884,39 @@ export default {
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
     }
-    try {
-      const gammeLibelle = await this.$axios.get("/gammes/gamme/GA00001");
-      this.gammesLibelle = gammeLibelle.data;
-      const libelleArray = [];
-      this.gammesLibelle.map((libelle) => {
-        libelleArray.push(libelle.elementsGammeLibelle);
-      });
-      const filtreColor = (arr, requete) => {
-        return arr.filter(
-          (el) =>
-            el
-              .toLowerCase()
-              .split(" ")
-              .map((w) => w[0])
-              .join("")
-              .indexOf(requete.toLowerCase()) !== -1
-        );
-      };
-      const arrayTemp = [];
-      this.color.map((item) => {
-        arrayTemp.push(filtreColor(libelleArray, item));
-      });
-      arrayTemp.map((item) => {
-        item.map((string) => {
-          this.colorLibelle.push(string);
-        });
-      });
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
-        error
-      );
-    }
+    // try {
+    //   const gammeLibelle = await this.$axios.get("/gammes/gamme/GA00001");
+    //   this.gammesLibelle = gammeLibelle.data;
+    //   const libelleArray = [];
+    //   this.gammesLibelle.map((libelle) => {
+    //     libelleArray.push(libelle.elementsGammeLibelle);
+    //   });
+    //   const filtreColor = (arr, requete) => {
+    //     return arr.filter(
+    //       (el) =>
+    //         el
+    //           .toLowerCase()
+    //           .split(" ")
+    //           .map((w) => w[0])
+    //           .join("")
+    //           .indexOf(requete.toLowerCase()) !== -1
+    //     );
+    //   };
+    //   const arrayTemp = [];
+    //   this.color.map((item) => {
+    //     arrayTemp.push(filtreColor(libelleArray, item));
+    //   });
+    //   arrayTemp.map((item) => {
+    //     item.map((string) => {
+    //       this.colorLibelle.push(string);
+    //     });
+    //   });
+    // } catch (error) {
+    //   console.log(
+    //     "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
+    //     error
+    //   );
+    // }
   },
 
   fetchOnServer: false,
