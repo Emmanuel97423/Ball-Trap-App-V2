@@ -2,7 +2,33 @@
   <div>
     <div class="product_wrappers_one">
       <div class="thumb">
-        <nuxt-link :to="`/product/${productId}`">
+        <nuxt-link
+          v-if="productObject.isAProductGamme"
+          :to="{
+            path: '/product',
+            query: {
+              id: productId,
+              isAProductGamme: true,
+            },
+          }"
+        >
+          <img
+            class="hover-image"
+            :src="productImg2"
+            alt="Product"
+            loading="lazy"
+          />
+        </nuxt-link>
+        <nuxt-link
+          v-else
+          :to="{
+            path: '/product',
+            query: {
+              id: productId,
+              isAProductGamme: false,
+            },
+          }"
+        >
           <img
             class="hover-image"
             :src="productImg2"
@@ -51,9 +77,17 @@
       </div>
       <div class="content">
         <h5 class="title">
-          <nuxt-link :to="`/product/${productId}`" v-on:click="loading()">{{
-            productTitle
-          }}</nuxt-link>
+          <nuxt-link
+            :to="{
+              path: '/product',
+              query: {
+                id: productId,
+                isAProductGamme: true,
+              },
+            }"
+            v-on:click="loading()"
+            >{{ productTitle }}</nuxt-link
+          >
         </h5>
         <span class="price">
           <span class="new"

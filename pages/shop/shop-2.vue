@@ -70,7 +70,7 @@
             </div>
           </div> -->
         </div>
-        <div v-if="productsGammes.length > 0" class="row">
+        <div class="row">
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
             v-for="productItem in productsGammes"
@@ -100,11 +100,11 @@
             <!-- pagination end -->
           </div>
         </div>
-        <div v-if="singlesProducts[0].codeGamme === undefined" class="row">
+        <div v-if="singlesProducts.length > 0" class="row">
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
-            v-for="productItem in singlesProducts"
             :key="productItem._id"
+            v-for="productItem in singlesProducts"
           >
             <ProductBox1
               :productImg1="productItem.imageUrl"
@@ -155,7 +155,7 @@ export default {
       enabled: true,
       title: "Shop",
       productsGammes: "",
-      singlesProducts: "",
+      singlesProducts: [],
       thisIsAProductGamme: false,
 
       // Breadcrumb Items Data
@@ -208,11 +208,16 @@ export default {
     }
     try {
       const products = await this.$axios.get("/product/allProduct");
-      this.singlesProducts = products.data;
+      products.data.map((product) => {
+        if (!product.codeGamme) {
+          this.singlesProducts.push(product);
+        }
+      });
       console.log(
-        "🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~  this.singlesProducts",
+        "🚀 ~ file: shop-2.vue ~ line 214 ~ products.map ~ this.singlesProducts",
         this.singlesProducts
       );
+
       // products.data.map((product) => {
       //   if (!product.codeGamme) {
       //     this.singleProduct.push(product);

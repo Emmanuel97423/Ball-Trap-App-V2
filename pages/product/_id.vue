@@ -19,11 +19,11 @@
         </div>
       </div>
     </section>
+
     <div class="container" v-if="$fetchState.pending">
       <!-- <span class="loading"></span> -->
       <Spinner></Spinner>
     </div>
-
     <!-- Product Single Area -->
     <section v-else id="product_single_one" class="ptb-25">
       <div class="container">
@@ -32,6 +32,7 @@
           <div class="col-lg-4 col-img">
             <div class="product_single_one_img">
               <swiper
+                v-if="isAProductGamme === 'true'"
                 class="swiper product-single-2-slider"
                 :options="swiperOption"
                 ref="swiperImage"
@@ -40,6 +41,27 @@
                   v-for="(product, index) in productVariants"
                   :key="index"
                 >
+                  <img :src="product.imageUrl" alt="img" />
+                  <!-- <img v-else /> -->
+                </swiper-slide>
+
+                <div
+                  class="swiper-button-prev swiper-button-white"
+                  slot="button-prev"
+                ></div>
+                <div
+                  class="swiper-button-next swiper-button-white"
+                  slot="button-next"
+                ></div>
+              </swiper>
+
+              <swiper
+                v-else
+                class="swiper product-single-2-slider"
+                :options="swiperOption"
+                ref="swiperImage"
+              >
+                <swiper-slide>
                   <!-- {{ product }} -->
                   <img
                     v-if="product.imageUrl"
@@ -65,10 +87,8 @@
           <div class="col-lg-8">
             <div class="product_details_right_one">
               <div class="modal_product_content_one">
-                <h3 v-if="this.$route.params.id">
-                  {{ product.libelle }}
-                </h3>
-                <h3 v-else>Test fiche produit hello</h3>
+                <h3>{{ product.libelle }}</h3>
+                <!-- <h3 v-else>Test fiche produit hello</h3> -->
 
                 <div v-if="!enabled" class="reviews_rating">
                   <i class="fas fa-star"></i>
@@ -88,12 +108,17 @@
                 <div class="pt-15">
                   <!-- <span>Tailles</span> -->
                   <SelectSize2
+                    v-if="isAProductGamme === 'true'"
                     :size="uniqueSize"
                     @size-click-event="sizeClickEvent"
                   />
                 </div>
 
-                <div class="color-select" :class="showColorOptions">
+                <div
+                  v-if="isAProductGamme === 'true'"
+                  class="color-select"
+                  :class="showColorOptions"
+                >
                   <SelectColor
                     :colors="color"
                     :colorLibelle="uniqueColorLibelle"
@@ -107,7 +132,11 @@
                 <button v-else class="btn__stock--red">
                   Stock indisponible
                 </button>
-                <form id="product_count_form_two" :class="showQuantityOptions">
+                <form
+                  v-if="isAProductGamme === 'true'"
+                  id="product_count_form_two"
+                  :class="showQuantityOptions"
+                >
                   <div
                     class="product_count_one pt-15"
                     @click="clickQuantitySelect"
@@ -122,7 +151,22 @@
                     ></b-form-spinbutton>
                   </div>
                 </form>
-                {{ purchaseProductDetails }}
+                <!-- One product quantity select -->
+                <form v-else id="product_count_form_two">
+                  <div
+                    class="product_count_one pt-15"
+                    @click="clickQuantitySelect"
+                  >
+                    <b-form-spinbutton
+                      id="sb-inline"
+                      v-model="quantitySelected.orderQuantity"
+                      inline
+                      class="border-0"
+                      min="1"
+                      :max="quantitySelected.max"
+                    ></b-form-spinbutton>
+                  </div>
+                </form>
                 <!-- <StockAlert
                   v-if="product.quantity === 0"
                   :productQuantity="product.quantity"
@@ -632,11 +676,13 @@ export default {
       codeGamme: null,
       gammes: null,
       gammesLibelle: null,
+      isAProductGamme: null,
       productVariants: [],
       size: [],
       color: [],
       colorLibelle: [],
       mainImage: null,
+
       //Alter data
       dismissSecs: 5,
       dismissCountDown: 0,
@@ -710,8 +756,8 @@ export default {
       meta: [
         {
           hid: "description",
-          name: this.product.libelle,
-          content: this.product.description,
+          name: "this.product.libelle",
+          content: "this.product.description",
         },
       ],
     };
@@ -916,78 +962,61 @@ export default {
   },
   async fetch() {
     let variantsArray = [];
-
+    console.log(
+      "🚀 ~ file: _id.vue ~ line 970 ~ fetch ~ this.$route.query",
+      this.$route.query
+    );
+    this.isAProductGamme = this.$route.query.isAProductGamme;
     //Fetching product gamme data
+    if (this.$route.query.isAProductGamme === "true") {
+      try {
+        const id = this.$route.query.id;
 
-    try {
-      const id = this.$route.params.id;
-      const productGamme = await this.$axios.get("/gammes/productGamme/" + id);
-      this.product = productGamme.data;
-      // this.mainImage = variantsArray[0]
-    } catch (error) {
-      console.log("error:", error);
+        const productGamme = await this.$axios.get(
+          "/gammes/productGamme/" + id
+        );
+        this.product = productGamme.data;
+      } catch (error) {
+        console.log("error:", error);
+      }
+      try {
+        this.product.variantId.map(async (id) => {
+          const productVariant = await this.$axios.post("/product/" + id, {
+            id: id,
+            isAProductGamme: this.$route.query.isAProductGamme,
+          });
+          this.productVariants.push(productVariant.data);
+          this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
+        });
+      } catch (error) {
+        console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
+      }
+
+      //Data binding pushing
+
+      try {
+        this.productVariants = variantsArray;
+      } catch (error) {
+        console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
+      }
+    } else if (this.$route.query.isAProductGamme === "false") {
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 1007 ~ fetch ~ this.$route.query.isAProductGamme",
+        this.$route.query.isAProductGamme
+      );
+      try {
+        const id = this.$route.query.id;
+
+        const singleProduct = await this.$axios.post("/product/" + id, {
+          id: id,
+          isAProductGamme: false,
+        });
+
+        this.product = singleProduct.data;
+      } catch (error) {
+        console.log("error:", error);
+      }
     }
-
-    // try {
-    //    const products = await this.$axios.get("/product/allProduct/" + id);
-    //   this.product = products.data;
-    // } catch (error) {
-    // console.log("🚀 ~ file: _id.vue ~ line 799 ~ fetch ~ error", error)
-    // }
-    //Fetching product variants data
-
-    try {
-      this.product.variantId.map(async (id) => {
-        const productVariant = await this.$axios.get("/product/" + id);
-        this.productVariants.push(productVariant.data);
-        this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
-        // this.color.push(productVariant.data.gammesValueConvert.gammesValue[0]);
-      });
-    } catch (error) {
-      console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
-    }
-
-    //Data binding pushing
-
-    try {
-      this.productVariants = variantsArray;
-      // this.size = sizeArray;
-    } catch (error) {
-      console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
-    }
-    // try {
-    //   const gammeLibelle = await this.$axios.get("/gammes/gamme/GA00001");
-    //   this.gammesLibelle = gammeLibelle.data;
-    //   const libelleArray = [];
-    //   this.gammesLibelle.map((libelle) => {
-    //     libelleArray.push(libelle.elementsGammeLibelle);
-    //   });
-    //   const filtreColor = (arr, requete) => {
-    //     return arr.filter(
-    //       (el) =>
-    //         el
-    //           .toLowerCase()
-    //           .split(" ")
-    //           .map((w) => w[0])
-    //           .join("")
-    //           .indexOf(requete.toLowerCase()) !== -1
-    //     );
-    //   };
-    //   const arrayTemp = [];
-    //   this.color.map((item) => {
-    //     arrayTemp.push(filtreColor(libelleArray, item));
-    //   });
-    //   arrayTemp.map((item) => {
-    //     item.map((string) => {
-    //       this.colorLibelle.push(string);
-    //     });
-    //   });
-    // } catch (error) {
-    //   console.log(
-    //     "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
-    //     error
-    //   );
-    // }
   },
 
   fetchOnServer: false,
