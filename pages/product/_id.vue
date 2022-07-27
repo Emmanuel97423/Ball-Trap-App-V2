@@ -732,10 +732,6 @@ export default {
     },
   },
   methods: {
-    // changeSwiperIndex() {
-    //   console.log("ref index", this.$refs.swiperImage.$swiper.activeIndex);
-    //   this.$refs.swiperImage.$swiper.activeIndex = 0;
-    // },
     clickQuantitySelect() {
       this.orderQuantity;
       console.log(
@@ -747,10 +743,6 @@ export default {
       console.log("ref index", this.$refs.swiperImage.$swiper);
       this.$refs.swiperImage.$swiper.activeIndex = index;
     },
-    // showColorSelect() {
-    //   this.showColorOptions.isInactive = false;
-    //   this.showColorOptions.isActive = true;
-    // },
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -851,21 +843,13 @@ export default {
 
       this.showColorOptions.isInactive = false;
       this.showColorOptions.isActive = true;
-
-      // try {
-      //   // this.product
-      //   this.productVariants.map((product) => {
-      //     // const gamme = await this.$axios.get("gammes/gamme/GA00001");
-      //     console.log(
-      //       "🚀 ~ file: _id.vue ~ line 843 ~ this.productVariants.map ~ product",
-      //       product
-      //     );
-      //   });
-      // } catch (error) {
-      //   console.log("🚀 ~ file: _id.vue ~ line 840 ~ fetch ~ error", error);
-      // }
+      this.productsVariantsFilter();
     },
     async colorClickEvent(payload) {
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 870 ~ colorClickEvent ~ payload",
+        payload
+      );
       const colorCode = payload.color
         .split(" ")
         .map((el) => el.charAt(0))
@@ -874,6 +858,35 @@ export default {
       this.purchaseProductDetails.color = colorCode;
       this.showQuantityOptions.isActive = true;
       this.showQuantityOptions.isInactive = false;
+
+      this.productsVariantsFilter();
+      // const filterProductVariants = (arr, size, color) => {
+      //   return arr.filter((el) => {
+      //     if (
+      //       el.gammesValueConvert.gammesValue[1].toLowerCase() ===
+      //         size.toLowerCase() &&
+      //       el.gammesValueConvert.gammesValue[0].toLowerCase() ===
+      //         color.toLowerCase()
+      //     ) {
+      //       console.log(
+      //         "🚀 ~ file: _id.vue ~ line 886 ~ returnarr.filter ~ el",
+      //         el
+      //       );
+      //       console.log(
+      //         "🚀 ~ file: _id.vue ~ line 879 ~ returnarr.filter ~ el",
+      //         (this.purchaseProductDetails.stock = el.stock)
+      //       );
+      //     }
+      //   });
+      // };
+
+      // filterProductVariants(
+      //   this.productVariants,
+      //   this.purchaseProductDetails.size,
+      //   this.purchaseProductDetails.color
+      // );
+    },
+    async productsVariantsFilter() {
       const filterProductVariants = (arr, size, color) => {
         return arr.filter((el) => {
           if (
@@ -882,6 +895,10 @@ export default {
             el.gammesValueConvert.gammesValue[0].toLowerCase() ===
               color.toLowerCase()
           ) {
+            console.log(
+              "🚀 ~ file: _id.vue ~ line 886 ~ returnarr.filter ~ el",
+              el
+            );
             console.log(
               "🚀 ~ file: _id.vue ~ line 879 ~ returnarr.filter ~ el",
               (this.purchaseProductDetails.stock = el.stock)

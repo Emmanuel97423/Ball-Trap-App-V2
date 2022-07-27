@@ -70,7 +70,7 @@
             </div>
           </div> -->
         </div>
-        <div class="row">
+        <div v-if="productsGammes.length > 0" class="row">
           <div
             class="col-lg-3 col-md-4 col-sm-6 col-12"
             v-for="productItem in productsGammes"
@@ -87,15 +87,36 @@
               :productQuantity="productItem.quantity"
               :productObject="productItem"
             />
-            <!-- {{ productItem.quantity }} -->
-            <!-- <ProductBox1
-              :productImg1="productItem.productImg1"
-              :productImg2="productItem.productImg2"
+          </div>
+
+          <div class="col-lg-12">
+            <!-- pagination start -->
+            <b-pagination
+              v-if="!enabled"
+              v-model="currentPage"
+              pills
+              :total-rows="rows"
+            ></b-pagination>
+            <!-- pagination end -->
+          </div>
+        </div>
+        <div v-if="singlesProducts[0].codeGamme === undefined" class="row">
+          <div
+            class="col-lg-3 col-md-4 col-sm-6 col-12"
+            v-for="productItem in singlesProducts"
+            :key="productItem._id"
+          >
+            <ProductBox1
+              :productImg1="productItem.imageUrl"
+              :productImg2="productItem.imageUrl"
               :productTagClass="productItem.productTagClass"
               :productTag="productItem.productTag"
-              :productTitle="productItem.productTitle"
-              :productPrice="productItem.productPrice"
-            /> -->
+              :productTitle="productItem.libelle"
+              :productPrice="productItem.pvTtc"
+              :productId="productItem._id"
+              :productQuantity="productItem.quantity"
+              :productObject="productItem"
+            />
           </div>
 
           <div class="col-lg-12">
@@ -134,6 +155,8 @@ export default {
       enabled: true,
       title: "Shop",
       productsGammes: "",
+      singlesProducts: "",
+      thisIsAProductGamme: false,
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -185,11 +208,16 @@ export default {
     }
     try {
       const products = await this.$axios.get("/product/allProduct");
-      products.data.map((product) => {
-        if (!product.codeGamme) {
-          this.productsGammes.push(product);
-        }
-      });
+      this.singlesProducts = products.data;
+      console.log(
+        "🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~  this.singlesProducts",
+        this.singlesProducts
+      );
+      // products.data.map((product) => {
+      //   if (!product.codeGamme) {
+      //     this.singleProduct.push(product);
+      //   }
+      // });
     } catch (error) {
       console.log("🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~ error", error);
     }
