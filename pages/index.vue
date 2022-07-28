@@ -5,11 +5,36 @@
     <div id="carousel-home">
       <Carousel />
     </div>
-
+    <!--Assurances-->
+    <section id="assurances">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="center_heading">
+              <!-- <h2>Latest Blog</h2> -->
+              <!-- <p>Mauris luctus nisi sapien tristique dignissim ornare</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            v-for="assuranceItem in assuranceItems.slice(0, 3)"
+            :key="assuranceItem.id"
+            class="col-lg-4 col-md-4 col-sm-6 col-12"
+          >
+            <Assurance
+              :blogThumb="assuranceItem.assuranceThumb"
+              :blogTitle="assuranceItem.assuranceTitle"
+              :blogDescription="assuranceItem.assuranceDescription"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- Product variation -->
     <section
       id="product_variation_one"
-      class="pt-15 categories-section categorie-section"
+      class="categories-section categorie-section pt-50"
     >
       <div class="container-fluid">
         <div class="row">
@@ -419,6 +444,7 @@ import BlogItem1 from "~/components/blog/BlogItem1";
 import Carousel from "~/components/carousel/Carousel";
 import NavCategories from "@/components/header/Categories";
 import CallToActionHomePage from "@/components/call-to-action/CallToActionHomePage";
+import Assurance from "@/components/assurances/Assurance";
 
 export default {
   name: "Home",
@@ -432,6 +458,7 @@ export default {
     Carousel,
     NavCategories,
     CallToActionHomePage,
+    Assurance,
   },
 
   data() {
@@ -442,81 +469,104 @@ export default {
       sliding: null,
 
       // Blog Items Data
-      // blogItems: [
-      //   {
-      //     id: 1,
-      //     blogThumb: require("assets/img/blog/post1.png"),
-      //     blogTitle:
-      //       "This Designer Bronzer Has Even The Drugstore-Beauty-Buyers Splurging!",
-      //     blogDescription:
-      //       "Today kicks off early access to the Sephora Spring Sales Event so I wanted to share some of my top recent beauty buys I’ve been",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      //   {
-      //     id: 2,
-      //     blogThumb: require("assets/img/blog/post2.png"),
-      //     blogTitle: "4 Fresh Ways To Style Leather Shorts For Spring",
-      //     blogDescription:
-      //       "We spent spring break this year in California with Cody’s family and it was such a fun getaway. Cody’s family always goes hard on vacation",
-      //     blogPublishDate: "29 jan 2018",
-      //   },
-      //   {
-      //     id: 3,
-      //     blogThumb: require("assets/img/blog/post3.png"),
-      //     blogTitle: "Shopbop Spring Sale Selects All Under Around $100!",
-      //     blogDescription:
-      //       "STRAIGHT LEG DENIM (UNDER $100) – Love all the Ribcage Levi’s styles! They are all really flattering. but since these are wider leg I stuck with my usual size (25).",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      //   {
-      //     id: 4,
-      //     blogThumb: require("assets/img/blog/post4.png"),
-      //     blogTitle: "This Made Me Splurge on The Apple Watch",
-      //     blogDescription:
-      //       "From our favourite UK influencers to the best missives from Milan and the coolest New Yorkers, read on some of the best fashion blogs out there.",
-      //     blogPublishDate: "21 February 2019",
-      //   },
-      //   {
-      //     id: 5,
-      //     blogThumb: require("assets/img/blog/post5.png"),
-      //     blogTitle: "This Designer Bronzer Has Even Buyers Splurging!",
-      //     blogDescription:
-      //       "Today kicks off early access to the Sephora Spring Sales Event so I wanted to share some of my top recent beauty buys",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      //   {
-      //     id: 6,
-      //     blogThumb: require("assets/img/blog/post6.png"),
-      //     blogTitle: "4 Tips for A Colorful Easter Tablescape",
-      //     blogDescription:
-      //       "Spring is all about the colors! Especially after what feels like an endless winter, I catch myself craving more color than usual.",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      //   {
-      //     id: 7,
-      //     blogThumb: require("assets/img/blog/post7.png"),
-      //     blogTitle: "Hawaii Couples Trip Guide and Spring Break Faves",
-      //     blogDescription:
-      //       "After every trip to Hawaii, I always have a few DMs asking where we stayed, our favorite beaches, etc. Especially with spring break around the corner.",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      //   {
-      //     id: 8,
-      //     blogThumb: require("assets/img/blog/post8.png"),
-      //     blogTitle: "If You Struggle To Hit Your Goals, Try This Instead",
-      //     blogDescription:
-      //       "This year, instead of setting grand, lofty goals and New Years Resolutions, I realized that I respond better to smaller targets that I can cross",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      //   {
-      //     id: 9,
-      //     blogThumb: require("assets/img/blog/post9.png"),
-      //     blogTitle: "The Luxury Winter Accessory That’s Trending Now",
-      //     blogDescription:
-      //       "No matter what you spend on your wardrobe, there are three pieces that can always elevate your look – shoes, handbags, and sunglasses.",
-      //     blogPublishDate: "24 February 2021",
-      //   },
-      // ],
+      blogItems: [
+        {
+          id: 1,
+          blogThumb: require("assets/img/blog/post1.png"),
+          blogTitle:
+            "This Designer Bronzer Has Even The Drugstore-Beauty-Buyers Splurging!",
+          blogDescription:
+            "Today kicks off early access to the Sephora Spring Sales Event so I wanted to share some of my top recent beauty buys I’ve been",
+          blogPublishDate: "24 February 2021",
+        },
+        {
+          id: 2,
+          blogThumb: require("assets/img/blog/post2.png"),
+          blogTitle: "4 Fresh Ways To Style Leather Shorts For Spring",
+          blogDescription:
+            "We spent spring break this year in California with Cody’s family and it was such a fun getaway. Cody’s family always goes hard on vacation",
+          blogPublishDate: "29 jan 2018",
+        },
+        {
+          id: 3,
+          blogThumb: require("assets/img/blog/post3.png"),
+          blogTitle: "Shopbop Spring Sale Selects All Under Around $100!",
+          blogDescription:
+            "STRAIGHT LEG DENIM (UNDER $100) – Love all the Ribcage Levi’s styles! They are all really flattering. but since these are wider leg I stuck with my usual size (25).",
+          blogPublishDate: "24 February 2021",
+        },
+        {
+          id: 4,
+          blogThumb: require("assets/img/blog/post4.png"),
+          blogTitle: "This Made Me Splurge on The Apple Watch",
+          blogDescription:
+            "From our favourite UK influencers to the best missives from Milan and the coolest New Yorkers, read on some of the best fashion blogs out there.",
+          blogPublishDate: "21 February 2019",
+        },
+        {
+          id: 5,
+          blogThumb: require("assets/img/blog/post5.png"),
+          blogTitle: "This Designer Bronzer Has Even Buyers Splurging!",
+          blogDescription:
+            "Today kicks off early access to the Sephora Spring Sales Event so I wanted to share some of my top recent beauty buys",
+          blogPublishDate: "24 February 2021",
+        },
+        {
+          id: 6,
+          blogThumb: require("assets/img/blog/post6.png"),
+          blogTitle: "4 Tips for A Colorful Easter Tablescape",
+          blogDescription:
+            "Spring is all about the colors! Especially after what feels like an endless winter, I catch myself craving more color than usual.",
+          blogPublishDate: "24 February 2021",
+        },
+        {
+          id: 7,
+          blogThumb: require("assets/img/blog/post7.png"),
+          blogTitle: "Hawaii Couples Trip Guide and Spring Break Faves",
+          blogDescription:
+            "After every trip to Hawaii, I always have a few DMs asking where we stayed, our favorite beaches, etc. Especially with spring break around the corner.",
+          blogPublishDate: "24 February 2021",
+        },
+        {
+          id: 8,
+          blogThumb: require("assets/img/blog/post8.png"),
+          blogTitle: "If You Struggle To Hit Your Goals, Try This Instead",
+          blogDescription:
+            "This year, instead of setting grand, lofty goals and New Years Resolutions, I realized that I respond better to smaller targets that I can cross",
+          blogPublishDate: "24 February 2021",
+        },
+        {
+          id: 9,
+          blogThumb: require("assets/img/blog/post9.png"),
+          blogTitle: "The Luxury Winter Accessory That’s Trending Now",
+          blogDescription:
+            "No matter what you spend on your wardrobe, there are three pieces that can always elevate your look – shoes, handbags, and sunglasses.",
+          blogPublishDate: "24 February 2021",
+        },
+      ],
+      assuranceItems: [
+        {
+          id: 1,
+          assuranceThumb: require("assets/img/assurances/creme-de-la-creme.jpg"),
+          assuranceTitle: "La crème de la crème",
+          assuranceDescription: `Castellani, Armistol, Schaftol, Beretta, Perazzi, 
+Caesar Guerini, Browning, Winchester, Blaser, Fair, Fabarm, Ata, 
+et bien d’autres encore`,
+        },
+        {
+          id: 2,
+          assuranceThumb: require("assets/img/assurances/creme-de-la-creme.jpg"),
+          assuranceTitle: "Neuf ou d'occasion",
+          assuranceDescription: `Découvrez notre sélection de fusils neufs ou d'occasions de ball trap, 
+chasse, fusil et carabines de tir sportif pour le tir de loisir `,
+        },
+        {
+          id: 3,
+          assuranceThumb: require("assets/img/assurances/creme-de-la-creme.jpg"),
+          assuranceTitle: "Une facilité de paiement",
+          assuranceDescription: `Vous disposez d’une solution de paiement jusqu’à  4x sans frais CB à partir de 400 euros. `,
+        },
+      ],
     };
   },
 
