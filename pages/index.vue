@@ -8,15 +8,15 @@
     <!--Assurances-->
     <section id="assurances">
       <div class="container">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-12">
             <div class="center_heading">
-              <!-- <h2>Latest Blog</h2> -->
-              <!-- <p>Mauris luctus nisi sapien tristique dignissim ornare</p> -->
+              <h2>Latest Blog</h2>
+              <p>Mauris luctus nisi sapien tristique dignissim ornare</p>
             </div>
           </div>
-        </div>
-        <div class="row">
+        </div> -->
+        <div class="row ptb-50">
           <div
             v-for="assuranceItem in assuranceItems.slice(0, 3)"
             :key="assuranceItem.id"
@@ -429,6 +429,40 @@
         </div>
       </div>
     </section>
+    <section class="edito_section">
+      <div class="container">
+        <div class="row">
+          <div
+            class="
+              text-center
+              mx-auto
+              col-lg-6
+              offset-lg-4
+              col-md-12 col-sm-12 col-12
+              d-flex
+              flex-column
+              justify-content-center
+              align-items-center
+            "
+          >
+            <div class="top_line_edito"></div>
+            <h3>Qui sommes nous ?</h3>
+            <br />
+            <p>
+              L'Armurerie BOSSA – EXO TRAP est le site n°1 à La réunion pour la
+              pratique du Ball trap. Cette armurerie en ligne vous permet de
+              commander rapidement de manière sécurisée et en toute tranquillité
+              à La Réunion, de recevoir dans les meilleurs délais vos achats en
+              main propre en point relais avec une remise tarifaire
+              supplémentaire accordée grâce à notre solution de clic and
+              collecte, ou d'être livré de façon sécurisé grâce nos solutions
+              d’envois par Colissimo ou Chronopost par exemple.
+            </p>
+            <img :src="aboutIcon" :alt="aboutIcon" />
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="call-to-action"><CallToActionHomePage /></div>
     <!-- Instagram Arae -->
     <!-- <div v-if="!enabled"><InstagramArea /></div> -->
@@ -567,6 +601,7 @@ chasse, fusil et carabines de tir sportif pour le tir de loisir `,
           assuranceDescription: `Vous disposez d’une solution de paiement jusqu’à  4x sans frais CB à partir de 400 euros. `,
         },
       ],
+      aboutIcon: require("assets/img/icon/cible.png"),
     };
   },
 
@@ -646,6 +681,26 @@ h1 {
 #equipement-card {
   margin: 0 0 15px 0;
 }
+
+.edito_section {
+  padding: 100px;
+  display: flex;
+}
+.edito_section h3,
+p {
+  text-align: center;
+}
+.edito_section img {
+  margin: 20px 0 0 0;
+  width: 7%;
+}
+.top_line_edito {
+  margin: 0 0 20px 0;
+  background-color: black;
+  width: 30%;
+  height: 1px;
+}
+/* Responsive */
 @media only screen and (min-width: 768px) {
   #weapon-card {
     margin: 0 0 15px 0;

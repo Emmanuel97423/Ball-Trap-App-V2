@@ -28,6 +28,7 @@ export default {
 .assurance_home_img {
   /* position: relative; */
   height: 160px;
+  margin: 20px 0 0 0;
 }
 /* .assurance_home_img img {
 } */
