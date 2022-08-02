@@ -92,7 +92,7 @@ export default {
     colorLibelle: Array,
   },
   methods: {
-    async handleCLick(value) {
+    handleCLick(value) {
       this.$emit("color-click-event", { color: value });
     },
   },

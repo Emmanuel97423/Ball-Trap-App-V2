@@ -126,12 +126,17 @@
                   />
                 </div>
 
-                <button v-if="product.stock > 0" class="btn__stock--green">
-                  Stock disponible
-                </button>
-                <button v-else class="btn__stock--red">
-                  Stock indisponible
-                </button>
+                <div>
+                  <button
+                    v-if="productSelected.stock > 0"
+                    class="btn__stock--green"
+                  >
+                    Stock disponible
+                  </button>
+                  <button v-else class="btn__stock--red">
+                    Stock indisponible
+                  </button>
+                </div>
                 <form
                   v-if="isAProductGamme === 'true'"
                   id="product_count_form_two"
@@ -273,7 +278,7 @@
                     <p>Toute commande nécessite la création d'un compte</p>
                   </div>
                   <button
-                    v-if="product.quantity > 0"
+                    v-if="productSelected.stock > 0"
                     class="theme-btn-one btn-black-overlay btn_sm"
                     @click="addToCart(product)"
                   >
@@ -727,6 +732,7 @@ export default {
         color: "",
         stock: "",
       },
+      productSelected: "",
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -780,10 +786,6 @@ export default {
   methods: {
     clickQuantitySelect() {
       this.orderQuantity;
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 727 ~ clickQuantitySelect ~ orderQuantity",
-        this.quantitySelected.orderQuantity
-      );
     },
     selectColor(index) {
       console.log("ref index", this.$refs.swiperImage.$swiper);
@@ -847,15 +849,22 @@ export default {
                 libelleArray.push(libelle.elementsGammeLibelle);
               });
               const filtreColor = (arr, requete) => {
-                return arr.filter(
-                  (el) =>
-                    el
-                      .toLowerCase()
-                      .split(" ")
-                      .map((w) => w[0])
-                      .join("")
-                      .indexOf(requete.toLowerCase()) !== -1
-                );
+                return arr.filter((el) => {
+                  if (el.toLowerCase().split(" ").length > 1) {
+                    return (
+                      el
+                        .toLowerCase()
+                        .split(" ")
+                        .map((w) => w[0])
+                        .join("")
+                        .indexOf(requete.toLowerCase()) !== -1
+                    );
+                  } else {
+                    return (
+                      el.toLowerCase().indexOf(requete.toLowerCase()) !== -1
+                    );
+                  }
+                });
               };
               const arrayTemp = [];
               this.color.map((item) => {
@@ -892,20 +901,20 @@ export default {
       this.productsVariantsFilter();
     },
     async colorClickEvent(payload) {
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 870 ~ colorClickEvent ~ payload",
-        payload
-      );
-      const colorCode = payload.color
-        .split(" ")
-        .map((el) => el.charAt(0))
-        .join()
-        .replace(",", "");
-      this.purchaseProductDetails.color = colorCode;
+      if (payload.color.split(" ").length > 1) {
+        this.purchaseProductDetails.color = payload.color
+          .split(" ")
+          .map((el) => el.charAt(0))
+          .join()
+          .replace(",", "");
+      } else {
+        this.purchaseProductDetails.color = payload.color.slice(0, 2);
+      }
+      // this.purchaseProductDetails.color = colorCode;
       this.showQuantityOptions.isActive = true;
       this.showQuantityOptions.isInactive = false;
-
       this.productsVariantsFilter();
+
       // const filterProductVariants = (arr, size, color) => {
       //   return arr.filter((el) => {
       //     if (
@@ -934,6 +943,15 @@ export default {
     },
     async productsVariantsFilter() {
       const filterProductVariants = (arr, size, color) => {
+        console.log(
+          "🚀 ~ file: _id.vue ~ line 950 ~ filterProductVariants ~ size",
+          size
+        );
+        console.log(
+          "🚀 ~ file: _id.vue ~ line 955 ~ filterProductVariants ~ color",
+          color
+        );
+
         return arr.filter((el) => {
           if (
             el.gammesValueConvert.gammesValue[1].toLowerCase() ===
@@ -941,13 +959,10 @@ export default {
             el.gammesValueConvert.gammesValue[0].toLowerCase() ===
               color.toLowerCase()
           ) {
+            this.productSelected = el;
             console.log(
-              "🚀 ~ file: _id.vue ~ line 886 ~ returnarr.filter ~ el",
-              el
-            );
-            console.log(
-              "🚀 ~ file: _id.vue ~ line 879 ~ returnarr.filter ~ el",
-              (this.purchaseProductDetails.stock = el.stock)
+              "🚀 ~ file: _id.vue ~ line 947 ~ returnarr.filter ~ this.productSelected ",
+              this.productSelected
             );
           }
         });
