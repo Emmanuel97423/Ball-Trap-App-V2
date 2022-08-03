@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <div class="d-flex justify-content-center nav-categories">
-      <!-- <ul> -->
-      <!-- <div> -->
-      <b-dropdown
+      <ul>
+        <!-- <div> -->
+        <!-- <b-dropdown
         v-for="navItem in menu"
         :key="navItem.id"
         id="dropdown-left"
@@ -19,25 +19,24 @@
           href="#"
           >{{ subMenu.title }}</b-dropdown-item
         >
-      </b-dropdown>
-      <!-- </div> -->
+      </b-dropdown> -->
+        <!-- </div> -->
 
-      <!-- <div
-        class="nav-links"
-        v-for="navItem in menu"
-        :key="navItem.id"
-        @mouseover="navItem.navOptions.hoverNav = true"
-        @mouseleave="navItem.navOptions.hoverNav = false"
-      >
-      
-        <a :href="navItem.href">{{ navItem.title }}</a>
-        <ul class="dropdown_menu">
-          <div v-for="subMenu in navItem.subMenu" :key="subMenu.id">
-            <a> {{ subMenu.title }}</a>
-          </div>
-        </ul>
-      </div> -->
-      <!-- </ul> -->
+        <div
+          class="nav-links"
+          v-for="navItem in menu"
+          :key="navItem.id"
+          @mouseover="navItem.navOptions.hoverNav = true"
+          @mouseleave="navItem.navOptions.hoverNav = false"
+        >
+          <a :href="navItem.href">{{ navItem.title }}</a>
+          <ul class="dropdown_menu">
+            <div v-for="subMenu in navItem.subMenu" :key="subMenu.id">
+              <a> {{ subMenu.title }}</a>
+            </div>
+          </ul>
+        </div>
+      </ul>
     </div>
   </div>
 </template>
@@ -99,18 +98,18 @@ export default {
   overflow-x: auto;
 } */
 
-/* .nav-categories ul {
+.nav-categories ul {
   height: 48px;
   margin: 0;
   background-color: #e9e8e2;
   display: flex;
   justify-content: center;
   overflow-x: auto;
-} */
+}
 /* .dropdown-btn {
   background-color: #fff;
 } */
-/* .nav-links {
+.nav-links {
   display: flex;
   flex-direction: column;
   width: 1296px;
@@ -119,8 +118,8 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 0;
-} */
-/* .nav-links a {
+}
+.nav-links a {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -129,16 +128,16 @@ export default {
   margin: 0 16px;
   font-weight: 600;
   white-space: nowrap;
-} */
+}
 /* .dropdown_menu {
   display: flex;
   flex-direction: column;
   overflow: visible;
 } */
 
-/* @media only screen and (max-width: 425px) {
+@media only screen and (max-width: 425px) {
   .nav-categories ul {
     justify-content: flex-start;
   }
-} */
+}
 </style>
