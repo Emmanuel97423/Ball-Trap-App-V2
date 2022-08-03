@@ -26,7 +26,7 @@ export default {
       lang: "fr",
     },
     script: [
-      { src: 'https://js.stripe.com/v3' }
+      { src: 'https://js.stripe.com/v3/' }
     ],
     meta: [
       { charset: "utf-8" },

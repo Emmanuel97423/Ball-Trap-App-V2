@@ -19,13 +19,12 @@
         </div>
       </div>
     </section>
-
-    <div class="container" v-if="$fetchState.pending">
-      <!-- <span class="loading"></span> -->
-      <Spinner></Spinner>
-    </div>
+    <!-- <div class="container" v-if="$fetchState.pending"> -->
+    <!-- <span class="loading"></span> -->
+    <!-- <Spinner></Spinner> -->
+    <!-- </div> -->
     <!-- Product Single Area -->
-    <div v-else>
+    <div>
       <section id="product_single_one" class="ptb-25">
         <div class="container">
           <div class="back-link"><a onclick="history.back()">Retour</a></div>
@@ -100,10 +99,17 @@
                     <span>(2 avis clients)</span>
                   </div>
 
-                  <h4>
-                    {{ parseFloat(product.pvTtc).toFixed(2) }} €
-                    <span id="tax">T.T.C</span>
-                  </h4>
+                  <div class="d-flex flex-column">
+                    <h4>
+                      {{ parseFloat(product.pvTtc).toFixed(2) }} €
+                      <span id="tax">T.T.C</span>
+                    </h4>
+                    <div
+                      id="afterpay-clearpay-message"
+                      ref="afterpayClearpayMessage"
+                    ></div>
+                  </div>
+
                   <SizeChart :productName="product.libelle"></SizeChart>
                   <!-- <SelectSize /> -->
                   <div class="pt-15">
@@ -670,6 +676,9 @@ import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
 
+import { loadStripe } from "@stripe/stripe-js";
+let stripe;
+
 export default {
   scrollToTop: true,
   name: "product-single-2",
@@ -683,6 +692,7 @@ export default {
     StockAlert,
     SelectColor,
   },
+
   data() {
     return {
       //Product data
@@ -746,6 +756,7 @@ export default {
         stock: "",
       },
       productSelected: "",
+      afterpayClearpayMessageElement: "",
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -777,6 +788,11 @@ export default {
           hid: "description",
           name: "this.product.libelle",
           content: "this.product.description",
+        },
+      ],
+      script: [
+        {
+          src: "https://js.stripe.com/v3/",
         },
       ],
     };
@@ -1007,6 +1023,35 @@ export default {
         this.purchaseProductDetails.color
       );
     },
+    async afterPayStripeElement() {
+      if (!stripe) {
+        stripe = await loadStripe(process.env.stripePublishKey);
+        const elements = stripe.elements({
+          locale: "fr-FR",
+        });
+
+        const options = {
+          amount: this.product.pvTtc * 100, // $10.00 USD
+          currency: "EUR",
+        };
+
+        const afterpayClearpayMessageElement = elements.create(
+          "afterpayClearpayMessage",
+          options,
+          {
+            style: {
+              base: {
+                margin: "0",
+              },
+            },
+          }
+        );
+
+        afterpayClearpayMessageElement.mount(
+          this.$refs.afterpayClearpayMessage
+        );
+      }
+    },
   },
   async fetch() {
     let variantsArray = [];
@@ -1062,7 +1107,18 @@ export default {
         console.log("error:", error);
       }
     }
+    try {
+      // this.$nextTick(() => {
+      //   this.afterPayStripeElement();
+      // });
+
+      this.afterPayStripeElement();
+    } catch (error) {
+      console.log("🚀 ~ file: _id.vue ~ line 1106 ~ fetch ~ error", error);
+    }
   },
+
+  mounted() {},
 
   fetchOnServer: false,
 };
