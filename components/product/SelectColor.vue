@@ -91,9 +91,10 @@ export default {
     colors: Array,
     colorLibelle: Array,
   },
+
   methods: {
     handleCLick(value) {
-      this.$emit("color-click-event", { color: value });
+      this.$emit("color-click-event", { color: value, isFocused: true });
     },
   },
 };

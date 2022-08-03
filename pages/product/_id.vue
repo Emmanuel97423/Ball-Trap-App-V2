@@ -19,174 +19,184 @@
         </div>
       </div>
     </section>
-
-    <div class="container" v-if="$fetchState.pending">
-      <!-- <span class="loading"></span> -->
-      <Spinner></Spinner>
-    </div>
+    <!-- <div class="container" v-if="$fetchState.pending"> -->
+    <!-- <span class="loading"></span> -->
+    <!-- <Spinner></Spinner> -->
+    <!-- </div> -->
     <!-- Product Single Area -->
-    <section v-else id="product_single_one" class="ptb-25">
-      <div class="container">
-        <div class="back-link"><a onclick="history.back()">Retour</a></div>
-        <div class="row area_boxed">
-          <div class="col-lg-4 col-img">
-            <div class="product_single_one_img">
-              <swiper
-                v-if="isAProductGamme === 'true'"
-                class="swiper product-single-2-slider"
-                :options="swiperOption"
-                ref="swiperImage"
-              >
-                <swiper-slide
-                  v-for="(product, index) in productVariants"
-                  :key="index"
+    <div>
+      <section id="product_single_one" class="ptb-25">
+        <div class="container">
+          <div class="back-link"><a onclick="history.back()">Retour</a></div>
+          <div class="row area_boxed">
+            <div class="col-lg-4 col-img">
+              <div class="product_single_one_img">
+                <swiper
+                  v-if="isAProductGamme === 'true'"
+                  class="swiper product-single-2-slider"
+                  :options="swiperOption"
+                  ref="swiperImage"
                 >
-                  <img :src="product.imageUrl" alt="img" />
-                  <!-- <img v-else /> -->
-                </swiper-slide>
+                  <swiper-slide
+                    v-for="(product, index) in productVariants"
+                    :key="index"
+                  >
+                    <img :src="product.imageUrl" alt="img" />
+                    <!-- <img v-else /> -->
+                  </swiper-slide>
 
-                <div
-                  class="swiper-button-prev swiper-button-white"
-                  slot="button-prev"
-                ></div>
-                <div
-                  class="swiper-button-next swiper-button-white"
-                  slot="button-next"
-                ></div>
-              </swiper>
+                  <div
+                    class="swiper-button-prev swiper-button-white"
+                    slot="button-prev"
+                  ></div>
+                  <div
+                    class="swiper-button-next swiper-button-white"
+                    slot="button-next"
+                  ></div>
+                </swiper>
 
-              <swiper
-                v-else
-                class="swiper product-single-2-slider"
-                :options="swiperOption"
-                ref="swiperImage"
-              >
-                <swiper-slide>
-                  <!-- {{ product }} -->
-                  <img
-                    v-if="product.imageUrl"
-                    :src="product.imageUrl"
-                    alt="img"
-                  />
-                  <!-- <img v-else /> -->
-                </swiper-slide>
+                <swiper
+                  v-else
+                  class="swiper product-single-2-slider"
+                  :options="swiperOption"
+                  ref="swiperImage"
+                >
+                  <swiper-slide>
+                    <!-- {{ product }} -->
+                    <img
+                      v-if="product.imageUrl"
+                      :src="product.imageUrl"
+                      alt="img"
+                    />
+                    <!-- <img v-else /> -->
+                  </swiper-slide>
 
-                <div
-                  class="swiper-button-prev swiper-button-white"
-                  slot="button-prev"
-                ></div>
-                <div
-                  class="swiper-button-next swiper-button-white"
-                  slot="button-next"
-                ></div>
-              </swiper>
-              <!-- <img v-else src="@/assets/img/common/textil-cat.jpg" /> -->
+                  <div
+                    class="swiper-button-prev swiper-button-white"
+                    slot="button-prev"
+                  ></div>
+                  <div
+                    class="swiper-button-next swiper-button-white"
+                    slot="button-next"
+                  ></div>
+                </swiper>
+                <!-- <img v-else src="@/assets/img/common/textil-cat.jpg" /> -->
+              </div>
             </div>
-          </div>
 
-          <div class="col-lg-8">
-            <div class="product_details_right_one">
-              <div class="modal_product_content_one">
-                <h3>{{ product.libelle }}</h3>
-                <!-- <h3 v-else>Test fiche produit hello</h3> -->
+            <div class="col-lg-8">
+              <div class="product_details_right_one">
+                <div class="modal_product_content_one">
+                  <h3>{{ product.libelle }}</h3>
+                  <!-- <h3 v-else>Test fiche produit hello</h3> -->
 
-                <div v-if="!enabled" class="reviews_rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <span>(2 avis clients)</span>
-                </div>
+                  <div v-if="!enabled" class="reviews_rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(2 avis clients)</span>
+                  </div>
 
-                <h4>
-                  {{ parseFloat(product.pvTtc).toFixed(2) }} €
-                  <span id="tax">T.T.C</span>
-                </h4>
-                <SizeChart :productName="product.libelle"></SizeChart>
-                <!-- <SelectSize /> -->
-                <div class="pt-15">
-                  <!-- <span>Tailles</span> -->
-                  <SelectSize2
+                  <div class="d-flex flex-column">
+                    <h4>
+                      {{ parseFloat(product.pvTtc).toFixed(2) }} €
+                      <span id="tax">T.T.C</span>
+                    </h4>
+                    <div
+                      id="afterpay-clearpay-message"
+                      ref="afterpayClearpayMessage"
+                    ></div>
+                  </div>
+
+                  <SizeChart :productName="product.libelle"></SizeChart>
+                  <!-- <SelectSize /> -->
+                  <div class="pt-15">
+                    <!-- <span>Tailles</span> -->
+                    <SelectSize2
+                      v-if="isAProductGamme === 'true'"
+                      :size="uniqueSize"
+                      @size-click-event="sizeClickEvent"
+                    />
+                  </div>
+
+                  <div
                     v-if="isAProductGamme === 'true'"
-                    :size="uniqueSize"
-                    @size-click-event="sizeClickEvent"
-                  />
-                </div>
-
-                <div
-                  v-if="isAProductGamme === 'true'"
-                  class="color-select"
-                  :class="showColorOptions"
-                >
-                  <SelectColor
-                    :colors="color"
-                    :colorLibelle="uniqueColorLibelle"
-                    @color-click-event="colorClickEvent"
-                  />
-                </div>
-
-                <div>
-                  <button
-                    v-if="productSelected.stock > 0"
-                    class="btn__stock--green"
+                    class="color-select"
+                    :class="showColorOptions"
                   >
-                    Stock disponible
-                  </button>
-                  <button v-else class="btn__stock--red">
-                    Stock indisponible
-                  </button>
-                </div>
-                <form
-                  v-if="isAProductGamme === 'true'"
-                  id="product_count_form_two"
-                  :class="showQuantityOptions"
-                >
-                  <div
-                    class="product_count_one pt-15"
-                    @click="clickQuantitySelect"
-                  >
-                    <b-form-spinbutton
-                      id="sb-inline"
-                      v-model="quantitySelected.orderQuantity"
-                      inline
-                      class="border-0"
-                      min="1"
-                      :max="quantitySelected.max"
-                    ></b-form-spinbutton>
+                    <SelectColor
+                      v-if="!showColorOptions.isLoading"
+                      :key="showColorOptions.componentKey"
+                      :colors="color"
+                      :colorLibelle="uniqueColorLibelle"
+                      @color-click-event="colorClickEvent"
+                    />
+                    <Spinner v-else></Spinner>
                   </div>
-                </form>
-                <!-- One product quantity select -->
-                <form v-else id="product_count_form_two">
-                  <div
-                    class="product_count_one pt-15"
-                    @click="clickQuantitySelect"
-                  >
-                    <b-form-spinbutton
-                      id="sb-inline"
-                      v-model="quantitySelected.orderQuantity"
-                      inline
-                      class="border-0"
-                      min="1"
-                      :max="quantitySelected.max"
-                    ></b-form-spinbutton>
+                  <div v-if="showColorOptions.isFocused">
+                    <button
+                      v-if="productSelected.stock > 0"
+                      class="btn__stock--green"
+                    >
+                      Stock disponible
+                    </button>
+                    <button v-else class="btn__stock--red">
+                      Stock indisponible
+                    </button>
                   </div>
-                </form>
-                <!-- <StockAlert
+                  <form
+                    v-if="isAProductGamme === 'true'"
+                    id="product_count_form_two"
+                    :class="showQuantityOptions"
+                  >
+                    <div
+                      v-if="productSelected.stock > 0"
+                      class="product_count_one pt-15"
+                      @click="clickQuantitySelect"
+                    >
+                      <b-form-spinbutton
+                        id="sb-inline"
+                        v-model="quantitySelected.orderQuantity"
+                        inline
+                        class="border-0"
+                        min="1"
+                        :max="quantitySelected.max"
+                      ></b-form-spinbutton>
+                    </div>
+                  </form>
+                  <!-- One product quantity select -->
+                  <form v-else id="product_count_form_two">
+                    <div
+                      class="product_count_one pt-15"
+                      @click="clickQuantitySelect"
+                    >
+                      <b-form-spinbutton
+                        id="sb-inline"
+                        v-model="quantitySelected.orderQuantity"
+                        inline
+                        class="border-0"
+                        min="1"
+                        :max="quantitySelected.max"
+                      ></b-form-spinbutton>
+                    </div>
+                  </form>
+                  <!-- <StockAlert
                   v-if="product.quantity === 0"
                   :productQuantity="product.quantity"
                 ></StockAlert> -->
-                <p class="pt-15">
-                  {{ product.description }}
-                </p>
+                  <p class="pt-15">
+                    {{ product.description }}
+                  </p>
 
-                <!-- <span v-if="product.quantity > 0"
+                  <!-- <span v-if="product.quantity > 0"
                   >Qté: <em>Reste {{ product.quantity }}</em></span
                 >
                 <span v-else>Qté: <em>Rupture</em></span> -->
 
-                <!-- productquantity : {{ product.quantity }} -->
-                <!-- <div class="customs_selects">
+                  <!-- productquantity : {{ product.quantity }} -->
+                  <!-- <div class="customs_selects">
                   <select name="product" class="customs_sel_box">
                     <option value="size">Taille</option>
                     <option value="xl">XL</option>
@@ -196,7 +206,7 @@
                   </select>
                 </div> -->
 
-                <!-- <b-alert
+                  <!-- <b-alert
                   class="stock-alert"
                   :show="dismissCountDown"
                   dismissible
@@ -216,42 +226,42 @@
                   ></b-progress>
                 </b-alert> -->
 
-                <!--Counter quantity-->
+                  <!--Counter quantity-->
 
-                <ul v-if="!enabled" class="assurances-product">
-                  <li class="assurances-product-list">
-                    <div class="assurances-product-icon">
-                      <b-icon icon="credit-card-2-back"></b-icon>
-                    </div>
-                    <div class="assurances-product-text">
-                      <h5>Paiement 100% Sécurisé</h5>
-                      <span>3D Secure</span>
-                    </div>
-                  </li>
-                  <li id="middle-assurances" class="assurances-product-list">
-                    <div class="assurances-product-icon">
-                      <b-icon icon="arrow-left-right"></b-icon>
-                    </div>
-                    <div class="assurances-product-text">
-                      <h5>Satisfait ou remboursé</h5>
-                      <a href="./legal"
-                        ><span>Après réception (2 jours)</span></a
-                      >
-                    </div>
-                  </li>
-                  <li class="assurances-product-list">
-                    <div class="assurances-product-icon">
-                      <b-icon icon="cash-stack"></b-icon>
-                    </div>
-                    <div class="assurances-product-text">
-                      <h5>Jusqu'à 4x sans frais</h5>
-                      <!-- <span>3D Secure</span> -->
-                    </div>
-                  </li>
-                </ul>
+                  <ul v-if="!enabled" class="assurances-product">
+                    <li class="assurances-product-list">
+                      <div class="assurances-product-icon">
+                        <b-icon icon="credit-card-2-back"></b-icon>
+                      </div>
+                      <div class="assurances-product-text">
+                        <h5>Paiement 100% Sécurisé</h5>
+                        <span>3D Secure</span>
+                      </div>
+                    </li>
+                    <li id="middle-assurances" class="assurances-product-list">
+                      <div class="assurances-product-icon">
+                        <b-icon icon="arrow-left-right"></b-icon>
+                      </div>
+                      <div class="assurances-product-text">
+                        <h5>Satisfait ou remboursé</h5>
+                        <a href="./legal"
+                          ><span>Après réception (2 jours)</span></a
+                        >
+                      </div>
+                    </li>
+                    <li class="assurances-product-list">
+                      <div class="assurances-product-icon">
+                        <b-icon icon="cash-stack"></b-icon>
+                      </div>
+                      <div class="assurances-product-text">
+                        <h5>Jusqu'à 4x sans frais</h5>
+                        <!-- <span>3D Secure</span> -->
+                      </div>
+                    </li>
+                  </ul>
 
-                <div class="links_Product_areas">
-                  <!-- <ul>
+                  <div class="links_Product_areas">
+                    <!-- <ul>
                     <li v-if="!enabled">
                       <nuxt-link
                         to="/my-account/wishlist"
@@ -270,26 +280,31 @@
                       >
                     </li>
                   </ul> -->
-                  <div v-if="!this.$auth.loggedIn" class="signup-mention">
-                    <b-icon
-                      class="signup-mention-icon"
-                      icon="exclamation-circle-fill"
-                    ></b-icon>
-                    <p>Toute commande nécessite la création d'un compte</p>
-                  </div>
-                  <button
-                    v-if="productSelected.stock > 0"
-                    class="theme-btn-one btn-black-overlay btn_sm"
-                    @click="addToCart(product)"
-                  >
-                    Ajouter au panier
-                  </button>
+                    <div v-if="!this.$auth.loggedIn" class="signup-mention">
+                      <b-icon
+                        class="signup-mention-icon"
+                        icon="exclamation-circle-fill"
+                      ></b-icon>
+                      <p>Toute commande nécessite la création d'un compte</p>
+                    </div>
+                    <button
+                      v-if="productSelected.stock > 0"
+                      class="theme-btn-one btn-black-overlay btn_sm"
+                      @click="
+                        addToCart(
+                          productSelected,
+                          quantitySelected.orderQuantity
+                        )
+                      "
+                    >
+                      Ajouter au panier
+                    </button>
 
-                  <!-- Out of stock -->
-                  <!-- <p v-else>Non disponible</p> -->
-                  <br />
-                  {{ message }}
-                  <!-- <AddToCart
+                    <!-- Out of stock -->
+                    <!-- <p v-else>Non disponible</p> -->
+                    <br />
+                    {{ message }}
+                    <!-- <AddToCart
                   :productId="product._id"
                   :productPrice="product.price"
                   :productQuantity="quantity"
@@ -297,26 +312,26 @@
                   :productEan ="product.ean"
                   :quantity="quantity"
                   /> -->
-                  <!-- <button
+                    <!-- <button
                     
                     class="theme-btn-one btn-black-overlay btn_sm"
                     
                     >Ajouter au panier</button
                   > -->
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="product_details_tabs">
-              <b-tabs>
-                <b-tab title="Description" active id="description">
-                  <div class="product_description">
-                    <p>{{ product.description }}</p>
-                    <br />
-                    <!-- <div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="product_details_tabs">
+                <b-tabs>
+                  <b-tab title="Description" active id="description">
+                    <div class="product_description">
+                      <p>{{ product.description }}</p>
+                      <br />
+                      <!-- <div>
                       <h3>POUR ARME DE CATÉGORIE X</h3>
                       <br />
                       <p>
@@ -343,7 +358,7 @@
                         coffre fort pour armes et munitions.
                       </p>
                     </div> -->
-                    <!-- <p>
+                      <!-- <p>
                       Curabitur arcu erat, accumsan id imperdiet et, porttitor
                       at sem. Vestibulum ac diam sit amet quam vehicula
                       elementum sed sit amet dui. Sed porttitor lectus nibh.
@@ -373,10 +388,10 @@
                       sem. Quisque velit nisi, pretium ut lacinia in, elementum
                       id enim.
                     </p> -->
-                  </div>
-                </b-tab>
+                    </div>
+                  </b-tab>
 
-                <!-- <b-tab title="Informations additionnels" id="additional">
+                  <!-- <b-tab title="Informations additionnels" id="additional">
                   <div class="product_additional">
                     <ul>
                       <li>Poids: <span>400 g</span></li>
@@ -395,7 +410,7 @@
                   </div>
                 </b-tab> -->
 
-                <!-- <b-tab title="Avis" id="review">
+                  <!-- <b-tab title="Avis" id="review">
                   <div class="product_reviews">
                     <ul>
                       <li class="media">
@@ -542,49 +557,50 @@
                     </ul>
                   </div>
                 </b-tab> -->
-              </b-tabs>
+                </b-tabs>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Related Product -->
-    <section id="related_product" class="pb-100">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="center_heading">
-              <h2>Vous pourriez aussi aimer</h2>
+      <!-- Related Product -->
+      <section id="related_product" class="pb-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="center_heading">
+                <h2>Vous pourriez aussi aimer</h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-lg-3 col-md-4 col-sm-6 col-12"
+              v-for="item in relatedProducts"
+              :key="item._id"
+            >
+              <!-- <p v-if="$fetchState.pending">
+                <span class="loading"></span>
+                <Spinner></Spinner>
+              </p> -->
+              <!-- <p v-else-if="$fetchState.error">Une erreur est survenue! 🤬</p> -->
+              <ProductBox1
+                class="mt-3"
+                :productImg1="item.imageUrl"
+                :productImg2="item.imageUrl"
+                :productTagClass="item.productTagClass"
+                :productTag="item.productTag"
+                :productTitle="item.name"
+                :productPrice="item.priceTtc"
+                :productQuantity="item.quantity"
+                :productId="item._id"
+              />
             </div>
           </div>
         </div>
-        <div class="row">
-          <div
-            class="col-lg-3 col-md-4 col-sm-6 col-12"
-            v-for="item in relatedProducts"
-            :key="item._id"
-          >
-            <p v-if="$fetchState.pending">
-              <!-- <span class="loading"></span> -->
-              <Spinner></Spinner>
-            </p>
-            <p v-else-if="$fetchState.error">Une erreur est survenue! 🤬</p>
-            <ProductBox1
-              class="mt-3"
-              :productImg1="item.imageUrl"
-              :productImg2="item.imageUrl"
-              :productTagClass="item.productTagClass"
-              :productTag="item.productTag"
-              :productTitle="item.name"
-              :productPrice="item.priceTtc"
-              :productQuantity="item.quantity"
-              :productId="item._id"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
@@ -660,6 +676,9 @@ import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
 
+import { loadStripe } from "@stripe/stripe-js";
+let stripe;
+
 export default {
   scrollToTop: true,
   name: "product-single-2",
@@ -673,6 +692,7 @@ export default {
     StockAlert,
     SelectColor,
   },
+
   data() {
     return {
       //Product data
@@ -718,6 +738,9 @@ export default {
         isInactive: true,
         colorSelectHide: true,
         colorSelectShow: false,
+        componentKey: 0,
+        isLoading: false,
+        isFocused: false,
       },
       showQuantityOptions: {
         isActive: false,
@@ -733,6 +756,7 @@ export default {
         stock: "",
       },
       productSelected: "",
+      afterpayClearpayMessageElement: "",
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -766,6 +790,11 @@ export default {
           content: "this.product.description",
         },
       ],
+      script: [
+        {
+          src: "https://js.stripe.com/v3/",
+        },
+      ],
     };
   },
 
@@ -787,10 +816,10 @@ export default {
     clickQuantitySelect() {
       this.orderQuantity;
     },
-    selectColor(index) {
-      console.log("ref index", this.$refs.swiperImage.$swiper);
-      this.$refs.swiperImage.$swiper.activeIndex = index;
-    },
+    // selectColor(index) {
+    //   console.log("ref index", this.$refs.swiperImage.$swiper);
+    //   this.$refs.swiperImage.$swiper.activeIndex = index;
+    // },
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -798,14 +827,21 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
-    addToCart(product) {
-      // console.log("product:", product);
+    addToCart(product, orderQuantity) {
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 802 ~ addToCart ~ orderQuantity",
+        orderQuantity
+      );
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 802 ~ addToCart ~ product",
+        product
+      );
       this.$store
         .dispatch("products/decrementStock", product._id)
         .then((result) => {
           if (result == true) {
-            this.$store.commit("cart/orderQuantity", this.orderQuantity);
-            console.log("this.orderQuantity:", this.orderQuantity);
+            this.$store.commit("cart/orderQuantity", orderQuantity);
+            console.log("this.orderQuantity:", orderQuantity);
             this.$store.commit("cart/add", product);
             this.toggleModal();
           } else {
@@ -828,7 +864,16 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-    async sizeClickEvent(payload) {
+    sizeClickEvent(payload) {
+      this.color = [];
+      this.colorLibelle = [];
+      this.showColorOptions.componentKey += 1;
+      this.showColorOptions.isLoading = true;
+      this.showColorOptions.isFocused = false;
+
+      setTimeout(() => {
+        this.showColorOptions.isLoading = false;
+      }, 1000);
       const productColorFilter = (arr, request) => {
         return arr.filter(async (el) => {
           if (
@@ -859,7 +904,7 @@ export default {
                         .join("")
                         .indexOf(requete.toLowerCase()) !== -1
                     );
-                  } else {
+                  } else if (el.toLowerCase().split(" ").length === 1) {
                     return (
                       el.toLowerCase().indexOf(requete.toLowerCase()) !== -1
                     );
@@ -900,7 +945,8 @@ export default {
       this.showColorOptions.isActive = true;
       this.productsVariantsFilter();
     },
-    async colorClickEvent(payload) {
+    colorClickEvent(payload) {
+      this.showColorOptions.isFocused = payload.isFocused;
       if (payload.color.split(" ").length > 1) {
         this.purchaseProductDetails.color = payload.color
           .split(" ")
@@ -941,31 +987,34 @@ export default {
       //   this.purchaseProductDetails.color
       // );
     },
-    async productsVariantsFilter() {
+    productsVariantsFilter() {
       const filterProductVariants = (arr, size, color) => {
-        console.log(
-          "🚀 ~ file: _id.vue ~ line 950 ~ filterProductVariants ~ size",
-          size
-        );
-        console.log(
-          "🚀 ~ file: _id.vue ~ line 955 ~ filterProductVariants ~ color",
-          color
-        );
-
-        return arr.filter((el) => {
-          if (
-            el.gammesValueConvert.gammesValue[1].toLowerCase() ===
-              size.toLowerCase() &&
-            el.gammesValueConvert.gammesValue[0].toLowerCase() ===
-              color.toLowerCase()
-          ) {
-            this.productSelected = el;
-            console.log(
-              "🚀 ~ file: _id.vue ~ line 947 ~ returnarr.filter ~ this.productSelected ",
-              this.productSelected
-            );
-          }
-        });
+        try {
+          return arr.filter((el) => {
+            if (
+              el.gammesValueConvert.gammesValue[1].toLowerCase() ===
+                size.toLowerCase() &&
+              el.gammesValueConvert.gammesValue[0].toLowerCase() ===
+                color.toLowerCase()
+            ) {
+              this.productSelected = el;
+              console.log(
+                "🚀 ~ file: _id.vue ~ line 947 ~ returnarr.filter ~ this.productSelected ",
+                this.productSelected
+              );
+            } else {
+              // console.log(
+              //   "🚀 ~ file: _id.vue ~ line 987 ~ returnarr.filter ~ el",
+              //   el
+              // );
+            }
+          });
+        } catch (error) {
+          console.log(
+            "🚀 ~ file: _id.vue ~ line 974 ~ filterProductVariants ~ error",
+            error
+          );
+        }
       };
 
       filterProductVariants(
@@ -974,13 +1023,38 @@ export default {
         this.purchaseProductDetails.color
       );
     },
+    async afterPayStripeElement() {
+      if (!stripe) {
+        stripe = await loadStripe(process.env.stripePublishKey);
+        const elements = stripe.elements({
+          locale: "fr-FR",
+        });
+
+        const options = {
+          amount: this.product.pvTtc * 100, // $10.00 USD
+          currency: "EUR",
+        };
+
+        const afterpayClearpayMessageElement = elements.create(
+          "afterpayClearpayMessage",
+          options,
+          {
+            style: {
+              base: {
+                margin: "0",
+              },
+            },
+          }
+        );
+
+        afterpayClearpayMessageElement.mount(
+          this.$refs.afterpayClearpayMessage
+        );
+      }
+    },
   },
   async fetch() {
     let variantsArray = [];
-    console.log(
-      "🚀 ~ file: _id.vue ~ line 970 ~ fetch ~ this.$route.query",
-      this.$route.query
-    );
     this.isAProductGamme = this.$route.query.isAProductGamme;
     //Fetching product gamme data
     if (this.$route.query.isAProductGamme === "true") {
@@ -1015,10 +1089,6 @@ export default {
         console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
       }
     } else if (this.$route.query.isAProductGamme === "false") {
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 1007 ~ fetch ~ this.$route.query.isAProductGamme",
-        this.$route.query.isAProductGamme
-      );
       try {
         const id = this.$route.query.id;
 
@@ -1028,11 +1098,27 @@ export default {
         });
 
         this.product = singleProduct.data;
+        this.productSelected = singleProduct.data;
+        console.log(
+          "🚀 ~ file: _id.vue ~ line 1028 ~ fetch ~ this.product",
+          this.product
+        );
       } catch (error) {
         console.log("error:", error);
       }
     }
+    try {
+      // this.$nextTick(() => {
+      //   this.afterPayStripeElement();
+      // });
+
+      this.afterPayStripeElement();
+    } catch (error) {
+      console.log("🚀 ~ file: _id.vue ~ line 1106 ~ fetch ~ error", error);
+    }
   },
+
+  mounted() {},
 
   fetchOnServer: false,
 };

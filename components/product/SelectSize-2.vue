@@ -9,7 +9,7 @@
     >
       <div>{{ value }}</div>
     </div>
-    <div></div>
+    <div><Spinner v-if="isLoadingSize"></Spinner></div>
   </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
       ],
       currentIndex: -1,
       isActive: false,
-      isLoading: true,
+      isLoadingSize: false,
       activeOptions: [],
     };
   },
@@ -45,7 +45,7 @@ export default {
       let pos = this.activeOptions.indexOf(index);
       this.$emit("size-click-event", { size: value });
 
-      console.log("pos:", pos);
+      // console.log("pos:", pos);
       // pos === -1
       //   ? this.activeOptions.push(index)
       //   : this.activeOptions.splice(pos, 1);
@@ -57,7 +57,7 @@ export default {
         this.activeOptions.splice(pos, 1);
         // this.activeOptions.pop();
       }
-      console.log("this.activeOptions:", this.activeOptions);
+      // console.log("this.activeOptions:", this.activeOptions);
     },
     changeColor() {
       this.isLoading = !this.isLoading;
@@ -66,10 +66,18 @@ export default {
       this.$emit("size-click-event", { size: value });
     },
   },
+  created() {
+    this.isLoadingSize = true;
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoadingSize = false;
+    }, 1000);
+  },
 };
 </script>
 
-<style>
+<style >
 .container-select-size {
   display: flex;
   justify-content: flex-start;

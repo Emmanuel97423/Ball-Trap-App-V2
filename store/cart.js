@@ -16,6 +16,7 @@ export const mutations = {
     console.log('item:', item)
 
     const record = state.items.find(i => i._id === item._id)
+    console.log("🚀 ~ file: cart.js ~ line 19 ~ add ~ record", record)
     if (!record) {
       state.items.push({
         orderQuantity: state.orderQuantity,
@@ -85,7 +86,7 @@ export const getters = {
   },
   price: state => {
     return state.items.reduce(
-      (accumulator, item) => accumulator + item.priceTtc * item.orderQuantity,
+      (accumulator, item) => accumulator + item.pvTtc * item.orderQuantity,
 
       0
     )
@@ -103,7 +104,7 @@ export const getters = {
   // },
 
   cartTotal(getters) {
-    return getters.items.reduce((total, item) => total + item.priceTtc * item.orderQuantity, 0)
+    return getters.items.reduce((total, item) => total + item.pvTtc * item.orderQuantity, 0)
   },
   numberOfItems: state => {
     return state.items.reduce(

@@ -58,11 +58,11 @@
                       </td>
                       <td class="product_name">
                         <nuxt-link :to="`/product/${productItem._id}`">{{
-                          productItem.name
+                          productItem.libelle
                         }}</nuxt-link>
                       </td>
                       <td class="product-price">
-                        {{ productItem.priceTtc.toFixed(2) }} €
+                        {{ productItem.pvTtc.toFixed(2) }} €
                       </td>
                       <td class="product_quantity">
                         <!-- <label>quantité</label>  -->
@@ -72,7 +72,7 @@
                       <td class="product_total">
                         {{
                           (
-                            productItem.priceTtc * productItem.orderQuantity
+                            productItem.pvTtc * productItem.orderQuantity
                           ).toFixed(2)
                         }}
                         €
