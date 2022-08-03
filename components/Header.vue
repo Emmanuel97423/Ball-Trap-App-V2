@@ -499,25 +499,33 @@
               :key="productItem.id"
             >
               <div class="offcanvas-cart-item-block">
-                <nuxt-link to="#" class="offcanvas-cart-item-image-link">
+                <!-- <nuxt-link to="#" class="offcanvas-cart-item-image-link">
                   <img
                     :src="productItem.imageUrl"
                     alt="img"
                     class="offcanvas-cart-image"
                   />
-                </nuxt-link>
+                </nuxt-link> -->
+                <div class="offcanvas-cart-item-image-link">
+                  <img
+                    :src="productItem.imageUrl"
+                    alt="img"
+                    class="offcanvas-cart-image"
+                  />
+                </div>
                 <div class="offcanvas-cart-item-content">
-                  <nuxt-link
+                  <!-- <nuxt-link
                     :to="{ path: '/product/' + productItem._id }"
                     class="offcanvas-cart-item-link"
-                    >{{ productItem.name }}</nuxt-link
-                  >
+                    >{{ productItem.libelle }}</nuxt-link
+                  > -->
+                  <p class="font-weight-bold">{{ productItem.libelle }}</p>
                   <div class="offcanvas-cart-item-details">
                     <span class="offcanvas-cart-item-details-quantity"
                       >{{ productItem.orderQuantity }} x
                     </span>
                     <span class="offcanvas-cart-item-details-price"
-                      >{{ productItem.priceTtc }}€</span
+                      >{{ productItem.pvTtc.toFixed(2) }}€</span
                     >
                   </div>
                 </div>

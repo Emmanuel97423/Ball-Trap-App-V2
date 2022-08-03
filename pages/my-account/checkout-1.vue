@@ -297,7 +297,7 @@
                   >
                     <tr>
                       <td>
-                        {{ productItem.name }}
+                        {{ productItem.libelle }}
                         <span class="product-qty">
                           x {{ productItem.orderQuantity }}</span
                         >
@@ -305,7 +305,7 @@
                       <td>
                         {{
                           (
-                            productItem.priceTtc * productItem.orderQuantity
+                            productItem.pvTtc * productItem.orderQuantity
                           ).toFixed(2)
                         }}
                         €
@@ -471,7 +471,7 @@ export default {
       alertMessage: null,
       enabled: true,
       formEnabled: false,
-      title: "Checkout",
+      title: "Information de facturation",
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -563,13 +563,13 @@ export default {
               progress: true,
             }
           );
+          console.log(
+            "🚀 ~ file: checkout-1.vue ~ line 567 ~ onSubmit ~ selectedProducts",
+            this.selectedProducts
+          );
           const stripeCheckoutUrlWithDomain =
             stripeCheckoutSession.data.session.url;
           this.stripe.url = stripeCheckoutUrlWithDomain;
-          console.log(
-            "stripeCheckoutUrlWithDomain:",
-            stripeCheckoutUrlWithDomain
-          );
           // const stripeCheckoutUrlWithoutDomain =
           //   stripeCheckoutUrlWithDomain.replace(
           //     /^(?:\S+\.\S+?\/|\/)?(\S+)$/gm,
