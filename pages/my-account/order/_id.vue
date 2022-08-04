@@ -91,14 +91,16 @@
                       </td> -->
 
                       <td class="product_thumb">
-                        <nuxt-link :to="`/product/${item._id}`">
+                        <!-- <nuxt-link :to="`/product/${item._id}`">
                           <img :src="item.imageUrl" alt="img" />
-                        </nuxt-link>
+                        </nuxt-link> -->
+                        <img :src="item.imageUrl" alt="img" />
                       </td>
                       <td class="product_name">
-                        <nuxt-link :to="`/product/${item._id}`"
+                        <!-- <nuxt-link :to="`/product/${item._id}`"
                           ><p>{{ item.name }}</p></nuxt-link
-                        >
+                        > -->
+                        <p>{{ item.name }}</p>
                       </td>
                       <td class="product-price">{{ item.priceTtc }} €</td>
                       <td class="product_quantity">

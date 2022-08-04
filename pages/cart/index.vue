@@ -52,14 +52,17 @@
                       </td>
 
                       <td class="product_thumb">
-                        <nuxt-link :to="`/product/${productItem._id}`">
+                        <img :src="productItem.imageUrl" alt="img" />
+
+                        <!-- <nuxt-link :to="`/product/${productItem._id}`">
                           <img :src="productItem.imageUrl" alt="img" />
-                        </nuxt-link>
+                        </nuxt-link> -->
                       </td>
                       <td class="product_name">
-                        <nuxt-link :to="`/product/${productItem._id}`">{{
+                        {{ productItem.libelle }}
+                        <!-- <nuxt-link :to="`/product/${productItem._id}`">{{
                           productItem.libelle
-                        }}</nuxt-link>
+                        }}</nuxt-link> -->
                       </td>
                       <td class="product-price">
                         {{ productItem.pvTtc.toFixed(2) }} €

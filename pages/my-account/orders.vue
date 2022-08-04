@@ -55,12 +55,12 @@
 
                   <tbody v-if="getOrderItems.length > 0">
                     <tr v-for="item in getOrderItems" :key="item.id">
-                      <td>{{ item._id }}</td>
+                      <td>{{ item.orderNumberId }}</td>
                       <td>{{ item.date }}</td>
                       <td><span class="success">Payé</span></td>
                       <td>{{ item.amount.toFixed(2) }} €</td>
                       <td>
-                        {{ item._id }}
+                        {{ item.status }}
                         <nuxt-link :to="`order/${item._id}`" class="view"
                           >Voir</nuxt-link
                         >
