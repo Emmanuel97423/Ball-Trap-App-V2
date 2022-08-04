@@ -55,12 +55,17 @@
 
                   <tbody v-if="getOrderItems.length > 0">
                     <tr v-for="item in getOrderItems" :key="item.id">
-                      <td>{{ item._id }}</td>
+                      <td>{{ item.orderNumberId }}</td>
                       <td>{{ item.date }}</td>
-                      <td><span class="success">Payé</span></td>
+                      <td>
+                        <span
+                          class="success"
+                          :class="orderStatusComputed(item.status)"
+                          >{{ item.status }}</span
+                        >
+                      </td>
                       <td>{{ item.amount.toFixed(2) }} €</td>
                       <td>
-                        {{ item._id }}
                         <nuxt-link :to="`order/${item._id}`" class="view"
                           >Voir</nuxt-link
                         >
@@ -96,6 +101,9 @@ export default {
     return {
       enabled: true,
       title: "Commandes",
+      orderStatus: {
+        style: true,
+      },
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -133,6 +141,29 @@ export default {
           console.log(err);
         });
     },
+    orderStatusComputed(status) {
+      if (status.toLowerCase() === "en cours de traitement...") {
+        return {
+          "order-status-preparation": this.orderStatus.style,
+        };
+      } else if (status.toLowerCase() === "en attente...") {
+        return {
+          "order-status-pending": this.orderStatus.style,
+        };
+      } else if (status.toLowerCase() === "en cours de livraison") {
+        return {
+          "order-status-delivery": this.orderStatus.style,
+        };
+      } else if (status.toLowerCase() === "annulée") {
+        return {
+          "order-status-cancel": this.orderStatus.style,
+        };
+      } else if (status.toLowerCase() === "livrée") {
+        return {
+          "order-status-sucess": this.orderStatus.style,
+        };
+      }
+    },
   },
   computed: {
     getOrderItems() {
@@ -148,6 +179,11 @@ export default {
     userId() {
       return this.$store.state.auth.user.userId;
     },
+    // orderStatusComputed: () => {
+    //   return {
+    //     "order-status-sucess": this.orderStatus.pending,
+    //   };
+    // },
   },
   created() {
     const id = this.$store.state.auth.user.userId;
@@ -162,4 +198,24 @@ export default {
 </script>
 
 <style>
+.order-status-sucess {
+  font-family: monospace;
+  font-size: 15px;
+  color: green;
+}
+.order-status-pending {
+  color: rgb(255, 157, 0);
+  font-family: monospace;
+  font-size: 15px;
+}
+.order-status-preparation {
+  color: blue;
+  font-family: monospace;
+  font-size: 15px;
+}
+.order-status-cancel {
+  color: red;
+  font-family: monospace;
+  font-size: 15px;
+}
 </style>
