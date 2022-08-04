@@ -304,9 +304,9 @@
         </div>
       </div>
     </header>
-    <div>
+    <!-- <div>
       <NavCategories />
-    </div>
+    </div> -->
     <!--Categories nav-->
 
     <!-- Start Header Area -->
@@ -674,7 +674,11 @@
 </template>
 
 <script>
+import NavCategories from "@/components/header/Categories";
 export default {
+  components: {
+    NavCategories,
+  },
   data() {
     return {
       enabled: true,

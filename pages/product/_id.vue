@@ -104,6 +104,8 @@
                       {{ parseFloat(product.pvTtc).toFixed(2) }} €
                       <span id="tax">T.T.C</span>
                     </h4>
+
+                    <!-- <AfterPayMessage :amount="product.pvTtc" /> -->
                     <div
                       id="afterpay-clearpay-message"
                       ref="afterpayClearpayMessage"
@@ -675,9 +677,11 @@ import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
+// import AfterPayMessage from "@/components/product/AfterPayMessage";
 
-import { loadStripe } from "@stripe/stripe-js";
-let stripe;
+import { loadStripe } from "@stripe/stripe-js/pure";
+
+let stripe, elements;
 
 export default {
   scrollToTop: true,
@@ -691,6 +695,7 @@ export default {
     SizeChart,
     StockAlert,
     SelectColor,
+    // AfterPayMessage,
   },
 
   data() {
@@ -707,6 +712,7 @@ export default {
       color: [],
       colorLibelle: [],
       mainImage: null,
+      isStripeLoaded: false,
 
       //Alter data
       dismissSecs: 5,
@@ -757,6 +763,7 @@ export default {
       },
       productSelected: "",
       afterpayClearpayMessageElement: "",
+      afterPayKey: 0,
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -792,7 +799,12 @@ export default {
       ],
       script: [
         {
+          hid: "stripe",
           src: "https://js.stripe.com/v3/",
+          defer: true,
+          callback: () => {
+            this.isStripeLoaded = true;
+          },
         },
       ],
     };
@@ -816,10 +828,6 @@ export default {
     clickQuantitySelect() {
       this.orderQuantity;
     },
-    // selectColor(index) {
-    //   console.log("ref index", this.$refs.swiperImage.$swiper);
-    //   this.$refs.swiperImage.$swiper.activeIndex = index;
-    // },
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -1033,25 +1041,23 @@ export default {
         const options = {
           amount: this.product.pvTtc * 100, // $10.00 USD
           currency: "EUR",
+          min: 30000,
+          max: 1000000,
+          showUpperLimit: false,
         };
 
         const afterpayClearpayMessageElement = elements.create(
           "afterpayClearpayMessage",
-          options,
-          {
-            style: {
-              base: {
-                margin: "0",
-              },
-            },
-          }
+          options
         );
-
-        afterpayClearpayMessageElement.mount(
-          this.$refs.afterpayClearpayMessage
-        );
+        // await new Promise((r) => setTimeout(r, 100));
+        afterpayClearpayMessageElement.mount("#afterpay-clearpay-message");
       }
     },
+    // destroyStripeAfterPayElement() {
+    //   const afterPayElement = elements?.getElement("afterpayClearpayMessage");
+    //   if (afterPayElement) afterPayElement.destroy();
+    // },
   },
   async fetch() {
     let variantsArray = [];
@@ -1099,26 +1105,23 @@ export default {
 
         this.product = singleProduct.data;
         this.productSelected = singleProduct.data;
-        console.log(
-          "🚀 ~ file: _id.vue ~ line 1028 ~ fetch ~ this.product",
-          this.product
-        );
       } catch (error) {
         console.log("error:", error);
       }
     }
-    try {
-      // this.$nextTick(() => {
-      //   this.afterPayStripeElement();
-      // });
-
-      this.afterPayStripeElement();
-    } catch (error) {
-      console.log("🚀 ~ file: _id.vue ~ line 1106 ~ fetch ~ error", error);
-    }
   },
 
-  mounted() {},
+  mounted() {
+    this.$nextTick(() => {
+      this.afterPayStripeElement();
+    });
+    // setInterval(() => {
+    //   console.log(this.afterPayKey++);
+    // }, 2000);
+  },
+  // beforeDestroy() {
+  //   this.destroyStripeAfterPayElement();
+  // },
 
   fetchOnServer: false,
 };
