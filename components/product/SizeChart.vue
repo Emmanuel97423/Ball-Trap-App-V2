@@ -7,8 +7,8 @@
       dialog-class="dialog-chart-size"
       content-class="content-chart-size"
       modal-class="modal-chart-size"
-      hide-footer="true"
-      hide-header="true"
+      :hide-footer="true"
+      :hide-header="true"
     >
       <div class="chart-size-content">
         <div><img src="@/assets/img/chart-size.png" /></div>
@@ -132,6 +132,10 @@ export default {
           "TAILLE (UE)": 78,
         },
       ],
+      modalOptions: {
+        hideFooter: true,
+        hideHeader: true,
+      },
     };
   },
 };
