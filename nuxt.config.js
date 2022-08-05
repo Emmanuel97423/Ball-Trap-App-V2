@@ -25,9 +25,9 @@ export default {
     htmlAttrs: {
       lang: "fr",
     },
-    script: [
-      { src: 'https://js.stripe.com/v3/' }
-    ],
+    // script: [
+    //   { hid: 'stripe', src: 'https://js.stripe.com/v3/', defer: true },
+    // ],
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },

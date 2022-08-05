@@ -30,11 +30,11 @@
           @mouseleave="navItem.navOptions.hoverNav = false"
         >
           <a :href="navItem.href">{{ navItem.title }}</a>
-          <ul class="dropdown_menu">
+          <!-- <ul class="dropdown_menu">
             <div v-for="subMenu in navItem.subMenu" :key="subMenu.id">
               <a> {{ subMenu.title }}</a>
             </div>
-          </ul>
+          </ul> -->
         </div>
       </ul>
     </div>
