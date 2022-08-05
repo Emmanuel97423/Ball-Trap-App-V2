@@ -50,6 +50,7 @@ export default {
 <style >
 .container-left-categories-nav {
   padding: 30px;
+  min-width: 245px;
 }
 .container-left-categories-nav li {
   margin: 0 0 10px 0;

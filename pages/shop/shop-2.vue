@@ -250,6 +250,7 @@ export default {
 }
 .shop-content {
   flex-grow: 1;
+  padding: 0 70px 0 0;
 }
 .back-link:first-child {
   /* flex: 10%; */
