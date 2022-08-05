@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <NavCategories />
+    <!-- <NavCategories /> -->
     <!--Slider-->
     <div id="carousel-home">
       <Carousel />
@@ -476,7 +476,7 @@ import InstagramArea from "../components/instagram/InstagramArea";
 import BlogItem1 from "~/components/blog/BlogItem1";
 // import carousel from "vue-owl-carousel";
 import Carousel from "~/components/carousel/Carousel";
-import NavCategories from "@/components/header/Categories";
+// import NavCategories from "@/components/header/Categories";
 import CallToActionHomePage from "@/components/call-to-action/CallToActionHomePage";
 import Assurance from "@/components/assurances/Assurance";
 
@@ -490,7 +490,7 @@ export default {
     InstagramArea,
     BlogItem1,
     Carousel,
-    NavCategories,
+    // NavCategories,
     CallToActionHomePage,
     Assurance,
   },
@@ -716,6 +716,9 @@ p {
   .textile-img {
     width: 100%;
     margin: 0 0 15px 0;
+  }
+  .edito_section {
+    padding: 50px 10px 10px 10px;
   }
 }
 /* @media only screen and (max-width: 1440px) {

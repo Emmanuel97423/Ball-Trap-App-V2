@@ -29,7 +29,7 @@
                   <b-card-header role="tab">
                     <a block v-b-toggle.accordion-1>
                       <h5 class="mb-0">
-                        This Designer Bronzer Has Even Buyers Splurging!<i
+                        Question courante 1<i
                           class="fas fa-angle-down rotate-icon"
                         ></i>
                       </h5>
@@ -55,7 +55,7 @@
                   <b-card-header role="tab">
                     <a block v-b-toggle.accordion-2>
                       <h5 class="mb-0">
-                        4 Tips for A Colorful Easter Tablescape<i
+                        Question courante 2<i
                           class="fas fa-angle-down rotate-icon"
                         ></i>
                       </h5>
@@ -79,7 +79,7 @@
                   <b-card-header role="tab">
                     <a block v-b-toggle.accordion-3>
                       <h5 class="mb-0">
-                        Hawaii Couples Trip Guide and Spring Break Faves<i
+                        Question courante 3<i
                           class="fas fa-angle-down rotate-icon"
                         ></i>
                       </h5>
@@ -104,7 +104,7 @@
                   <b-card-header role="tab">
                     <a block v-b-toggle.accordion-4>
                       <h5 class="mb-0">
-                        If You Struggle To Hit Your Goals, Try This Instead<i
+                        Question courante 4<i
                           class="fas fa-angle-down rotate-icon"
                         ></i>
                       </h5>
@@ -129,7 +129,7 @@
                   <b-card-header role="tab">
                     <a block v-b-toggle.accordion-5>
                       <h5 class="mb-0">
-                        4 Tips for A Colorful Easter Tablescape<i
+                        Question courante 5<i
                           class="fas fa-angle-down rotate-icon"
                         ></i>
                       </h5>
@@ -168,7 +168,7 @@ export default {
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
-          text: "Home",
+          text: "Accueil",
           to: "/",
         },
         {

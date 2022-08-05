@@ -1,6 +1,8 @@
 <template>
   <div id="box__app">
     <Header v-if="enabled" />
+    <NavCategories />
+
     <transition name="fade" mode="out-in">
       <Nuxt id="nuxt__app" v-if="enabled" />
     </transition>
@@ -13,10 +15,13 @@
 <script>
 import Spinner from "../components/spinner";
 import FooterNav from "@/components/footer/FooterNav";
+import NavCategories from "@/components/header/Categories";
+
 export default {
   components: {
     Spinner,
     FooterNav,
+    NavCategories,
   },
   data() {
     return {

@@ -42,7 +42,7 @@
                           <nuxt-link class="active main-menu-link" to="/"
                             >à propos</nuxt-link
                           >
-                          <nuxt-link class="active main-menu-link" to="/"
+                          <nuxt-link class="active main-menu-link" to="/faq"
                             >Aide</nuxt-link
                           >
                           <nuxt-link

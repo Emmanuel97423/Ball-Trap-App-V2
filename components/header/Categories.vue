@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-cat-nav">
     <div class="d-flex justify-content-center nav-categories">
       <ul>
         <!-- <div> -->
@@ -97,7 +97,9 @@ export default {
   
   overflow-x: auto;
 } */
-
+.container-cat-nav {
+  background-color: #e9e8e2;
+}
 .nav-categories ul {
   height: 48px;
   margin: 0;
@@ -112,7 +114,7 @@ export default {
 .nav-links {
   display: flex;
   flex-direction: column;
-  width: 1296px;
+  width: 100%;
   height: 48px;
   -webkit-box-pack: center;
   justify-content: center;
