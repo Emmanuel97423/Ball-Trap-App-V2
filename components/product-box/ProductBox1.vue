@@ -13,11 +13,15 @@
           }"
         >
           <img
+            v-if="productImg2"
             class="hover-image"
             :src="productImg2"
             alt="Product"
             loading="lazy"
           />
+          <div v-else class="productbox-no-img">
+            <p>Pas d'image disponible</p>
+          </div>
         </nuxt-link>
         <nuxt-link
           v-else
@@ -374,6 +378,15 @@ export default {
   background-color: black;
 }
 #tax {
+  font-size: 12px;
+}
+.productbox-no-img {
+  width: 100%;
+  height: 518px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 219, 219);
   font-size: 12px;
 }
 </style>
