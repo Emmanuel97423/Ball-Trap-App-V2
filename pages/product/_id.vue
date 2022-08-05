@@ -47,7 +47,14 @@
                     v-for="(product, index) in productVariants"
                     :key="index"
                   >
-                    <img :src="product.imageUrl" alt="img" />
+                    <img
+                      v-if="product.imageUrl"
+                      :src="product.imageUrl"
+                      alt="img"
+                    />
+                    <div v-else class="productbox-no-img">
+                      <p>Pas d'image disponible</p>
+                    </div>
                     <!-- <img v-else /> -->
                   </swiper-slide>
 
@@ -1101,7 +1108,15 @@ export default {
 #tax {
   font-size: 12px;
 }
-
+.productbox-no-img {
+  width: 100%;
+  height: 518px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 219, 219);
+  font-size: 12px;
+}
 /* .back-link {
   width: 26%;
   display: flex;
