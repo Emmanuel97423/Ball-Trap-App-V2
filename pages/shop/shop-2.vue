@@ -278,5 +278,8 @@ dl {
   .left-nav-categories {
     display: none;
   }
+  .shop-content {
+    padding: 0 0 0 0;
+  }
 }
 </style>
