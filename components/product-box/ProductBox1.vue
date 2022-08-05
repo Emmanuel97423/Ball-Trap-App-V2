@@ -9,6 +9,8 @@
             query: {
               id: productId,
               isAProductGamme: true,
+              libelle: productTitle,
+              libelleFamille: productObject.libelleFamille,
             },
           }"
         >

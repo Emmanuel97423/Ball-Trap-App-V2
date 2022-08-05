@@ -89,7 +89,7 @@
 .common_banner_text .breadcrumb {
     display: flex;
     justify-content: center;
-    padding-top: 10px;
+    /* padding-top: 10px; */
 }
 
 .common_banner_text .breadcrumb li {
@@ -105,7 +105,7 @@
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
-    color: #fff;
+    color: rgb(219, 219, 219);
 }
 
 .common_banner_text .breadcrumb li a:hover {

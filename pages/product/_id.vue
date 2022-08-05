@@ -27,7 +27,13 @@
     <div>
       <section id="product_single_one" class="ptb-25">
         <div class="container">
-          <div class="back-link"><a onclick="history.back()">Retour</a></div>
+          <div class="product-list-breadcrumb-section">
+            <a class="back-link" onclick="history.back()">Retour</a>
+            <b-breadcrumb
+              :items="breadcrumbItems"
+              class="product-list-breadcrumb"
+            ></b-breadcrumb>
+          </div>
           <div class="row area_boxed">
             <div class="col-lg-4 col-img">
               <div class="product_single_one_img">
@@ -323,7 +329,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div v-if="!enabled" class="row">
             <div class="col-lg-12">
               <div class="product_details_tabs">
                 <b-tabs>
@@ -762,11 +768,26 @@ export default {
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
-          text: "Home",
+          text: "Accueil",
           to: "/",
         },
         {
-          text: "Product Single",
+          text: "Vêtements",
+          to: "/shop/shop-2",
+        },
+        {
+          text:
+            this.$route.query.libelleFamille
+              .toLowerCase()
+              .charAt(0)
+              .toUpperCase() +
+            this.$route.query.libelleFamille.toLowerCase().slice(1),
+          to: "/",
+        },
+        {
+          text:
+            this.$route.query.libelle.toLowerCase().charAt(0).toUpperCase() +
+            this.$route.query.libelle.toLowerCase().slice(1),
           to: "/product",
         },
       ],
@@ -1081,17 +1102,31 @@ export default {
   font-size: 12px;
 }
 
-.back-link {
+/* .back-link {
   width: 26%;
   display: flex;
   justify-content: flex-start;
-}
+} */
 .back-link:first-child {
   /* flex: 10%; */
-  margin: 0 0 40px 0;
+  /* margin: 0 0 40px 0; */
   text-decoration: underline;
   font-weight: bold;
   cursor: pointer;
+}
+.product-list-breadcrumb-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 0 30px 0;
+}
+.product-list-breadcrumb-section ol,
+ul,
+dl {
+  margin: 0;
+}
+.product-list-breadcrumb {
+  background-color: transparent;
 }
 .modal__button {
   text-align: center;
