@@ -105,11 +105,9 @@
                       <span id="tax">T.T.C</span>
                     </h4>
 
-                    <!-- <AfterPayMessage :amount="product.pvTtc" /> -->
-                    <div
-                      id="afterpay-clearpay-message"
-                      ref="afterpayClearpayMessage"
-                    ></div>
+                    <AfterPayMessage :amount="product.pvTtc" />
+
+                    <div id="card-element"></div>
                   </div>
 
                   <SizeChart :productName="product.libelle"></SizeChart>
@@ -677,11 +675,7 @@ import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
-// import AfterPayMessage from "@/components/product/AfterPayMessage";
-
-import { loadStripe } from "@stripe/stripe-js/pure";
-
-let stripe, elements;
+import AfterPayMessage from "@/components/product/AfterPayMessage";
 
 export default {
   scrollToTop: true,
@@ -695,7 +689,7 @@ export default {
     SizeChart,
     StockAlert,
     SelectColor,
-    // AfterPayMessage,
+    AfterPayMessage,
   },
 
   data() {
@@ -795,16 +789,6 @@ export default {
           hid: "description",
           name: "this.product.libelle",
           content: "this.product.description",
-        },
-      ],
-      script: [
-        {
-          hid: "stripe",
-          src: "https://js.stripe.com/v3/",
-          defer: true,
-          callback: () => {
-            this.isStripeLoaded = true;
-          },
         },
       ],
     };
@@ -1031,33 +1015,6 @@ export default {
         this.purchaseProductDetails.color
       );
     },
-    async afterPayStripeElement() {
-      if (!stripe) {
-        stripe = await loadStripe(process.env.stripePublishKey);
-        const elements = stripe.elements({
-          locale: "fr-FR",
-        });
-
-        const options = {
-          amount: this.product.pvTtc * 100, // $10.00 USD
-          currency: "EUR",
-          min: 30000,
-          max: 1000000,
-          showUpperLimit: false,
-        };
-
-        const afterpayClearpayMessageElement = elements.create(
-          "afterpayClearpayMessage",
-          options
-        );
-        // await new Promise((r) => setTimeout(r, 100));
-        afterpayClearpayMessageElement.mount("#afterpay-clearpay-message");
-      }
-    },
-    // destroyStripeAfterPayElement() {
-    //   const afterPayElement = elements?.getElement("afterpayClearpayMessage");
-    //   if (afterPayElement) afterPayElement.destroy();
-    // },
   },
   async fetch() {
     let variantsArray = [];
@@ -1110,18 +1067,6 @@ export default {
       }
     }
   },
-
-  mounted() {
-    this.$nextTick(() => {
-      this.afterPayStripeElement();
-    });
-    // setInterval(() => {
-    //   console.log(this.afterPayKey++);
-    // }, 2000);
-  },
-  // beforeDestroy() {
-  //   this.destroyStripeAfterPayElement();
-  // },
 
   fetchOnServer: false,
 };

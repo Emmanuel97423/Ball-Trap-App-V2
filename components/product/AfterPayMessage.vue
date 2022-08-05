@@ -6,8 +6,7 @@
 
 <script>
 import { loadStripe } from "@stripe/stripe-js/pure";
-
-let stripe, elements;
+let stripe;
 export default {
   name: "AfterPayMessage",
   props: {
@@ -20,9 +19,9 @@ export default {
   },
   methods: {
     async afterPayStripeElement() {
-      if (!stripe) {
+      if (this.$stripe) {
         stripe = await loadStripe(process.env.stripePublishKey);
-        const elements = stripe.elements({
+        const elements = this.$stripe.elements({
           locale: "fr-FR",
         });
 
