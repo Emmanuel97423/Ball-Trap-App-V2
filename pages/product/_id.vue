@@ -34,6 +34,7 @@
               class="product-list-breadcrumb"
             ></b-breadcrumb>
           </div>
+          <!-- {{ productVariants }} -->
           <div class="row area_boxed">
             <div class="col-lg-4 col-img">
               <div class="product_single_one_img">
@@ -761,6 +762,7 @@ export default {
         color: "",
         stock: "",
       },
+      gammeOptions: "",
       productSelected: "",
       afterpayClearpayMessageElement: "",
       afterPayKey: 0,
@@ -889,6 +891,8 @@ export default {
       }, 1000);
       const productColorFilter = (arr, request) => {
         return arr.filter(async (el) => {
+          el.gammesValueConvert.gammes.map((gamme, index) => {});
+
           if (
             request.size.toLowerCase() ===
             el.gammesValueConvert.gammesValue[1].toLowerCase()
@@ -899,7 +903,7 @@ export default {
               el.gammesValueConvert.gammesValue[1];
             try {
               const gammeLibelle = await this.$axios.get(
-                "/gammes/gamme/GA00001"
+                "/gammes/gamme/GA00002"
               );
               this.gammesLibelle = gammeLibelle.data;
               const libelleArray = [];
@@ -1036,9 +1040,21 @@ export default {
         this.purchaseProductDetails.color
       );
     },
+    gammeMethod(gammeArray) {
+      gammeArray.map(async (codeGamme) => {
+        console.log(
+          "🚀 ~ file: _id.vue ~ line 1052 ~ returngammeArray.map ~ codeGamme",
+          codeGamme
+        );
+
+        const fetchGammes = await this.$axios.get("/gammes/gamme/" + codeGamme);
+        this.gammeOptions = fetchGammes.data;
+      });
+    },
   },
   async fetch() {
     let variantsArray = [];
+    let gammeArray = [];
     this.isAProductGamme = this.$route.query.isAProductGamme;
     //Fetching product gamme data
     if (this.$route.query.isAProductGamme === "true") {
@@ -1059,8 +1075,35 @@ export default {
             isAProductGamme: this.$route.query.isAProductGamme,
           });
           this.productVariants.push(productVariant.data);
-          this.size.push(productVariant.data.gammesValueConvert.gammesValue[1]);
+          gammeArray.push(productVariant.data.gammesValueConvert.gammes);
+          console.log(
+            "🚀 ~ file: _id.vue ~ line 1081 ~ this.product.variantId.map ~ productVariant.data.gammesValueConvert.gammes",
+            productVariant.data.gammesValueConvert.gammes
+          );
+          // productVariant.data.gammesValueConvert.gammes.map(
+          //   async (codeGamme) => {
+          //     const fetchGammes = await this.$axios.get(
+          //       "/gammes/gamme/" + codeGamme
+          //     );
+          //     console.log(
+          //       "🚀 ~ file: _id.vue ~ line 1076 ~ fetchGammes",
+          //       fetchGammes.data
+          //     );
+          //   }
+          // );
+          if (productVariant.data.gammesValueConvert.gammesValue.length > 1) {
+            this.size.push(
+              productVariant.data.gammesValueConvert.gammesValue[1]
+            );
+          } else if (
+            productVariant.data.gammesValueConvert.gammesValue.length === 1
+          ) {
+            this.size.push(
+              productVariant.data.gammesValueConvert.gammesValue[0]
+            );
+          }
         });
+        // this.gammeMethod(gammeArray);
       } catch (error) {
         console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
       }
