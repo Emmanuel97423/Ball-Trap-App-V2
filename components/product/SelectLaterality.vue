@@ -1,18 +1,26 @@
 <template>
-  <div class="variable-single-item">
-    <span>Couleur</span>
+  <div class="laterality-variable-single-item">
+    <span>Latéralité</span>
 
-    <div class="product-image-variants">
+    <div class="laterality-product-image-variants">
       <div
-        v-for="(libelle, index) in colorLibelle"
+        v-for="(libelle, index) in laterality"
         :key="index"
-        class="image-variants"
+        class="laterality-image-variants"
         @click="handleCLick(libelle)"
       >
+        <img
+          v-if="libelle.toLowerCase() === 'droitier'"
+          :src="require('@/assets/img/product-image/SX_n-100x100.jpg')"
+        />
+        <img
+          v-if="libelle.toLowerCase() === 'gaucher'"
+          :src="require('@/assets/img/product-image/DX_n-100x100.jpg')"
+        />
         <input
           type="radio"
           :id="`${libelle.replace(' ', '-').toLowerCase()}`"
-          name="color"
+          name="laterality"
           :value="`${libelle.replace(' ', '-').toLowerCase()}`"
         />
         <label :for="`${libelle.replace(' ', '-').toLowerCase()}`">{{
@@ -86,40 +94,50 @@
 
 <script>
 export default {
-  name: "SelectColor",
+  name: "SelectLaterality",
   props: {
-    colors: Array,
-    colorLibelle: Array,
+    laterality: Array,
+    lateralityLibelle: Array,
   },
 
   methods: {
     handleCLick(value) {
-      this.$emit("color-click-event", { color: value, isFocused: true });
+      this.$emit("laterality-click-event", {
+        laterality: value,
+        isFocused: true,
+      });
     },
   },
   mounted() {
-    this.colorLibelle;
+    this.laterality;
+    console.log(
+      "🚀 ~ file: SelectLaterality.vue ~ line 102 ~ mounted ~ his.laterality",
+      this.laterality
+    );
   },
 };
 </script>
 
 <style>
-.product-image-variants {
+.laterality-product-image-variants {
   width: 100%;
   display: flex;
 
   /* flex-direction: row; */
 }
-.product-image-variants img {
-  width: 100%;
-  cursor: pointer;
+.laterality-product-image-variants img {
+  width: 40px;
+  /* cursor: pointer; */
   border: 1px solid black;
 }
-.product-image-variants label {
+.laterality-product-image-variants label {
   font-size: 12px;
 }
-.image-variants {
+.laterality-image-variants {
   margin: 0 5px 0 0;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
 }
 input[type="radio"] {
   vertical-align: middle;

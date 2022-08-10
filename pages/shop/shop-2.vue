@@ -224,10 +224,6 @@ export default {
           this.singlesProducts.push(product);
         }
       });
-      console.log(
-        "🚀 ~ file: shop-2.vue ~ line 214 ~ products.map ~ this.singlesProducts",
-        this.singlesProducts
-      );
 
       // products.data.map((product) => {
       //   if (!product.codeGamme) {
