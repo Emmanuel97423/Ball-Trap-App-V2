@@ -1,5 +1,6 @@
 <template>
   <div class="container-select-size">
+    <!-- {{ gammeObject }} -->
     <div
       v-for="(value, index) in size"
       :key="index"
@@ -19,6 +20,7 @@ export default {
   props: {
     // productVariants: Array,
     size: Array,
+    gammeObject: Array,
   },
   data() {
     return {
@@ -38,6 +40,12 @@ export default {
       isActive: false,
       isLoadingSize: false,
       activeOptions: [],
+      gammeArray: [],
+      gammes: [],
+      gammesValueArray: [],
+      gammesValue: [],
+      fetchGamme: "",
+      res: [],
     };
   },
   methods: {
@@ -69,10 +77,47 @@ export default {
   created() {
     this.isLoadingSize = true;
   },
-  mounted() {
+  async mounted() {
+    // this.sizeObject
+
+    // function filterGamme(arr, requete) {
+    //   console.log(
+    //     "🚀 ~ file: SelectSize-2.vue ~ line 77 ~ filterGamme ~ requete",
+    //     requete
+    //   );
+    //   return arr.filter(function (el) {
+    //     window.console.log(el);
+    //     // return el.toLowerCase().indexOf(requete.toLowerCase()) !== -1;
+    //   });
+    // }
+    // this.size.map((sizeValue) => {
+    //   this.gammeArray.push(sizeValue.gammes);
+    //   this.gammesValueArray.push(sizeValue.gammesValue);
+    // });
+    // this.gammeArray.map((gamme) => {
+    //   gamme.map(async (el) => {
+    //     const fetchGamme = await this.$axios("/gammes/gamme/" + el);
+    //     this.fetchGamme = fetchGamme.data;
+    //   });
+    // });
+    // this.fetchGamme.filter(async (el) => {
+    //   console.log(
+    //     "🚀 ~ file: SelectSize-2.vue ~ line 102 ~ this.fetchGamme.filter ~ el",
+    //     el
+    //   );
+    // });
+    // this.gammesValueArray.map((gammesValue) => {
+    //   this.gammesValue.push(gammesValue);
+    // });
+    // this.res = this.fetchGamme.filter((item) =>
+    //   this.fetchGamme.includes(item)
+    // );
+
     setTimeout(() => {
       this.isLoadingSize = false;
-    }, 1000);
+    }, 3000);
+
+    // filterGamme(this.gammeArray, sizeValue.gammesValue);
   },
 };
 </script>

@@ -121,13 +121,13 @@
                   <!-- <SelectSize /> -->
                   <div class="pt-15">
                     <!-- <span>Tailles</span> -->
+                    <!-- {{ size }} -->
                     <SelectSize2
                       v-if="isAProductGamme === 'true'"
                       :size="uniqueSize"
                       @size-click-event="sizeClickEvent"
                     />
                   </div>
-
                   <div
                     v-if="isAProductGamme === 'true'"
                     class="color-select"
@@ -683,6 +683,7 @@ import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
 import AfterPayMessage from "@/components/product/AfterPayMessage";
+import { ProductFactory } from "@/utils/product/productClasse";
 
 export default {
   scrollToTop: true,
@@ -762,7 +763,7 @@ export default {
         color: "",
         stock: "",
       },
-      gammeOptions: "",
+      gammeObject: [],
       productSelected: "",
       afterpayClearpayMessageElement: "",
       afterPayKey: 0,
@@ -829,6 +830,9 @@ export default {
     },
     productByGamme() {
       return this.$store.state.products.productSearchByGammes;
+    },
+    gammeObjectComputed() {
+      return [...new Set(this.gammeObject)];
     },
   },
   methods: {
@@ -1040,21 +1044,50 @@ export default {
         this.purchaseProductDetails.color
       );
     },
-    gammeMethod(gammeArray) {
-      gammeArray.map(async (codeGamme) => {
-        console.log(
-          "🚀 ~ file: _id.vue ~ line 1052 ~ returngammeArray.map ~ codeGamme",
-          codeGamme
-        );
+    gammeMethod(gammeArray, gammesValueArray) {
+      try {
+        let gammeObject = "";
+        gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
+          // console.log("🚀 ~ file: productClasse.js ~ line 24 ~ ProductFactory ~ this._gammeValue.split ~ gammeValue", gammeValue)
 
-        const fetchGammes = await this.$axios.get("/gammes/gamme/" + codeGamme);
-        this.gammeOptions = fetchGammes.data;
-      });
+          gammeArray.split("¤").filter(async (gamme, indexGamme) => {
+            const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
+            // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ this._gammes.split ~ fetchGamme", fetchGamme.data);
+            fetchGamme.data.filter(async (itemGamme) => {
+              // console.log("🚀 ~ file: productClasse.js ~ line 25 ~ ProductFactory ~ this._gammes.split ~ itemGamme", itemGamme)
+              if (gammeValue === itemGamme.elementsGammeLibelle) {
+                // console.log(itemGamme.libelle, itemGamme.gammeValue)
+                const libelleGamme = itemGamme.libelle;
+                const gammeValue = itemGamme.gammeValue;
+                const obj = {
+                  libelleGamme: libelleGamme,
+                  gammeValue: gammeValue,
+                };
+                console.log(
+                  "🚀 ~ file: _id.vue ~ line 1067 ~ gammeArray.split ~ obj",
+                  obj
+                );
+                if (obj.libelleGamme === "TAILLE") {
+                  this.size.push(obj.gammeValue);
+                }
+              }
+            });
+          });
+        });
+        // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ checkGammes ~  this.gammeValue.split('¤')", this._gammeValue.split('¤'))
+        // console.log("🚀 ~ file: productClasse.js ~ line 18 ~ ProductFactory ~ checkGammes ~ this._gammes.split('¤')", this._gammes.split('¤'))
+      } catch (error) {
+        console.log(
+          "🚀 ~ file: productClasse.js ~ line 18 ~ ProductFactory ~ checkGammes ~ error",
+          error
+        );
+      }
     },
   },
   async fetch() {
     let variantsArray = [];
     let gammeArray = [];
+    let gammesValueArray = [];
     this.isAProductGamme = this.$route.query.isAProductGamme;
     //Fetching product gamme data
     if (this.$route.query.isAProductGamme === "true") {
@@ -1074,39 +1107,87 @@ export default {
             id: id,
             isAProductGamme: this.$route.query.isAProductGamme,
           });
+
           this.productVariants.push(productVariant.data);
-          gammeArray.push(productVariant.data.gammesValueConvert.gammes);
-          console.log(
-            "🚀 ~ file: _id.vue ~ line 1081 ~ this.product.variantId.map ~ productVariant.data.gammesValueConvert.gammes",
-            productVariant.data.gammesValueConvert.gammes
+          // gammeArray.push(productVariant.data.gamme);
+          // gammesValueArray.push(productVariant.data.gammesValue);
+
+          this.gammeMethod(
+            productVariant.data.gamme,
+            productVariant.data.gammesValue
           );
-          // productVariant.data.gammesValueConvert.gammes.map(
-          //   async (codeGamme) => {
-          //     const fetchGammes = await this.$axios.get(
-          //       "/gammes/gamme/" + codeGamme
-          //     );
-          //     console.log(
-          //       "🚀 ~ file: _id.vue ~ line 1076 ~ fetchGammes",
-          //       fetchGammes.data
-          //     );
-          //   }
+
+          // const gammeFactory = new ProductFactory(
+          //   productVariant.data.gamme,
+          //   productVariant.data.gammesValue
           // );
-          if (productVariant.data.gammesValueConvert.gammesValue.length > 1) {
-            this.size.push(
-              productVariant.data.gammesValueConvert.gammesValue[1]
-            );
-          } else if (
-            productVariant.data.gammesValueConvert.gammesValue.length === 1
-          ) {
-            this.size.push(
-              productVariant.data.gammesValueConvert.gammesValue[0]
-            );
-          }
+
+          // gammeFactory.checkGammes();
+          // console.log(
+          //   "🚀 ~ file: _id.vue ~ line 1102 ~ this.product.variantId.map ~  gammeFactory.checkGammes()",
+          //   gammeFactory.checkGammes()
+          // );
+          // gammeFactory.getCheckGammes
+          //   .then((result) => {
+          //     // gammeFactory.gammeObjectResult;
+          //     this.gammeObject = result;
+          //     console.log(
+          //       "🚀 ~ file: _id.vue ~ line 1101 ~ this.product.variantId.map ~ gammeFactory.gammeObjectResult",
+          //       gammeFactory.getGammeObjectResult
+          //     );
+          //   })
+          //   .catch((error) => {
+          //     console.log(error);
+          //   });
+
+          // gammeFactory.getCheckGammes.then((result) => {
+          //   console.log(
+          //     "🚀 ~ file: _id.vue ~ line 1101 ~ gammeFactory.getCheckGammes.then ~ result",
+          //     result
+          //   );
+          // });
+
+          // this.gammeObject = gammeFactory.getCheckGammes;
+          // console.log(
+          //   "🚀 ~ file: _id.vue ~ line 1101 ~ this.product.variantId.map ~ gammeFactory.getCheckGammes",
+          //   gammeFactory.getCheckGammes
+          // );
+          // console.log(
+          //   "🚀 ~ file: _id.vue ~ line 1100 ~ this.product.variantId.map ~ this.gammeObject",
+          //   this.gammeObject
+          // );
+
+          // if (productVariant.data.gammesValueConvert.gammesValue.length > 1) {
+          //   this.size.push(productVariant.data.gammesValueConvert);
+          // } else if (
+          //   productVariant.data.gammesValueConvert.gammesValue.length === 1
+          // ) {
+          //   this.size.push(productVariant.data.gammesValueConvert);
+          // }
         });
+
+        // this.gammeMethod(gammeArray, gammesValueArray);
+
         // this.gammeMethod(gammeArray);
       } catch (error) {
         console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
       }
+      // try {
+      //   gammeArray.map((codeGammeArray) => {
+      //     codeGammeArray.map(async (codeGamme) => {
+      //       const fetchGamme = await this.$axios("/gammes/gamme/" + codeGamme);
+      //       console.log(
+      //         "🚀 ~ file: _id.vue ~ line 1087 ~ codeGammeArray.map ~ fetchGamme",
+      //         fetchGamme.data
+      //       );
+      //     });
+      //   });
+      // } catch (error) {
+      //   console.log(
+      //     "🚀 ~ file: _id.vue ~ line 1082 ~ this.product.variantId.map ~ error",
+      //     error
+      //   );
+      // }
 
       //Data binding pushing
 
