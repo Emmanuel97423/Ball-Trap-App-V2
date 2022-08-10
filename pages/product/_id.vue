@@ -122,12 +122,14 @@
                   <div class="pt-15">
                     <!-- <span>Tailles</span> -->
                     <!-- {{ size }} -->
+                    <!-- nombre de gammes :{{ gammeQuantity }} -->
                     <SelectSize2
                       v-if="isAProductGamme === 'true'"
                       :size="uniqueSize"
-                      @size-click-event="sizeClickEvent"
+                      @size-click-event="sizeClickEventV2"
                     />
                   </div>
+
                   <div
                     v-if="isAProductGamme === 'true'"
                     class="color-select"
@@ -138,9 +140,13 @@
                       :key="showColorOptions.componentKey"
                       :colors="color"
                       :colorLibelle="uniqueColorLibelle"
-                      @color-click-event="colorClickEvent"
+                      @color-click-event="colorClickEventV2"
                     />
                     <Spinner v-else></Spinner>
+                  </div>
+                  <div v-if="showColorOptions.isFocused">
+                    <!-- {{ productVariantsSelected }} -->
+                    <SelectLaterality :laterality="uniqueLaterality" />
                   </div>
                   <div v-if="showColorOptions.isFocused">
                     <button
@@ -682,6 +688,7 @@ import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
+import SelectLaterality from "@/components/product/SelectLaterality";
 import AfterPayMessage from "@/components/product/AfterPayMessage";
 import { ProductFactory } from "@/utils/product/productClasse";
 
@@ -697,6 +704,7 @@ export default {
     SizeChart,
     StockAlert,
     SelectColor,
+    SelectLaterality,
     AfterPayMessage,
   },
 
@@ -710,11 +718,14 @@ export default {
       gammesLibelle: null,
       isAProductGamme: null,
       productVariants: [],
+      productVariantsSelected: [],
       size: [],
       color: [],
       colorLibelle: [],
+      laterality: [],
       mainImage: null,
       isStripeLoaded: false,
+      gammeQuantity: "",
 
       //Alter data
       dismissSecs: 5,
@@ -742,6 +753,15 @@ export default {
       },
 
       showColorOptions: {
+        isActive: false,
+        isInactive: true,
+        colorSelectHide: true,
+        colorSelectShow: false,
+        componentKey: 0,
+        isLoading: false,
+        isFocused: false,
+      },
+      showLateralityOptions: {
         isActive: false,
         isInactive: true,
         colorSelectHide: true,
@@ -828,6 +848,9 @@ export default {
     uniqueColorLibelle() {
       return [...new Set(this.colorLibelle)];
     },
+    uniqueLaterality() {
+      return [...new Set(this.laterality)];
+    },
     productByGamme() {
       return this.$store.state.products.productSearchByGammes;
     },
@@ -884,6 +907,10 @@ export default {
       this.$store.commit("cart/remove", product);
     },
     sizeClickEvent(payload) {
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 887 ~ sizeClickEvent ~ payload",
+        payload
+      );
       this.color = [];
       this.colorLibelle = [];
       this.showColorOptions.componentKey += 1;
@@ -966,6 +993,28 @@ export default {
       this.showColorOptions.isActive = true;
       this.productsVariantsFilter();
     },
+    sizeClickEventV2(payload) {
+      this.showColorOptions.isLoading = true;
+      this.showColorOptions.isFocused = false;
+      setTimeout(() => {
+        this.showColorOptions.isLoading = false;
+      }, 1000);
+      this.showColorOptions.isInactive = false;
+      this.showColorOptions.isActive = true;
+      this.productVariantsSelected = [];
+      this.productVariants.filter((product) => {
+        product.gammesValue.split("¤").map((value) => {
+          if (value.toLowerCase() === payload.size.toLowerCase()) {
+            this.productVariantsSelected.push(product);
+          }
+        });
+      });
+
+      this.productVariantsSelected.map((product) => {
+        this.gammeMethod(product.gamme, product.gammesValue);
+      });
+    },
+
     colorClickEvent(payload) {
       this.showColorOptions.isFocused = payload.isFocused;
       if (payload.color.split(" ").length > 1) {
@@ -981,32 +1030,23 @@ export default {
       this.showQuantityOptions.isActive = true;
       this.showQuantityOptions.isInactive = false;
       this.productsVariantsFilter();
+    },
+    colorClickEventV2(payload) {
+      if (this.gammeQuantity === 3) {
+        this.showColorOptions.isFocused = payload.isFocused;
+      }
 
-      // const filterProductVariants = (arr, size, color) => {
-      //   return arr.filter((el) => {
-      //     if (
-      //       el.gammesValueConvert.gammesValue[1].toLowerCase() ===
-      //         size.toLowerCase() &&
-      //       el.gammesValueConvert.gammesValue[0].toLowerCase() ===
-      //         color.toLowerCase()
-      //     ) {
-      //       console.log(
-      //         "🚀 ~ file: _id.vue ~ line 886 ~ returnarr.filter ~ el",
-      //         el
-      //       );
-      //       console.log(
-      //         "🚀 ~ file: _id.vue ~ line 879 ~ returnarr.filter ~ el",
-      //         (this.purchaseProductDetails.stock = el.stock)
-      //       );
-      //     }
-      //   });
-      // };
-
-      // filterProductVariants(
-      //   this.productVariants,
-      //   this.purchaseProductDetails.size,
-      //   this.purchaseProductDetails.color
-      // );
+      this.productVariantsSelected.filter((product) => {
+        this.productVariantsSelected = [];
+        product.gammesValue.split("¤").map((value) => {
+          if (value.toLowerCase() === payload.color.toLowerCase()) {
+            this.productVariantsSelected.push(product);
+          }
+        });
+      });
+      this.productVariantsSelected.map((product) => {
+        this.gammeMethod(product.gamme, product.gammesValue);
+      });
     },
     productsVariantsFilter() {
       const filterProductVariants = (arr, size, color) => {
@@ -1045,8 +1085,9 @@ export default {
       );
     },
     gammeMethod(gammeArray, gammesValueArray) {
+      this.gammeQuantity = gammeArray.split("¤").length;
       try {
-        let gammeObject = "";
+        // let gammeObject = "";
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
           // console.log("🚀 ~ file: productClasse.js ~ line 24 ~ ProductFactory ~ this._gammeValue.split ~ gammeValue", gammeValue)
 
@@ -1063,12 +1104,16 @@ export default {
                   libelleGamme: libelleGamme,
                   gammeValue: gammeValue,
                 };
-                console.log(
-                  "🚀 ~ file: _id.vue ~ line 1067 ~ gammeArray.split ~ obj",
-                  obj
-                );
+                // console.log(
+                //   "🚀 ~ file: _id.vue ~ line 1067 ~ gammeArray.split ~ obj",
+                //   obj
+                // );
                 if (obj.libelleGamme === "TAILLE") {
                   this.size.push(obj.gammeValue);
+                } else if (obj.libelleGamme === "COULEUR") {
+                  this.colorLibelle.push(obj.gammeValue);
+                } else if (obj.libelleGamme === "LATERALITE") {
+                  this.laterality.push(obj.gammeValue);
                 }
               }
             });
