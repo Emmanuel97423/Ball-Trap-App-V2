@@ -1,4 +1,3 @@
-
 export default {
   target: "static",
   router: {
@@ -20,8 +19,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Trap One",
-    titleTemplate: "%s - Trap One vente d'article de sport",
+    title: "Exo-Trap",
+    titleTemplate: "%s - Exo-Trap vente d'article de sport",
     htmlAttrs: {
       lang: "fr",
     },
@@ -34,7 +33,7 @@ export default {
       {
         hid: "description",
         name: "description",
-        content: "Trap One, Trap One Shop",
+        content: "Exo-Trap, Exo-Trap Shop",
       },
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
@@ -100,6 +99,13 @@ export default {
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-proposal-private-methods',
       ],
+    },
+    terser: {
+      terserOptions: {
+        compress: {
+          drop_console: false
+        }
+      }
     },
 
     analyse: false,
