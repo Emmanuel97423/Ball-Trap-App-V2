@@ -122,9 +122,13 @@
                   <div class="pt-15">
                     <!-- <span>Tailles</span> -->
                     <!-- {{ size }} -->
-                    <!-- nombre de gammes :{{ gammeQuantity }} -->
+                    nombre de gammes :{{ gammeQuantity }}
+                    <!-- is a product gamme :
+                    {{ isAProductGamme }} -->
+                    <!-- {{ product }} -->
+                    {{ purchaseProductDetails }}
                     <SelectSize2
-                      v-if="isAProductGamme === 'true'"
+                      v-if="gammesOptions.size === true"
                       :size="uniqueSize"
                       @size-click-event="sizeClickEventV2"
                     />
@@ -136,19 +140,18 @@
                     :class="showColorOptions"
                   >
                     <SelectColor
-                      v-if="!showColorOptions.isLoading"
-                      :key="showColorOptions.componentKey"
+                      v-if="gammesOptions.color === true"
                       :colors="color"
-                      :colorLibelle="uniqueColorLibelle"
+                      :colorLibelle="colorLibelle"
                       @color-click-event="colorClickEventV2"
                     />
                     <Spinner v-else></Spinner>
                   </div>
-                  <div v-if="showColorOptions.isFocused">
+                  <div v-if="gammesOptions.laterality">
                     <!-- {{ productVariantsSelected }} -->
                     <SelectLaterality :laterality="uniqueLaterality" />
                   </div>
-                  <div v-if="showColorOptions.isFocused">
+                  <div v-if="gammeQuantity === 0">
                     <button
                       v-if="productSelected.stock > 0"
                       class="btn__stock--green"
@@ -301,8 +304,8 @@
                       <p>Toute commande nécessite la création d'un compte</p>
                     </div>
                     <button
-                      v-if="productSelected.stock > 0"
                       class="theme-btn-one btn-black-overlay btn_sm"
+                      :disabled="purchaseButtonOptions.disabled"
                       @click="
                         addToCart(
                           productSelected,
@@ -722,6 +725,7 @@ export default {
       size: [],
       color: [],
       colorLibelle: [],
+      colorUniqueArray: [],
       laterality: [],
       mainImage: null,
       isStripeLoaded: false,
@@ -781,7 +785,16 @@ export default {
       purchaseProductDetails: {
         size: "",
         color: "",
+        laterality: "",
         stock: "",
+      },
+      purchaseButtonOptions: {
+        disabled: true,
+      },
+      gammesOptions: {
+        size: false,
+        color: false,
+        laterality: false,
       },
       gammeObject: [],
       productSelected: "",
@@ -994,18 +1007,17 @@ export default {
       this.productsVariantsFilter();
     },
     sizeClickEventV2(payload) {
-      this.showColorOptions.isLoading = true;
-      this.showColorOptions.isFocused = false;
-      setTimeout(() => {
-        this.showColorOptions.isLoading = false;
-      }, 1000);
-      this.showColorOptions.isInactive = false;
-      this.showColorOptions.isActive = true;
+      // if (this.gammeQuantity < 0) {
+      //   this.gammeQuantity === 0;
+      // } else if (this.gammeQuantity > 0) {
+      //   this.gammeQuantity--;
+      // }
       this.productVariantsSelected = [];
       this.productVariants.filter((product) => {
         product.gammesValue.split("¤").map((value) => {
           if (value.toLowerCase() === payload.size.toLowerCase()) {
             this.productVariantsSelected.push(product);
+            this.purchaseProductDetails.size = payload.size;
           }
         });
       });
@@ -1013,6 +1025,7 @@ export default {
       this.productVariantsSelected.map((product) => {
         this.gammeMethod(product.gamme, product.gammesValue);
       });
+      this.productsVariantsFilterV2();
     },
 
     colorClickEvent(payload) {
@@ -1032,24 +1045,26 @@ export default {
       this.productsVariantsFilter();
     },
     colorClickEventV2(payload) {
-      if (this.gammeQuantity === 3) {
-        this.showColorOptions.isFocused = payload.isFocused;
-      }
+      // if (this.gammeQuantity === 3) {
+      //   this.showColorOptions.isFocused = payload.isFocused;
+      // }
+      this.productVariantsSelected = [];
 
-      this.productVariantsSelected.filter((product) => {
-        this.productVariantsSelected = [];
+      this.productVariants.filter((product) => {
         product.gammesValue.split("¤").map((value) => {
           if (value.toLowerCase() === payload.color.toLowerCase()) {
             this.productVariantsSelected.push(product);
+            this.purchaseProductDetails.color = payload.color;
           }
         });
       });
       this.productVariantsSelected.map((product) => {
         this.gammeMethod(product.gamme, product.gammesValue);
       });
+      this.productsVariantsFilterV2();
     },
     productsVariantsFilter() {
-      const filterProductVariants = (arr, size, color) => {
+      const filterProductVariants = (arr, size, color, laterality) => {
         try {
           return arr.filter((el) => {
             if (
@@ -1084,8 +1099,24 @@ export default {
         this.purchaseProductDetails.color
       );
     },
-    gammeMethod(gammeArray, gammesValueArray) {
-      this.gammeQuantity = gammeArray.split("¤").length;
+    productsVariantsFilterV2() {
+      this.productVariants.filter((product) => {
+        product.gammesValue.split("¤").map((value) => {
+          if (
+            this.purchaseProductDetails.size.toLowerCase() ===
+              value.toLowerCase() &&
+            this.purchaseProductDetails.color.toLowerCase() ===
+              value.toLowerCase()
+          ) {
+            console.log(
+              "🚀 ~ file: _id.vue ~ line 1107 ~ product.gammesValue.split ~ product",
+              product
+            );
+          }
+        });
+      });
+    },
+    async gammeMethod(gammeArray, gammesValueArray) {
       try {
         // let gammeObject = "";
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
@@ -1100,9 +1131,11 @@ export default {
                 // console.log(itemGamme.libelle, itemGamme.gammeValue)
                 const libelleGamme = itemGamme.libelle;
                 const gammeValue = itemGamme.gammeValue;
+                const elementsGammeLibelle = itemGamme.elementsGammeLibelle;
                 const obj = {
                   libelleGamme: libelleGamme,
                   gammeValue: gammeValue,
+                  gammeCode: elementsGammeLibelle,
                 };
                 // console.log(
                 //   "🚀 ~ file: _id.vue ~ line 1067 ~ gammeArray.split ~ obj",
@@ -1110,10 +1143,43 @@ export default {
                 // );
                 if (obj.libelleGamme === "TAILLE") {
                   this.size.push(obj.gammeValue);
+                  this.gammesOptions.size = true;
                 } else if (obj.libelleGamme === "COULEUR") {
-                  this.colorLibelle.push(obj.gammeValue);
+                  this.colorLibelle.push(obj);
+
+                  // if (this.colorLibelle.length === 0) {
+                  //   this.colorLibelle.push(obj);
+                  // } else {
+                  //   this.colorLibelle.filter((colorObject) => {
+                  //     let i = this.colorUniqueArray.findIndex(
+                  //       (color) =>
+                  //         colorObject.gammeCode == color.gammeCode &&
+                  //         colorObject.gammeValue == color.gammeValue &&
+                  //         colorObject.libelleGamme == color.libelleGamme
+                  //     );
+                  //     console.log(
+                  //       "🚀 ~ file: _id.vue ~ line 1164 ~ this.colorLibelle.filter ~ i",
+                  //       i
+                  //     );
+
+                  //     if (i <= -1) {
+                  //       this.colorUniqueArray.push(obj);
+                  //     }
+                  //     return null;
+                  //   });
+                  // }
+
+                  this.showColorOptions.isLoading = true;
+                  this.showColorOptions.isFocused = false;
+                  setTimeout(() => {
+                    this.showColorOptions.isLoading = false;
+                  }, 1000);
+                  this.showColorOptions.isInactive = false;
+                  this.showColorOptions.isActive = true;
+                  this.gammesOptions.color = true;
                 } else if (obj.libelleGamme === "LATERALITE") {
                   this.laterality.push(obj.gammeValue);
+                  this.gammesOptions.laterality = true;
                 }
               }
             });
@@ -1154,85 +1220,16 @@ export default {
           });
 
           this.productVariants.push(productVariant.data);
-          // gammeArray.push(productVariant.data.gamme);
-          // gammesValueArray.push(productVariant.data.gammesValue);
+          this.gammeQuantity = productVariant.data.gamme.split("¤").length;
 
           this.gammeMethod(
             productVariant.data.gamme,
             productVariant.data.gammesValue
           );
-
-          // const gammeFactory = new ProductFactory(
-          //   productVariant.data.gamme,
-          //   productVariant.data.gammesValue
-          // );
-
-          // gammeFactory.checkGammes();
-          // console.log(
-          //   "🚀 ~ file: _id.vue ~ line 1102 ~ this.product.variantId.map ~  gammeFactory.checkGammes()",
-          //   gammeFactory.checkGammes()
-          // );
-          // gammeFactory.getCheckGammes
-          //   .then((result) => {
-          //     // gammeFactory.gammeObjectResult;
-          //     this.gammeObject = result;
-          //     console.log(
-          //       "🚀 ~ file: _id.vue ~ line 1101 ~ this.product.variantId.map ~ gammeFactory.gammeObjectResult",
-          //       gammeFactory.getGammeObjectResult
-          //     );
-          //   })
-          //   .catch((error) => {
-          //     console.log(error);
-          //   });
-
-          // gammeFactory.getCheckGammes.then((result) => {
-          //   console.log(
-          //     "🚀 ~ file: _id.vue ~ line 1101 ~ gammeFactory.getCheckGammes.then ~ result",
-          //     result
-          //   );
-          // });
-
-          // this.gammeObject = gammeFactory.getCheckGammes;
-          // console.log(
-          //   "🚀 ~ file: _id.vue ~ line 1101 ~ this.product.variantId.map ~ gammeFactory.getCheckGammes",
-          //   gammeFactory.getCheckGammes
-          // );
-          // console.log(
-          //   "🚀 ~ file: _id.vue ~ line 1100 ~ this.product.variantId.map ~ this.gammeObject",
-          //   this.gammeObject
-          // );
-
-          // if (productVariant.data.gammesValueConvert.gammesValue.length > 1) {
-          //   this.size.push(productVariant.data.gammesValueConvert);
-          // } else if (
-          //   productVariant.data.gammesValueConvert.gammesValue.length === 1
-          // ) {
-          //   this.size.push(productVariant.data.gammesValueConvert);
-          // }
         });
-
-        // this.gammeMethod(gammeArray, gammesValueArray);
-
-        // this.gammeMethod(gammeArray);
       } catch (error) {
         console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
       }
-      // try {
-      //   gammeArray.map((codeGammeArray) => {
-      //     codeGammeArray.map(async (codeGamme) => {
-      //       const fetchGamme = await this.$axios("/gammes/gamme/" + codeGamme);
-      //       console.log(
-      //         "🚀 ~ file: _id.vue ~ line 1087 ~ codeGammeArray.map ~ fetchGamme",
-      //         fetchGamme.data
-      //       );
-      //     });
-      //   });
-      // } catch (error) {
-      //   console.log(
-      //     "🚀 ~ file: _id.vue ~ line 1082 ~ this.product.variantId.map ~ error",
-      //     error
-      //   );
-      // }
 
       //Data binding pushing
 
