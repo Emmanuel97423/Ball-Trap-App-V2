@@ -109,11 +109,11 @@ export default {
     },
   },
   mounted() {
-    this.laterality;
-    console.log(
-      "🚀 ~ file: SelectLaterality.vue ~ line 102 ~ mounted ~ his.laterality",
-      this.laterality
-    );
+    // this.laterality;
+    // console.log(
+    //   "🚀 ~ file: SelectLaterality.vue ~ line 102 ~ mounted ~ his.laterality",
+    //   this.laterality
+    // );
   },
 };
 </script>

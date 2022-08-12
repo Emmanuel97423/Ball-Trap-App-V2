@@ -2,22 +2,23 @@
   <div class="variable-single-item">
     <span>Couleur</span>
 
+    <!-- {{ colorLibelle }} -->
     <div class="product-image-variants">
       <div
-        v-for="(libelle, index) in colorLibelle"
+        v-for="(libelle, index) in colorArray"
         :key="index"
         class="image-variants"
-        @click="handleCLick(libelle)"
+        @click="handleCLick(libelle.gammeCode)"
       >
         <input
           type="radio"
-          :id="`${libelle.replace(' ', '-').toLowerCase()}`"
+          :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
           name="color"
-          :value="`${libelle.replace(' ', '-').toLowerCase()}`"
+          :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
         />
-        <label :for="`${libelle.replace(' ', '-').toLowerCase()}`">{{
-          libelle.toLowerCase().charAt(0).toUpperCase() +
-          libelle.toLowerCase().slice(1)
+        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`">{{
+          libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+          libelle.gammeValue.toLowerCase().slice(1)
         }}</label>
 
         <!-- <img :src="product" @click="selectColor(index)" /> -->
@@ -88,8 +89,14 @@
 export default {
   name: "SelectColor",
   props: {
-    colors: Array,
+    // colors: Array,
     colorLibelle: Array,
+  },
+  data() {
+    return {
+      colors: "",
+      colorUniqueArray: [],
+    };
   },
 
   methods: {
@@ -97,8 +104,27 @@ export default {
       this.$emit("color-click-event", { color: value, isFocused: true });
     },
   },
+  computed: {
+    colorArray() {
+      let array = [];
+      this.colorLibelle.filter((colorObject) => {
+        let i = array.findIndex(
+          (color) => colorObject.gammeCode == color.gammeCode
+        );
+        if (i <= -1) {
+          array.push(colorObject);
+        } else {
+          return null;
+        }
+      });
+      return array;
+    },
+  },
+  beforeMount() {
+    console.log("before mount");
+  },
   mounted() {
-    this.colorLibelle;
+    console.log("mount");
   },
 };
 </script>
