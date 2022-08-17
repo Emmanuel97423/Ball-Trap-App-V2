@@ -32,6 +32,8 @@
             query: {
               id: productId,
               isAProductGamme: false,
+              libelle: productTitle,
+              libelleFamille: productObject.libelleFamille,
             },
           }"
         >
@@ -89,6 +91,8 @@
               query: {
                 id: productId,
                 isAProductGamme: true,
+                libelle: productTitle,
+                libelleFamille: productObject.libelleFamille,
               },
             }"
             v-on:click="loading()"

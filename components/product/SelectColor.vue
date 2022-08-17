@@ -1,9 +1,9 @@
 <template>
   <div class="variable-single-item">
     <span>Couleur</span>
-
+    <Spinner v-if="loading == true"></Spinner>
     <!-- {{ colorLibelle }} -->
-    <div class="product-image-variants">
+    <div v-else class="product-image-variants">
       <div
         v-for="(libelle, index) in colorArray"
         :key="index"
@@ -96,6 +96,7 @@ export default {
     return {
       colors: "",
       colorUniqueArray: [],
+      loading: true,
     };
   },
 
@@ -120,11 +121,11 @@ export default {
       return array;
     },
   },
-  beforeMount() {
-    console.log("before mount");
-  },
+
   mounted() {
-    console.log("mount");
+    setTimeout(() => {
+      this.loading = false;
+    }, 2500);
   },
 };
 </script>

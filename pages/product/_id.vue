@@ -818,7 +818,7 @@ export default {
               .charAt(0)
               .toUpperCase() +
             this.$route.query.libelleFamille.toLowerCase().slice(1),
-          to: "/",
+          to: "/shop/shop-2/",
         },
         {
           text:
