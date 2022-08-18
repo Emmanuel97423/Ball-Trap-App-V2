@@ -95,12 +95,12 @@ export default {
       ],
     };
   },
-  async fetch() {
+  // async fetch() {
+  //   const fetchData = await this.$axios.get("/category");
+  //   this.menu = fetchData.data.response;
+  // },
+  async mounted() {
     const fetchData = await this.$axios.get("/category");
-    console.log(
-      "🚀 ~ file: Categories.vue ~ line 97 ~ fetch ~ fetchData.data",
-      fetchData.data.response
-    );
     this.menu = fetchData.data.response;
   },
 };

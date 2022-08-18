@@ -2,11 +2,12 @@
   <div id="box__app">
     <Header v-if="enabled" />
     <NavCategories />
-    <Nuxt />
 
     <transition name="fade" mode="out-in">
-      <LeftCategoriesNav />
+      <!-- <LeftCategoriesNav /> -->
+      <Nuxt />
     </transition>
+
     <Spinner id="spinner__app"></Spinner>
     <div><FooterNav /></div>
     <Footer id="footer__app" v-if="enabled" />

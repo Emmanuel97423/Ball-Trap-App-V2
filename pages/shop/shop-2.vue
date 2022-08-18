@@ -17,7 +17,7 @@
       </div>
     </section>
     <div class="container-product-list">
-      <div class="left-nav-categories"><LeftCategoriesNav /></div>
+      <!-- <div class="left-nav-categories"><LeftCategoriesNav /></div> -->
       <!-- Shop Main Area -->
       <div class="shop-content">
         <section id="shop_main_area" class="ptb-25">
