@@ -807,10 +807,10 @@ export default {
           text: "Accueil",
           to: "/",
         },
-        {
-          text: "Vêtements",
-          to: "/shop/shop-2",
-        },
+        // {
+        //   text: "Vêtements",
+        //   to: "/shop/shop-2",
+        // },
         {
           text:
             this.$route.query.libelleFamille
@@ -818,7 +818,14 @@ export default {
               .charAt(0)
               .toUpperCase() +
             this.$route.query.libelleFamille.toLowerCase().slice(1),
-          to: "/shop/shop-2/",
+          to:
+            "/shop/category/" +
+            this.$route.query.libelleFamille
+              .toLowerCase()
+              .replaceAll(" ", "-") +
+            "?" +
+            "codefamille=" +
+            this.$route.query.codeFamille,
         },
         {
           text:

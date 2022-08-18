@@ -2,7 +2,7 @@
   <div class="container-left-categories-nav">
     <div class="content-left-categories-nav">
       <ul>
-        <li v-for="menuItem in menu" :key="menuItem.id">
+        <li v-for="menuItem in subCategory" :key="menuItem.id">
           <h4>{{ menuItem.libelleSousFamille }}</h4>
         </li>
       </ul>
@@ -13,6 +13,9 @@
 <script>
 export default {
   name: "LeftCategoriesNav",
+  props: {
+    subCategory: Array,
+  },
   data() {
     return {
       menu: "",
@@ -28,27 +31,29 @@ export default {
   //   this.menu = fetchData.data.response.libelleSousFamille;
   // },
 
-  async mounted() {
-    if (this.$route.query.codeFamille === null) {
-      const fetchData = await this.$axios.get("/category/subCategory");
+  // async mounted() {
+  //   if (this.$route.query.codeFamille === null) {
+  //     const fetchData = await this.$axios.get("/category/subCategory");
 
-      this.menu = fetchData.data.response;
-    } else {
-      const fetchData = await this.$axios.get("/category/subCategory", {
-        query: {
-          codeFamille: this.$route.query.codeFamille,
-        },
-      });
+  //     this.menu = fetchData.data.response;
+  //   } else {
+  //     const fetchData = await this.$axios.get("/category/subCategory", {
+  //       query: {
+  //         codeFamille: this.$route.query.codeFamille,
+  //       },
+  //     });
 
-      this.menu = fetchData.data.response;
-    }
-  },
+  //     this.menu = fetchData.data.response;
+  //   }
+  // },
 };
 </script>
 
 <style >
 .container-left-categories-nav {
   padding: 30px;
+  width: 200px;
+  margin: 10px auto;
 }
 .container-left-categories-nav ul {
   display: flex;

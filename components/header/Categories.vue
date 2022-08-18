@@ -27,7 +27,7 @@
           <nuxt-link
             :to="{
               path:
-                '/shop/shop-2/' +
+                '/shop/category/' +
                 navItem.libelleFamille.toLowerCase().replaceAll(' ', '-'),
               query: {
                 codefamille: navItem.codeFamille,
