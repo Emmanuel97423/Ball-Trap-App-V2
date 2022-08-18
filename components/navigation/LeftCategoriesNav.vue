@@ -52,12 +52,11 @@ export default {
 <style >
 .container-left-categories-nav {
   padding: 30px;
-<<<<<<< HEAD
-  min-width: 245px;
-=======
+
+  /* min-width: 245px; */
+
   width: 200px;
   margin: 10px auto;
->>>>>>> develop
 }
 .container-left-categories-nav ul {
   display: flex;
