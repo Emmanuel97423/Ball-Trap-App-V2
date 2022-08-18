@@ -17,7 +17,9 @@
       </div>
     </section>
     <div class="container-product-list">
-      <div class="left-nav-categories"><LeftCategoriesNav /></div>
+      <div class="left-nav-categories">
+        <LeftCategoriesNav :subCategory="subCategory" />
+      </div>
       <!-- Shop Main Area -->
       <div class="shop-content">
         <section id="shop_main_area" class="ptb-25">
@@ -197,6 +199,9 @@ export default {
         },
       ],
 
+      //Sub-category
+      subCategory: "",
+
       // Pagination Data
       rows: 60,
       currentPage: 1,
@@ -232,15 +237,19 @@ export default {
           search: this.$route.query.codefamille,
         },
       });
-      console.log(
-        "🚀 ~ file: _category.vue ~ line 236 ~ fetch ~ productsGammes",
-        productsGammes.data.products
-      );
       this.productsGammes = productsGammes.data.products;
-      //   console.log("this.productsGammes:", this.productsGammes);
     } catch (error) {
       console.log("error:", error);
     }
+    try {
+      const subCategory = await this.$axios.get(
+        "/category/subCategory/" + this.$route.query.codefamille
+      );
+      this.subCategory = subCategory.data.subCategory;
+    } catch (error) {
+      console.log("🚀 ~ file: _category.vue ~ line 242 ~ fetch ~ error", error);
+    }
+
     try {
       const products = await this.$axios.get("/product/allProduct");
       products.data.map((product) => {

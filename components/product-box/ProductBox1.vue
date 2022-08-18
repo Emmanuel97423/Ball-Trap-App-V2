@@ -11,6 +11,7 @@
               isAProductGamme: true,
               libelle: productTitle,
               libelleFamille: productObject.libelleFamille,
+              codeFamille: productObject.codeFamille,
             },
           }"
         >
