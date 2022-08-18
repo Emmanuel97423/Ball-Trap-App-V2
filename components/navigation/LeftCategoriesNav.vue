@@ -1,9 +1,9 @@
 <template>
   <div class="container-left-categories-nav">
     <div class="content-left-categories-nav">
-      <ul v-for="menuItem in menu" :key="menuItem.id">
-        <li>
-          <h3>{{ menuItem.text }}</h3>
+      <ul>
+        <li v-for="menuItem in menu" :key="menuItem.id">
+          <h4>{{ menuItem.libelleSousFamille }}</h4>
         </li>
       </ul>
     </div>
@@ -15,34 +15,33 @@ export default {
   name: "LeftCategoriesNav",
   data() {
     return {
-      menu: [
-        {
-          id: 1,
-          text: "Vêtements",
-          to: "/shop/shop-2",
-        },
-        {
-          id: 2,
-          text: "Armes Cat. C.",
-          to: "/shop/shop-2",
-        },
-        {
-          id: 3,
-          text: "Armes Cat. D",
-          to: "/shop/shop-2",
-        },
-        {
-          id: 4,
-          text: "Munitions",
-          to: "/shop/shop-2",
-        },
-        {
-          id: 5,
-          text: "Accessoires",
-          to: "/shop/shop-2",
-        },
-      ],
+      menu: "",
     };
+  },
+
+  // async fetch() {
+  //   const fetchData = await this.$axios.get("/category/subCategory", {
+  //     query: {
+  //       codeFamille: this.$route.query.codeFamille,
+  //     },
+  //   });
+  //   this.menu = fetchData.data.response.libelleSousFamille;
+  // },
+
+  async mounted() {
+    if (this.$route.query.codeFamille === null) {
+      const fetchData = await this.$axios.get("/category/subCategory");
+
+      this.menu = fetchData.data.response;
+    } else {
+      const fetchData = await this.$axios.get("/category/subCategory", {
+        query: {
+          codeFamille: this.$route.query.codeFamille,
+        },
+      });
+
+      this.menu = fetchData.data.response;
+    }
   },
 };
 </script>
@@ -52,8 +51,20 @@ export default {
   padding: 30px;
   min-width: 245px;
 }
+.container-left-categories-nav ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .container-left-categories-nav li {
   margin: 0 0 10px 0;
   cursor: pointer;
+}
+.container-left-categories-nav h4 {
+  font-size: 16px;
+}
+.container-left-categories-nav h4:hover {
+  text-decoration: underline;
 }
 </style>

@@ -22,14 +22,20 @@
       </b-dropdown> -->
         <!-- </div> -->
 
-        <div
-          class="nav-links"
-          v-for="navItem in menu"
-          :key="navItem.id"
-          @mouseover="navItem.navOptions.hoverNav = true"
-          @mouseleave="navItem.navOptions.hoverNav = false"
-        >
-          <a :href="navItem.href">{{ navItem.title }}</a>
+        <div class="nav-links" v-for="navItem in menu" :key="navItem._id">
+          <!-- <a href="#">{{ navItem.libelleFamille }}</a> -->
+          <nuxt-link
+            :to="{
+              path:
+                '/shop/shop-2/' +
+                navItem.libelleFamille.toLowerCase().replaceAll(' ', '-'),
+              query: {
+                codefamille: navItem.codeFamille,
+              },
+            }"
+          >
+            {{ navItem.libelleFamille }}</nuxt-link
+          >
           <!-- <ul class="dropdown_menu">
             <div v-for="subMenu in navItem.subMenu" :key="subMenu.id">
               <a> {{ subMenu.title }}</a>
@@ -47,47 +53,55 @@ export default {
   data() {
     return {
       menu: [
-        {
-          href: "/shop/shop-2",
-          title: "Vêtements",
-          subMenu: [
-            { id: 1, title: "Doudounes" },
-            { id: 2, title: "Lycra" },
-          ],
-          navOptions: {
-            hoverNav: false,
-          },
-        },
-        {
-          href: "/",
-          title: "Armes Cat. C.",
-          navOptions: {
-            hoverNav: false,
-          },
-        },
-        {
-          href: "/",
-          title: "Armes Cat. D.",
-          navOptions: {
-            hoverNav: false,
-          },
-        },
-        {
-          href: "/",
-          title: "Munitions",
-          navOptions: {
-            hoverNav: false,
-          },
-        },
-        {
-          href: "/",
-          title: "Accessoires",
-          navOptions: {
-            hoverNav: false,
-          },
-        },
+        // {
+        //   href: "/shop/shop-2",
+        //   title: "Vêtements",
+        //   subMenu: [
+        //     { id: 1, title: "Doudounes" },
+        //     { id: 2, title: "Lycra" },
+        //   ],
+        //   navOptions: {
+        //     hoverNav: false,
+        //   },
+        // },
+        // {
+        //   href: "/",
+        //   title: "Armes Cat. C.",
+        //   navOptions: {
+        //     hoverNav: false,
+        //   },
+        // },
+        // {
+        //   href: "/",
+        //   title: "Armes Cat. D.",
+        //   navOptions: {
+        //     hoverNav: false,
+        //   },
+        // },
+        // {
+        //   href: "/",
+        //   title: "Munitions",
+        //   navOptions: {
+        //     hoverNav: false,
+        //   },
+        // },
+        // {
+        //   href: "/",
+        //   title: "Accessoires",
+        //   navOptions: {
+        //     hoverNav: false,
+        //   },
+        // },
       ],
     };
+  },
+  async fetch() {
+    const fetchData = await this.$axios.get("/category");
+    console.log(
+      "🚀 ~ file: Categories.vue ~ line 97 ~ fetch ~ fetchData.data",
+      fetchData.data.response
+    );
+    this.menu = fetchData.data.response;
   },
 };
 </script>
