@@ -7,10 +7,10 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
+              <!-- <b-breadcrumb
                 :items="breadcrumbItems"
                 class="bg-transparent"
-              ></b-breadcrumb>
+              ></b-breadcrumb> -->
             </div>
           </div>
         </div>
@@ -183,7 +183,16 @@ export default {
           to: "/",
         },
         {
-          text: "Magasin",
+          text:
+            this.$route.params.category
+              .toLowerCase()
+
+              .charAt(0)
+              .toUpperCase() +
+            this.$route.params.category
+              .toLowerCase()
+              .slice(1)
+              .replaceAll("-", " "),
           to: "/shop/shop-2",
         },
       ],
@@ -208,19 +217,27 @@ export default {
     };
   },
   computed: {
-    productItems() {
-      // return this.$store.getters["products/productItems"];
-      return this.$store.state.products.productItems;
-    },
+    // productItems() {
+    //   // return this.$store.getters["products/productItems"];
+    //   return this.$store.state.products.productItems;
+    // },
   },
-  created() {
-    this.$store.dispatch("products/getProducts");
-  },
+  //   created() {
+  //     this.$store.dispatch("products/getProducts");
+  //   },
   async fetch() {
     try {
-      const productsGammes = await this.$axios.get("/gammes");
-      this.productsGammes = productsGammes.data;
-      console.log("this.productsGammes:", this.productsGammes);
+      const productsGammes = await this.$axios.get("/search/filter", {
+        params: {
+          search: this.$route.query.codefamille,
+        },
+      });
+      console.log(
+        "🚀 ~ file: _category.vue ~ line 236 ~ fetch ~ productsGammes",
+        productsGammes.data.products
+      );
+      this.productsGammes = productsGammes.data.products;
+      //   console.log("this.productsGammes:", this.productsGammes);
     } catch (error) {
       console.log("error:", error);
     }
@@ -246,6 +263,10 @@ export default {
     console.log(
       "🚀 ~ file: _category.vue ~ line 241 ~ mounted ~ this.$route.params",
       this.$route.params
+    );
+    console.log(
+      "🚀 ~ file: _category.vue ~ line 260 ~ mounted ~ this.$route.query",
+      this.$route.query
     );
   },
 };
