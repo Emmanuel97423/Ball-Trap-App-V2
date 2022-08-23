@@ -4,28 +4,28 @@
 
     <div class="laterality-product-image-variants">
       <div
-        v-for="(libelle, index) in laterality"
+        v-for="(libelle, index) in lateralityArray"
         :key="index"
         class="laterality-image-variants"
-        @click="handleCLick(libelle)"
+        @click="lateralityHandleClick(libelle.gammeCode)"
       >
         <img
-          v-if="libelle.toLowerCase() === 'droitier'"
+          v-if="libelle.gammeValue.toLowerCase() === 'droitier'"
           :src="require('@/assets/img/product-image/SX_n-100x100.jpg')"
         />
         <img
-          v-if="libelle.toLowerCase() === 'gaucher'"
+          v-if="libelle.gammeValue.toLowerCase() === 'gaucher'"
           :src="require('@/assets/img/product-image/DX_n-100x100.jpg')"
         />
         <input
           type="radio"
-          :id="`${libelle.replace(' ', '-').toLowerCase()}`"
+          :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
           name="laterality"
-          :value="`${libelle.replace(' ', '-').toLowerCase()}`"
+          :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
         />
-        <label :for="`${libelle.replace(' ', '-').toLowerCase()}`">{{
-          libelle.toLowerCase().charAt(0).toUpperCase() +
-          libelle.toLowerCase().slice(1)
+        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`">{{
+          libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+          libelle.gammeValue.toLowerCase().slice(1)
         }}</label>
 
         <!-- <img :src="product" @click="selectColor(index)" /> -->
@@ -101,11 +101,27 @@ export default {
   },
 
   methods: {
-    handleCLick(value) {
+    lateralityHandleClick(value) {
       this.$emit("laterality-click-event", {
         laterality: value,
         isFocused: true,
       });
+    },
+  },
+  computed: {
+    lateralityArray() {
+      let array = [];
+      this.laterality.filter((lateralityObject) => {
+        let i = array.findIndex(
+          (laterality) => lateralityObject.gammeCode == laterality.gammeCode
+        );
+        if (i <= -1) {
+          array.push(lateralityObject);
+        } else {
+          return null;
+        }
+      });
+      return array;
     },
   },
   mounted() {

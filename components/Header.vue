@@ -820,7 +820,6 @@ export default {
           "/category/subCategory/" + menuItem.codeFamille
         );
         dataSubmenu.data.subCategory.forEach((subMenuItem) => {
-          console.log("subMenuItem:", subMenuItem);
           const childMenuObject = {
             // href: "/shop/category/" + subMenuItem.codeSousFamille,
             href: "#",

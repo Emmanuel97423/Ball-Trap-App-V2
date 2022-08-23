@@ -122,11 +122,12 @@
                   <div class="pt-15">
                     <!-- <span>Tailles</span> -->
                     <!-- {{ size }} -->
-                    nombre de gammes :{{ gammeQuantity }}
+                    <!-- nombre de gammes :{{ gammeQuantity }} -->
                     <!-- is a product gamme :
                     {{ isAProductGamme }} -->
                     <!-- {{ product }} -->
-                    {{ purchaseProductDetails }}
+                    <!-- {{ purchaseProductDetails }} -->
+                    <!-- productFilter: {{ productFilter }} -->
                     <SelectSize2
                       v-if="gammesOptions.size === true"
                       :size="uniqueSize"
@@ -149,9 +150,14 @@
                   </div>
                   <div v-if="gammesOptions.laterality">
                     <!-- {{ productVariantsSelected }} -->
-                    <SelectLaterality :laterality="uniqueLaterality" />
+                    <SelectLaterality
+                      :laterality="laterality"
+                      @laterality-click-event="lateralityClickEvent"
+                    />
                   </div>
-                  <div v-if="gammeQuantity === 0">
+                  <!-- {{ productSelected.stock }} -->
+                  <!-- {{ gammeQuantity }} -->
+                  <div>
                     <button
                       v-if="productSelected.stock > 0"
                       class="btn__stock--green"
@@ -738,7 +744,11 @@ export default {
 
       enabled: true,
       title: this.$route.params.slug,
-
+      productFilter: {
+        size: null,
+        color: null,
+        laterality: null,
+      },
       // Product details Popup slider
       swiperOption: {
         slidesPerView: 1,
@@ -926,202 +936,248 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-    sizeClickEvent(payload) {
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 887 ~ sizeClickEvent ~ payload",
-        payload
-      );
-      this.color = [];
-      this.colorLibelle = [];
-      this.showColorOptions.componentKey += 1;
-      this.showColorOptions.isLoading = true;
-      this.showColorOptions.isFocused = false;
+    // sizeClickEvent(payload) {
+    //   console.log(
+    //     "🚀 ~ file: _id.vue ~ line 887 ~ sizeClickEvent ~ payload",
+    //     payload
+    //   );
+    //   this.color = [];
+    //   this.colorLibelle = [];
+    //   this.showColorOptions.componentKey += 1;
+    //   this.showColorOptions.isLoading = true;
+    //   this.showColorOptions.isFocused = false;
 
-      setTimeout(() => {
-        this.showColorOptions.isLoading = false;
-      }, 1000);
-      const productColorFilter = (arr, request) => {
-        return arr.filter(async (el) => {
-          el.gammesValueConvert.gammes.map((gamme, index) => {});
+    //   setTimeout(() => {
+    //     this.showColorOptions.isLoading = false;
+    //   }, 1000);
+    //   const productColorFilter = (arr, request) => {
+    //     return arr.filter(async (el) => {
+    //       el.gammesValueConvert.gammes.map((gamme, index) => {});
 
-          if (
-            request.size.toLowerCase() ===
-            el.gammesValueConvert.gammesValue[1].toLowerCase()
-          ) {
-            this.color.push(el.gammesValueConvert.gammesValue[0]);
+    //       if (
+    //         request.size.toLowerCase() ===
+    //         el.gammesValueConvert.gammesValue[1].toLowerCase()
+    //       ) {
+    //         this.color.push(el.gammesValueConvert.gammesValue[0]);
 
-            this.purchaseProductDetails.size =
-              el.gammesValueConvert.gammesValue[1];
-            try {
-              const gammeLibelle = await this.$axios.get(
-                "/gammes/gamme/GA00002"
-              );
-              this.gammesLibelle = gammeLibelle.data;
-              const libelleArray = [];
-              this.gammesLibelle.map((libelle) => {
-                libelleArray.push(libelle.elementsGammeLibelle);
-              });
-              const filtreColor = (arr, requete) => {
-                return arr.filter((el) => {
-                  if (el.toLowerCase().split(" ").length > 1) {
-                    return (
-                      el
-                        .toLowerCase()
-                        .split(" ")
-                        .map((w) => w[0])
-                        .join("")
-                        .indexOf(requete.toLowerCase()) !== -1
-                    );
-                  } else if (el.toLowerCase().split(" ").length === 1) {
-                    return (
-                      el.toLowerCase().indexOf(requete.toLowerCase()) !== -1
-                    );
-                  }
-                });
-              };
-              const arrayTemp = [];
-              this.color.map((item) => {
-                arrayTemp.push(filtreColor(libelleArray, item));
-              });
-              arrayTemp.map((item) => {
-                item.map((string) => {
-                  this.colorLibelle.push(string);
-                });
-              });
-            } catch (error) {
-              console.log(
-                "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
-                error
-              );
-            }
+    //         this.purchaseProductDetails.size =
+    //           el.gammesValueConvert.gammesValue[1];
+    //         try {
+    //           const gammeLibelle = await this.$axios.get(
+    //             "/gammes/gamme/GA00002"
+    //           );
+    //           this.gammesLibelle = gammeLibelle.data;
+    //           const libelleArray = [];
+    //           this.gammesLibelle.map((libelle) => {
+    //             libelleArray.push(libelle.elementsGammeLibelle);
+    //           });
+    //           const filtreColor = (arr, requete) => {
+    //             return arr.filter((el) => {
+    //               if (el.toLowerCase().split(" ").length > 1) {
+    //                 return (
+    //                   el
+    //                     .toLowerCase()
+    //                     .split(" ")
+    //                     .map((w) => w[0])
+    //                     .join("")
+    //                     .indexOf(requete.toLowerCase()) !== -1
+    //                 );
+    //               } else if (el.toLowerCase().split(" ").length === 1) {
+    //                 return (
+    //                   el.toLowerCase().indexOf(requete.toLowerCase()) !== -1
+    //                 );
+    //               }
+    //             });
+    //           };
+    //           const arrayTemp = [];
+    //           this.color.map((item) => {
+    //             arrayTemp.push(filtreColor(libelleArray, item));
+    //           });
+    //           arrayTemp.map((item) => {
+    //             item.map((string) => {
+    //               this.colorLibelle.push(string);
+    //             });
+    //           });
+    //         } catch (error) {
+    //           console.log(
+    //             "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
+    //             error
+    //           );
+    //         }
 
-            return el;
-          }
-          // console.log(
-          //   "🚀 ~ file: _id.vue ~ line 777 ~ returnarr.filter ~ el.gammesValueConvert.gammesValue[1]",
-          //   el.gammesValueConvert.gammesValue[1].toLowerCase()
-          // );
+    //         return el;
+    //       }
+    //       // console.log(
+    //       //   "🚀 ~ file: _id.vue ~ line 777 ~ returnarr.filter ~ el.gammesValueConvert.gammesValue[1]",
+    //       //   el.gammesValueConvert.gammesValue[1].toLowerCase()
+    //       // );
 
-          // el.gammesValueConvert.gammesValue[1]
-          //   .toLowerCase()
-          //   .indexOf(request.size.toLowerCase()) !== -1;
-        });
-      };
-      productColorFilter(this.productVariants, payload);
+    //       // el.gammesValueConvert.gammesValue[1]
+    //       //   .toLowerCase()
+    //       //   .indexOf(request.size.toLowerCase()) !== -1;
+    //     });
+    //   };
+    //   productColorFilter(this.productVariants, payload);
 
-      this.showColorOptions.isInactive = false;
-      this.showColorOptions.isActive = true;
-      this.productsVariantsFilter();
-    },
+    //   this.showColorOptions.isInactive = false;
+    //   this.showColorOptions.isActive = true;
+    //   this.productsVariantsFilter();
+    // },
     sizeClickEventV2(payload) {
       // if (this.gammeQuantity < 0) {
       //   this.gammeQuantity === 0;
       // } else if (this.gammeQuantity > 0) {
       //   this.gammeQuantity--;
       // }
-      this.productVariantsSelected = [];
-      this.productVariants.filter((product) => {
-        product.gammesValue.split("¤").map((value) => {
-          if (value.toLowerCase() === payload.size.toLowerCase()) {
-            this.productVariantsSelected.push(product);
-            this.purchaseProductDetails.size = payload.size;
-          }
-        });
-      });
+      // this.productVariantsSelected = [];
+      this.productFilter.size = payload.size;
+      // this.productVariants.filter((product) => {
+      //   product.gammesValue.split("¤").map((value) => {
+      //     if (value.toLowerCase() === payload.size.toLowerCase()) {
+      //       this.productVariantsSelected.push(product);
+      //       this.purchaseProductDetails.size = payload.size;
+      //     }
+      //   });
+      // });
 
       this.productVariantsSelected.map((product) => {
         this.gammeMethod(product.gamme, product.gammesValue);
       });
-      this.productsVariantsFilterV2();
+      // this.productsVariantsFilterV2();
+      this.productVariantFilterV3();
     },
 
-    colorClickEvent(payload) {
-      this.showColorOptions.isFocused = payload.isFocused;
-      if (payload.color.split(" ").length > 1) {
-        this.purchaseProductDetails.color = payload.color
-          .split(" ")
-          .map((el) => el.charAt(0))
-          .join()
-          .replace(",", "");
-      } else {
-        this.purchaseProductDetails.color = payload.color.slice(0, 2);
-      }
-      // this.purchaseProductDetails.color = colorCode;
-      this.showQuantityOptions.isActive = true;
-      this.showQuantityOptions.isInactive = false;
-      this.productsVariantsFilter();
-    },
+    // colorClickEvent(payload) {
+    //   this.showColorOptions.isFocused = payload.isFocused;
+    //   if (payload.color.split(" ").length > 1) {
+    //     this.purchaseProductDetails.color = payload.color
+    //       .split(" ")
+    //       .map((el) => el.charAt(0))
+    //       .join()
+    //       .replace(",", "");
+    //   } else {
+    //     this.purchaseProductDetails.color = payload.color.slice(0, 2);
+    //   }
+    //   // this.purchaseProductDetails.color = colorCode;
+    //   this.showQuantityOptions.isActive = true;
+    //   this.showQuantityOptions.isInactive = false;
+    //   this.productsVariantsFilter();
+    // },
     colorClickEventV2(payload) {
       // if (this.gammeQuantity === 3) {
       //   this.showColorOptions.isFocused = payload.isFocused;
       // }
-      this.productVariantsSelected = [];
+      // this.productVariantsSelected = [];
+      this.productFilter.color = payload.color;
 
-      this.productVariants.filter((product) => {
-        product.gammesValue.split("¤").map((value) => {
-          if (value.toLowerCase() === payload.color.toLowerCase()) {
-            this.productVariantsSelected.push(product);
-            this.purchaseProductDetails.color = payload.color;
-          }
-        });
-      });
+      // this.productVariants.filter((product) => {
+      //   product.gammesValue.split("¤").map((value) => {
+      //     if (value.toLowerCase() === payload.color.toLowerCase()) {
+      //       this.productVariantsSelected.push(product);
+      //       this.purchaseProductDetails.color = payload.color;
+      //     }
+      //   });
+      // });
       this.productVariantsSelected.map((product) => {
         this.gammeMethod(product.gamme, product.gammesValue);
       });
-      this.productsVariantsFilterV2();
+      // this.productsVariantsFilterV2();
+      this.productVariantFilterV3();
     },
-    productsVariantsFilter() {
-      const filterProductVariants = (arr, size, color, laterality) => {
-        try {
-          return arr.filter((el) => {
-            if (
-              el.gammesValueConvert.gammesValue[1].toLowerCase() ===
-                size.toLowerCase() &&
-              el.gammesValueConvert.gammesValue[0].toLowerCase() ===
-                color.toLowerCase()
-            ) {
-              this.productSelected = el;
-              console.log(
-                "🚀 ~ file: _id.vue ~ line 947 ~ returnarr.filter ~ this.productSelected ",
-                this.productSelected
-              );
-            } else {
-              // console.log(
-              //   "🚀 ~ file: _id.vue ~ line 987 ~ returnarr.filter ~ el",
-              //   el
-              // );
-            }
-          });
-        } catch (error) {
-          console.log(
-            "🚀 ~ file: _id.vue ~ line 974 ~ filterProductVariants ~ error",
-            error
-          );
-        }
-      };
+    lateralityClickEvent(payload) {
+      // console.log("payload:", payload);
+      this.productFilter.laterality = payload.laterality;
+      this.productVariantFilterV3();
+    },
+    // productsVariantsFilter() {
+    //   const filterProductVariants = (arr, size, color, laterality) => {
+    //     try {
+    //       return arr.filter((el) => {
+    //         if (
+    //           el.gammesValueConvert.gammesValue[1].toLowerCase() ===
+    //             size.toLowerCase() &&
+    //           el.gammesValueConvert.gammesValue[0].toLowerCase() ===
+    //             color.toLowerCase()
+    //         ) {
+    //           this.productSelected = el;
+    //           console.log(
+    //             "🚀 ~ file: _id.vue ~ line 947 ~ returnarr.filter ~ this.productSelected ",
+    //             this.productSelected
+    //           );
+    //         } else {
+    //           // console.log(
+    //           //   "🚀 ~ file: _id.vue ~ line 987 ~ returnarr.filter ~ el",
+    //           //   el
+    //           // );
+    //         }
+    //       });
+    //     } catch (error) {
+    //       console.log(
+    //         "🚀 ~ file: _id.vue ~ line 974 ~ filterProductVariants ~ error",
+    //         error
+    //       );
+    //     }
+    //   };
 
-      filterProductVariants(
-        this.productVariants,
-        this.purchaseProductDetails.size,
-        this.purchaseProductDetails.color
-      );
-    },
-    productsVariantsFilterV2() {
-      this.productVariants.filter((product) => {
-        product.gammesValue.split("¤").map((value) => {
+    //   filterProductVariants(
+    //     this.productVariants,
+    //     this.purchaseProductDetails.size,
+    //     this.purchaseProductDetails.color
+    //   );
+    // },
+
+    // productsVariantsFilterV2() {
+    //   this.productVariants.filter((product) => {
+    //     product.gammesValue.split("¤").map((value) => {
+    //       if (
+    //         this.purchaseProductDetails.size.toLowerCase() ===
+    //           value.toLowerCase() &&
+    //         this.purchaseProductDetails.color.toLowerCase() ===
+    //           value.toLowerCase()
+    //       ) {
+    //         console.log(
+    //           "🚀 ~ file: _id.vue ~ line 1107 ~ product.gammesValue.split ~ product",
+    //           product
+    //         );
+    //       }
+    //     });
+    //   });
+    // },
+
+    productVariantFilterV3() {
+      let searchGammeValueString;
+      const filterProduct = (valueString) => {
+        this.productVariants.filter((product) => {
           if (
-            this.purchaseProductDetails.size.toLowerCase() ===
-              value.toLowerCase() &&
-            this.purchaseProductDetails.color.toLowerCase() ===
-              value.toLowerCase()
+            product.gammesValue
+              .toLowerCase()
+              .indexOf(valueString.toLowerCase()) !== -1
           ) {
-            console.log(
-              "🚀 ~ file: _id.vue ~ line 1107 ~ product.gammesValue.split ~ product",
-              product
-            );
+            this.productSelected = product;
+            console.log("product:", product);
           }
         });
-      });
+      };
+      if (this.gammeQuantity == 3) {
+        searchGammeValueString =
+          this.productFilter.color +
+          "¤" +
+          this.productFilter.size +
+          "¤" +
+          this.productFilter.laterality;
+        filterProduct(searchGammeValueString);
+      } else if (this.gammeQuantity == 2) {
+        searchGammeValueString =
+          this.productFilter.color + "¤" + this.productFilter.size;
+        filterProduct(searchGammeValueString);
+      } else if (this.gammeQuantity == 1) {
+        if (this.productFilter.color) {
+          searchGammeValueString = this.productFilter.color;
+        } else if (this.productFilter.size) {
+          searchGammeValueString = this.productFilter.size;
+        }
+        filterProduct(searchGammeValueString);
+      }
     },
     async gammeMethod(gammeArray, gammesValueArray) {
       try {
@@ -1185,7 +1241,7 @@ export default {
                   this.showColorOptions.isActive = true;
                   this.gammesOptions.color = true;
                 } else if (obj.libelleGamme === "LATERALITE") {
-                  this.laterality.push(obj.gammeValue);
+                  this.laterality.push(obj);
                   this.gammesOptions.laterality = true;
                 }
               }
