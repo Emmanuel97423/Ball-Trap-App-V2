@@ -399,6 +399,7 @@
     <!-- End Mobile Header -->
 
     <!-- ...:::: Start Offcanvas Mobile Menu Section:::... -->
+    <!-- {{ menu2 }} -->
     <b-sidebar
       id="offcanvas-about"
       class="offcanvas-mobile-about-section"
@@ -409,8 +410,8 @@
       <div class="mobile-menu-navbar-wrap">
         <!-- Start Mobile Menu Nav -->
         <div class="offcanvas-menu">
-          <sidebar-menu :menu="menu" />
-          <div class="login-mobile-container">
+          <sidebar-menu :menu="menu2" />
+          <div v-if="!enabled" class="login-mobile-container">
             <nuxt-link
               v-if="!this.$auth.user"
               class="
@@ -682,31 +683,35 @@ export default {
   data() {
     return {
       enabled: true,
-
+      // menuObject: {
+      //   title: "",
+      //   child: [],
+      // },
+      menu2: [],
       // Mobile Menu Item Data
-      menu: [
+      menu:
         // {
         //   href: "/",
         //   title: "Accueil",
         // },
 
-        {
-          title: "Parcourir",
-          child: [
-            {
-              href: "/shop/shop-2",
-              title: "Tous",
-            },
-            {
-              href: "/shop/shop-2",
-              title: "Textile",
-            },
-            {
-              href: "/shop/shop-2",
-              title: "Accessoire",
-            },
-          ],
-        },
+        // {
+        //   title: "Parcourir",
+        //   child: [
+        //     {
+        //       href: "/shop/shop-2",
+        //       title: "Tous",
+        //     },
+        //     {
+        //       href: "/shop/shop-2",
+        //       title: "Textile",
+        //     },
+        //     {
+        //       href: "/shop/shop-2",
+        //       title: "Accessoire",
+        //     },
+        //   ],
+        // },
         // {
         //   href: "/",
         //   title: "A propos",
@@ -717,23 +722,22 @@ export default {
         // },
 
         {
-          title: "Mon espace",
+          title: "MON ESPACE",
           child: [
             {
               href: "/my-account/orders",
-              title: "Mes commandes",
+              title: "MES COMMANDES",
             },
             {
               href: "/my-account/addresses",
-              title: "Adresses",
+              title: "MES ADRESSES",
             },
             {
               href: "/my-account/account-details",
-              title: "Compte",
+              title: "MON COMPTE",
             },
           ],
         },
-      ],
 
       // Product Items Data
       productItems: [],
@@ -764,6 +768,7 @@ export default {
     // Menu End
   },
   methods: {
+    shapeMenu() {},
     // For Delete/Remove Product Item
     removeProductItem(productItem) {
       this.$store.commit("cart/remove", productItem);
@@ -802,6 +807,34 @@ export default {
       });
       return total;
     },
+  },
+  async fetch() {
+    try {
+      const dataMenu = await this.$axios.get("/category/");
+      dataMenu.data.response.forEach(async (menuItem) => {
+        let menuObject = {
+          title: menuItem.libelleFamille,
+          child: [],
+        };
+        const dataSubmenu = await this.$axios.get(
+          "/category/subCategory/" + menuItem.codeFamille
+        );
+        dataSubmenu.data.subCategory.forEach((subMenuItem) => {
+          console.log("subMenuItem:", subMenuItem);
+          const childMenuObject = {
+            // href: "/shop/category/" + subMenuItem.codeSousFamille,
+            href: "#",
+            title: subMenuItem.libelleSousFamille,
+          };
+          menuObject.child.push(childMenuObject);
+        });
+        this.menu2.unshift(menuObject);
+      });
+    } catch (error) {
+      console.log("🚀 ~ file: Header.vue ~ line 815 ~ fetch ~ error", error);
+    } finally {
+      this.menu2.push(this.menu);
+    }
   },
 };
 </script>

@@ -269,14 +269,14 @@ export default {
   },
   fetchOnServer: false,
   mounted() {
-    console.log(
-      "🚀 ~ file: _category.vue ~ line 241 ~ mounted ~ this.$route.params",
-      this.$route.params
-    );
-    console.log(
-      "🚀 ~ file: _category.vue ~ line 260 ~ mounted ~ this.$route.query",
-      this.$route.query
-    );
+    // console.log(
+    //   "🚀 ~ file: _category.vue ~ line 241 ~ mounted ~ this.$route.params",
+    //   this.$route.params
+    // );
+    // console.log(
+    //   "🚀 ~ file: _category.vue ~ line 260 ~ mounted ~ this.$route.query",
+    //   this.$route.query
+    // );
   },
 };
 </script>
@@ -311,6 +311,13 @@ dl {
   background-color: transparent;
 }
 /* Responsive */
+@media only screen and (max-width: 425px) {
+  /* tablettes*/
+  .product-list-breadcrumb-section {
+    display: none;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   /* tablettes et ordinateurs */
   .left-nav-categories {
