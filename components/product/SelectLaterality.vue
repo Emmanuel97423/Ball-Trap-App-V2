@@ -18,6 +18,7 @@
           :src="require('@/assets/img/product-image/DX_n-100x100.jpg')"
         />
         <input
+          required
           type="radio"
           :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
           name="laterality"

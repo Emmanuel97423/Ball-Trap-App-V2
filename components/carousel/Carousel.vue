@@ -6,7 +6,7 @@
       :interval="5000"
       controls
       indicators
-      fade="true"
+      :fade="true"
       background="#fff"
       style="text-shadow: 1px 1px 2px #333"
       @sliding-start="onSlideStart"

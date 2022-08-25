@@ -11,6 +11,7 @@
         @click="handleCLick(libelle.gammeCode)"
       >
         <input
+          required
           type="radio"
           :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
           name="color"
