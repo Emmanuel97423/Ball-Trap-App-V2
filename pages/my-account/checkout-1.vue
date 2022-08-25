@@ -356,14 +356,14 @@
                 Etape suivante
               </button> -->
               <p v-if="!stripe.url && selectedProducts[0]">
-                Service paiement temporairement indisponible. Veuillez réessayez
-                plus tard.
+                Service paiement est temporairement indisponible. Veuillez
+                réessayez plus tard.
               </p>
 
               <a
                 v-if="stripe.url && selectedProducts[0]"
-                :href="`${stripe.url}`"
                 class="theme-btn-one btn-black-overlay btn_sm btn-pay"
+                :href="`${stripe.url}`"
                 >Etape suivante</a
               >
             </div>
@@ -541,7 +541,6 @@ export default {
     async onSubmit() {
       // console;
       if (this.userAdress === null) {
-        console.log("this.invoicing :", this.userAdress);
         console.log("Donnée de facturation abscent!!!");
         this.active = true;
         this.alertMessage =
@@ -550,41 +549,56 @@ export default {
           this.active = false;
         }, 4000);
       } else {
+        const stripeCheckoutSession = await this.$axios.post(
+          "/order/create-checkout-session",
+          this.selectedProducts,
+          {
+            progress: true,
+          }
+        );
+
+        const stripeCheckoutUrlWithDomain =
+          stripeCheckoutSession.data.session.url;
+        this.stripe.url = stripeCheckoutUrlWithDomain;
         // const userObject = this.$store.state.user.userLogin;
         // this.$store.dispatch("user/getUserDetails", userObject.userId);
         // this.invoicing.invoiceUserId = userObject.userId;
         // // this.$store.dispatch("user/addAdresse", this.invoicing);
         // this.invoicingForm = false;
-        try {
-          const stripeCheckoutSession = await this.$axios.post(
-            "/order/create-checkout-session",
-            this.selectedProducts,
-            {
-              progress: true,
-            }
-          );
-          console.log(
-            "🚀 ~ file: checkout-1.vue ~ line 567 ~ onSubmit ~ selectedProducts",
-            this.selectedProducts
-          );
-          const stripeCheckoutUrlWithDomain =
-            stripeCheckoutSession.data.session.url;
-          this.stripe.url = stripeCheckoutUrlWithDomain;
-          // const stripeCheckoutUrlWithoutDomain =
-          //   stripeCheckoutUrlWithDomain.replace(
-          //     /^(?:\S+\.\S+?\/|\/)?(\S+)$/gm,
-          //     ""
-          //   );
-          // console.log(
-          //   "stripeCheckoutUrlWithoutDomain:",
-          //   stripeCheckoutUrlWithoutDomain
-          // );
-          // this.$router.push({
-          //   path: stripeCheckoutSession.data.session.url,
-          // });
-        } catch (error) {
-          console.log(error);
-        }
+        //         try {
+        //           const arrayProduct = [];
+        //           this.selectedProducts.filter(async (product) => {
+        //             console.log("product:", product);
+        //             const checkStock = await this.$axios.post(
+        //               "/product/" + product._id
+        //             );
+        //             console.log("checkStock:", checkStock.data);
+        //             if (product.orderQuantity > checkStock.data.stock) {
+        //               console.log("Stock" + product.libelle + "épuisé");
+        //               arrayProduct.push(product)
+        // //               this.selectedProducts.filter(productSelected=>{
+        // // if(productSelected._id.indexOf()){
+
+        // // }
+        // //               });
+        //             } else {
+
+        //               const stripeCheckoutSession = await this.$axios.post(
+        //                 "/order/create-checkout-session",
+        //                 this.selectedProducts,
+        //                 {
+        //                   progress: true,
+        //                 }
+        //               );
+
+        //               const stripeCheckoutUrlWithDomain =
+        //                 stripeCheckoutSession.data.session.url;
+        //               this.stripe.url = stripeCheckoutUrlWithDomain;
+        //             }
+        //           });
+        //         } catch (error) {
+        //           console.log(error);
+        //         }
       }
     },
     //Invoice data submit
