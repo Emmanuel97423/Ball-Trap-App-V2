@@ -1,7 +1,7 @@
 <template>
   <div class="container-select-size">
     <!-- {{ gammeObject }} -->
-    <div
+    <!-- <div
       v-for="(value, index) in size"
       :key="index"
       class="box-size"
@@ -9,6 +9,24 @@
       @click="handleCLick(index, value)"
     >
       <div>{{ value }}</div>
+    </div> -->
+    <div
+      v-for="(value, index) in size"
+      :key="index"
+      class="box-size"
+      :class="{ 'select-size-active': activeOptions.indexOf(index) > -1 }"
+    >
+      <input
+        @click="handleCLick(index, value)"
+        :id="value"
+        type="radio"
+        :value="value"
+        name="size"
+        required="true"
+      />
+      <label :for="value">{{ value }}</label>
+
+      <!-- <div>{{ value }}</div> -->
     </div>
     <div><Spinner v-if="isLoadingSize"></Spinner></div>
   </div>

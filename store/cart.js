@@ -4,35 +4,75 @@
 //State
 export const state = () => ({
   items: [],
-  orderQuantity: ""
+  // orderQuantity: "",
+  // cartProductQuantity: ""
 })
+
+//Actions
+export const actions = {
+  addToCart({ commit, state }, product) {
+    const record = state.items.find(i => i._id === product._id)
+    console.log("🚀 ~ file: cart.js ~ line 19 ~ add ~ record", record)
+    if (!record) {
+      state.items.push({
+        orderQuantity: state.orderQuantity,
+        ...product,
+      })
+
+    }
+    else if (record.stock <= record.orderQuantity) {
+      console.log('record.orderQuantity:', record.orderQuantity)
+      console.log('record.stock:', record.stock)
+      console.log('Stock insuffisant')
+      return false
+    }
+    else {
+      console.log('record.orderQuantity:', record.orderQuantity)
+      console.log('record.stock:', record.stock)
+      record.orderQuantity += state.orderQuantity
+      return true
+    };
+  }
+}
 //Mutations
 export const mutations = {
   setItems(state, items) {
     state.items = items
   },
-  add(state, item) {
-    console.log('state:', state)
-    console.log('item:', item)
+  add(state, productPayload) {
 
-    const record = state.items.find(i => i._id === item._id)
-    console.log("🚀 ~ file: cart.js ~ line 19 ~ add ~ record", record)
+    const record = state.items.find(i => i._id === productPayload.product._id)
+    // console.log("🚀 ~ file: cart.js ~ line 19 ~ add ~ record", record)
     if (!record) {
       state.items.push({
-        orderQuantity: state.orderQuantity,
-        ...item,
+        orderQuantity: productPayload.orderQuantity,
+        ...productPayload.product,
       })
 
     }
-    else if (record.quantity < record.orderQuantity) {
-      console.log('Stock insuffisant')
 
-    }
-    else {
-      record.orderQuantity += state.orderQuantity
+    else if ((record.orderQuantity + productPayload.orderQuantity) > record.stock) {
+      console.log('record.orderQuantity:', record.orderQuantity)
+      console.log('record.stock:', record.stock)
+      console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
+      console.log('Stock insuffisant')
+    } else if ((record.orderQuantity + productPayload.orderQuantity) <= record.stock) {
+      console.log('record.orderQuantity:', record.orderQuantity)
+      console.log('record.stock:', record.stock)
+      console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
+      record.orderQuantity += productPayload.orderQuantity
+
+    } else {
+      console.log("Error condition")
+      console.log('record.stock:', record.stock)
+      console.log('record.orderQuantity + productPayload.orderQuantity:', record.orderQuantity + productPayload.orderQuantity)
     };
 
 
+  },
+
+  ADD_TO_CART(state, product) {
+    state.items.push(product)
   },
   // inc(state, item) {
   //   console.log(item)
@@ -40,28 +80,27 @@ export const mutations = {
   //   record.orderQuantity = item.orderQuantity
 
   // },
-  orderQuantity(state, orderQuantity) {
-    console.log('orderQuantity:', orderQuantity)
-    state.orderQuantity = orderQuantity
-  },
+  // orderQuantity(state, orderQuantity) {
+  //   console.log('orderQuantity:', orderQuantity)
+  //   state.orderQuantity = orderQuantity
+  // },
 
-  addToCartByComponent(state, item) {
-    const record = state.items.find(i => i._id === item._id)
+  // addToCartByComponent(state, item) {
+  //   const record = state.items.find(i => i._id === item._id)
 
-    if (!record) {
-      state.items.push({
-        orderQuantity: 1,
+  //   if (!record) {
+  //     state.items.push({
+  //       orderQuantity: 1,
 
-        ...item
-      })
-    } else {
-      record.orderQuantity++
-    }
-  },
+  //       ...item
+  //     })
+  //   } else {
+  //     record.orderQuantity++
+  //   }
+  // },
 
   remove(state, item) {
     const record = state.items.find(i => i._id === item._id)
-    console.log('record:', record)
 
     if (record.orderQuantity > 1) {
       record.orderQuantity--
