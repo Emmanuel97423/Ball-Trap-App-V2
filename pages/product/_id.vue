@@ -119,77 +119,88 @@
 
                   <SizeChart :productName="product.libelle"></SizeChart>
                   <!-- <SelectSize /> -->
-                  <div class="pt-15">
-                    <!-- <span>Tailles</span> -->
-                    <!-- {{ size }} -->
-                    <!-- nombre de gammes :{{ gammeQuantity }} -->
-                    <!-- is a product gamme :
-                    {{ isAProductGamme }} -->
-                    <!-- {{ product }} -->
-                    <!-- {{ purchaseProductDetails }} -->
-                    <!-- productFilter: {{ productFilter }} -->
-                    <SelectSize2
-                      v-if="gammesOptions.size === true"
-                      :size="uniqueSize"
-                      @size-click-event="sizeClickEventV2"
-                    />
-                  </div>
-
-                  <div
-                    v-if="isAProductGamme === 'true'"
-                    class="color-select"
-                    :class="showColorOptions"
-                  >
-                    <SelectColor
-                      v-if="gammesOptions.color === true"
-                      :colors="color"
-                      :colorLibelle="colorLibelle"
-                      @color-click-event="colorClickEventV2"
-                    />
-                    <Spinner v-else></Spinner>
-                  </div>
-                  <div v-if="gammesOptions.laterality">
-                    <!-- {{ productVariantsSelected }} -->
-                    <SelectLaterality
-                      :laterality="laterality"
-                      @laterality-click-event="lateralityClickEvent"
-                    />
-                  </div>
-                  <!-- {{ productSelected.stock }} -->
-                  <!-- {{ gammeQuantity }} -->
-                  <div>
-                    <button
-                      v-if="productSelected.stock > 0"
-                      class="btn__stock--green"
-                    >
-                      Stock disponible
-                    </button>
-                    <button v-else class="btn__stock--red">
-                      Stock indisponible
-                    </button>
-                  </div>
                   <form
-                    v-if="isAProductGamme === 'true'"
-                    id="product_count_form_two"
-                    :class="showQuantityOptions"
+                    id="gammeSelectForm"
+                    method="post"
+                    ref="gammeSelectForm"
+                    v-on:submit.prevent="
+                      addToCart(productSelected, quantitySelected.orderQuantity)
+                    "
                   >
+                    <div class="pt-15">
+                      <!-- <span>Tailles</span> -->
+                      <!-- {{ size }} -->
+                      <!-- nombre de gammes :{{ gammeQuantity }} -->
+                      <!-- is a product gamme :
+                    {{ isAProductGamme }} -->
+                      <!-- {{ product }} -->
+                      <!-- {{ purchaseProductDetails }} -->
+                      <SelectGenre
+                        v-if="gammesOptions.genre === true"
+                        :genre="genre"
+                        @genre-click-event="genreClickEvent"
+                      />
+                      <SelectSize2
+                        v-if="gammesOptions.size === true"
+                        :size="uniqueSize"
+                        @size-click-event="sizeClickEventV2"
+                      />
+                    </div>
+
                     <div
-                      v-if="productSelected.stock > 0"
+                      v-if="isAProductGamme === 'true'"
+                      class="color-select"
+                      :class="showColorOptions"
+                    >
+                      <SelectColor
+                        v-if="gammesOptions.color === true"
+                        :colors="color"
+                        :colorLibelle="colorLibelle"
+                        @color-click-event="colorClickEventV2"
+                      />
+                      <Spinner v-else></Spinner>
+                    </div>
+                    <div v-if="gammesOptions.laterality">
+                      <!-- {{ productVariantsSelected }} -->
+                      <SelectLaterality
+                        :laterality="laterality"
+                        @laterality-click-event="lateralityClickEvent"
+                      />
+                    </div>
+                    <!-- {{ productSelected.stock }}
+                    {{ productFilter }} -->
+                    <div v-if="stockNotificationOptions.isActive">
+                      <button
+                        v-if="productSelected.stock > 0"
+                        class="btn__stock--green"
+                      >
+                        Stock disponible
+                      </button>
+                      <button
+                        v-if="productSelected.stock < 1"
+                        class="btn__stock--red"
+                      >
+                        Stock indisponible
+                      </button>
+                    </div>
+                    <div
                       class="product_count_one pt-15"
                       @click="clickQuantitySelect"
                     >
                       <b-form-spinbutton
+                        required
                         id="sb-inline"
                         v-model="quantitySelected.orderQuantity"
                         inline
                         class="border-0"
                         min="1"
-                        :max="quantitySelected.max"
+                        :max="productSelected.stock"
                       ></b-form-spinbutton>
                     </div>
                   </form>
+
                   <!-- One product quantity select -->
-                  <form v-else id="product_count_form_two">
+                  <!-- <form id="product_count_form_two">
                     <div
                       class="product_count_one pt-15"
                       @click="clickQuantitySelect"
@@ -203,7 +214,7 @@
                         :max="quantitySelected.max"
                       ></b-form-spinbutton>
                     </div>
-                  </form>
+                  </form> -->
                   <!-- <StockAlert
                   v-if="product.quantity === 0"
                   :productQuantity="product.quantity"
@@ -309,19 +320,29 @@
                       ></b-icon>
                       <p>Toute commande nécessite la création d'un compte</p>
                     </div>
-                    <button
-                      class="theme-btn-one btn-black-overlay btn_sm"
-                      :disabled="purchaseButtonOptions.disabled"
+                    <!-- <input
+                      id="tooltip-purchase-button"
+                      form="gammeSelectForm"
+                      type="submit"
+                      value="Ajouter au panier"
                       @click="
                         addToCart(
                           productSelected,
                           quantitySelected.orderQuantity
                         )
                       "
+                    /> -->
+                    <button
+                      type="submit"
+                      form="gammeSelectForm"
+                      id="tooltip-purchase-button"
+                      class="theme-btn-one btn-black-overlay btn_sm"
                     >
                       Ajouter au panier
                     </button>
-
+                    <!-- <b-tooltip target="tooltip-purchase-button" variant="danger"
+                      >Danger variant tooltip</b-tooltip
+                    > -->
                     <!-- Out of stock -->
                     <!-- <p v-else>Non disponible</p> -->
                     <br />
@@ -695,6 +716,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 import SelectSize from "@/components/product/SelectSize";
 import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
+import SelectGenre from "@/components/product/SelectGenre";
 import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
 import SelectLaterality from "@/components/product/SelectLaterality";
@@ -715,6 +737,7 @@ export default {
     SelectColor,
     SelectLaterality,
     AfterPayMessage,
+    SelectGenre,
   },
 
   data() {
@@ -733,6 +756,7 @@ export default {
       colorLibelle: [],
       colorUniqueArray: [],
       laterality: [],
+      genre: [],
       mainImage: null,
       isStripeLoaded: false,
       gammeQuantity: "",
@@ -745,9 +769,10 @@ export default {
       enabled: true,
       title: this.$route.params.slug,
       productFilter: {
-        size: null,
-        color: null,
-        laterality: null,
+        size: "",
+        color: "",
+        laterality: "",
+        genre: "",
       },
       // Product details Popup slider
       swiperOption: {
@@ -805,6 +830,14 @@ export default {
         size: false,
         color: false,
         laterality: false,
+        genre: false,
+      },
+      stockNotificationOptions: {
+        isActive: false,
+      },
+      productPayloadToAddToCartCommit: {
+        product: "product",
+        orderQuantity: "",
       },
       gammeObject: [],
       productSelected: "",
@@ -857,12 +890,12 @@ export default {
   // Page head() Title, description for SEO
   head() {
     return {
-      title: this.title,
+      title: this.product.libelle,
       meta: [
         {
-          hid: "description",
-          name: "this.product.libelle",
-          content: "this.product.description",
+          hid: this.product.libelle,
+          name: this.product.libelle,
+          content: this.product.description,
         },
       ],
     };
@@ -900,30 +933,36 @@ export default {
       this.dismissCountDown = this.dismissSecs;
     },
     addToCart(product, orderQuantity) {
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 802 ~ addToCart ~ orderQuantity",
-        orderQuantity
-      );
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 802 ~ addToCart ~ product",
-        product
-      );
-      this.$store
-        .dispatch("products/decrementStock", product._id)
-        .then((result) => {
-          if (result == true) {
-            this.$store.commit("cart/orderQuantity", orderQuantity);
-            console.log("this.orderQuantity:", orderQuantity);
-            this.$store.commit("cart/add", product);
-            this.toggleModal();
-          } else {
-            this.showAlert();
-            console.log("Stock Insuffisant");
-          }
-        })
-        .catch((err) => {
-          console.log("decrement error:", err);
-        });
+      this.stockNotificationOptions.isActive = true;
+
+      if (this.productSelected.stock < 1) {
+        return;
+      } else {
+        if (this.productSelected.stock > 0) {
+          this.productPayloadToAddToCartCommit.product = product;
+          this.productPayloadToAddToCartCommit.orderQuantity = orderQuantity;
+
+          // this.$store.commit("cart/orderQuantity", orderQuantity);
+          this.$store.commit("cart/add", this.productPayloadToAddToCartCommit);
+          // this.toggleModal();
+        }
+
+        // this.$store
+        //   .dispatch("products/decrementStock", product._id)
+        //   .then((result) => {
+        //     if (result == true) {
+        //       this.$store.commit("cart/orderQuantity", orderQuantity);
+        //       this.$store.commit("cart/add", product);
+        //       this.toggleModal();
+        //     } else {
+        //       this.showAlert();
+        //       console.log("Stock Insuffisant");
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     console.log("decrement error:", err);
+        //   });
+      }
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
@@ -936,109 +975,9 @@ export default {
     removeFromCart(product) {
       this.$store.commit("cart/remove", product);
     },
-    // sizeClickEvent(payload) {
-    //   console.log(
-    //     "🚀 ~ file: _id.vue ~ line 887 ~ sizeClickEvent ~ payload",
-    //     payload
-    //   );
-    //   this.color = [];
-    //   this.colorLibelle = [];
-    //   this.showColorOptions.componentKey += 1;
-    //   this.showColorOptions.isLoading = true;
-    //   this.showColorOptions.isFocused = false;
 
-    //   setTimeout(() => {
-    //     this.showColorOptions.isLoading = false;
-    //   }, 1000);
-    //   const productColorFilter = (arr, request) => {
-    //     return arr.filter(async (el) => {
-    //       el.gammesValueConvert.gammes.map((gamme, index) => {});
-
-    //       if (
-    //         request.size.toLowerCase() ===
-    //         el.gammesValueConvert.gammesValue[1].toLowerCase()
-    //       ) {
-    //         this.color.push(el.gammesValueConvert.gammesValue[0]);
-
-    //         this.purchaseProductDetails.size =
-    //           el.gammesValueConvert.gammesValue[1];
-    //         try {
-    //           const gammeLibelle = await this.$axios.get(
-    //             "/gammes/gamme/GA00002"
-    //           );
-    //           this.gammesLibelle = gammeLibelle.data;
-    //           const libelleArray = [];
-    //           this.gammesLibelle.map((libelle) => {
-    //             libelleArray.push(libelle.elementsGammeLibelle);
-    //           });
-    //           const filtreColor = (arr, requete) => {
-    //             return arr.filter((el) => {
-    //               if (el.toLowerCase().split(" ").length > 1) {
-    //                 return (
-    //                   el
-    //                     .toLowerCase()
-    //                     .split(" ")
-    //                     .map((w) => w[0])
-    //                     .join("")
-    //                     .indexOf(requete.toLowerCase()) !== -1
-    //                 );
-    //               } else if (el.toLowerCase().split(" ").length === 1) {
-    //                 return (
-    //                   el.toLowerCase().indexOf(requete.toLowerCase()) !== -1
-    //                 );
-    //               }
-    //             });
-    //           };
-    //           const arrayTemp = [];
-    //           this.color.map((item) => {
-    //             arrayTemp.push(filtreColor(libelleArray, item));
-    //           });
-    //           arrayTemp.map((item) => {
-    //             item.map((string) => {
-    //               this.colorLibelle.push(string);
-    //             });
-    //           });
-    //         } catch (error) {
-    //           console.log(
-    //             "🚀 ~ file: SelectColor.vue ~ line 92 ~ Fetch ~ error",
-    //             error
-    //           );
-    //         }
-
-    //         return el;
-    //       }
-    //       // console.log(
-    //       //   "🚀 ~ file: _id.vue ~ line 777 ~ returnarr.filter ~ el.gammesValueConvert.gammesValue[1]",
-    //       //   el.gammesValueConvert.gammesValue[1].toLowerCase()
-    //       // );
-
-    //       // el.gammesValueConvert.gammesValue[1]
-    //       //   .toLowerCase()
-    //       //   .indexOf(request.size.toLowerCase()) !== -1;
-    //     });
-    //   };
-    //   productColorFilter(this.productVariants, payload);
-
-    //   this.showColorOptions.isInactive = false;
-    //   this.showColorOptions.isActive = true;
-    //   this.productsVariantsFilter();
-    // },
     sizeClickEventV2(payload) {
-      // if (this.gammeQuantity < 0) {
-      //   this.gammeQuantity === 0;
-      // } else if (this.gammeQuantity > 0) {
-      //   this.gammeQuantity--;
-      // }
-      // this.productVariantsSelected = [];
       this.productFilter.size = payload.size;
-      // this.productVariants.filter((product) => {
-      //   product.gammesValue.split("¤").map((value) => {
-      //     if (value.toLowerCase() === payload.size.toLowerCase()) {
-      //       this.productVariantsSelected.push(product);
-      //       this.purchaseProductDetails.size = payload.size;
-      //     }
-      //   });
-      // });
 
       this.productVariantsSelected.map((product) => {
         this.gammeMethod(product.gamme, product.gammesValue);
@@ -1047,137 +986,49 @@ export default {
       this.productVariantFilterV3();
     },
 
-    // colorClickEvent(payload) {
-    //   this.showColorOptions.isFocused = payload.isFocused;
-    //   if (payload.color.split(" ").length > 1) {
-    //     this.purchaseProductDetails.color = payload.color
-    //       .split(" ")
-    //       .map((el) => el.charAt(0))
-    //       .join()
-    //       .replace(",", "");
-    //   } else {
-    //     this.purchaseProductDetails.color = payload.color.slice(0, 2);
-    //   }
-    //   // this.purchaseProductDetails.color = colorCode;
-    //   this.showQuantityOptions.isActive = true;
-    //   this.showQuantityOptions.isInactive = false;
-    //   this.productsVariantsFilter();
-    // },
     colorClickEventV2(payload) {
-      // if (this.gammeQuantity === 3) {
-      //   this.showColorOptions.isFocused = payload.isFocused;
-      // }
-      // this.productVariantsSelected = [];
       this.productFilter.color = payload.color;
 
-      // this.productVariants.filter((product) => {
-      //   product.gammesValue.split("¤").map((value) => {
-      //     if (value.toLowerCase() === payload.color.toLowerCase()) {
-      //       this.productVariantsSelected.push(product);
-      //       this.purchaseProductDetails.color = payload.color;
-      //     }
-      //   });
-      // });
       this.productVariantsSelected.map((product) => {
         this.gammeMethod(product.gamme, product.gammesValue);
       });
-      // this.productsVariantsFilterV2();
       this.productVariantFilterV3();
     },
     lateralityClickEvent(payload) {
-      // console.log("payload:", payload);
       this.productFilter.laterality = payload.laterality;
       this.productVariantFilterV3();
     },
-    // productsVariantsFilter() {
-    //   const filterProductVariants = (arr, size, color, laterality) => {
-    //     try {
-    //       return arr.filter((el) => {
-    //         if (
-    //           el.gammesValueConvert.gammesValue[1].toLowerCase() ===
-    //             size.toLowerCase() &&
-    //           el.gammesValueConvert.gammesValue[0].toLowerCase() ===
-    //             color.toLowerCase()
-    //         ) {
-    //           this.productSelected = el;
-    //           console.log(
-    //             "🚀 ~ file: _id.vue ~ line 947 ~ returnarr.filter ~ this.productSelected ",
-    //             this.productSelected
-    //           );
-    //         } else {
-    //           // console.log(
-    //           //   "🚀 ~ file: _id.vue ~ line 987 ~ returnarr.filter ~ el",
-    //           //   el
-    //           // );
-    //         }
-    //       });
-    //     } catch (error) {
-    //       console.log(
-    //         "🚀 ~ file: _id.vue ~ line 974 ~ filterProductVariants ~ error",
-    //         error
-    //       );
-    //     }
-    //   };
-
-    //   filterProductVariants(
-    //     this.productVariants,
-    //     this.purchaseProductDetails.size,
-    //     this.purchaseProductDetails.color
-    //   );
-    // },
-
-    // productsVariantsFilterV2() {
-    //   this.productVariants.filter((product) => {
-    //     product.gammesValue.split("¤").map((value) => {
-    //       if (
-    //         this.purchaseProductDetails.size.toLowerCase() ===
-    //           value.toLowerCase() &&
-    //         this.purchaseProductDetails.color.toLowerCase() ===
-    //           value.toLowerCase()
-    //       ) {
-    //         console.log(
-    //           "🚀 ~ file: _id.vue ~ line 1107 ~ product.gammesValue.split ~ product",
-    //           product
-    //         );
-    //       }
-    //     });
-    //   });
-    // },
+    genreClickEvent(payload) {
+      this.productVariantFilterV3();
+      this.productFilter.genre = payload.genre.gammeCode;
+    },
 
     productVariantFilterV3() {
-      let searchGammeValueString;
-      const filterProduct = (valueString) => {
-        this.productVariants.filter((product) => {
-          if (
-            product.gammesValue
-              .toLowerCase()
-              .indexOf(valueString.toLowerCase()) !== -1
-          ) {
-            this.productSelected = product;
-            console.log("product:", product);
-          }
-        });
-      };
-      if (this.gammeQuantity == 3) {
-        searchGammeValueString =
-          this.productFilter.color +
-          "¤" +
-          this.productFilter.size +
-          "¤" +
-          this.productFilter.laterality;
-        filterProduct(searchGammeValueString);
-      } else if (this.gammeQuantity == 2) {
-        searchGammeValueString =
-          this.productFilter.color + "¤" + this.productFilter.size;
-        filterProduct(searchGammeValueString);
-      } else if (this.gammeQuantity == 1) {
-        if (this.productFilter.color) {
-          searchGammeValueString = this.productFilter.color;
-        } else if (this.productFilter.size) {
-          searchGammeValueString = this.productFilter.size;
+      let gammeQuery =
+        this.productFilter.genre +
+        this.productFilter.color +
+        this.productFilter.size +
+        this.productFilter.laterality;
+      this.productVariants.filter((product) => {
+        if (
+          product.gammesValue
+            .replaceAll("¤", "")
+            .toLowerCase()
+            .includes(gammeQuery.toLowerCase())
+        ) {
+          this.productSelected = product;
+          this.gammeQuantity;
+          // if (
+          //   this.productSelected.gammesValue.split("¤").length ==
+          //     this.gammeQuantity &&
+          //   this.productSelected.stock > 0
+          // ) {
+          //   this.purchaseButtonOptions.disabled = false;
+          // } else {
+          //   this.purchaseButtonOptions.disabled = true;
+          // }
         }
-        filterProduct(searchGammeValueString);
-      }
+      });
     },
     async gammeMethod(gammeArray, gammesValueArray) {
       try {
@@ -1243,6 +1094,9 @@ export default {
                 } else if (obj.libelleGamme === "LATERALITE") {
                   this.laterality.push(obj);
                   this.gammesOptions.laterality = true;
+                } else if (obj.libelleGamme === "GENRE") {
+                  this.genre.push(obj);
+                  this.gammesOptions.genre = true;
                 }
               }
             });
