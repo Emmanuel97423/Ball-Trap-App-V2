@@ -355,16 +355,21 @@
               >
                 Etape suivante
               </button> -->
-              <p v-if="!stripe.url && selectedProducts[0]">
+              <p
+                v-if="
+                  !stripe.url && !this.stripe.message && selectedProducts[0]
+                "
+              >
                 Service paiement est temporairement indisponible. Veuillez
                 réessayez plus tard.
               </p>
 
-              <a
-                v-if="stripe.url && selectedProducts[0]"
+              <b-button
                 class="theme-btn-one btn-black-overlay btn_sm btn-pay"
                 :href="`${stripe.url}`"
-                >Etape suivante</a
+                :class="paymentButtonOptions"
+                @click="onSubmit()"
+                >Etape suivante</b-button
               >
             </div>
 
@@ -443,6 +448,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 // import { Nuxt, Builder, Utils } from 'nuxt'
 import Modal from "~/components/modal/adressModal";
 import paymentButton from "~/components/paymentButton";
+
 export default {
   name: "checkout-1",
   middleware: "auth",
@@ -507,6 +513,10 @@ export default {
       adresses: "",
       stripe: {
         url: "",
+        message: "",
+      },
+      paymentButtonOptions: {
+        disabled: true,
       },
     };
   },
@@ -536,7 +546,17 @@ export default {
       // this.$forceUpdate();
       console.log("refresh checkout");
     },
+    makeToast(append = false) {
+      this.$bvToast.toast(`${this.stripe.message}`, {
+        title: "Mettez à jour votre panier",
+        autoHideDelay: 5000,
+        appendToast: append,
+        // noAutoHide: true,
+        appendToast: true,
 
+        // solid: true,
+      });
+    },
     //Etape suivante payment
     async onSubmit() {
       // console;
@@ -556,10 +576,22 @@ export default {
             progress: true,
           }
         );
+        console.log(
+          "🚀 ~ file: checkout-1.vue ~ line 574 ~ onSubmit ~ stripeCheckoutSession",
+          stripeCheckoutSession
+        );
 
-        const stripeCheckoutUrlWithDomain =
-          stripeCheckoutSession.data.session.url;
-        this.stripe.url = stripeCheckoutUrlWithDomain;
+        if (stripeCheckoutSession.data.message) {
+          this.stripe.message = stripeCheckoutSession.data.message;
+          this.paymentButtonOptions.disabled = true;
+          this.makeToast();
+        } else {
+          const stripeCheckoutUrlWithDomain =
+            stripeCheckoutSession.data.session.url;
+          this.stripe.url = stripeCheckoutUrlWithDomain;
+          this.paymentButtonOptions.disabled = false;
+        }
+
         // const userObject = this.$store.state.user.userLogin;
         // this.$store.dispatch("user/getUserDetails", userObject.userId);
         // this.invoicing.invoiceUserId = userObject.userId;
@@ -737,5 +769,8 @@ export default {
 
   color: #fff;
   transition: all 0.2s linear;
+}
+.isActive {
+  display: none;
 }
 </style>
