@@ -61,7 +61,6 @@ export const mutations = {
       console.log('record.stock:', record.stock)
       console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
       record.orderQuantity += productPayload.orderQuantity
-
     } else {
       console.log("Error condition")
       console.log('record.stock:', record.stock)

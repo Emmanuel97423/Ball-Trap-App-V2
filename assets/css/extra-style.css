@@ -503,8 +503,10 @@
        CheckOut Page 
 -------------------------------------*/
 .btn-secondary {
-    color: inherit !important;
+    /* color: inherit !important; */
+    color: #fff;
 }
+
 
 .payment-inner button {
     position: relative;

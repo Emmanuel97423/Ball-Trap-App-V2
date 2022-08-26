@@ -36,9 +36,9 @@
                     <ul>
                       <li>
                         <div class="nav-top-bar-home">
-                          <nuxt-link class="active main-menu-link" to="/"
+                          <!-- <nuxt-link class="active main-menu-link" to="/"
                             >Parcourir</nuxt-link
-                          >
+                          > -->
                           <nuxt-link class="active main-menu-link" to="/"
                             >à propos</nuxt-link
                           >
