@@ -1,9 +1,16 @@
 <template>
   <div class="box">
     <div class="container">
-      <i class="fas fa-check"><h2>Paiement validée!</h2></i>
+      <div v-if="sessionStatus !== 'complete'">
+        <i class="fas fa-check"><h2>Paiement validée!</h2></i>
 
-      <p>Merci pour votre confiance !</p>
+        <p>Merci pour votre confiance !</p>
+      </div>
+      <div v-if="sessionStatus == 'complete'">
+        <i class="fa fa-warning"><h2>Session expiré !</h2></i>
+
+        <!-- <p>Merci pour votre confiance !</p> -->
+      </div>
 
       <p>Vous serez redirigé dans 5 secondes</p>
     </div>
@@ -15,6 +22,7 @@ export default {
   data() {
     return {
       customer: "",
+      sessionStatus: "",
       orderDetails: {
         userId: "",
         // customer: "",
@@ -27,32 +35,52 @@ export default {
   },
   middleware: "auth",
   methods: {
-    async success() {
-      const sessionId = await this.$route.query.session_id;
-      const data = await this.$axios.get("/paymentSucess", {
-        params: { session_id: sessionId },
-      });
-      this.customer = data;
-      this.$store.commit("cart/emptyList");
-    },
+    // async success() {
+    //   this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
+    //   this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
+    //   this.orderDetails.products = this.$store.state.cart.items;
+    //   // this.orderDetails.date = Date.now();
+    //   // this.orderDetails.customer = invoicingObject.data.invoicingDetails;
+    //   this.orderDetails.userId = this.$store.state.auth.user.userId;
+    //   this.$store.dispatch("order/sendOrder", this.orderDetails);
+    //   const sessionId = await this.$route.query.session_id;
+    //   const data = await this.$axios.get("/paymentSucess", {
+    //     params: { session_id: sessionId },
+    //   });
+    //   console.log(
+    //     "🚀 ~ file: sucess.vue ~ line 35 ~ success ~ data",
+    //     data.data.status
+    //   );
+    //   this.sessionStatus = data.data.status;
+    //   this.$store.commit("cart/emptyList");
+    // },
   },
-  mounted() {
+  async mounted() {
+    // this.success();
+    // setTimeout(() => {
+    //   try {
+    //     // this.$router.push("/my-account");
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }, 5000);
+  },
+  async fetch() {
     this.orderDetails.clientSecret = this.$store.state.order.clientSecret;
     this.orderDetails.amount = this.$store.getters["cart/cartTotal"];
     this.orderDetails.products = this.$store.state.cart.items;
     // this.orderDetails.date = Date.now();
     // this.orderDetails.customer = invoicingObject.data.invoicingDetails;
     this.orderDetails.userId = this.$store.state.auth.user.userId;
-
-    this.success();
     this.$store.dispatch("order/sendOrder", this.orderDetails);
-    setTimeout(() => {
-      try {
-        this.$router.push("/my-account");
-      } catch (error) {
-        console.log(error);
-      }
-    }, 5000);
+
+    const sessionId = await this.$route.query.session_id;
+    const data = await this.$axios.get("/paymentSucess", {
+      params: { session_id: sessionId },
+    });
+
+    this.sessionStatus = data.data.status;
+    this.$store.commit("cart/emptyList");
   },
 };
 </script>
