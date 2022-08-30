@@ -38,6 +38,7 @@
               codeFamille: productObject.codeFamille,
               libelleFamille: productObject.libelleFamille,
               codeArticle: productObject.codeArticle,
+              codeFamille: productObject.codeFamille,
             },
           }"
         >
@@ -48,7 +49,7 @@
             loading="lazy"
           />
         </nuxt-link>
-        <span class="badges">
+        <span v-if="!enabled" class="badges">
           <!-- {{ productQuantity }} -->
           <span class="badges__stock" v-if="productQuantity > 0" id="stock"
             >En stock</span

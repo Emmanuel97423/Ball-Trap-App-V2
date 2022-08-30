@@ -94,7 +94,7 @@
                   :productTitle="productItem.libelle"
                   :productPrice="productItem.pvTtc"
                   :productId="productItem._id"
-                  :productQuantity="productItem.quantity"
+                  :productQuantity="productItem.stock"
                   :productObject="productItem"
                 />
               </div>
