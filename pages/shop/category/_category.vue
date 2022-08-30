@@ -110,36 +110,6 @@
                 <!-- pagination end -->
               </div>
             </div>
-            <div v-if="singlesProducts.length > 0" class="row">
-              <div
-                class="col-lg-3 col-md-4 col-sm-6 col-12"
-                :key="productItem._id"
-                v-for="productItem in singlesProducts"
-              >
-                <ProductBox1
-                  :productImg1="productItem.imageUrl"
-                  :productImg2="productItem.imageUrl"
-                  :productTagClass="productItem.productTagClass"
-                  :productTag="productItem.productTag"
-                  :productTitle="productItem.libelle"
-                  :productPrice="productItem.pvTtc"
-                  :productId="productItem._id"
-                  :productQuantity="productItem.quantity"
-                  :productObject="productItem"
-                />
-              </div>
-
-              <div class="col-lg-12">
-                <!-- pagination start -->
-                <b-pagination
-                  v-if="!enabled"
-                  v-model="currentPage"
-                  pills
-                  :total-rows="rows"
-                ></b-pagination>
-                <!-- pagination end -->
-              </div>
-            </div>
           </div>
         </section>
       </div>
@@ -237,7 +207,11 @@ export default {
           search: this.$route.query.codefamille,
         },
       });
-      this.productsGammes = productsGammes.data.products;
+      console.log(
+        "🚀 ~ file: _category.vue ~ line 240 ~ fetch ~ productsGammes",
+        productsGammes
+      );
+      this.productsGammes = productsGammes.data.productsArray;
     } catch (error) {
       console.log("error:", error);
     }
@@ -250,22 +224,24 @@ export default {
       console.log("🚀 ~ file: _category.vue ~ line 242 ~ fetch ~ error", error);
     }
 
-    try {
-      const products = await this.$axios.get("/product/allProduct");
-      products.data.map((product) => {
-        if (!product.codeGamme) {
-          this.singlesProducts.push(product);
-        }
-      });
+    // try {
+    //   const products = await this.$axios.get("/product/allProduct");
+    //   products.data.map((product) => {
+    //     if (product.codeGamme === "") {
+    //       console.log("product:", product);
 
-      // products.data.map((product) => {
-      //   if (!product.codeGamme) {
-      //     this.singleProduct.push(product);
-      //   }
-      // });
-    } catch (error) {
-      console.log("🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~ error", error);
-    }
+    //       this.singlesProducts.push(product);
+    //     }
+    //   });
+
+    //   // products.data.map((product) => {
+    //   //   if (!product.codeGamme) {
+    //   //     this.singleProduct.push(product);
+    //   //   }
+    //   // });
+    // } catch (error) {
+    //   console.log("🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~ error", error);
+    // }
   },
   fetchOnServer: false,
   mounted() {
