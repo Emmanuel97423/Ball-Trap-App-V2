@@ -39,7 +39,7 @@
             <div class="col-lg-4 col-img">
               <div class="product_single_one_img">
                 <swiper
-                  v-if="isAProductGamme === 'true'"
+                  v-if="product.isAProductGamme == true"
                   class="swiper product-single-2-slider"
                   :options="swiperOption"
                   ref="swiperImage"
@@ -49,7 +49,6 @@
                     :key="index"
                   >
                     <img :src="product.imageUrl" alt="img" />
-                    <!-- <img v-else /> -->
                   </swiper-slide>
 
                   <div
@@ -69,13 +68,11 @@
                   ref="swiperImage"
                 >
                   <swiper-slide>
-                    <!-- {{ product }} -->
                     <img
                       v-if="product.imageUrl"
                       :src="product.imageUrl"
                       alt="img"
                     />
-                    <!-- <img v-else /> -->
                   </swiper-slide>
 
                   <div
@@ -87,7 +84,6 @@
                     slot="button-next"
                   ></div>
                 </swiper>
-                <!-- <img v-else src="@/assets/img/common/textil-cat.jpg" /> -->
               </div>
             </div>
 
@@ -95,7 +91,6 @@
               <div class="product_details_right_one">
                 <div class="modal_product_content_one">
                   <h3>{{ product.libelle }}</h3>
-                  <!-- <h3 v-else>Test fiche produit hello</h3> -->
 
                   <div v-if="!enabled" class="reviews_rating">
                     <i class="fas fa-star"></i>
@@ -118,7 +113,6 @@
                   </div>
 
                   <SizeChart :productName="product.libelle"></SizeChart>
-                  <!-- <SelectSize /> -->
                   <form
                     id="gammeSelectForm"
                     method="post"
@@ -147,11 +141,7 @@
                       />
                     </div>
 
-                    <div
-                      v-if="isAProductGamme === 'true'"
-                      class="color-select"
-                      :class="showColorOptions"
-                    >
+                    <div class="color-select" :class="showColorOptions">
                       <SelectColor
                         v-if="gammesOptions.color === true"
                         :colors="color"
@@ -855,20 +845,22 @@ export default {
         //   to: "/shop/shop-2",
         // },
         {
-          text:
-            this.$route.query.libelleFamille
-              .toLowerCase()
-              .charAt(0)
-              .toUpperCase() +
-            this.$route.query.libelleFamille.toLowerCase().slice(1),
-          to:
-            "/shop/category/" +
-            this.$route.query.libelleFamille
-              .toLowerCase()
-              .replaceAll(" ", "-") +
-            "?" +
-            "codefamille=" +
-            this.$route.query.codeFamille,
+          text: this.$route.query.libelleFamille
+            ? this.$route.query.libelleFamille
+                .toLowerCase()
+                .charAt(0)
+                .toUpperCase() +
+              this.$route.query.libelleFamille.toLowerCase().slice(1)
+            : null,
+          to: this.$route.query.libelleFamille
+            ? "/shop/category/" +
+              this.$route.query.libelleFamille
+                .toLowerCase()
+                .replaceAll(" ", "-") +
+              "?" +
+              "codefamille=" +
+              this.$route.query.codeFamille
+            : "/shop/category/",
         },
         {
           text:
@@ -944,7 +936,7 @@ export default {
 
           // this.$store.commit("cart/orderQuantity", orderQuantity);
           this.$store.commit("cart/add", this.productPayloadToAddToCartCommit);
-          // this.toggleModal();
+          this.toggleModal();
         }
 
         // this.$store
@@ -1113,9 +1105,51 @@ export default {
     },
   },
   async fetch() {
+    //2nd iteration
+    const id = this.$route.query.id;
+
+    const singleProduct = await this.$axios.post("/product/" + id, {
+      id: id,
+      isAProductGamme: this.$route.query.isAProductGamme,
+      codeArticle: this.$route.query.codeArticle,
+      codeArticleGamme: this.$route.query.codeArticleGamme,
+    });
+    this.product = singleProduct.data;
+    console.log("this.product:", this.product);
+    if (this.$route.query.isAProductGamme === "true") {
+      try {
+        this.product.variantId.map(async (codeArticle) => {
+          const productVariant = await this.$axios.post("/product/" + id, {
+            id: id,
+            isAProductGamme: "false",
+            codeArticle: codeArticle,
+          });
+          console.log(
+            "🚀 ~ file: _id.vue ~ line 1134 ~ this.product.variantId.map ~ productVariant",
+            productVariant
+          );
+
+          this.productVariants.push(productVariant.data);
+          this.gammeQuantity = productVariant.data.gamme.split("¤").length;
+
+          this.gammeMethod(
+            productVariant.data.gamme,
+            productVariant.data.gammesValue
+          );
+        });
+      } catch (error) {
+        console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
+      }
+    } else {
+      this.productSelected = this.product;
+    }
+
+    return;
+
+    //1st iteration
     let variantsArray = [];
-    let gammeArray = [];
-    let gammesValueArray = [];
+    // let gammeArray = [];
+    // let gammesValueArray = [];
     this.isAProductGamme = this.$route.query.isAProductGamme;
     //Fetching product gamme data
     if (this.$route.query.isAProductGamme === "true") {

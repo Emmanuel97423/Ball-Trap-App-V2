@@ -72,12 +72,18 @@ export default {
     // this.orderDetails.date = Date.now();
     // this.orderDetails.customer = invoicingObject.data.invoicingDetails;
     this.orderDetails.userId = this.$store.state.auth.user.userId;
-    this.$store.dispatch("order/sendOrder", this.orderDetails);
 
     const sessionId = await this.$route.query.session_id;
-    const data = await this.$axios.get("/paymentSucess", {
-      params: { session_id: sessionId },
+    console.log("sessionId:", sessionId);
+    const data = await this.$axios.post("/payment/paymentSucess/", {
+      data: {
+        stripeSessionId: sessionId,
+        order: this.orderDetails,
+      },
     });
+    console.log("🚀 ~ file: sucess.vue ~ line 82 ~ fetch ~ data", data);
+    return;
+    this.$store.dispatch("order/sendOrder", this.orderDetails);
 
     this.sessionStatus = data.data.status;
     this.$store.commit("cart/emptyList");
