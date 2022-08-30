@@ -596,7 +596,6 @@
           </div>
         </div>
       </section>
-
       <!-- Related Product -->
       <section id="related_product" class="pb-100">
         <div class="container">
@@ -610,7 +609,7 @@
           <div class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
-              v-for="item in relatedProducts"
+              v-for="item in relatedProducts.slice(0, 4)"
               :key="item._id"
             >
               <!-- <p v-if="$fetchState.pending">
@@ -624,10 +623,11 @@
                 :productImg2="item.imageUrl"
                 :productTagClass="item.productTagClass"
                 :productTag="item.productTag"
-                :productTitle="item.name"
-                :productPrice="item.priceTtc"
-                :productQuantity="item.quantity"
+                :productTitle="item.libelle"
+                :productPrice="item.pvTtc"
+                :productQuantity="item.stock"
                 :productId="item._id"
+                :productObject="item"
               />
             </div>
           </div>
@@ -912,11 +912,19 @@ export default {
     gammeObjectComputed() {
       return [...new Set(this.gammeObject)];
     },
+    // async relatedProducts() {
+    //   return await this.$axios.get("/search/filter", {
+    //     params: {
+    //       search: this.product.codefamille,
+    //     },
+    //   });
+    // },
   },
   methods: {
     clickQuantitySelect() {
       this.orderQuantity;
     },
+
     //Alert
     countDownChanged(dismissCountDown) {
       this.dismissCountDown = dismissCountDown;
@@ -1108,102 +1116,62 @@ export default {
     //2nd iteration
     const id = this.$route.query.id;
 
-    const singleProduct = await this.$axios.post("/product/" + id, {
-      id: id,
-      isAProductGamme: this.$route.query.isAProductGamme,
-      codeArticle: this.$route.query.codeArticle,
-      codeArticleGamme: this.$route.query.codeArticleGamme,
-    });
-    this.product = singleProduct.data;
-    console.log("this.product:", this.product);
-    if (this.$route.query.isAProductGamme === "true") {
-      try {
-        this.product.variantId.map(async (codeArticle) => {
-          const productVariant = await this.$axios.post("/product/" + id, {
-            id: id,
-            isAProductGamme: "false",
-            codeArticle: codeArticle,
+    try {
+      const singleProduct = await this.$axios.post("/product/" + id, {
+        id: id,
+        isAProductGamme: this.$route.query.isAProductGamme,
+        codeArticle: this.$route.query.codeArticle,
+        codeArticleGamme: this.$route.query.codeArticleGamme,
+      });
+
+      this.product = singleProduct.data;
+      if (this.$route.query.isAProductGamme === "true") {
+        try {
+          this.product.variantId.map(async (codeArticle) => {
+            const productVariant = await this.$axios.post("/product/" + id, {
+              id: id,
+              isAProductGamme: "false",
+              codeArticle: codeArticle,
+            });
+            console.log(
+              "🚀 ~ file: _id.vue ~ line 1134 ~ this.product.variantId.map ~ productVariant",
+              productVariant
+            );
+
+            this.productVariants.push(productVariant.data);
+            this.gammeQuantity = productVariant.data.gamme.split("¤").length;
+
+            this.gammeMethod(
+              productVariant.data.gamme,
+              productVariant.data.gammesValue
+            );
           });
-          console.log(
-            "🚀 ~ file: _id.vue ~ line 1134 ~ this.product.variantId.map ~ productVariant",
-            productVariant
-          );
-
-          this.productVariants.push(productVariant.data);
-          this.gammeQuantity = productVariant.data.gamme.split("¤").length;
-
-          this.gammeMethod(
-            productVariant.data.gamme,
-            productVariant.data.gammesValue
-          );
-        });
-      } catch (error) {
-        console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
+        } catch (error) {
+          console.log("🚀 ~ file: _id.vue ~ line 1156 ~ fetch ~ error", error);
+        }
+      } else {
+        this.productSelected = this.product;
       }
-    } else {
-      this.productSelected = this.product;
+    } catch (error) {
+      console.log("🚀 ~ file: _id.vue ~ line 1128 ~ fetch ~ error", error);
+    }
+    try {
+      const relatedProducts = await this.$axios.get("/search/filter", {
+        params: {
+          search: this.$route.query.codeFamille,
+        },
+      });
+      this.relatedProducts = relatedProducts.data.productsArray;
+
+      console.log(
+        "🚀 ~ file: _id.vue ~ line 1168 ~ fetch ~ relatedProducts",
+        relatedProducts
+      );
+    } catch (error) {
+      console.log("🚀 ~ file: _id.vue ~ line 1177 ~ fetch ~ error", error);
     }
 
     return;
-
-    //1st iteration
-    let variantsArray = [];
-    // let gammeArray = [];
-    // let gammesValueArray = [];
-    this.isAProductGamme = this.$route.query.isAProductGamme;
-    //Fetching product gamme data
-    if (this.$route.query.isAProductGamme === "true") {
-      try {
-        const id = this.$route.query.id;
-
-        const productGamme = await this.$axios.get(
-          "/gammes/productGamme/" + id
-        );
-        this.product = productGamme.data;
-      } catch (error) {
-        console.log("error:", error);
-      }
-      try {
-        this.product.variantId.map(async (id) => {
-          const productVariant = await this.$axios.post("/product/" + id, {
-            id: id,
-            isAProductGamme: this.$route.query.isAProductGamme,
-          });
-
-          this.productVariants.push(productVariant.data);
-          this.gammeQuantity = productVariant.data.gamme.split("¤").length;
-
-          this.gammeMethod(
-            productVariant.data.gamme,
-            productVariant.data.gammesValue
-          );
-        });
-      } catch (error) {
-        console.log("🚀 ~ file: _id.vue ~ line 868 ~ fetch ~ error", error);
-      }
-
-      //Data binding pushing
-
-      try {
-        this.productVariants = variantsArray;
-      } catch (error) {
-        console.log("🚀 ~ file: _id.vue ~ line 883 ~ fetch ~ error", error);
-      }
-    } else if (this.$route.query.isAProductGamme === "false") {
-      try {
-        const id = this.$route.query.id;
-
-        const singleProduct = await this.$axios.post("/product/" + id, {
-          id: id,
-          isAProductGamme: false,
-        });
-
-        this.product = singleProduct.data;
-        this.productSelected = singleProduct.data;
-      } catch (error) {
-        console.log("error:", error);
-      }
-    }
   },
 
   fetchOnServer: false,
