@@ -147,13 +147,13 @@ ul {
   /* align-items: center; */
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   ul {
 
     height: 40px;
 
   }
-}
+} */
 
 ul li {
   list-style: none;

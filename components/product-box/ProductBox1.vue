@@ -8,10 +8,11 @@
             path: '/product',
             query: {
               id: productId,
-              isAProductGamme: true,
+              isAProductGamme: productObject.isAProductGamme,
               libelle: productTitle,
               libelleFamille: productObject.libelleFamille,
               codeFamille: productObject.codeFamille,
+              codeArticleGamme: productObject.codeArticleGamme,
             },
           }"
         >
@@ -32,9 +33,10 @@
             path: '/product',
             query: {
               id: productId,
-              isAProductGamme: false,
+              isAProductGamme: productObject.isAProductGamme,
               libelle: productTitle,
               libelleFamille: productObject.libelleFamille,
+              codeArticle: productObject.codeArticle,
             },
           }"
         >
@@ -94,6 +96,8 @@
                 isAProductGamme: true,
                 libelle: productTitle,
                 libelleFamille: productObject.libelleFamille,
+                codeArticle: productObject.codeArticle,
+                codeArticleGamme: productObject.codeArticleGamme,
               },
             }"
             v-on:click="loading()"
