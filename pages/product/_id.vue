@@ -48,19 +48,7 @@
                     v-for="(product, index) in productVariants"
                     :key="index"
                   >
-<<<<<<< HEAD
-                    <img
-                      v-if="product.imageUrl"
-                      :src="product.imageUrl"
-                      alt="img"
-                    />
-                    <div v-else class="productbox-no-img">
-                      <p>Pas d'image disponible</p>
-                    </div>
-                    <!-- <img v-else /> -->
-=======
                     <img :src="product.imageUrl" alt="img" />
->>>>>>> develop
                   </swiper-slide>
 
                   <div
@@ -864,7 +852,7 @@ export default {
                 .toUpperCase() +
               this.$route.query.libelleFamille.toLowerCase().slice(1)
             : null,
-          to: this.$route.query.libelleFamille
+          to: this.$route.query.codeFamille
             ? "/shop/category/" +
               this.$route.query.libelleFamille
                 .toLowerCase()
@@ -872,7 +860,7 @@ export default {
               "?" +
               "codefamille=" +
               this.$route.query.codeFamille
-            : "/shop/category/",
+            : null,
         },
         {
           text:
@@ -1136,10 +1124,6 @@ export default {
             isAProductGamme: "false",
             codeArticle: codeArticle,
           });
-          console.log(
-            "🚀 ~ file: _id.vue ~ line 1134 ~ this.product.variantId.map ~ productVariant",
-            productVariant
-          );
 
           this.productVariants.push(productVariant.data);
           this.gammeQuantity = productVariant.data.gamme.split("¤").length;
@@ -1230,15 +1214,7 @@ export default {
 #tax {
   font-size: 12px;
 }
-.productbox-no-img {
-  width: 100%;
-  height: 518px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(219, 219, 219);
-  font-size: 12px;
-}
+
 /* .back-link {
   width: 26%;
   display: flex;
