@@ -1116,7 +1116,7 @@ export default {
     //2nd iteration
     const id = this.$route.query.id;
 
-<<<<<<< HEAD
+
     const singleProduct = await this.$axios.post("/product/" + id, {
       id: id,
       isAProductGamme: this.$route.query.isAProductGamme,
@@ -1136,7 +1136,7 @@ export default {
 
           this.productVariants.push(productVariant.data);
           this.gammeQuantity = productVariant.data.gamme.split("¤").length;
-=======
+
     try {
       const singleProduct = await this.$axios.post("/product/" + id, {
         id: id,
@@ -1144,7 +1144,7 @@ export default {
         codeArticle: this.$route.query.codeArticle,
         codeArticleGamme: this.$route.query.codeArticleGamme,
       });
->>>>>>> develop
+
 
       this.product = singleProduct.data;
       if (this.$route.query.isAProductGamme === "true") {
