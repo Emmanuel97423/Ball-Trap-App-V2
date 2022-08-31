@@ -1,5 +1,5 @@
 <template>
-  <div class="container-select-size">
+  <div class="variable-single-item">
     <!-- {{ gammeObject }} -->
     <!-- <div
       v-for="(value, index) in size"
@@ -10,25 +10,29 @@
     >
       <div>{{ value }}</div>
     </div> -->
-    <div
-      v-for="(value, index) in size"
-      :key="index"
-      class="box-size"
-      :class="{ 'select-size-active': activeOptions.indexOf(index) > -1 }"
-    >
-      <input
-        @click="handleCLick(index, value)"
-        :id="value"
-        type="radio"
-        :value="value"
-        name="size"
-        required="true"
-      />
-      <label :for="value">{{ value }}</label>
+    <span>Taille(s)</span>
+    <div class="product-image-variants">
+      <Spinner v-if="isLoadingSize"></Spinner>
 
-      <!-- <div>{{ value }}</div> -->
+      <div v-else v-for="(value, index) in size" :key="index">
+        <label
+          :for="value"
+          class="box-size"
+          :class="{ 'select-size-active': activeOptions.indexOf(index) > -1 }"
+          >{{ value }}
+          <input
+            @click="handleCLick(index, value)"
+            :id="value"
+            type="radio"
+            :value="value"
+            name="size"
+            required="true"
+          />
+        </label>
+
+        <!-- <div>{{ value }}</div> -->
+      </div>
     </div>
-    <div><Spinner v-if="isLoadingSize"></Spinner></div>
   </div>
 </template>
 
@@ -95,42 +99,7 @@ export default {
   created() {
     this.isLoadingSize = true;
   },
-  async mounted() {
-    // this.sizeObject
-
-    // function filterGamme(arr, requete) {
-    //   console.log(
-    //     "🚀 ~ file: SelectSize-2.vue ~ line 77 ~ filterGamme ~ requete",
-    //     requete
-    //   );
-    //   return arr.filter(function (el) {
-    //     window.console.log(el);
-    //     // return el.toLowerCase().indexOf(requete.toLowerCase()) !== -1;
-    //   });
-    // }
-    // this.size.map((sizeValue) => {
-    //   this.gammeArray.push(sizeValue.gammes);
-    //   this.gammesValueArray.push(sizeValue.gammesValue);
-    // });
-    // this.gammeArray.map((gamme) => {
-    //   gamme.map(async (el) => {
-    //     const fetchGamme = await this.$axios("/gammes/gamme/" + el);
-    //     this.fetchGamme = fetchGamme.data;
-    //   });
-    // });
-    // this.fetchGamme.filter(async (el) => {
-    //   console.log(
-    //     "🚀 ~ file: SelectSize-2.vue ~ line 102 ~ this.fetchGamme.filter ~ el",
-    //     el
-    //   );
-    // });
-    // this.gammesValueArray.map((gammesValue) => {
-    //   this.gammesValue.push(gammesValue);
-    // });
-    // this.res = this.fetchGamme.filter((item) =>
-    //   this.fetchGamme.includes(item)
-    // );
-
+  mounted() {
     setTimeout(() => {
       this.isLoadingSize = false;
     }, 3000);
@@ -143,6 +112,7 @@ export default {
 <style >
 .container-select-size {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
@@ -156,6 +126,25 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+.box-size label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.box-size input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 .box-size:hover {
   background-color: black;

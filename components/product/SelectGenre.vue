@@ -10,21 +10,21 @@
     >
       <div>{{ value.gammeValue }}</div>
     </div> -->
-    <div
-      v-for="(value, index) in genreArray"
-      :key="index"
-      class="box-genre"
-      :class="{ 'select-genre-active': activeOptions.indexOf(index) > -1 }"
-    >
-      <input
-        @click="handleCLick(index, value)"
-        :id="value.gammeValue"
-        type="radio"
-        :value="value.gammeValue"
-        name="genre"
-        required="true"
-      />
-      <label :for="value.gammeValue">{{ value.gammeValue }}</label>
+    <div v-for="(value, index) in genreArray" :key="index">
+      <label
+        :for="value.gammeValue"
+        class="box-genre"
+        :class="{ 'select-genre-active': activeOptions.indexOf(index) > -1 }"
+        >{{ value.gammeValue }}
+        <input
+          @click="handleCLick(index, value)"
+          :id="value.gammeValue"
+          type="radio"
+          :value="value.gammeValue"
+          name="genre"
+          required="true"
+        />
+      </label>
 
       <!-- <div>{{ value }}</div> -->
     </div>
@@ -132,6 +132,25 @@ export default {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+.box-genre label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.box-genre input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 .box-genre:hover {
   background-color: black;

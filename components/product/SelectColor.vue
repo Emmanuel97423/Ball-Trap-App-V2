@@ -1,26 +1,33 @@
 <template>
   <div class="variable-single-item">
-    <span>Couleur</span>
-    <Spinner v-if="loading == true"></Spinner>
+    <span>Couleur(s)</span>
+
     <!-- {{ colorLibelle }} -->
-    <div v-else class="product-image-variants">
+    <div class="product-image-variants">
+      <Spinner v-if="loading == true"></Spinner>
       <div
+        v-else
         v-for="(libelle, index) in colorArray"
         :key="index"
         class="image-variants"
-        @click="handleCLick(libelle.gammeCode)"
       >
-        <input
-          required
-          type="radio"
-          :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-          name="color"
-          :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-        />
-        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`">{{
-          libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
-          libelle.gammeValue.toLowerCase().slice(1)
-        }}</label>
+        <label
+          :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+          :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }"
+          class="box-genre"
+          >{{
+            libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+            libelle.gammeValue.toLowerCase().slice(1)
+          }}
+          <input
+            required
+            type="radio"
+            :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+            name="color"
+            :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+            @click="handleCLick(index, libelle.gammeCode)"
+          />
+        </label>
 
         <!-- <img :src="product" @click="selectColor(index)" /> -->
       </div>
@@ -98,12 +105,23 @@ export default {
       colors: "",
       colorUniqueArray: [],
       loading: true,
+      activeOptions: [],
     };
   },
 
   methods: {
-    handleCLick(value) {
+    handleCLick(index, value) {
+      let pos = this.activeOptions.indexOf(index);
+
       this.$emit("color-click-event", { color: value, isFocused: true });
+      if (pos === -1) {
+        this.activeOptions.splice(pos, 1);
+        this.activeOptions.push(index);
+        // this.activeOptions.splice(pos, -1);
+      } else {
+        this.activeOptions.splice(pos, 1);
+        // this.activeOptions.pop();
+      }
     },
   },
   computed: {
@@ -145,6 +163,10 @@ export default {
 }
 .product-image-variants label {
   font-size: 12px;
+}
+.select-color-active {
+  background-color: black;
+  color: #fff;
 }
 .image-variants {
   margin: 0 5px 0 0;

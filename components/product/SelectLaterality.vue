@@ -1,5 +1,5 @@
 <template>
-  <div class="laterality-variable-single-item">
+  <div class="variable-single-item">
     <span>Latéralité</span>
 
     <div class="laterality-product-image-variants">
@@ -7,27 +7,39 @@
         v-for="(libelle, index) in lateralityArray"
         :key="index"
         class="laterality-image-variants"
-        @click="lateralityHandleClick(libelle.gammeCode)"
       >
-        <img
-          v-if="libelle.gammeValue.toLowerCase() === 'droitier'"
-          :src="require('@/assets/img/product-image/SX_n-100x100.jpg')"
-        />
-        <img
-          v-if="libelle.gammeValue.toLowerCase() === 'gaucher'"
-          :src="require('@/assets/img/product-image/DX_n-100x100.jpg')"
-        />
-        <input
-          required
-          type="radio"
-          :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-          name="laterality"
-          :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-        />
-        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`">{{
+        <b-tooltip :target="`${libelle.gammeCode.toLowerCase()}`">{{
           libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
           libelle.gammeValue.toLowerCase().slice(1)
-        }}</label>
+        }}</b-tooltip>
+        <label
+          :id="`${libelle.gammeCode.toLowerCase()}`"
+          :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+          :class="{
+            'select-laterality-active': activeOptions.indexOf(index) > -1,
+          }"
+        >
+          <!-- {{
+            libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+            libelle.gammeValue.toLowerCase().slice(1)
+          }} -->
+          <input
+            required
+            type="radio"
+            :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+            name="laterality"
+            :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+            @click="lateralityHandleClick(index, libelle.gammeCode)"
+          />
+          <img
+            v-if="libelle.gammeValue.toLowerCase() === 'droitier'"
+            :src="require('@/assets/img/product-image/SX_n-100x100.jpg')"
+          />
+          <img
+            v-if="libelle.gammeValue.toLowerCase() === 'gaucher'"
+            :src="require('@/assets/img/product-image/DX_n-100x100.jpg')"
+          />
+        </label>
 
         <!-- <img :src="product" @click="selectColor(index)" /> -->
       </div>
@@ -101,12 +113,28 @@ export default {
     lateralityLibelle: Array,
   },
 
+  data() {
+    return {
+      activeOptions: [],
+    };
+  },
+
   methods: {
-    lateralityHandleClick(value) {
+    lateralityHandleClick(index, value) {
+      console.log("value:", value);
       this.$emit("laterality-click-event", {
         laterality: value,
         isFocused: true,
       });
+      let pos = this.activeOptions.indexOf(index);
+      if (pos === -1) {
+        this.activeOptions.splice(pos, 1);
+        this.activeOptions.push(index);
+        // this.activeOptions.splice(pos, -1);
+      } else {
+        this.activeOptions.splice(pos, 1);
+        // this.activeOptions.pop();
+      }
     },
   },
   computed: {
@@ -148,15 +176,34 @@ export default {
   border: 1px solid black;
 }
 .laterality-product-image-variants label {
-  font-size: 12px;
+  display: block;
+  position: relative;
+
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
+.laterality-product-image-variants input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  padding: 10px;
+}
+/* .laterality-product-image-variants img:hover {
+  border: 3px solid red;
+} */
 .laterality-image-variants {
   margin: 0 5px 0 0;
   /* display: flex;
   align-items: center;
   justify-content: center; */
 }
-input[type="radio"] {
-  vertical-align: middle;
+.select-laterality-active {
+  border: 5px solid grey;
 }
 </style>
