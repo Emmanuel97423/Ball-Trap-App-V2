@@ -278,6 +278,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-size: 12px;
 }
 .product-list-breadcrumb-section ol,
 ul,
