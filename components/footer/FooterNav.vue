@@ -186,7 +186,7 @@ export default {
 }
 @media only screen and (max-width: 425px) {
   .list ul {
-    margin: 180px 50px 0 0;
+    margin: 20px 50px 0 0;
   }
 }
 </style>

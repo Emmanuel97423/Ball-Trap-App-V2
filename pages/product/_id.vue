@@ -325,7 +325,7 @@
                     <button
                       type="submit"
                       form="gammeSelectForm"
-                      id="tooltip-purchase-button"
+                      id="purchase-button"
                       class="theme-btn-one btn-black-overlay btn_sm"
                     >
                       Ajouter au panier
@@ -1312,6 +1312,11 @@ dl {
   max-height: 0;
   /* transition: max-height 3s ease-out; */
   overflow: hidden;
+}
+@media (max-width: 425px) {
+  #purchase-button {
+    width: 100%;
+  }
 }
 
 /*Responsive*/
