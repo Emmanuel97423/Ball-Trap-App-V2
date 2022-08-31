@@ -1189,6 +1189,7 @@ export default {
   align-items: center;
   justify-content: flex-start;
   margin: 0 0 30px 0;
+  font-size: 12px;
 }
 .product-list-breadcrumb-section ol,
 ul,
