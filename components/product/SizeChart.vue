@@ -164,6 +164,9 @@ export default {
     justify-content: center;
     align-items: center;
   }
+  .btn-orange {
+    width: 100%;
+  }
 }
 .chart-size-content img {
   margin: 0 200px 0 0;

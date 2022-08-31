@@ -153,6 +153,7 @@ export default {
 .product-image-variants {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
 
   /* flex-direction: row; */
 }
@@ -169,7 +170,7 @@ export default {
   color: #fff;
 }
 .image-variants {
-  margin: 0 5px 0 0;
+  margin: 5px 5px 0 0;
 }
 input[type="radio"] {
   vertical-align: middle;
