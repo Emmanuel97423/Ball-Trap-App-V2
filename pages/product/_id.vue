@@ -609,7 +609,10 @@
           <div class="row">
             <div
               class="col-lg-3 col-md-4 col-sm-6 col-12"
-              v-for="item in relatedProducts.slice(0, 4)"
+              v-for="item in relatedProducts.slice(
+                relatedProductRangesOptions.min,
+                relatedProductRangesOptions.max
+              )"
               :key="item._id"
             >
               <!-- <p v-if="$fetchState.pending">
@@ -834,6 +837,11 @@ export default {
       afterpayClearpayMessageElement: "",
       afterPayKey: 0,
 
+      relatedProductRangesOptions: {
+        max: "",
+        min: "",
+      },
+
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -912,13 +920,6 @@ export default {
     gammeObjectComputed() {
       return [...new Set(this.gammeObject)];
     },
-    // async relatedProducts() {
-    //   return await this.$axios.get("/search/filter", {
-    //     params: {
-    //       search: this.product.codefamille,
-    //     },
-    //   });
-    // },
   },
   methods: {
     clickQuantitySelect() {
@@ -1111,6 +1112,18 @@ export default {
         );
       }
     },
+    relatedProductRanges() {
+      const maxRange = this.relatedProducts.length;
+      this.relatedProductRangesOptions.max = Math.floor(
+        Math.random() * maxRange
+      );
+
+      if (this.relatedProductRangesOptions.max < 4) {
+        this.relatedProductRangesOptions.max = 4;
+      }
+      this.relatedProductRangesOptions.min =
+        this.relatedProductRangesOptions.max - 4;
+    },
   },
   async fetch() {
     //2nd iteration
@@ -1123,10 +1136,6 @@ export default {
         codeArticle: this.$route.query.codeArticle,
         codeArticleGamme: this.$route.query.codeArticleGamme,
       });
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 1145 ~ //this.product.variantId.map ~ singleProduct",
-        singleProduct
-      );
 
       this.product = singleProduct.data;
 
@@ -1138,10 +1147,6 @@ export default {
               isAProductGamme: "false",
               codeArticle: codeArticle,
             });
-            console.log(
-              "🚀 ~ file: _id.vue ~ line 1134 ~ this.product.variantId.map ~ productVariant",
-              productVariant
-            );
 
             this.productVariants.push(productVariant.data);
             this.gammeQuantity = productVariant.data.gamme.split("¤").length;
@@ -1167,16 +1172,14 @@ export default {
         },
       });
       this.relatedProducts = relatedProducts.data.productsArray;
-
-      console.log(
-        "🚀 ~ file: _id.vue ~ line 1168 ~ fetch ~ relatedProducts",
-        relatedProducts
-      );
     } catch (error) {
       console.log("🚀 ~ file: _id.vue ~ line 1177 ~ fetch ~ error", error);
     }
+    this.relatedProductRanges();
   },
-
+  mounted() {
+    // relatedProductRanges();
+  },
   fetchOnServer: false,
 };
 </script>

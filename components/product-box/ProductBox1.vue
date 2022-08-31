@@ -5,7 +5,7 @@
         <nuxt-link
           v-if="productObject.isAProductGamme"
           :to="{
-            path: '/product',
+            path: '/product/' + productId,
             query: {
               id: productId,
               isAProductGamme: productObject.isAProductGamme,
@@ -30,7 +30,7 @@
         <nuxt-link
           v-else
           :to="{
-            path: '/product',
+            path: '/product/' + productId,
             query: {
               id: productId,
               isAProductGamme: productObject.isAProductGamme,
