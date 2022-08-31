@@ -5,10 +5,34 @@
     <div class="list">
       <ul v-for="item in menu1" :key="item.id">
         <li class="title__bold">
-          <a href="#">{{ item.title }}</a>
+          <!-- <a href="#">{{ item.title }}</a> -->
+          <nuxt-link
+            :to="{
+              path: '/shop/category/' + item.title,
+              query: {
+                codefamille: item.codeFamille,
+              },
+            }"
+            >{{ item.title }}</nuxt-link
+          >
         </li>
+
         <li class="list__item" v-for="itemNav in item.item" :key="itemNav.id">
-          <a href="#">{{ itemNav }}</a>
+          <!-- <a href="#">{{ itemNav.libelle }}</a> -->
+          <nuxt-link
+            :to="{
+              path: '/product/' + itemNav._id,
+              query: {
+                id: itemNav._id,
+                isAProductGamme: itemNav.isAProductGamme,
+                libelle: itemNav.libelle,
+                libelleFamille: itemNav.libelleFamille,
+                codeFamille: itemNav.codeFamille,
+                codeArticleGamme: itemNav.codeArticleGamme,
+              },
+            }"
+            >{{ itemNav.libelle }}</nuxt-link
+          >
         </li>
       </ul>
     </div>
@@ -23,26 +47,28 @@ export default {
       menu1: [
         {
           title: "Vêtements",
+          codeFamille: "FAR00001",
           item: {
-            1: "Castellani",
-            2: "Castellani",
-            3: "Castellani",
-            4: "Castellani",
-            5: "Castellani",
-            6: "Castellani",
-            7: "Castellani",
+            // 1: "Castellani",
+            // 2: "Castellani",
+            // 3: "Castellani",
+            // 4: "Castellani",
+            // 5: "Castellani",
+            // 6: "Castellani",
+            // 7: "Castellani",
           },
         },
         {
           title: "Accessoires",
+          codeFamille: "FAR00002",
           item: {
-            1: "Castellani",
-            2: "Castellani",
-            3: "Castellani",
-            4: "Castellani",
-            5: "Castellani",
-            6: "Castellani",
-            7: "Castellani",
+            // 1: "Castellani",
+            // 2: "Castellani",
+            // 3: "Castellani",
+            // 4: "Castellani",
+            // 5: "Castellani",
+            // 6: "Castellani",
+            // 7: "Castellani",
           },
         },
         {
@@ -82,7 +108,28 @@ export default {
           },
         },
       ],
+      randomProductsRangeOptions: {
+        max: "",
+        min: "",
+      },
     };
+  },
+  methods: {
+    randomProductsRange() {},
+  },
+  async fetch() {
+    this.menu1.forEach(async (menuItem, index) => {
+      if (menuItem.codeFamille) {
+        console.log("index:", this.menu1[index]);
+
+        const products = await this.$axios.get("/search/filter", {
+          params: {
+            search: menuItem.codeFamille,
+          },
+        });
+        this.menu1[index].item = products.data.productsArray.slice(0, 7);
+      }
+    });
   },
 };
 </script>
@@ -106,12 +153,14 @@ export default {
 .box li {
   text-align: left;
   margin: 2px 0;
-  /* font-size: 12px; */
+  font-size: 12px;
 }
 .box h3 {
   color: #fff;
   font-size: 32px;
+  text-transform: uppercase;
 }
+
 .list {
   display: flex;
   justify-content: space-between;

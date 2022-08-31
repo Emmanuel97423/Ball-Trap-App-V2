@@ -1061,28 +1061,6 @@ export default {
                 } else if (obj.libelleGamme === "COULEUR") {
                   this.colorLibelle.push(obj);
 
-                  // if (this.colorLibelle.length === 0) {
-                  //   this.colorLibelle.push(obj);
-                  // } else {
-                  //   this.colorLibelle.filter((colorObject) => {
-                  //     let i = this.colorUniqueArray.findIndex(
-                  //       (color) =>
-                  //         colorObject.gammeCode == color.gammeCode &&
-                  //         colorObject.gammeValue == color.gammeValue &&
-                  //         colorObject.libelleGamme == color.libelleGamme
-                  //     );
-                  //     console.log(
-                  //       "🚀 ~ file: _id.vue ~ line 1164 ~ this.colorLibelle.filter ~ i",
-                  //       i
-                  //     );
-
-                  //     if (i <= -1) {
-                  //       this.colorUniqueArray.push(obj);
-                  //     }
-                  //     return null;
-                  //   });
-                  // }
-
                   this.showColorOptions.isLoading = true;
                   this.showColorOptions.isFocused = false;
                   setTimeout(() => {
@@ -1201,6 +1179,7 @@ export default {
   text-decoration: underline;
   font-weight: bold;
   cursor: pointer;
+  font-size: 12px;
 }
 .product-list-breadcrumb-section {
   display: flex;

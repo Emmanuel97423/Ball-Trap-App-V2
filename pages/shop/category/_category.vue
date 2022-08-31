@@ -272,6 +272,7 @@ export default {
   text-decoration: underline;
   font-weight: bold;
   cursor: pointer;
+  font-size: 12px;
 }
 .product-list-breadcrumb-section {
   display: flex;

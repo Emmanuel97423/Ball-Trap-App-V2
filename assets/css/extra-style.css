@@ -90,6 +90,7 @@
     display: flex;
     justify-content: center;
     /* padding-top: 10px; */
+    font-size: 12px;
 }
 
 .common_banner_text .breadcrumb li {
