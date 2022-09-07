@@ -16,7 +16,11 @@
         </div>
       </div>
     </section>
-    <div class="container-product-list">
+    <div class="loading-spinner" v-if="$fetchState.pending">
+      <!-- <span class="loading"></span> -->
+      <Spinner></Spinner>
+    </div>
+    <div v-else class="container-product-list">
       <div class="left-nav-categories">
         <LeftCategoriesNav :subCategory="subCategory" />
       </div>

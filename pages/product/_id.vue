@@ -24,7 +24,11 @@
     <!-- <Spinner></Spinner> -->
     <!-- </div> -->
     <!-- Product Single Area -->
-    <div>
+    <div class="loading-spinner" v-if="$fetchState.pending">
+      <!-- <span class="loading"></span> -->
+      <Spinner></Spinner>
+    </div>
+    <div v-else>
       <section id="product_single_one" class="ptb-25">
         <div class="container">
           <div class="product-list-breadcrumb-section">
@@ -34,7 +38,6 @@
               class="product-list-breadcrumb"
             ></b-breadcrumb>
           </div>
-          <!-- {{ productVariants }} -->
           <div class="row area_boxed">
             <div class="col-lg-4 col-img">
               <div class="product_single_one_img">
@@ -44,6 +47,9 @@
                   :options="swiperOption"
                   ref="swiperImage"
                 >
+                  <!-- <swiper-slide>
+                    <img :src="product.imageUrl" alt="img" />
+                  </swiper-slide> -->
                   <swiper-slide
                     v-for="(product, index) in productVariants"
                     :key="index"
