@@ -17,9 +17,9 @@
           }"
         >
           <img
-            v-if="productImg2"
+            v-if="productObject.imageUrl"
             class="hover-image"
-            :src="productImg2"
+            :src="productObject.imageUrl[0]"
             alt="Product"
             loading="lazy"
           />
@@ -44,7 +44,7 @@
         >
           <img
             class="hover-image"
-            :src="productImg2"
+            :src="productObject.imageUrl"
             alt="Product"
             loading="lazy"
           />
@@ -317,7 +317,7 @@ const spinner = document.getElementById("spinner__app");
 export default {
   name: "ProductBox1",
   props: {
-    productImg1: String,
+    productImg1: Array,
     productImg2: String,
     productTagClass: String,
     productTag: String,
