@@ -45,6 +45,14 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.loading-spinner {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .error__message {
   color: red;
   font-size: 12px;
