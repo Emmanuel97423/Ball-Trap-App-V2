@@ -39,7 +39,13 @@
             </div>
             <a
               v-b-toggle.offcanvas-add-cart
-              class="add-to-cart offcanvas-toggle btn btn_sm theme-btn-one btn-black-overlay"
+              class="
+                add-to-cart
+                offcanvas-toggle
+                btn btn_sm
+                theme-btn-one
+                btn-black-overlay
+              "
               title="Add To Cart"
               >Add To Cart</a
             >
@@ -247,7 +253,7 @@
 export default {
   name: "ProductBox2",
   props: {
-    productImg1: String,
+    productImg1: Array,
     productImg2: String,
     productTagClass: String,
     productTag: String,
