@@ -42,10 +42,14 @@
             },
           }"
         >
+          <div v-if="!productObject.imageUrl[0]" class="productbox-no-img">
+            <p>Pas d'image disponible</p>
+          </div>
           <img
+            v-else
             class="hover-image"
             :src="productObject.imageUrl"
-            alt="Product"
+            :alt="productTitle"
             loading="lazy"
           />
         </nuxt-link>
@@ -89,7 +93,7 @@
         </button> -->
       </div>
       <div class="content">
-        <h5 class="title">
+        <h5 class="title-product-box-1">
           <nuxt-link
             :to="{
               path: '/product',
@@ -394,9 +398,12 @@ export default {
 #tax {
   font-size: 12px;
 }
+.title-product-box-1 {
+  margin: 0 0 10px 0;
+}
 .productbox-no-img {
   width: 100%;
-  height: 518px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
