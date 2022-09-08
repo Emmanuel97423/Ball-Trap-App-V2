@@ -16,16 +16,16 @@
             },
           }"
         >
+          <div v-if="!productObject.imageUrl[0]" class="productbox-no-img">
+            <p>Pas d'image disponible</p>
+          </div>
           <img
-            v-if="productObject.imageUrl"
+            v-else
             class="hover-image"
             :src="productObject.imageUrl[0]"
             :alt="productTitle"
             loading="lazy"
           />
-          <div v-else class="productbox-no-img">
-            <p>Pas d'image disponible</p>
-          </div>
         </nuxt-link>
         <nuxt-link
           v-else

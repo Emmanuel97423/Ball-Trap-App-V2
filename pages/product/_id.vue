@@ -54,7 +54,10 @@
                     v-for="(product, index) in productVariants"
                     :key="index"
                   >
-                    <img :src="product.imageUrl" alt="img" />
+                    <div v-if="!product.imageUrl" class="productbox-no-img">
+                      <p>Pas d'image disponible</p>
+                    </div>
+                    <img v-else :src="product.imageUrl" alt="img" />
                   </swiper-slide>
 
                   <div
@@ -1025,34 +1028,20 @@ export default {
         ) {
           this.productSelected = product;
           this.gammeQuantity;
-          // if (
-          //   this.productSelected.gammesValue.split("¤").length ==
-          //     this.gammeQuantity &&
-          //   this.productSelected.stock > 0
-          // ) {
-          //   this.purchaseButtonOptions.disabled = false;
-          // } else {
-          //   this.purchaseButtonOptions.disabled = true;
-          // }
         }
       });
     },
     async gammeMethod(gammeArray, gammesValueArray) {
       try {
-        // let gammeObject = "";
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
-          console.log("gammeValue:", gammeValue);
-          // console.log("🚀 ~ file: productClasse.js ~ line 24 ~ ProductFactory ~ this._gammeValue.split ~ gammeValue", gammeValue)
-
           gammeArray.split("¤").filter(async (gamme, indexGamme) => {
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
-            // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ this._gammes.split ~ fetchGamme", fetchGamme.data);
             fetchGamme.data.filter(async (itemGamme) => {
-              console.log(
-                " itemGamme.elementsGammeLibelle:",
-                itemGamme.elementsGammeLibelle
-              );
-              console.log("gammeValue:", gammeValue);
+              // console.log(
+              //   " itemGamme.elementsGammeLibelle:",
+              //   itemGamme.elementsGammeLibelle
+              // );
+              // console.log("gammeValue:", gammeValue);
 
               if (gammeValue === itemGamme.elementsGammeLibelle) {
                 const libelleGamme = itemGamme.libelle;
@@ -1063,10 +1052,7 @@ export default {
                   gammeValue: gammeValue,
                   gammeCode: elementsGammeLibelle,
                 };
-                // console.log(
-                //   "🚀 ~ file: _id.vue ~ line 1067 ~ gammeArray.split ~ obj",
-                //   obj
-                // );
+
                 if (obj.libelleGamme === "TAILLE") {
                   this.size.push(obj.gammeValue);
                   this.gammesOptions.size = true;
@@ -1091,8 +1077,6 @@ export default {
             });
           });
         });
-        // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ checkGammes ~  this.gammeValue.split('¤')", this._gammeValue.split('¤'))
-        // console.log("🚀 ~ file: productClasse.js ~ line 18 ~ ProductFactory ~ checkGammes ~ this._gammes.split('¤')", this._gammes.split('¤'))
       } catch (error) {
         console.log(
           "🚀 ~ file: productClasse.js ~ line 18 ~ ProductFactory ~ checkGammes ~ error",
@@ -1180,7 +1164,15 @@ export default {
 #tax {
   font-size: 12px;
 }
-
+.productbox-no-img {
+  width: 100%;
+  height: 518px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 219, 219);
+  font-size: 12px;
+}
 /* .back-link {
   width: 26%;
   display: flex;
