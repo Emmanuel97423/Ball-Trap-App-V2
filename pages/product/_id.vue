@@ -1041,15 +1041,20 @@ export default {
       try {
         // let gammeObject = "";
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
+          console.log("gammeValue:", gammeValue);
           // console.log("🚀 ~ file: productClasse.js ~ line 24 ~ ProductFactory ~ this._gammeValue.split ~ gammeValue", gammeValue)
 
           gammeArray.split("¤").filter(async (gamme, indexGamme) => {
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
             // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ this._gammes.split ~ fetchGamme", fetchGamme.data);
             fetchGamme.data.filter(async (itemGamme) => {
-              // console.log("🚀 ~ file: productClasse.js ~ line 25 ~ ProductFactory ~ this._gammes.split ~ itemGamme", itemGamme)
+              console.log(
+                " itemGamme.elementsGammeLibelle:",
+                itemGamme.elementsGammeLibelle
+              );
+              console.log("gammeValue:", gammeValue);
+
               if (gammeValue === itemGamme.elementsGammeLibelle) {
-                // console.log(itemGamme.libelle, itemGamme.gammeValue)
                 const libelleGamme = itemGamme.libelle;
                 const gammeValue = itemGamme.gammeValue;
                 const elementsGammeLibelle = itemGamme.elementsGammeLibelle;
@@ -1067,7 +1072,6 @@ export default {
                   this.gammesOptions.size = true;
                 } else if (obj.libelleGamme === "COULEUR") {
                   this.colorLibelle.push(obj);
-
                   this.showColorOptions.isLoading = true;
                   this.showColorOptions.isFocused = false;
                   setTimeout(() => {

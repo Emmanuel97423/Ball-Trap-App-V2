@@ -20,7 +20,7 @@
             v-if="productObject.imageUrl"
             class="hover-image"
             :src="productObject.imageUrl[0]"
-            alt="Product"
+            :alt="productTitle"
             loading="lazy"
           />
           <div v-else class="productbox-no-img">
