@@ -2,7 +2,6 @@
   <div class="variable-single-item">
     <span>Couleur(s)</span>
 
-    {{ colorLibelle }}
     <div class="product-image-variants">
       <Spinner v-if="loading == true"></Spinner>
       <div
