@@ -166,6 +166,9 @@
                         @laterality-click-event="lateralityClickEvent"
                       />
                     </div>
+                    <!-- <p class="error-required-message" v-if="errorInputMessage">
+                      {{ errorInputMessage }}
+                    </p> -->
                     <!-- {{ productSelected.stock }}
                     {{ productFilter }} -->
                     <div v-if="stockNotificationOptions.isActive">
@@ -715,7 +718,6 @@ import ProductBox1 from "../../components/product-box/ProductBox1";
 import InstagramArea from "../../components/instagram/InstagramArea";
 import AddToCart from "../../components/AddToCart";
 import { mapState, mapActions, mapMutations } from "vuex";
-import SelectSize from "@/components/product/SelectSize";
 import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import SelectGenre from "@/components/product/SelectGenre";
@@ -732,7 +734,6 @@ export default {
     ProductBox1,
     InstagramArea,
     AddToCart,
-    SelectSize,
     SelectSize2,
     SizeChart,
     StockAlert,
@@ -851,6 +852,8 @@ export default {
         min: "",
       },
 
+      errorInputMessage: null,
+
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -942,37 +945,46 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
+    makeToast(variant = null, message = null) {
+      this.$bvToast.toast(message, {
+        title: "Champ requis",
+        variant: variant,
+        solid: true,
+      });
+    },
     addToCart(product, orderQuantity) {
-      this.stockNotificationOptions.isActive = true;
-
-      if (this.productSelected.stock < 1) {
-        return;
+      if (this.gammesOptions.size == true && !this.productFilter.size) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez une taille");
+      } else if (
+        this.gammesOptions.color == true &&
+        !this.productFilter.color
+      ) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez une couleur");
+      } else if (
+        this.gammesOptions.laterality == true &&
+        !this.productFilter.laterality
+      ) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez une latéralité");
       } else {
-        if (this.productSelected.stock > 0) {
-          this.productPayloadToAddToCartCommit.product = product;
-          this.productPayloadToAddToCartCommit.orderQuantity = orderQuantity;
+        this.stockNotificationOptions.isActive = true;
 
-          // this.$store.commit("cart/orderQuantity", orderQuantity);
-          this.$store.commit("cart/add", this.productPayloadToAddToCartCommit);
-          this.toggleModal();
+        if (this.productSelected.stock < 1) {
+        } else {
+          if (this.productSelected.stock > 0) {
+            this.productPayloadToAddToCartCommit.product = product;
+            this.productPayloadToAddToCartCommit.orderQuantity = orderQuantity;
+            this.$store.commit(
+              "cart/add",
+              this.productPayloadToAddToCartCommit
+            );
+            this.toggleModal();
+          }
         }
-
-        // this.$store
-        //   .dispatch("products/decrementStock", product._id)
-        //   .then((result) => {
-        //     if (result == true) {
-        //       this.$store.commit("cart/orderQuantity", orderQuantity);
-        //       this.$store.commit("cart/add", product);
-        //       this.toggleModal();
-        //     } else {
-        //       this.showAlert();
-        //       console.log("Stock Insuffisant");
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log("decrement error:", err);
-        //   });
       }
+      return;
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
@@ -1119,14 +1131,18 @@ export default {
               isAProductGamme: "false",
               codeArticle: codeArticle,
             });
+            if (!productVariant.data) {
+              return;
+            } else {
+              this.productVariants.push(productVariant.data);
 
-            this.productVariants.push(productVariant.data);
-            this.gammeQuantity = productVariant.data.gamme.split("¤").length;
+              this.gammeQuantity = productVariant.data.gamme.split("¤").length;
 
-            this.gammeMethod(
-              productVariant.data.gamme,
-              productVariant.data.gammesValue
-            );
+              this.gammeMethod(
+                productVariant.data.gamme,
+                productVariant.data.gammesValue
+              );
+            }
           });
         } catch (error) {
           console.log("🚀 ~ file: _id.vue ~ line 1156 ~ fetch ~ error", error);
