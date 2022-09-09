@@ -26,7 +26,6 @@
             type="radio"
             :value="value"
             name="size"
-            required="true"
           />
         </label>
 

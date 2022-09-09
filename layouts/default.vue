@@ -57,6 +57,10 @@ export default {
   color: red;
   font-size: 12px;
 }
+.error-required-message {
+  color: red;
+  font-size: 12px;
+}
 /* #nuxt__app {
   width: 100%;
   height: 100%;
