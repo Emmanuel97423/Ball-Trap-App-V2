@@ -16,10 +16,12 @@
         </div>
       </div>
     </section>
+
     <div class="loading-spinner" v-if="$fetchState.pending">
       <!-- <span class="loading"></span> -->
       <Spinner></Spinner>
     </div>
+
     <div v-else class="container-product-list">
       <div class="left-nav-categories">
         <LeftCategoriesNav :subCategory="subCategory" />
@@ -84,6 +86,10 @@
             </div>
           </div> -->
             <!-- </div> -->
+
+            <h4 class="category-empty" v-if="productsGammes.length < 1">
+              Dans le lanceur...
+            </h4>
             <div class="row">
               <div
                 class="col-lg-3 col-md-4 col-sm-6 col-12"
@@ -267,8 +273,12 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+.category-empty {
+  height: 500px;
+}
 .shop-content {
   flex-grow: 1;
+  /* height: 500px; */
 }
 .back-link:first-child {
   /* flex: 10%; */
