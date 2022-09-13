@@ -17,6 +17,9 @@
           >
         </li>
 
+        <p class="menu-footer-empty" v-if="!item.item.length">
+          Dans le lanceur...
+        </p>
         <li class="list__item" v-for="itemNav in item.item" :key="itemNav.id">
           <!-- <a href="#">{{ itemNav.libelle }}</a> -->
           <nuxt-link
@@ -48,64 +51,24 @@ export default {
         {
           title: "Vêtements",
           codeFamille: "FAR00001",
-          item: {
-            // 1: "Castellani",
-            // 2: "Castellani",
-            // 3: "Castellani",
-            // 4: "Castellani",
-            // 5: "Castellani",
-            // 6: "Castellani",
-            // 7: "Castellani",
-          },
+          item: {},
         },
         {
           title: "Accessoires",
           codeFamille: "FAR00002",
-          item: {
-            // 1: "Castellani",
-            // 2: "Castellani",
-            // 3: "Castellani",
-            // 4: "Castellani",
-            // 5: "Castellani",
-            // 6: "Castellani",
-            // 7: "Castellani",
-          },
+          item: {},
         },
         {
           title: "Arme de catégorie C.",
-          item: {
-            1: "Castellani",
-            2: "Castellani",
-            3: "Castellani",
-            4: "Castellani",
-            5: "Castellani",
-            6: "Castellani",
-            7: "Castellani",
-          },
+          item: {},
         },
         {
           title: "Arme de catégorie D.",
-          item: {
-            1: "Castellani",
-            2: "Castellani",
-            3: "Castellani",
-            4: "Castellani",
-            5: "Castellani",
-            6: "Castellani",
-            7: "Castellani",
-          },
+          item: {},
         },
         {
           title: "Munitions",
-          item: {
-            1: "Castellani",
-            2: "Castellani",
-            3: "Castellani",
-            4: "Castellani",
-            5: "Castellani",
-            6: "Castellani",
-            7: "Castellani",
-          },
+          item: {},
         },
       ],
       randomProductsRangeOptions: {
@@ -143,6 +106,9 @@ export default {
   color: #fff;
   display: flex;
   flex-direction: column;
+}
+.menu-footer-empty {
+  font-size: 12px;
 }
 .box ul {
   margin: 30px 0 0 0;
