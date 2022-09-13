@@ -16,10 +16,12 @@
         </div>
       </div>
     </section>
+
     <div class="loading-spinner" v-if="$fetchState.pending">
       <!-- <span class="loading"></span> -->
       <Spinner></Spinner>
     </div>
+
     <div v-else class="container-product-list">
       <div class="left-nav-categories">
         <LeftCategoriesNav :subCategory="subCategory" />
@@ -28,15 +30,15 @@
       <div class="shop-content">
         <section id="shop_main_area" class="ptb-25">
           <div class="container">
-            <div class="product-list-breadcrumb-section">
+            <div v-if="!enabled" class="product-list-breadcrumb-section">
               <a class="back-link" onclick="history.back()">Retour</a>
               <b-breadcrumb
                 :items="breadcrumbItems"
                 class="product-list-breadcrumb"
               ></b-breadcrumb>
             </div>
-            <div class="row">
-              <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
+            <!-- <div class="row"> -->
+            <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
               <div class="customs_selects">
                 <select name="product" class="customs_sel_box">
@@ -49,7 +51,7 @@
               </div>
             </div>
           </div> -->
-              <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
+            <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_shot">
               <div class="product_shot_title">
                 <p>Sort By:</p>
@@ -83,7 +85,11 @@
               </div>
             </div>
           </div> -->
-            </div>
+            <!-- </div> -->
+
+            <h4 class="category-empty" v-if="productsGammes.length < 1">
+              Dans le lanceur...
+            </h4>
             <div class="row">
               <div
                 class="col-lg-3 col-md-4 col-sm-6 col-12"
@@ -267,8 +273,12 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+.category-empty {
+  height: 500px;
+}
 .shop-content {
   flex-grow: 1;
+  /* height: 500px; */
 }
 .back-link:first-child {
   /* flex: 10%; */

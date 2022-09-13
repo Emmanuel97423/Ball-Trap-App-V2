@@ -54,7 +54,10 @@
                     v-for="(product, index) in productVariants"
                     :key="index"
                   >
-                    <img :src="product.imageUrl" alt="img" />
+                    <div v-if="!product.imageUrl" class="productbox-no-img">
+                      <p>Pas d'image disponible</p>
+                    </div>
+                    <img v-else :src="product.imageUrl" alt="img" />
                   </swiper-slide>
 
                   <div
@@ -114,11 +117,17 @@
                     </h4>
 
                     <AfterPayMessage :amount="product.pvTtc" />
-
+                    <ClickCollect />
+                    <p class="pt-15">
+                      {{ product.description }}
+                    </p>
                     <div id="card-element"></div>
                   </div>
 
-                  <SizeChart :productName="product.libelle"></SizeChart>
+                  <SizeChart
+                    v-if="!enabled"
+                    :productName="product.libelle"
+                  ></SizeChart>
                   <form
                     id="gammeSelectForm"
                     method="post"
@@ -163,6 +172,9 @@
                         @laterality-click-event="lateralityClickEvent"
                       />
                     </div>
+                    <!-- <p class="error-required-message" v-if="errorInputMessage">
+                      {{ errorInputMessage }}
+                    </p> -->
                     <!-- {{ productSelected.stock }}
                     {{ productFilter }} -->
                     <div v-if="stockNotificationOptions.isActive">
@@ -215,9 +227,6 @@
                   v-if="product.quantity === 0"
                   :productQuantity="product.quantity"
                 ></StockAlert> -->
-                  <p class="pt-15">
-                    {{ product.description }}
-                  </p>
 
                   <!-- <span v-if="product.quantity > 0"
                   >Qté: <em>Reste {{ product.quantity }}</em></span
@@ -712,7 +721,6 @@ import ProductBox1 from "../../components/product-box/ProductBox1";
 import InstagramArea from "../../components/instagram/InstagramArea";
 import AddToCart from "../../components/AddToCart";
 import { mapState, mapActions, mapMutations } from "vuex";
-import SelectSize from "@/components/product/SelectSize";
 import SelectSize2 from "@/components/product/SelectSize-2";
 import SizeChart from "@/components/product/SizeChart";
 import SelectGenre from "@/components/product/SelectGenre";
@@ -721,6 +729,7 @@ import SelectColor from "@/components/product/SelectColor";
 import SelectLaterality from "@/components/product/SelectLaterality";
 import AfterPayMessage from "@/components/product/AfterPayMessage";
 import { ProductFactory } from "@/utils/product/productClasse";
+import ClickCollect from "@/components/product/ClickCollect";
 
 export default {
   scrollToTop: true,
@@ -729,7 +738,6 @@ export default {
     ProductBox1,
     InstagramArea,
     AddToCart,
-    SelectSize,
     SelectSize2,
     SizeChart,
     StockAlert,
@@ -737,6 +745,7 @@ export default {
     SelectLaterality,
     AfterPayMessage,
     SelectGenre,
+    ClickCollect,
   },
 
   data() {
@@ -848,6 +857,8 @@ export default {
         min: "",
       },
 
+      errorInputMessage: null,
+
       // Breadcrumb Items Data
       breadcrumbItems: [
         {
@@ -939,37 +950,46 @@ export default {
     showAlert() {
       this.dismissCountDown = this.dismissSecs;
     },
+    makeToast(variant = null, message = null) {
+      this.$bvToast.toast(message, {
+        title: "Champ requis",
+        variant: variant,
+        solid: true,
+      });
+    },
     addToCart(product, orderQuantity) {
-      this.stockNotificationOptions.isActive = true;
-
-      if (this.productSelected.stock < 1) {
-        return;
+      if (this.gammesOptions.size == true && !this.productFilter.size) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez une taille");
+      } else if (
+        this.gammesOptions.color == true &&
+        !this.productFilter.color
+      ) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez une couleur");
+      } else if (
+        this.gammesOptions.laterality == true &&
+        !this.productFilter.laterality
+      ) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez une latéralité");
       } else {
-        if (this.productSelected.stock > 0) {
-          this.productPayloadToAddToCartCommit.product = product;
-          this.productPayloadToAddToCartCommit.orderQuantity = orderQuantity;
+        this.stockNotificationOptions.isActive = true;
 
-          // this.$store.commit("cart/orderQuantity", orderQuantity);
-          this.$store.commit("cart/add", this.productPayloadToAddToCartCommit);
-          this.toggleModal();
+        if (this.productSelected.stock < 1) {
+        } else {
+          if (this.productSelected.stock > 0) {
+            this.productPayloadToAddToCartCommit.product = product;
+            this.productPayloadToAddToCartCommit.orderQuantity = orderQuantity;
+            this.$store.commit(
+              "cart/add",
+              this.productPayloadToAddToCartCommit
+            );
+            this.toggleModal();
+          }
         }
-
-        // this.$store
-        //   .dispatch("products/decrementStock", product._id)
-        //   .then((result) => {
-        //     if (result == true) {
-        //       this.$store.commit("cart/orderQuantity", orderQuantity);
-        //       this.$store.commit("cart/add", product);
-        //       this.toggleModal();
-        //     } else {
-        //       this.showAlert();
-        //       console.log("Stock Insuffisant");
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.log("decrement error:", err);
-        //   });
       }
+      return;
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
@@ -1025,34 +1045,20 @@ export default {
         ) {
           this.productSelected = product;
           this.gammeQuantity;
-          // if (
-          //   this.productSelected.gammesValue.split("¤").length ==
-          //     this.gammeQuantity &&
-          //   this.productSelected.stock > 0
-          // ) {
-          //   this.purchaseButtonOptions.disabled = false;
-          // } else {
-          //   this.purchaseButtonOptions.disabled = true;
-          // }
         }
       });
     },
     async gammeMethod(gammeArray, gammesValueArray) {
       try {
-        // let gammeObject = "";
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
-          console.log("gammeValue:", gammeValue);
-          // console.log("🚀 ~ file: productClasse.js ~ line 24 ~ ProductFactory ~ this._gammeValue.split ~ gammeValue", gammeValue)
-
           gammeArray.split("¤").filter(async (gamme, indexGamme) => {
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
-            // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ this._gammes.split ~ fetchGamme", fetchGamme.data);
             fetchGamme.data.filter(async (itemGamme) => {
-              console.log(
-                " itemGamme.elementsGammeLibelle:",
-                itemGamme.elementsGammeLibelle
-              );
-              console.log("gammeValue:", gammeValue);
+              // console.log(
+              //   " itemGamme.elementsGammeLibelle:",
+              //   itemGamme.elementsGammeLibelle
+              // );
+              // console.log("gammeValue:", gammeValue);
 
               if (gammeValue === itemGamme.elementsGammeLibelle) {
                 const libelleGamme = itemGamme.libelle;
@@ -1063,10 +1069,7 @@ export default {
                   gammeValue: gammeValue,
                   gammeCode: elementsGammeLibelle,
                 };
-                // console.log(
-                //   "🚀 ~ file: _id.vue ~ line 1067 ~ gammeArray.split ~ obj",
-                //   obj
-                // );
+
                 if (obj.libelleGamme === "TAILLE") {
                   this.size.push(obj.gammeValue);
                   this.gammesOptions.size = true;
@@ -1091,8 +1094,6 @@ export default {
             });
           });
         });
-        // console.log("🚀 ~ file: productClasse.js ~ line 19 ~ ProductFactory ~ checkGammes ~  this.gammeValue.split('¤')", this._gammeValue.split('¤'))
-        // console.log("🚀 ~ file: productClasse.js ~ line 18 ~ ProductFactory ~ checkGammes ~ this._gammes.split('¤')", this._gammes.split('¤'))
       } catch (error) {
         console.log(
           "🚀 ~ file: productClasse.js ~ line 18 ~ ProductFactory ~ checkGammes ~ error",
@@ -1135,14 +1136,18 @@ export default {
               isAProductGamme: "false",
               codeArticle: codeArticle,
             });
+            if (!productVariant.data) {
+              return;
+            } else {
+              this.productVariants.push(productVariant.data);
 
-            this.productVariants.push(productVariant.data);
-            this.gammeQuantity = productVariant.data.gamme.split("¤").length;
+              this.gammeQuantity = productVariant.data.gamme.split("¤").length;
 
-            this.gammeMethod(
-              productVariant.data.gamme,
-              productVariant.data.gammesValue
-            );
+              this.gammeMethod(
+                productVariant.data.gamme,
+                productVariant.data.gammesValue
+              );
+            }
           });
         } catch (error) {
           console.log("🚀 ~ file: _id.vue ~ line 1156 ~ fetch ~ error", error);
@@ -1180,7 +1185,15 @@ export default {
 #tax {
   font-size: 12px;
 }
-
+.productbox-no-img {
+  width: 100%;
+  height: 518px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(219, 219, 219);
+  font-size: 12px;
+}
 /* .back-link {
   width: 26%;
   display: flex;

@@ -22,7 +22,6 @@
           type="radio"
           :value="value.gammeValue"
           name="genre"
-          required="true"
         />
       </label>
 

@@ -24,7 +24,6 @@
             libelle.gammeValue.toLowerCase().slice(1)
           }} -->
           <input
-            required
             type="radio"
             :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
             name="laterality"

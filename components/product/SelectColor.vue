@@ -1,8 +1,10 @@
 <template>
   <div class="variable-single-item">
-    <span>Couleur(s)</span>
+    <div>
+      <span>Couleur(s)</span>
+      <!-- <span class="error-required-message"> (Champ requis)</span> -->
+    </div>
 
-    {{ colorLibelle }}
     <div class="product-image-variants">
       <Spinner v-if="loading == true"></Spinner>
       <div
@@ -20,7 +22,6 @@
             libelle.gammeValue.toLowerCase().slice(1)
           }}
           <input
-            required
             type="radio"
             :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
             name="color"
