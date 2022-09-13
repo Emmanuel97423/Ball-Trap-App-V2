@@ -22,7 +22,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-            <div class="checkout-area-bg bg-white">
+            <div v-if="!enabled" class="checkout-area-bg bg-white">
               <div class="check-heading">
                 <h3>Information de facturation</h3>
               </div>
@@ -277,6 +277,12 @@
                 </ValidationObserver>
               </div>
             </div>
+            <div class="checkout-area-bg bg-white">
+              <div class="check-heading pt-25">
+                <h3>Retrait gratuit en magasin</h3>
+              </div>
+              <ClickAndCollectSelect />
+            </div>
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12">
             <div class="order_review box-shadow bg-white">
@@ -320,8 +326,30 @@
                       </td>
                     </tr>
                     <tr>
-                      <th>Livraison</th>
-                      <td>Livraison gratuite</td>
+                      <th>
+                        <div class="click-and-collect-location">
+                          Retrait:
+                          <div class="click-and-collect-location-text">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="12"
+                              height="12"
+                              fill="currentColor"
+                              class="bi bi-geo-alt-fill"
+                              viewBox="0 0 16 16"
+                            >
+                              <path
+                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+                              />
+                            </svg>
+                            <p>
+                              61 Rue Marius et Ary Leblond, St Paul 97460, La
+                              Réunion.
+                            </p>
+                          </div>
+                        </div>
+                      </th>
+                      <!-- <td>Livraison gratuite</td> -->
                     </tr>
                     <tr>
                       <th>Total</th>
@@ -448,6 +476,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 // import { Nuxt, Builder, Utils } from 'nuxt'
 import Modal from "~/components/modal/adressModal";
 import paymentButton from "~/components/paymentButton";
+import ClickAndCollectSelect from "~/components/checkout/ClickAndCollectSelect";
 
 export default {
   name: "checkout-1",
@@ -457,6 +486,7 @@ export default {
     Modal,
     ValidationProvider,
     ValidationObserver,
+    ClickAndCollectSelect,
   },
   // props: {
   //   formShow:Function
@@ -724,6 +754,24 @@ export default {
 </script>
 
 <style scoped>
+.click-and-collect-location {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.click-and-collect-location p {
+  font-size: 12px;
+}
+.click-and-collect-location-text {
+  display: flex;
+  align-items: center;
+}
+.click-and-collect-location svg {
+  margin: 0 5px 0 10px;
+  color: grey;
+}
+
 .box {
   text-align: center;
 }
