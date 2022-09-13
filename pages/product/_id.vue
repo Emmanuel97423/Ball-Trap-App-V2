@@ -117,10 +117,7 @@
                     </h4>
 
                     <AfterPayMessage :amount="product.pvTtc" />
-                    <img
-                      class="click-collect-img"
-                      src="@/assets/img/common/click-collect-computer-mouse-pointer-260nw.jpg"
-                    />
+                    <ClickCollect />
                     <p class="pt-15">
                       {{ product.description }}
                     </p>
@@ -732,6 +729,7 @@ import SelectColor from "@/components/product/SelectColor";
 import SelectLaterality from "@/components/product/SelectLaterality";
 import AfterPayMessage from "@/components/product/AfterPayMessage";
 import { ProductFactory } from "@/utils/product/productClasse";
+import ClickCollect from "@/components/product/ClickCollect";
 
 export default {
   scrollToTop: true,
@@ -747,6 +745,7 @@ export default {
     SelectLaterality,
     AfterPayMessage,
     SelectGenre,
+    ClickCollect,
   },
 
   data() {
@@ -1179,9 +1178,6 @@ export default {
 </script>
 
 <style scoped>
-.click-collect-img {
-  width: 100px;
-}
 .btn-green-overlay {
   background-color: green;
   color: #fff;
