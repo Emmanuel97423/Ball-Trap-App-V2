@@ -117,11 +117,20 @@
                     </h4>
 
                     <AfterPayMessage :amount="product.pvTtc" />
-
+                    <img
+                      class="click-collect-img"
+                      src="@/assets/img/common/click-collect-computer-mouse-pointer-260nw.jpg"
+                    />
+                    <p class="pt-15">
+                      {{ product.description }}
+                    </p>
                     <div id="card-element"></div>
                   </div>
 
-                  <SizeChart :productName="product.libelle"></SizeChart>
+                  <SizeChart
+                    v-if="!enabled"
+                    :productName="product.libelle"
+                  ></SizeChart>
                   <form
                     id="gammeSelectForm"
                     method="post"
@@ -221,9 +230,6 @@
                   v-if="product.quantity === 0"
                   :productQuantity="product.quantity"
                 ></StockAlert> -->
-                  <p class="pt-15">
-                    {{ product.description }}
-                  </p>
 
                   <!-- <span v-if="product.quantity > 0"
                   >Qté: <em>Reste {{ product.quantity }}</em></span
@@ -1173,6 +1179,9 @@ export default {
 </script>
 
 <style scoped>
+.click-collect-img {
+  width: 100px;
+}
 .btn-green-overlay {
   background-color: green;
   color: #fff;
