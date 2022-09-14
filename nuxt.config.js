@@ -56,6 +56,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/pwa',
+    '@nuxtjs/dayjs'
     // 'nuxt-purgecss',
   ],
 
@@ -118,7 +119,8 @@ export default {
   strapi: {},
   axios: {
     // baseURL: " http://localhost:8080/api",
-    baseURL: "https://trap-one-api.herokuapp.com/api",
+    // baseURL: "https://trap-one-api.herokuapp.com/api",
+    baseURL: "https://exo-trap-api.onrender.com/api",
     proxy: false
   },
   auth: {
@@ -176,4 +178,17 @@ export default {
     size: 'compact',        // Size: 'compact', 'normal', 'invisible' (v2)
 
   },
+
+  //Days Js options
+  dayjs: {
+    locales: ['fr'],
+    defaultLocale: 'fr',
+    defaultTimeZone: 'Indian/Reunion',
+    plugins: [
+      'utc', // import 'dayjs/plugin/utc'
+      'timezone' // import 'dayjs/plugin/timezone'
+    ] // Your Day.js plugin
+  }
+  // ...
+
 };
