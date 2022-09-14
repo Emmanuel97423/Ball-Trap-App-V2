@@ -42,7 +42,7 @@
             },
           }"
         >
-          <div v-if="!productObject.imageUrl[0]" class="productbox-no-img">
+          <div v-if="!productObject.imageUrl" class="productbox-no-img">
             <p>Pas d'image disponible</p>
           </div>
           <img
