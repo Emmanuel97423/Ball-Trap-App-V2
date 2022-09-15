@@ -552,6 +552,7 @@ export default {
         url: "",
         message: "",
         loading: true,
+        shippingAdress: "",
       },
       paymentButtonOptions: {
         disabled: true,
@@ -598,12 +599,16 @@ export default {
     //Etape suivante payment
     async onSubmit(payload) {
       this.userAdress = payload;
+
       this.stripe.loading = true;
 
       try {
         const stripeCheckoutSession = await this.$axios.post(
           "/order/create-checkout-session",
-          this.selectedProducts,
+          {
+            shippingAdress: payload.adressSelected,
+            products: this.selectedProducts,
+          },
           {
             progress: true,
           }
