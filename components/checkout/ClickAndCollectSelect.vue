@@ -18,7 +18,7 @@
             ></b-card-img>
           </b-col>
           <b-col md="6">
-            <b-card-body :title="`A parir du ${nextDateComputed}`">
+            <b-card-body :title="`A partir du ${nextDateComputed}`">
               <h4>{{ adressItem.title }}</h4>
               <b-card-text>
                 {{ adressItem.adress }}, <br /><span
