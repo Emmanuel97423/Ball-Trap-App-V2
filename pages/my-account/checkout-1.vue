@@ -396,7 +396,9 @@
                 Service paiement est temporairement indisponible. Veuillez
                 réessayez plus tard.
               </p> -->
+
               <Spinner v-if="stripe.loading"></Spinner>
+
               <b-button
                 v-else
                 class="theme-btn-one btn-black-overlay btn_sm btn-pay"
@@ -599,8 +601,9 @@ export default {
     //Etape suivante payment
     async onSubmit(payload) {
       this.userAdress = payload;
-
       this.stripe.loading = true;
+
+      const userId = this.$store.state.auth.user.userId;
 
       try {
         const stripeCheckoutSession = await this.$axios.post(
@@ -608,6 +611,7 @@ export default {
           {
             shippingAdress: payload.adressSelected,
             products: this.selectedProducts,
+            userId: userId,
           },
           {
             progress: true,
@@ -628,75 +632,7 @@ export default {
       } catch (error) {
         console.log("error:", error);
       }
-
-      // if (this.userAdress === null) {
-      //   console.log("Donnée de facturation abscent!!!");
-      //   this.active = true;
-      //   this.alertMessage =
-      //     "Veuillez renseigner vos coordonnées de facturation afin de poursuivre votre commande";
-      //   setTimeout(() => {
-      //     this.active = false;
-      //   }, 4000);
-      // } else {
-      //   const stripeCheckoutSession = await this.$axios.post(
-      //     "/order/create-checkout-session",
-      //     this.selectedProducts,
-      //     {
-      //       progress: true,
-      //     }
-      //   );
-      //   console.log(
-      //     "🚀 ~ file: checkout-1.vue ~ line 574 ~ onSubmit ~ stripeCheckoutSession",
-      //     stripeCheckoutSession
-      //   );
-
-      //   if (stripeCheckoutSession.data.message) {
-      //     this.stripe.message = stripeCheckoutSession.data.message;
-      //     this.paymentButtonOptions.disabled = true;
-      //     this.makeToast();
-      //   } else {
-      //     const stripeCheckoutUrlWithDomain =
-      //       stripeCheckoutSession.data.session.url;
-      //     this.stripe.url = stripeCheckoutUrlWithDomain;
-      //     this.paymentButtonOptions.disabled = false;
-      //   }
-      // }
     },
-    //Invoice data submit
-    // invoiceSubmit() {
-    //   const userObject = this.$store.state.user.userLogin;
-
-    //   try {
-    //     this.$store.dispatch("user/getUserDetails", userObject.userId);
-
-    //     this.$store.dispatch("adress/addAdress", this.invoicing);
-    //     // try {
-    //     //   this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
-    //     // } catch (err) {
-    //     //   console.error(err);
-    //     // }
-    //     this.userAdress();
-    //     console.log("this.invoicing:", this.invoicing);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //   // this.$nuxt.refresh();
-    //   // this.$router.push("/my-account/checkout-1");
-    // },
-    // updateAdress() {
-    //   const id = this.$store.state.auth.user.userId;
-    //   this.$store
-    //     .dispatch("adress/getAdresses", id)
-    //     .then(() => {
-    //       const userAdress = this.$store.state.adress.userAdresses.data;
-
-    //       this.adresses = userAdress;
-    //       console.log("Api sucess");
-    //     })
-    //     .catch((err) => {
-    //       console.log("Api error", err);
-    //     });
-    // },
   },
   computed: {
     id() {
