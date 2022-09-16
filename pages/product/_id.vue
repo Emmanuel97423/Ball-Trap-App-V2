@@ -732,6 +732,7 @@ import { ProductFactory } from "@/utils/product/productClasse";
 import ClickCollect from "@/components/product/ClickCollect";
 
 export default {
+  middleware: "auth",
   scrollToTop: true,
   name: "product-single-2",
   components: {
