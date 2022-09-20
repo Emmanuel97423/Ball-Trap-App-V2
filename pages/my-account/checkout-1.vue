@@ -396,16 +396,21 @@
                 Service paiement est temporairement indisponible. Veuillez
                 réessayez plus tard.
               </p> -->
-
+              <span class="sr-only">Loading...</span>
               <Spinner v-if="stripe.loading"></Spinner>
 
               <b-button
                 v-else
                 class="theme-btn-one btn-black-overlay btn_sm btn-pay"
-                :href="`${stripe.url}`"
                 :class="paymentButtonOptions"
+                :href="stripe.url"
                 @click="onSubmit()"
-                >Etape suivante</b-button
+                ><b-spinner
+                  small
+                  v-if="paymentButtonOptions.loading"
+                ></b-spinner>
+
+                <span v-else>Etape suivante</span></b-button
               >
             </div>
 
@@ -558,6 +563,7 @@ export default {
       },
       paymentButtonOptions: {
         disabled: true,
+        loading: false,
       },
     };
   },
@@ -600,37 +606,43 @@ export default {
     },
     //Etape suivante payment
     async onSubmit(payload) {
-      this.userAdress = payload;
-      this.stripe.loading = true;
+      console.log("payload:", payload);
+      // return;
+      if (payload) {
+        this.userAdress = payload;
+        this.stripe.loading = true;
 
-      const userId = this.$store.state.auth.user.userId;
+        const userId = this.$store.state.auth.user.userId;
 
-      try {
-        const stripeCheckoutSession = await this.$axios.post(
-          "/order/create-checkout-session",
-          {
-            shippingAdress: payload.adressSelected,
-            products: this.selectedProducts,
-            userId: userId,
-          },
-          {
-            progress: true,
+        try {
+          const stripeCheckoutSession = await this.$axios.post(
+            "/order/create-checkout-session",
+            {
+              shippingAdress: payload.adressSelected,
+              products: this.selectedProducts,
+              userId: userId,
+            },
+            {
+              progress: true,
+            }
+          );
+
+          if (stripeCheckoutSession.data.message) {
+            this.stripe.message = stripeCheckoutSession.data.message;
+            this.paymentButtonOptions.disabled = true;
+            this.makeToast();
+          } else if (stripeCheckoutSession.data.session.url) {
+            const stripeCheckoutUrlWithDomain =
+              stripeCheckoutSession.data.session.url;
+            this.stripe.url = stripeCheckoutUrlWithDomain;
+            this.paymentButtonOptions.disabled = false;
+            this.stripe.loading = false;
           }
-        );
-
-        if (stripeCheckoutSession.data.message) {
-          this.stripe.message = stripeCheckoutSession.data.message;
-          this.paymentButtonOptions.disabled = true;
-          this.makeToast();
-        } else if (stripeCheckoutSession.data.session.url) {
-          const stripeCheckoutUrlWithDomain =
-            stripeCheckoutSession.data.session.url;
-          this.stripe.url = stripeCheckoutUrlWithDomain;
-          this.paymentButtonOptions.disabled = false;
-          this.stripe.loading = false;
+        } catch (error) {
+          console.log("error:", error);
         }
-      } catch (error) {
-        console.log("error:", error);
+      } else {
+        this.paymentButtonOptions.loading = true;
       }
     },
   },
@@ -658,29 +670,6 @@ export default {
     //   // this.invoicing.userId = this.$store.state.adress.userAdresses.data.userId;
     //   return this.$store.state.adress.userAdresses.data;
     // },
-  },
-  mounted() {
-    // this.onSubmit();
-    // const id = this.$store.state.auth.user.userId;
-    // this.$store
-    //   .dispatch("adress/getAdresses", id)
-    //   .then(() => {
-    //     const userAdress = this.$store.state.adress.userAdresses.data;
-    //     this.adresses = userAdress;
-    //     console.log("Api sucess");
-    //   })
-    //   .catch((err) => {
-    //     console.log("Api error", err);
-    //   });
-    // this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
-    // const userObject = this.$store.state.user.userLogin;
-    // this.$store.dispatch("user/getUserDetails", userObject.userId);
-    // const userDetails = this.$store.state.user.userDetails;
-    // console.log("userDetails:", userDetails);
-    // console.log("userInvoiceDetails:", userInvoiceDetails);
-    // if (userInvoiceDetails === null) {
-    //   this.formEnabled = true;
-    // }
   },
 };
 </script>
@@ -749,13 +738,13 @@ export default {
 }
 .btn-pay {
   text-align: center;
-
   color: #fff;
   transition: all 0.2s linear;
 }
 .isActive {
   display: none;
 }
+
 /* Responsive */
 @media (max-width: 425px) {
   .click-and-collect-location {

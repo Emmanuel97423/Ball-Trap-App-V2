@@ -9,19 +9,19 @@
       reproduction, intégrale ou partielle, est systématiquement soumise à
       l'autorisation du propriétaire. Dans un souci de communication de tiers
       envers le site EXO TRAP, des liaisons hypertextes sont autorisées sur
-      demande auprès de la société par mail à : pull@exo-trap.re,
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      demande auprès de la société par mail à : pull@exo-trap.re.
+
       <br />
       <br />
-      <h3>1-Acceptation</h3>
+      <h3>1-Acceptation des conditions</h3>
       <br />
-      des conditions Le client reconnaît et accepte sans réserve les conditions
-      particulières de vente énoncées sur le site EXO TRAP. Les présentes
-      conditions générales de vente régissent les relations contractuelles entre
-      l’ établissement Armurerie Bossa David et son client, les deux parties les
-      acceptant sans réserve. Ces conditions générales de vente prévalent sur
-      toutes autres conditions, excepté des modifications préalables signifiées
-      par écrit. <br />
+      Le client reconnaît et accepte sans réserve les conditions particulières
+      de vente énoncées sur le site EXO TRAP. Les présentes conditions générales
+      de vente régissent les relations contractuelles entre l’ établissement
+      Armurerie Bossa David et son client, les deux parties les acceptant sans
+      réserve. Ces conditions générales de vente prévalent sur toutes autres
+      conditions, excepté des modifications préalables signifiées par écrit.
+      <br />
       <br />
       <h3>2-Articles et Produits</h3>
       <br />
