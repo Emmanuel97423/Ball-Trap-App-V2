@@ -29,9 +29,10 @@ export default {
         const options = {
           amount: this.amount * 100, // $10.00 USD
           currency: "EUR",
-          min: 30000,
+          min: 10000,
           max: 1000000,
           showUpperLimit: false,
+          introText: "Pay in",
         };
 
         const afterpayClearpayMessageElement = elements.create(
@@ -40,6 +41,10 @@ export default {
         );
         //   await new Promise((r) => setTimeout(r, 100));
         afterpayClearpayMessageElement.mount("#afterpay-clearpay-message");
+        console.log(
+          "afterpayClearpayMessageElement:",
+          afterpayClearpayMessageElement.innerHTML
+        );
         // });
       }
     },

@@ -239,9 +239,8 @@
         demande relative à vos données, vous pouvez nous contacter en : -
         Adressant un courriel à l’adresse suivante : pull@exo-trap.re -
         Adressant un courrier à l’adresse suivante : ARMURERIE BOSSA DAVID – EXO
-        TRAP 7 rue de la Croix, 97460 ST PAUL <br /><br /><em
-          >Version mise à jour le 22 MARS 2022</em
-        >
+        TRAP 61 Rue Marius et Ary Leblond, St Paul 97460, La Réunion
+        <br /><br /><em>Version mise à jour le 20 Septembre 2022</em>
       </p>
       <br /><br />
     </div>
