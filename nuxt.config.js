@@ -94,6 +94,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    // Enable breakpoints
+    extend(config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+      }
+    },
     babel: {
       compact: true,
       plugins: [
@@ -188,6 +194,12 @@ export default {
       'utc', // import 'dayjs/plugin/utc'
       'timezone' // import 'dayjs/plugin/timezone'
     ] // Your Day.js plugin
+  },
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true
+    }
   }
   // ...
 
