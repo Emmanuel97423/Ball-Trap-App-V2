@@ -281,7 +281,7 @@
               <div class="check-heading pt-25">
                 <h3>Retrait gratuit en magasin</h3>
               </div>
-              <ClickAndCollectSelect />
+              <ClickAndCollectSelect @click-collect-adress="onSubmit" />
             </div>
           </div>
           <div class="col-lg-6 col-md-12 col-sm-12 col-12">
@@ -330,21 +330,26 @@
                         <div class="click-and-collect-location">
                           Retrait:
                           <div class="click-and-collect-location-text">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="12"
-                              height="12"
-                              fill="currentColor"
-                              class="bi bi-geo-alt-fill"
-                              viewBox="0 0 16 16"
-                            >
-                              <path
-                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
-                              />
-                            </svg>
-                            <p>
-                              61 Rue Marius et Ary Leblond, St Paul 97460, La
-                              Réunion.
+                            <p v-if="userAdress.adressSelected">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="12"
+                                height="12"
+                                fill="currentColor"
+                                class="bi bi-geo-alt-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+                                />
+                              </svg>
+                              <!-- {{ userAdress.adressSelected.adress }} -->
+                              {{ userAdress.adressSelected.adress }},
+                              {{ userAdress.adressSelected.city }}
+                              {{ userAdress.adressSelected.zip }},
+                              {{ userAdress.adressSelected.region }}
+                              <!-- 61 Rue Marius et Ary Leblond, St Paul 97460, La
+                              Réunion. -->
                             </p>
                           </div>
                         </div>
@@ -383,21 +388,29 @@
               >
                 Etape suivante
               </button> -->
-              <p
+              <!-- <p
                 v-if="
                   !stripe.url && !this.stripe.message && selectedProducts[0]
                 "
               >
                 Service paiement est temporairement indisponible. Veuillez
                 réessayez plus tard.
-              </p>
+              </p> -->
+              <span class="sr-only">Loading...</span>
+              <Spinner v-if="stripe.loading"></Spinner>
 
               <b-button
+                v-else
                 class="theme-btn-one btn-black-overlay btn_sm btn-pay"
-                :href="`${stripe.url}`"
                 :class="paymentButtonOptions"
+                :href="stripe.url"
                 @click="onSubmit()"
-                >Etape suivante</b-button
+                ><b-spinner
+                  small
+                  v-if="paymentButtonOptions.loading"
+                ></b-spinner>
+
+                <span v-else>Etape suivante</span></b-button
               >
             </div>
 
@@ -526,6 +539,7 @@ export default {
         date: "",
         token: "",
       },
+      userAdress: "",
 
       invoicing: {
         userId: "",
@@ -544,9 +558,12 @@ export default {
       stripe: {
         url: "",
         message: "",
+        loading: true,
+        shippingAdress: "",
       },
       paymentButtonOptions: {
         disabled: true,
+        loading: false,
       },
     };
   },
@@ -588,115 +605,45 @@ export default {
       });
     },
     //Etape suivante payment
-    async onSubmit() {
-      // console;
-      if (this.userAdress === null) {
-        console.log("Donnée de facturation abscent!!!");
-        this.active = true;
-        this.alertMessage =
-          "Veuillez renseigner vos coordonnées de facturation afin de poursuivre votre commande";
-        setTimeout(() => {
-          this.active = false;
-        }, 4000);
-      } else {
-        const stripeCheckoutSession = await this.$axios.post(
-          "/order/create-checkout-session",
-          this.selectedProducts,
-          {
-            progress: true,
+    async onSubmit(payload) {
+      console.log("payload:", payload);
+      // return;
+      if (payload) {
+        this.userAdress = payload;
+        this.stripe.loading = true;
+
+        const userId = this.$store.state.auth.user.userId;
+
+        try {
+          const stripeCheckoutSession = await this.$axios.post(
+            "/order/create-checkout-session",
+            {
+              shippingAdress: payload.adressSelected,
+              products: this.selectedProducts,
+              userId: userId,
+            },
+            {
+              progress: true,
+            }
+          );
+
+          if (stripeCheckoutSession.data.message) {
+            this.stripe.message = stripeCheckoutSession.data.message;
+            this.paymentButtonOptions.disabled = true;
+            this.makeToast();
+          } else if (stripeCheckoutSession.data.session.url) {
+            const stripeCheckoutUrlWithDomain =
+              stripeCheckoutSession.data.session.url;
+            this.stripe.url = stripeCheckoutUrlWithDomain;
+            this.paymentButtonOptions.disabled = false;
+            this.stripe.loading = false;
           }
-        );
-        console.log(
-          "🚀 ~ file: checkout-1.vue ~ line 574 ~ onSubmit ~ stripeCheckoutSession",
-          stripeCheckoutSession
-        );
-
-        if (stripeCheckoutSession.data.message) {
-          this.stripe.message = stripeCheckoutSession.data.message;
-          this.paymentButtonOptions.disabled = true;
-          this.makeToast();
-        } else {
-          const stripeCheckoutUrlWithDomain =
-            stripeCheckoutSession.data.session.url;
-          this.stripe.url = stripeCheckoutUrlWithDomain;
-          this.paymentButtonOptions.disabled = false;
+        } catch (error) {
+          console.log("error:", error);
         }
-
-        // const userObject = this.$store.state.user.userLogin;
-        // this.$store.dispatch("user/getUserDetails", userObject.userId);
-        // this.invoicing.invoiceUserId = userObject.userId;
-        // // this.$store.dispatch("user/addAdresse", this.invoicing);
-        // this.invoicingForm = false;
-        //         try {
-        //           const arrayProduct = [];
-        //           this.selectedProducts.filter(async (product) => {
-        //             console.log("product:", product);
-        //             const checkStock = await this.$axios.post(
-        //               "/product/" + product._id
-        //             );
-        //             console.log("checkStock:", checkStock.data);
-        //             if (product.orderQuantity > checkStock.data.stock) {
-        //               console.log("Stock" + product.libelle + "épuisé");
-        //               arrayProduct.push(product)
-        // //               this.selectedProducts.filter(productSelected=>{
-        // // if(productSelected._id.indexOf()){
-
-        // // }
-        // //               });
-        //             } else {
-
-        //               const stripeCheckoutSession = await this.$axios.post(
-        //                 "/order/create-checkout-session",
-        //                 this.selectedProducts,
-        //                 {
-        //                   progress: true,
-        //                 }
-        //               );
-
-        //               const stripeCheckoutUrlWithDomain =
-        //                 stripeCheckoutSession.data.session.url;
-        //               this.stripe.url = stripeCheckoutUrlWithDomain;
-        //             }
-        //           });
-        //         } catch (error) {
-        //           console.log(error);
-        //         }
+      } else {
+        this.paymentButtonOptions.loading = true;
       }
-    },
-    //Invoice data submit
-    invoiceSubmit() {
-      const userObject = this.$store.state.user.userLogin;
-
-      try {
-        this.$store.dispatch("user/getUserDetails", userObject.userId);
-
-        this.$store.dispatch("adress/addAdress", this.invoicing);
-        // try {
-        //   this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
-        // } catch (err) {
-        //   console.error(err);
-        // }
-        this.userAdress();
-        console.log("this.invoicing:", this.invoicing);
-      } catch (error) {
-        console.log(error);
-      }
-      // this.$nuxt.refresh();
-      // this.$router.push("/my-account/checkout-1");
-    },
-    updateAdress() {
-      const id = this.$store.state.auth.user.userId;
-      this.$store
-        .dispatch("adress/getAdresses", id)
-        .then(() => {
-          const userAdress = this.$store.state.adress.userAdresses.data;
-
-          this.adresses = userAdress;
-          console.log("Api sucess");
-        })
-        .catch((err) => {
-          console.log("Api error", err);
-        });
     },
   },
   computed: {
@@ -719,36 +666,10 @@ export default {
     userDetails() {
       return this.$store.state.user.userDetails;
     },
-    userAdress() {
-      // this.invoicing.userId = this.$store.state.adress.userAdresses.data.userId;
-      return this.$store.state.adress.userAdresses.data;
-    },
-  },
-  mounted() {
-    this.onSubmit();
-    const id = this.$store.state.auth.user.userId;
-    this.$store
-      .dispatch("adress/getAdresses", id)
-      .then(() => {
-        const userAdress = this.$store.state.adress.userAdresses.data;
-
-        this.adresses = userAdress;
-        console.log("Api sucess");
-      })
-      .catch((err) => {
-        console.log("Api error", err);
-      });
-
-    // this.$store.dispatch("adress/getAdresses", this.invoicing.userId);
-    // const userObject = this.$store.state.user.userLogin;
-    // this.$store.dispatch("user/getUserDetails", userObject.userId);
-    // const userDetails = this.$store.state.user.userDetails;
-    // console.log("userDetails:", userDetails);
-
-    // console.log("userInvoiceDetails:", userInvoiceDetails);
-    // if (userInvoiceDetails === null) {
-    //   this.formEnabled = true;
-    // }
+    // userAdress() {
+    //   // this.invoicing.userId = this.$store.state.adress.userAdresses.data.userId;
+    //   return this.$store.state.adress.userAdresses.data;
+    // },
   },
 };
 </script>
@@ -762,13 +683,14 @@ export default {
 
 .click-and-collect-location p {
   font-size: 12px;
+  font-style: italic;
 }
 .click-and-collect-location-text {
   display: flex;
   align-items: center;
 }
 .click-and-collect-location svg {
-  margin: 0 5px 0 10px;
+  margin: 0 5px 0 15px;
   color: grey;
 }
 
@@ -796,7 +718,7 @@ export default {
 }
 .btn_sm {
   margin: 2rem 0 0 0;
-  width: 50%;
+  width: 90%;
 }
 .invoice__adresse {
   font-weight: bold;
@@ -808,17 +730,29 @@ export default {
   color: red;
 }
 .checkout-payment {
+  width: 100%;
   display: flex;
   /* flex-direction: column; */
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 .btn-pay {
   text-align: center;
-
   color: #fff;
   transition: all 0.2s linear;
 }
 .isActive {
   display: none;
+}
+
+/* Responsive */
+@media (max-width: 425px) {
+  .click-and-collect-location {
+    flex-direction: column;
+    align-items: start;
+  }
+  .click-and-collect-location svg {
+    margin: 0;
+  }
 }
 </style>
