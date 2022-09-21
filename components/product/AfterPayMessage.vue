@@ -41,10 +41,7 @@ export default {
         );
         //   await new Promise((r) => setTimeout(r, 100));
         afterpayClearpayMessageElement.mount("#afterpay-clearpay-message");
-        console.log(
-          "afterpayClearpayMessageElement:",
-          afterpayClearpayMessageElement.innerHTML
-        );
+
         // });
       }
     },
