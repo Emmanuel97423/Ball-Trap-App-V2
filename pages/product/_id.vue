@@ -191,6 +191,11 @@
                         Stock indisponible
                       </button>
                     </div>
+
+                    <!-- productSelected.stock:{{ productSelected.stock }}
+                    quantitySelected.orderQuantity:
+                    {{ quantitySelected.orderQuantity }}
+                    state cart: {{ this.$store.state.cart.items[0] }} -->
                     <div
                       class="product_count_one pt-15"
                       @click="clickQuantitySelect"
@@ -977,7 +982,11 @@ export default {
       } else {
         this.stockNotificationOptions.isActive = true;
 
-        if (this.productSelected.stock < 1) {
+        if (this.productSelected.stock < this.quantitySelected.orderQuantity) {
+          this.makeToast(
+            "warning",
+            "La quantité selectionnée est supérieure au stock"
+          );
         } else {
           if (this.productSelected.stock > 0) {
             this.productPayloadToAddToCartCommit.product = product;
