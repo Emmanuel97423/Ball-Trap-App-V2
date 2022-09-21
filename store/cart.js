@@ -4,6 +4,7 @@
 //State
 export const state = () => ({
   items: [],
+  response: ""
   // orderQuantity: "",
   // cartProductQuantity: ""
 })
@@ -12,7 +13,6 @@ export const state = () => ({
 export const actions = {
   addToCart({ commit, state }, product) {
     const record = state.items.find(i => i._id === product._id)
-    console.log("🚀 ~ file: cart.js ~ line 19 ~ add ~ record", record)
     if (!record) {
       state.items.push({
         orderQuantity: state.orderQuantity,
@@ -39,8 +39,8 @@ export const mutations = {
   setItems(state, items) {
     state.items = items
   },
-  add(state, productPayload) {
-
+  async add(state, productPayload) {
+    state.response = null;
     const record = state.items.find(i => i._id === productPayload.product._id)
     // console.log("🚀 ~ file: cart.js ~ line 19 ~ add ~ record", record)
     if (!record) {
@@ -55,7 +55,9 @@ export const mutations = {
       console.log('record.orderQuantity:', record.orderQuantity)
       console.log('record.stock:', record.stock)
       console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
-      console.log('Stock insuffisant')
+      console.log('Stock insuffisant');
+      state.response = "La quantité selectionnée est supérieure au stock"
+      // return "Stock insuffisant"
     } else if ((record.orderQuantity + productPayload.orderQuantity) <= record.stock) {
       console.log('record.orderQuantity:', record.orderQuantity)
       console.log('record.stock:', record.stock)

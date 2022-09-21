@@ -147,7 +147,6 @@
                       <SelectGenre
                         v-if="gammesOptions.genre === true"
                         :genre="genre"
-                        @genre-click-event="genreClickEvent"
                       />
                       <SelectSize2
                         v-if="gammesOptions.size === true"
@@ -192,10 +191,10 @@
                       </button>
                     </div>
 
-                    <!-- productSelected.stock:{{ productSelected.stock }}
-                    quantitySelected.orderQuantity:
-                    {{ quantitySelected.orderQuantity }}
-                    state cart: {{ this.$store.state.cart.items[0] }} -->
+                    <!-- productSelected.stock:{{ productSelected }} -->
+                    <!-- quantitySelected.orderQuantity:
+                    {{ quantitySelected.orderQuantity }} -->
+                    <!-- state cart: {{ this.$store.state.cart.items[0] }} -->
                     <div
                       class="product_count_one pt-15"
                       @click="clickQuantitySelect"
@@ -963,7 +962,7 @@ export default {
         solid: true,
       });
     },
-    addToCart(product, orderQuantity) {
+    async addToCart(product, orderQuantity) {
       if (this.gammesOptions.size == true && !this.productFilter.size) {
         this.errorInputMessage = "Champ requis";
         this.makeToast("warning", "Selectionnez une taille");
@@ -982,11 +981,33 @@ export default {
       } else {
         this.stockNotificationOptions.isActive = true;
 
-        if (this.productSelected.stock < this.quantitySelected.orderQuantity) {
-          this.makeToast(
-            "warning",
-            "La quantité selectionnée est supérieure au stock"
-          );
+        const productsInCart = this.$store.state.cart.items.find(
+          (product) => this.productSelected._id == product._id
+        );
+
+        // if (productsInCart) {
+        //   console.log(
+        //     "🚀 ~ file: _id.vue ~ line 987 ~ addToCart ~ productsInCart",
+        //     productsInCart.orderQuantity
+        //   );
+        //   console.log(
+        //     "this.quantitySelected.orderQuantity:",
+        //     this.quantitySelected.orderQuantity
+        //   );
+        //   if (
+        //     this.productSelected.stock - productsInCart.orderQuantity <
+        //     productsInCart.orderQuantity
+        //   ) {
+        //     this.makeToast(
+        //       "warning",
+        //       "La quantité selectionnée est supérieure au stock"
+        //     );
+        //     return;
+        //   }
+        // }
+
+        if (this.productSelected.stock < 1) {
+          this.makeToast("warning", "Stock épuisée");
         } else {
           if (this.productSelected.stock > 0) {
             this.productPayloadToAddToCartCommit.product = product;
@@ -995,6 +1016,17 @@ export default {
               "cart/add",
               this.productPayloadToAddToCartCommit
             );
+
+            if (this.$store.state.cart.response) {
+              console.log(
+                "this.$store.state.cart.response:",
+                this.$store.state.cart.response
+              );
+              this.makeToast("warning", this.$store.state.cart.response);
+
+              return;
+            }
+
             this.toggleModal();
           }
         }
