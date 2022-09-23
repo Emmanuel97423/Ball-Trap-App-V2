@@ -51,57 +51,13 @@
 export default {
   name: "NavCategories",
   data() {
-    return {
-      menu: [
-        // {
-        //   href: "/shop/shop-2",
-        //   title: "Vêtements",
-        //   subMenu: [
-        //     { id: 1, title: "Doudounes" },
-        //     { id: 2, title: "Lycra" },
-        //   ],
-        //   navOptions: {
-        //     hoverNav: false,
-        //   },
-        // },
-        // {
-        //   href: "/",
-        //   title: "Armes Cat. C.",
-        //   navOptions: {
-        //     hoverNav: false,
-        //   },
-        // },
-        // {
-        //   href: "/",
-        //   title: "Armes Cat. D.",
-        //   navOptions: {
-        //     hoverNav: false,
-        //   },
-        // },
-        // {
-        //   href: "/",
-        //   title: "Munitions",
-        //   navOptions: {
-        //     hoverNav: false,
-        //   },
-        // },
-        // {
-        //   href: "/",
-        //   title: "Accessoires",
-        //   navOptions: {
-        //     hoverNav: false,
-        //   },
-        // },
-      ],
-    };
+    return {};
   },
-  // async fetch() {
-  //   const fetchData = await this.$axios.get("/category");
-  //   this.menu = fetchData.data.response;
-  // },
-  async mounted() {
-    const fetchData = await this.$axios.get("/category");
-    this.menu = fetchData.data.response;
+
+  computed: {
+    menu() {
+      return this.$store.state.nav.category.response;
+    },
   },
 };
 </script>
