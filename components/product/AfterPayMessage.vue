@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="clearpay-message">
     <div id="afterpay-clearpay-message" ref="afterpayClearpayMessage"></div>
+    <p class="infos-clearpay">* (Offre Clearpay sur le total du panier)</p>
   </div>
 </template>
 
@@ -9,13 +10,18 @@ import { loadStripe } from "@stripe/stripe-js/pure";
 let stripe;
 export default {
   name: "AfterPayMessage",
-  props: {
-    amount: Number,
-  },
+  // props: {
+  //   amount: Number,
+  // },
   data() {
     return {
       //   stripe: null,
     };
+  },
+  computed: {
+    amount() {
+      return this.$store.getters["cart/cartTotal"];
+    },
   },
   methods: {
     async afterPayStripeElement() {
@@ -65,7 +71,31 @@ export default {
 };
 </script>
 
-<style>
+<style >
+.infos-clearpay {
+  font-size: 12px;
+  margin: 0 0 0 10px;
+  font-style: italic;
+}
+.clearpay-message {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: flex-start;
+}
+@media (max-width: 1024px) {
+  .clearpay-message {
+    /* display: flex; */
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: flex-start; */
+    margin: 30px 0 0 0;
+  }
+  .infos-clearpay {
+    margin: 0;
+    padding: 0 0 30px 0;
+  }
+}
 /* .AfterpayMessage {
   font-family: monospace;
   font-size: 14px;
