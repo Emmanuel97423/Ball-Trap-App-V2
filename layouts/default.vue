@@ -33,6 +33,7 @@ export default {
       this.$nuxt.$loading.start();
       setTimeout(() => this.$nuxt.$loading.finish(), 3000);
     });
+    this.$store.dispatch("nav/getCategory");
   },
 };
 </script>
