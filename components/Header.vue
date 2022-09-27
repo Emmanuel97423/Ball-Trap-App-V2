@@ -548,6 +548,7 @@
               >{{ cartTotal.toFixed(2) }}€</span
             >
           </div>
+          <AfterPayCartMessage />
 
           <ul class="offcanvas-cart-action-button">
             <li>
@@ -676,9 +677,11 @@
 
 <script>
 import NavCategories from "@/components/header/Categories";
+import AfterPayCartMessage from "@/components/cart/AfterPayCartMessage";
 export default {
   components: {
     NavCategories,
+    AfterPayCartMessage,
   },
   data() {
     return {

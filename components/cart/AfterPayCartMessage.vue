@@ -1,9 +1,9 @@
 <template>
-  <div class="clearpay-message">
-    <div class="clearpay-logo">
-      <span>Paiement en 3 fois avec </span>
-      <img :src="clearPayOptions.logoUrl" />
-    </div>
+  <div class="clearpay-cart-message">
+    <!-- <div class="clearpay-cart-logo"> -->
+    <span>Payez en 3 fois {{ (amount / 3).toFixed(2) }} € avec </span>
+    <img :src="clearPayOptions.logoUrl" />
+    <!-- </div> -->
     <!-- <div id="afterpay-clearpay-message" ref="afterpayClearpayMessage"></div> -->
     <!-- <span class="infos-clearpay"
       >* (Offre Clearpay sur le total du panier)</span
@@ -15,7 +15,7 @@
 import { loadStripe } from "@stripe/stripe-js/pure";
 let stripe;
 export default {
-  name: "AfterPayMessage",
+  name: "AfterPayCartMessage",
   // props: {
   //   amount: Number,
   // },
@@ -33,71 +33,35 @@ export default {
     },
   },
   methods: {
-    async afterPayStripeElement() {
-      if (this.$stripe) {
-        stripe = await loadStripe(process.env.stripePublishKey);
-        const elements = this.$stripe.elements({
-          locale: "fr-FR",
-        });
-
-        // this.$nextTick(() => {
-        const options = {
-          amount: this.amount * 100, // $10.00 USD
-          currency: "EUR",
-          min: 10000,
-          max: 1000000,
-          showUpperLimit: false,
-          introText: "Pay in",
-        };
-
-        const afterpayClearpayMessageElement = elements.create(
-          "afterpayClearpayMessage",
-          options
-        );
-        //   await new Promise((r) => setTimeout(r, 100));
-        afterpayClearpayMessageElement.mount("#afterpay-clearpay-message");
-
-        // });
-      }
-    },
-
     customClearPayMessage() {},
     // destroyStripeAfterPayElement() {
     //   const afterPayElement = elements?.getElement("afterpayClearpayMessage");
     //   if (afterPayElement) afterPayElement.destroy();
     // },
   },
-  mounted() {
-    try {
-      this.$nextTick(() => {
-        this.afterPayStripeElement();
-      });
-    } catch (error) {
-      console.log("🚀 ~ file: _id.vue ~ line 1106 ~ fetch ~ error", error);
-    }
-  },
+
   //   beforeDestroy() {
   //     this.destroyStripeAfterPayElement();
   //   },
 };
 </script>
 
-<style >
-.infos-clearpay {
+<style scoped >
+/* .infos-cart-clearpay {
   font-size: 12px;
-  margin: 0 0 0 10px;
+  margin: 0 0 20px 0;
   font-style: italic;
-}
-.clearpay-message {
+} */
+.clearpay-cart-message {
+  font-size: 12px;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
-  justify-content: flex-start;
-  margin: 20px 0 0 0;
+  justify-content: center;
+  margin: 0 0 20px 0;
   color: grey;
 }
-.clearpay-logo img {
-  width: 150px;
+.clearpay-cart-message img {
+  width: 130px;
   padding: 0 0 0 10px;
 }
 @media (max-width: 1024px) {
