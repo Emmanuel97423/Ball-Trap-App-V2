@@ -322,7 +322,7 @@ export default {
   name: "ProductBox1",
   props: {
     productImg1: Array,
-    productImg2: String,
+    productImg2: Array,
     productTagClass: String,
     productTag: String,
     productTitle: String,

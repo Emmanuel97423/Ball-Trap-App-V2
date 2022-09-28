@@ -960,6 +960,7 @@ export default {
         title: "Champ requis",
         variant: variant,
         solid: true,
+        // toaster: "b-toaster-bottom-center",
       });
     },
     async addToCart(product, orderQuantity) {
@@ -981,31 +982,6 @@ export default {
       } else {
         this.stockNotificationOptions.isActive = true;
 
-        const productsInCart = this.$store.state.cart.items.find(
-          (product) => this.productSelected._id == product._id
-        );
-
-        // if (productsInCart) {
-        //   console.log(
-        //     "🚀 ~ file: _id.vue ~ line 987 ~ addToCart ~ productsInCart",
-        //     productsInCart.orderQuantity
-        //   );
-        //   console.log(
-        //     "this.quantitySelected.orderQuantity:",
-        //     this.quantitySelected.orderQuantity
-        //   );
-        //   if (
-        //     this.productSelected.stock - productsInCart.orderQuantity <
-        //     productsInCart.orderQuantity
-        //   ) {
-        //     this.makeToast(
-        //       "warning",
-        //       "La quantité selectionnée est supérieure au stock"
-        //     );
-        //     return;
-        //   }
-        // }
-
         if (this.productSelected.stock < 1) {
           this.makeToast("warning", "Stock épuisée");
         } else {
@@ -1016,22 +992,14 @@ export default {
               "cart/add",
               this.productPayloadToAddToCartCommit
             );
-
             if (this.$store.state.cart.response) {
-              console.log(
-                "this.$store.state.cart.response:",
-                this.$store.state.cart.response
-              );
               this.makeToast("warning", this.$store.state.cart.response);
-
-              return;
+            } else {
+              this.toggleModal();
             }
-
-            this.toggleModal();
           }
         }
       }
-      return;
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
@@ -1078,16 +1046,13 @@ export default {
         this.productFilter.color +
         this.productFilter.size +
         this.productFilter.laterality;
+
       this.productVariants.filter((product) => {
-        if (
-          product.gammesValue
-            .replaceAll("¤", "")
-            .toLowerCase()
-            .includes(gammeQuery.toLowerCase())
-        ) {
-          this.productSelected = product;
-          this.gammeQuantity;
-        }
+        product.gammesValue.split("¤").filter((item) => {
+          if (item == gammeQuery) {
+            this.productSelected = product;
+          }
+        });
       });
     },
     async gammeMethod(gammeArray, gammesValueArray) {

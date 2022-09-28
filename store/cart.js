@@ -52,21 +52,21 @@ export const mutations = {
     }
 
     else if ((record.orderQuantity + productPayload.orderQuantity) > record.stock) {
-      console.log('record.orderQuantity:', record.orderQuantity)
-      console.log('record.stock:', record.stock)
-      console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
-      console.log('Stock insuffisant');
+      // console.log('record.orderQuantity:', record.orderQuantity)
+      // console.log('record.stock:', record.stock)
+      // console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
+      // console.log('Stock insuffisant');
       state.response = "La quantité selectionnée est supérieure au stock"
       // return "Stock insuffisant"
     } else if ((record.orderQuantity + productPayload.orderQuantity) <= record.stock) {
-      console.log('record.orderQuantity:', record.orderQuantity)
-      console.log('record.stock:', record.stock)
-      console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
+      // console.log('record.orderQuantity:', record.orderQuantity)
+      // console.log('record.stock:', record.stock)
+      // console.log('productPayload.orderQuantity:', productPayload.orderQuantity)
       record.orderQuantity += productPayload.orderQuantity
     } else {
-      console.log("Error condition")
-      console.log('record.stock:', record.stock)
-      console.log('record.orderQuantity + productPayload.orderQuantity:', record.orderQuantity + productPayload.orderQuantity)
+      console.log("Erreur de condition")
+      // console.log('record.stock:', record.stock)
+      // console.log('record.orderQuantity + productPayload.orderQuantity:', record.orderQuantity + productPayload.orderQuantity)
     };
 
 

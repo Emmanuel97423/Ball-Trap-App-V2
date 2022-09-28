@@ -24,16 +24,13 @@
 
     <div v-else class="container-product-list">
       <div class="left-nav-categories">
-        <LeftCategoriesNav
-          :subCategory="subCategory"
-          @handle-click-sub-category="fetchSubCategoryProduct"
-        />
+        <LeftCategoriesNav :subCategory="subCategory" />
       </div>
       <!-- Shop Main Area -->
       <div class="shop-content">
         <section id="shop_main_area" class="ptb-25">
           <div class="container">
-            <div v-if="enabled" class="product-list-breadcrumb-section">
+            <div v-if="!enabled" class="product-list-breadcrumb-section">
               <a class="back-link" onclick="history.back()">Retour</a>
               <b-breadcrumb
                 :items="breadcrumbItems"
@@ -178,7 +175,7 @@ export default {
               .toLowerCase()
               .slice(1)
               .replaceAll("-", " "),
-          to: "/shop/category/",
+          to: "/shop/shop-2",
         },
       ],
 
@@ -210,105 +207,24 @@ export default {
     //   return this.$store.state.products.productItems;
     // },
   },
-  methods: {
-    async fetchSubCategoryProduct(payload) {
-      console.log("payload:", payload);
-      try {
-        const productSearchBySubcategory = await this.$axios.get(
-          "search/filter/subCategory",
-          {
-            params: {
-              search: payload.codeSousFamille,
-            },
-          }
-        );
-        this.productsGammes = productSearchBySubcategory.data.productsArray;
-        let breadcrumbObject = [
-          {
-            text: "Accueil",
-            to: "/",
-          },
-          {
-            text:
-              this.$route.params.category
-                .toLowerCase()
-
-                .charAt(0)
-                .toUpperCase() +
-              this.$route.params.category
-                .toLowerCase()
-                .slice(1)
-                .replaceAll("-", " "),
-            to:
-              "/shop/category/" +
-              this.$route.params.category.toLowerCase() +
-              "?" +
-              "codefamille=" +
-              payload.codeFamille,
-            //
-          },
-          {
-            text: payload.libelleSousFamille,
-            to:
-              "/shop/category/" +
-              "?" +
-              "codeFamille=" +
-              payload.codeFamille +
-              "&" +
-              "libelleFamille=" +
-              payload.libelleFamille +
-              "&" +
-              "codeSousFamille=" +
-              payload.codeSousFamille +
-              "&" +
-              "libelleSousFamille=" +
-              payload.libelleSousFamille,
-          },
-        ];
-        this.breadcrumbItems = breadcrumbObject;
-      } catch (error) {
-        console.log("error:", error);
-      }
-      // this.fetchData();
-    },
-    async fetchData() {
-      try {
-        const productsGammes = await this.$axios.get("/search/filter", {
-          params: {
-            search: this.$route.query.codefamille,
-          },
-        });
-        this.productsGammes = productsGammes.data.productsArray;
-      } catch (error) {
-        console.log("error:", error);
-      }
-      try {
-        const subCategory = await this.$axios.get(
-          "/category/subCategory/" + this.$route.query.codefamille
-        );
-        this.subCategory = subCategory.data.subCategory;
-      } catch (error) {
-        console.log(
-          "🚀 ~ file: _category.vue ~ line 242 ~ fetch ~ error",
-          error
-        );
-      }
-    },
-  },
   //   created() {
   //     this.$store.dispatch("products/getProducts");
   //   },
   async fetch() {
-    try {
-      const productsGammes = await this.$axios.get("/search/filter", {
-        params: {
-          search: this.$route.query.codefamille,
-        },
-      });
-      this.productsGammes = productsGammes.data.productsArray;
-    } catch (error) {
-      console.log("error:", error);
-    }
+    // try {
+    //   const productsGammes = await this.$axios.get("/search/filter", {
+    //     params: {
+    //       search: this.$route.query.codefamille,
+    //     },
+    //   });
+    //   console.log(
+    //     "🚀 ~ file: _category.vue ~ line 240 ~ fetch ~ productsGammes",
+    //     productsGammes
+    //   );
+    //   this.productsGammes = productsGammes.data.productsArray;
+    // } catch (error) {
+    //   console.log("error:", error);
+    // }
     try {
       const subCategory = await this.$axios.get(
         "/category/subCategory/" + this.$route.query.codefamille

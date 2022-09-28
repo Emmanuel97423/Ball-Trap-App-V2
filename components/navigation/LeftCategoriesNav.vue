@@ -3,7 +3,22 @@
     <div class="content-left-categories-nav">
       <ul>
         <li v-for="menuItem in subCategory" :key="menuItem.id">
-          <h4>{{ menuItem.libelleSousFamille }}</h4>
+          <h4 @click="handleClickSubCategory(menuItem)">
+            {{ menuItem.libelleSousFamille }}
+          </h4>
+          <!-- <nuxt-link
+            :to="{
+              path: '/category/subCategory/' + menuItem.codeSousFamille,
+              query: {
+                libelleSousFamille: menuItem.libelleSousFamille,
+                codeSousFamille: menuItem.codeSousFamille,
+                codeFamille: menuItem.codeFamille,
+              },
+            }"
+            ><h4>
+              {{ menuItem.libelleSousFamille }} {{ menuItem }}
+            </h4></nuxt-link
+          > -->
         </li>
       </ul>
     </div>
@@ -20,6 +35,12 @@ export default {
     return {
       menu: "",
     };
+  },
+
+  methods: {
+    handleClickSubCategory(value) {
+      this.$emit("handle-click-sub-category", value);
+    },
   },
 
   // async fetch() {
