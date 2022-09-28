@@ -31,6 +31,7 @@
                 navItem.libelleFamille.toLowerCase().replaceAll(' ', '-'),
               query: {
                 codefamille: navItem.codeFamille,
+                libelleFamille: navItem.libelleFamille,
               },
             }"
           >
