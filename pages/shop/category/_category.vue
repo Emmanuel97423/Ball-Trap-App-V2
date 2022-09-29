@@ -40,6 +40,10 @@
                 class="product-list-breadcrumb"
               ></b-breadcrumb>
             </div>
+            <Tags
+              :tagsSelected="tagsSelected"
+              @remove-tag="removeTagSelected"
+            />
             <!-- <div class="row"> -->
             <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
@@ -137,6 +141,7 @@
 import ProductBox1 from "~/components/product-box/ProductBox1";
 import InstagramArea from "~/components/instagram/InstagramArea";
 import LeftCategoriesNav from "~/components/navigation/LeftCategoriesNav";
+import Tags from "@/components/category/Tags";
 export default {
   name: "shop-three-grid",
   middleware: "auth",
@@ -146,6 +151,7 @@ export default {
     ProductBox1,
     InstagramArea,
     LeftCategoriesNav,
+    Tags,
   },
   data() {
     return {
@@ -181,6 +187,8 @@ export default {
           to: "/shop/category/",
         },
       ],
+      tagsSelected: [],
+      tagsSelectedByCode: [],
 
       //Sub-category
       subCategory: "",
@@ -204,72 +212,150 @@ export default {
       ],
     };
   },
-  computed: {
-    // productItems() {
-    //   // return this.$store.getters["products/productItems"];
-    //   return this.$store.state.products.productItems;
-    // },
-  },
-  methods: {
-    async fetchSubCategoryProduct(payload) {
-      console.log("payload:", payload);
-      try {
-        const productSearchBySubcategory = await this.$axios.get(
-          "search/filter/subCategory",
-          {
-            params: {
-              search: payload.codeSousFamille,
-            },
-          }
-        );
-        this.productsGammes = productSearchBySubcategory.data.productsArray;
-        let breadcrumbObject = [
-          {
-            text: "Accueil",
-            to: "/",
-          },
-          {
-            text:
-              this.$route.params.category
-                .toLowerCase()
 
-                .charAt(0)
-                .toUpperCase() +
-              this.$route.params.category
-                .toLowerCase()
-                .slice(1)
-                .replaceAll("-", " "),
-            to:
-              "/shop/category/" +
-              this.$route.params.category.toLowerCase() +
-              "?" +
-              "codefamille=" +
-              payload.codeFamille,
-            //
-          },
-          {
-            text: payload.libelleSousFamille,
-            to:
-              "/shop/category/" +
-              "?" +
-              "codeFamille=" +
-              payload.codeFamille +
-              "&" +
-              "libelleFamille=" +
-              payload.libelleFamille +
-              "&" +
-              "codeSousFamille=" +
-              payload.codeSousFamille +
-              "&" +
-              "libelleSousFamille=" +
-              payload.libelleSousFamille,
-          },
-        ];
-        this.breadcrumbItems = breadcrumbObject;
-      } catch (error) {
-        console.log("error:", error);
+  methods: {
+    pushTagsSelected(payload) {
+      console.log("payload:", payload);
+      if (this.tagsSelected.length < 1) {
+        this.tagsSelected.push(payload.libelleSousFamille);
+      } else {
+        this.tagsSelected.indexOf(payload.libelleSousFamille) === -1
+          ? this.tagsSelected.push(payload.libelleSousFamille)
+          : null;
       }
-      // this.fetchData();
+    },
+    removeTagSelected(payload) {
+      this.tagsSelected = this.tagsSelected.filter((tag) => tag !== payload);
+      this.fetchSubCategoryProduct();
+    },
+    async fetchSubCategoryProduct(payload) {
+      if (payload) {
+        this.pushTagsSelected(payload);
+
+        try {
+          const productSearchBySubcategory = await this.$axios.get(
+            "search/filter/subCategory",
+            {
+              params: {
+                search: payload.codeSousFamille,
+                searchArrayByTags: this.tagsSelected,
+              },
+            }
+          );
+          console.log(
+            "🚀 ~ file: _category.vue ~ line 245 ~ fetchSubCategoryProduct ~ productSearchBySubcategory",
+            productSearchBySubcategory
+          );
+          this.productsGammes = productSearchBySubcategory.data.productsArray;
+          // let breadcrumbObject = [
+          //   {
+          //     text: "Accueil",
+          //     to: "/",
+          //   },
+          //   {
+          //     text:
+          //       this.$route.params.category
+          //         .toLowerCase()
+
+          //         .charAt(0)
+          //         .toUpperCase() +
+          //       this.$route.params.category
+          //         .toLowerCase()
+          //         .slice(1)
+          //         .replaceAll("-", " "),
+          //     to:
+          //       "/shop/category/" +
+          //       this.$route.params.category.toLowerCase() +
+          //       "?" +
+          //       "codefamille=" +
+          //       payload.codeFamille,
+          //     //
+          //   },
+          //   {
+          //     text: payload.libelleSousFamille,
+          //     to:
+          //       "/shop/category/" +
+          //       "?" +
+          //       "codeFamille=" +
+          //       payload.codeFamille +
+          //       "&" +
+          //       "libelleFamille=" +
+          //       payload.libelleFamille +
+          //       "&" +
+          //       "codeSousFamille=" +
+          //       payload.codeSousFamille +
+          //       "&" +
+          //       "libelleSousFamille=" +
+          //       payload.libelleSousFamille,
+          //   },
+          // ];
+          // this.breadcrumbItems = breadcrumbObject;
+        } catch (error) {
+          console.log("error:", error);
+        }
+      } else {
+        try {
+          const productSearchBySubcategory = await this.$axios.get(
+            "search/filter/subCategory",
+            {
+              params: {
+                // search: payload.codeSousFamille,
+                searchArrayByTags: this.tagsSelected,
+              },
+            }
+          );
+          console.log(
+            "🚀 ~ file: _category.vue ~ line 303 ~ fetchSubCategoryProduct ~ productSearchBySubcategory",
+            productSearchBySubcategory
+          );
+          this.productsGammes = productSearchBySubcategory.data.productsArray;
+          // let breadcrumbObject = [
+          //   {
+          //     text: "Accueil",
+          //     to: "/",
+          //   },
+          //   {
+          //     text:
+          //       this.$route.params.category
+          //         .toLowerCase()
+
+          //         .charAt(0)
+          //         .toUpperCase() +
+          //       this.$route.params.category
+          //         .toLowerCase()
+          //         .slice(1)
+          //         .replaceAll("-", " "),
+          //     to:
+          //       "/shop/category/" +
+          //       this.$route.params.category.toLowerCase() +
+          //       "?" +
+          //       "codefamille=" +
+          //       payload.codeFamille,
+          //     //
+          //   },
+          //   {
+          //     text: payload.libelleSousFamille,
+          //     to:
+          //       "/shop/category/" +
+          //       "?" +
+          //       "codeFamille=" +
+          //       payload.codeFamille +
+          //       "&" +
+          //       "libelleFamille=" +
+          //       payload.libelleFamille +
+          //       "&" +
+          //       "codeSousFamille=" +
+          //       payload.codeSousFamille +
+          //       "&" +
+          //       "libelleSousFamille=" +
+          //       payload.libelleSousFamille,
+          //   },
+          // ];
+          // this.breadcrumbItems = breadcrumbObject;
+        } catch (error) {
+          console.log("error:", error);
+        }
+      }
     },
     async fetchData() {
       try {
@@ -295,9 +381,7 @@ export default {
       }
     },
   },
-  //   created() {
-  //     this.$store.dispatch("products/getProducts");
-  //   },
+
   async fetch() {
     try {
       const productsGammes = await this.$axios.get("/search/filter", {
@@ -338,16 +422,6 @@ export default {
     // }
   },
   fetchOnServer: false,
-  mounted() {
-    // console.log(
-    //   "🚀 ~ file: _category.vue ~ line 241 ~ mounted ~ this.$route.params",
-    //   this.$route.params
-    // );
-    // console.log(
-    //   "🚀 ~ file: _category.vue ~ line 260 ~ mounted ~ this.$route.query",
-    //   this.$route.query
-    // );
-  },
 };
 </script>
 

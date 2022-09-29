@@ -32,12 +32,9 @@ export default {
       enabled: true,
     };
   },
-  //   mounted() {
-  //     this.$nextTick(() => {
-  //       this.$nuxt.$loading.start();
-  //       setTimeout(() => this.$nuxt.$loading.finish(), 3000);
-  //     });
-  //   },
+  mounted() {
+    this.$store.dispatch("nav/getCategory");
+  },
 };
 </script>
 <style >

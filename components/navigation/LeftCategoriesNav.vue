@@ -1,6 +1,7 @@
 <template>
   <div class="container-left-categories-nav">
     <div class="content-left-categories-nav">
+      <h4 class="title-left-filter">Filtres:</h4>
       <ul>
         <li v-for="menuItem in subCategory" :key="menuItem.id">
           <h4 @click="handleClickSubCategory(menuItem)">
@@ -71,6 +72,10 @@ export default {
 </script>
 
 <style >
+.title-left-filter {
+  margin: 0 0 20px 0;
+  text-decoration: underline;
+}
 .container-left-categories-nav {
   padding: 30px;
 

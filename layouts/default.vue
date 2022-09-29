@@ -35,6 +35,9 @@ export default {
     });
     this.$store.dispatch("nav/getCategory");
   },
+  beforeUpdate() {
+    this.$store.dispatch("nav/getCategory");
+  },
 };
 </script>
 <style >
