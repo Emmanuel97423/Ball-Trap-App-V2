@@ -316,8 +316,6 @@
 </template>
 
 <script>
-const spinner = document.getElementById("spinner__app");
-
 export default {
   name: "ProductBox1",
   props: {

@@ -23,7 +23,7 @@
         <div class="row">
           <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
             <div class="account_form">
-              <h3>Bienvenue à la maison, shooter!</h3>
+              <h3 data-testid="login-title">Bienvenue à la maison, shooter!</h3>
               <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
                 <form
                   id="loginForm"
