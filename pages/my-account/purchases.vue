@@ -49,15 +49,15 @@
         role="tabpanel"
       >
         <b-card-body>
-          <div
+          <b-list-group
             v-for="product in order.products"
             :key="product._id"
             class="purchase-body"
           >
-            <div class="purchase-body-product">
-              <div><img :src="product.imageUrl" /></div>
+            <b-list-group-item class="purchase-body-product">
+              <img :src="product.imageUrl" />
               <div>
-                <h6>{{ product.libelle }}</h6>
+                <h6>{{ product.libelle.toLowerCase() }}</h6>
                 <p>
                   Quantité: <span>{{ product.orderQuantity }}</span>
                 </p>
@@ -67,53 +67,52 @@
                   }}€</span
                 >
               </div>
+            </b-list-group-item>
+          </b-list-group>
+
+          <div class="purchase-body-infos">
+            <div class="purchase-body-infos-customer">
+              <p>
+                Référence: <span>{{ order.orderNumberId }}</span>
+              </p>
+              <br />
+              <h6>Retrait en magasin</h6>
+              <br />
+              <p>
+                61 Rue Marius et Ary Leblond,<br />
+                97460 <br />SAINT PAUL, Réunion
+              </p>
             </div>
-            <div class="purchase-body-infos">
-              <div class="purchase-body-infos-customer">
-                <p>
-                  Référence: <span>{{ order.orderNumberId }}</span>
-                </p>
-                <br />
-                <h6>Retrait en magasin</h6>
-                <br />
-                <p>
-                  61 Rue Marius et Ary Leblond,<br />
-                  97460 <br />SAINT PAUL, Réunion
-                </p>
-              </div>
-              <div class="purchase-body-infos-payment">
-                <div class="purchase-body-infos-payment-mode">
-                  <h6>Mode de paiement</h6>
-                  <div class="purchase-body-infos-payment-mode-type">
-                    <em>Carte bancaire</em>
-                    <div class="purchase-body-infos-payment-mode-datas">
-                      {{ order.date }}
-                    </div>
+            <div class="purchase-body-infos-payment">
+              <div class="purchase-body-infos-payment-mode">
+                <h6>Mode de paiement</h6>
+                <div class="purchase-body-infos-payment-mode-type">
+                  <em>Carte bancaire</em>
+                  <div class="purchase-body-infos-payment-mode-datas">
+                    {{ order.date }}
                   </div>
                 </div>
-                <div>
-                  <div
-                    class="coupon_code right"
-                    data-aos="fade-up"
-                    data-aos-delay="400"
-                  >
-                    <!-- <h3>Total panier</h3> -->
-                    <div class="coupon_inner">
-                      <!-- <div class="cart_subtotal">
+              </div>
+              <div>
+                <div
+                  class="coupon_code right"
+                  data-aos="fade-up"
+                  data-aos-delay="400"
+                >
+                  <!-- <h3>Total panier</h3> -->
+                  <div class="coupon_inner">
+                    <!-- <div class="cart_subtotal">
                         <p>Sous-total</p>
                         <p class="cart_amount">100€</p>
                       </div> -->
-                      <div class="cart_subtotal">
-                        <p>Retrait en magasin</p>
-                        <p class="cart_amount"><span>Forfait:</span> 00.00 €</p>
-                      </div>
+                    <div class="cart_subtotal">
+                      <p>Retrait en magasin</p>
+                      <p class="cart_amount"><span>Forfait:</span> 00.00 €</p>
+                    </div>
 
-                      <div class="cart_subtotal">
-                        <p>Total</p>
-                        <p class="cart_amount">
-                          {{ order.amount.toFixed(2) }} €
-                        </p>
-                      </div>
+                    <div class="cart_subtotal">
+                      <p>Total</p>
+                      <p class="cart_amount">{{ order.amount.toFixed(2) }} €</p>
                     </div>
                   </div>
                 </div>
@@ -196,8 +195,17 @@ export default {
   display: flex;
 }
 .purchase-body-product {
-  width: 200px;
+  width: 100%;
   display: flex;
+}
+.purchase-body-product img {
+  width: 100px;
+  padding: 5px;
+}
+.purchase-body-product h6 {
+  color: green;
+  text-transform: capitalize;
+  font-weight: bold;
 }
 .purchase-body-infos-customer {
   flex-grow: 1;

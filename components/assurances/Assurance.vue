@@ -1,5 +1,5 @@
 <template>
-  <div class="blog_one_item">
+  <div class="blog_one_item assurance_home">
     <div class="blog_one_img assurance_home_img">
       <img :src="blogThumb" alt="img" />
     </div>
@@ -29,6 +29,9 @@ export default {
   /* position: relative; */
   height: 160px;
   margin: 20px 0 0 0;
+}
+.assurance_home {
+  letter-spacing: 1px;
 }
 /* .assurance_home_img img {
 } */

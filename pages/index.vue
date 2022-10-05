@@ -16,7 +16,7 @@
             </div>
           </div>
         </div> -->
-        <div class="row ptb-50">
+        <div class="row pt-50">
           <div
             v-for="assuranceItem in assuranceItems.slice(0, 3)"
             :key="assuranceItem.id"
@@ -43,7 +43,15 @@
               id="equipement-card"
               class="product_variation_one_boxed img-zoom-hover"
             >
-              <nuxt-link to="/shop/shop-2">
+              <nuxt-link
+                :to="{
+                  path: '/shop/category/accessoires-ball-trap',
+                  query: {
+                    codefamille: `FAR00002`,
+                    libelleFamille: `ACCESSOIRES BALL TRAP`,
+                  },
+                }"
+              >
                 <img
                   class="img"
                   :src="require('@/assets/img/banner/accessoires.png')"
@@ -54,8 +62,14 @@
                   <h2 class="color_two text-light">Accessoires</h2>
                   <!-- <h4 class="color_two">Collection</h4> -->
                   <nuxt-link
-                    to="/shop/shop-2"
                     class="theme-btn-one bg-black btn_sm"
+                    :to="{
+                      path: '/shop/category/accessoires-ball-trap',
+                      query: {
+                        codefamille: `FAR00002`,
+                        libelleFamille: `ACCESSOIRES BALL TRAP`,
+                      },
+                    }"
                     >Pull!</nuxt-link
                   >
                 </div>
@@ -66,7 +80,15 @@
               id="weapon-card"
               class="product_variation_one_boxed img-zoom-hover"
             >
-              <nuxt-link to="/shop/shop-2">
+              <nuxt-link
+                :to="{
+                  path: '/shop/category/armes-cat-c',
+                  query: {
+                    codefamille: `FAR00003`,
+                    libelleFamille: `ARMES CAT C`,
+                  },
+                }"
+              >
                 <img
                   class="opacity-25"
                   :src="require('@/assets/img/banner/fusil-ball-trap.png')"
@@ -77,7 +99,13 @@
                   <h2 class="text-light">Armes</h2>
                   <h4 class="color_one">Catégorie C.</h4>
                   <nuxt-link
-                    to="/shop/shop-2"
+                    :to="{
+                      path: '/shop/category/armes-cat-c',
+                      query: {
+                        codefamille: `FAR00003`,
+                        libelleFamille: `ARMES CAT C`,
+                      },
+                    }"
                     class="theme-btn-one bg-black btn_sm"
                     >Pull!</nuxt-link
                   >
@@ -109,7 +137,15 @@
               id="textile-card"
               class="product_variation_one_boxed img-zoom-hover"
             >
-              <nuxt-link to="#">
+              <nuxt-link
+                :to="{
+                  path: '/shop/category/vêtements-ball-trap',
+                  query: {
+                    codefamille: `FAR00001`,
+                    libelleFamille: `VÊTEMENTS BALL TRAP`,
+                  },
+                }"
+              >
                 <img
                   class="textile-img"
                   :src="require('@/assets/img/banner/textile.png')"
@@ -119,7 +155,13 @@
                   <h2 class="text-light">Textiles</h2>
                   <h4 class="color_one">Ball Trap</h4>
                   <nuxt-link
-                    to="/shop/shop-2"
+                    :to="{
+                      path: '/shop/category/vêtements-ball-trap',
+                      query: {
+                        codefamille: `FAR00001`,
+                        libelleFamille: `VÊTEMENTS BALL TRAP`,
+                      },
+                    }"
                     class="theme-btn-one bg-black btn_sm"
                     >Pull!</nuxt-link
                   >
@@ -132,7 +174,15 @@
               id="munitions-card"
               class="product_variation_one_boxed img-zoom-hover"
             >
-              <nuxt-link to="/shop/shop-2">
+              <nuxt-link
+                :to="{
+                  path: '/shop/category/munitions',
+                  query: {
+                    codefamille: `FAR00005`,
+                    libelleFamille: `MUNITIONS`,
+                  },
+                }"
+              >
                 <img
                   :src="require('@/assets/img/banner/munitions.png')"
                   alt="img"
@@ -140,7 +190,15 @@
                 <div class="product_var_one_text">
                   <h2 class="text-light">Munitions</h2>
                   <!-- <h4 class="color_one">Arrivage</h4> -->
-                  <nuxt-link to="#" class="theme-btn-one bg-black btn_sm"
+                  <nuxt-link
+                    :to="{
+                      path: '/shop/category/munitions',
+                      query: {
+                        codefamille: `FAR00005`,
+                        libelleFamille: `MUNITIONS`,
+                      },
+                    }"
+                    class="theme-btn-one bg-black btn_sm"
                     >Pull!</nuxt-link
                   >
                 </div>
@@ -150,7 +208,15 @@
               id="weapon-d"
               class="product_variation_one_boxed img-zoom-hover"
             >
-              <nuxt-link to="#">
+              <nuxt-link
+                :to="{
+                  path: '/shop/category/armes-cat-d',
+                  query: {
+                    codefamille: `FAR00004`,
+                    libelleFamille: `ARMES CAT D`,
+                  },
+                }"
+              >
                 <img
                   :src="require('@/assets/img/banner/fusil-ball-trap.png')"
                   alt="img"
@@ -159,7 +225,13 @@
                   <h2 class="text-light">ARMES</h2>
                   <h4 class="color_one">Catégorie D.</h4>
                   <nuxt-link
-                    to="/shop/shop-2"
+                    :to="{
+                      path: '/shop/category/armes-cat-d',
+                      query: {
+                        codefamille: `FAR00004`,
+                        libelleFamille: `ARMES CAT D`,
+                      },
+                    }"
                     class="theme-btn-one bg-black btn_sm"
                     >Pull!</nuxt-link
                   >
@@ -683,7 +755,7 @@ h1 {
 }
 
 .edito_section {
-  padding: 100px;
+  padding: 50px 100px 50px 100px;
   display: flex;
 }
 .edito_section h3,
