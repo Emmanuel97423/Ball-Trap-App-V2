@@ -97,8 +97,17 @@
             <h4 class="category-empty" v-if="productsGammes.length < 1">
               Dans le lanceur...
             </h4>
+
             <div class="row">
               <div
+                class="loading-spinner-sub-category"
+                v-if="subCategoryLoading"
+              >
+                <!-- <span class="loading"></span> -->
+                <Spinner></Spinner>
+              </div>
+              <div
+                v-else
                 class="col-lg-3 col-md-4 col-sm-6 col-12"
                 v-for="productItem in productsGammes"
                 :key="productItem._id"
@@ -192,6 +201,7 @@ export default {
 
       //Sub-category
       subCategory: "",
+      subCategoryLoading: false,
 
       // Pagination Data
       rows: 60,
@@ -226,9 +236,15 @@ export default {
     },
     removeTagSelected(payload) {
       this.tagsSelected = this.tagsSelected.filter((tag) => tag !== payload);
-      this.fetchSubCategoryProduct();
+      if (this.tagsSelected.length > 0) {
+        this.fetchSubCategoryProduct();
+      } else {
+        this.fetchData();
+      }
     },
     async fetchSubCategoryProduct(payload) {
+      console.log("fetchSubCategoryProduct payload:", payload);
+      this.subCategoryLoading = true;
       if (payload) {
         this.pushTagsSelected(payload);
 
@@ -242,54 +258,9 @@ export default {
               },
             }
           );
-          console.log(
-            "🚀 ~ file: _category.vue ~ line 245 ~ fetchSubCategoryProduct ~ productSearchBySubcategory",
-            productSearchBySubcategory
-          );
-          this.productsGammes = productSearchBySubcategory.data.productsArray;
-          // let breadcrumbObject = [
-          //   {
-          //     text: "Accueil",
-          //     to: "/",
-          //   },
-          //   {
-          //     text:
-          //       this.$route.params.category
-          //         .toLowerCase()
 
-          //         .charAt(0)
-          //         .toUpperCase() +
-          //       this.$route.params.category
-          //         .toLowerCase()
-          //         .slice(1)
-          //         .replaceAll("-", " "),
-          //     to:
-          //       "/shop/category/" +
-          //       this.$route.params.category.toLowerCase() +
-          //       "?" +
-          //       "codefamille=" +
-          //       payload.codeFamille,
-          //     //
-          //   },
-          //   {
-          //     text: payload.libelleSousFamille,
-          //     to:
-          //       "/shop/category/" +
-          //       "?" +
-          //       "codeFamille=" +
-          //       payload.codeFamille +
-          //       "&" +
-          //       "libelleFamille=" +
-          //       payload.libelleFamille +
-          //       "&" +
-          //       "codeSousFamille=" +
-          //       payload.codeSousFamille +
-          //       "&" +
-          //       "libelleSousFamille=" +
-          //       payload.libelleSousFamille,
-          //   },
-          // ];
-          // this.breadcrumbItems = breadcrumbObject;
+          this.productsGammes = productSearchBySubcategory.data.productsArray;
+          this.subCategoryLoading = false;
         } catch (error) {
           console.log("error:", error);
         }
@@ -304,60 +275,16 @@ export default {
               },
             }
           );
-          console.log(
-            "🚀 ~ file: _category.vue ~ line 303 ~ fetchSubCategoryProduct ~ productSearchBySubcategory",
-            productSearchBySubcategory
-          );
-          this.productsGammes = productSearchBySubcategory.data.productsArray;
-          // let breadcrumbObject = [
-          //   {
-          //     text: "Accueil",
-          //     to: "/",
-          //   },
-          //   {
-          //     text:
-          //       this.$route.params.category
-          //         .toLowerCase()
+          this.subCategoryLoading = false;
 
-          //         .charAt(0)
-          //         .toUpperCase() +
-          //       this.$route.params.category
-          //         .toLowerCase()
-          //         .slice(1)
-          //         .replaceAll("-", " "),
-          //     to:
-          //       "/shop/category/" +
-          //       this.$route.params.category.toLowerCase() +
-          //       "?" +
-          //       "codefamille=" +
-          //       payload.codeFamille,
-          //     //
-          //   },
-          //   {
-          //     text: payload.libelleSousFamille,
-          //     to:
-          //       "/shop/category/" +
-          //       "?" +
-          //       "codeFamille=" +
-          //       payload.codeFamille +
-          //       "&" +
-          //       "libelleFamille=" +
-          //       payload.libelleFamille +
-          //       "&" +
-          //       "codeSousFamille=" +
-          //       payload.codeSousFamille +
-          //       "&" +
-          //       "libelleSousFamille=" +
-          //       payload.libelleSousFamille,
-          //   },
-          // ];
-          // this.breadcrumbItems = breadcrumbObject;
+          this.productsGammes = productSearchBySubcategory.data.productsArray;
         } catch (error) {
           console.log("error:", error);
         }
       }
     },
     async fetchData() {
+      this.subCategoryLoading = true;
       try {
         const productsGammes = await this.$axios.get("/search/filter", {
           params: {
@@ -365,6 +292,7 @@ export default {
           },
         });
         this.productsGammes = productsGammes.data.productsArray;
+        this.subCategoryLoading = false;
       } catch (error) {
         console.log("error:", error);
       }
@@ -426,6 +354,19 @@ export default {
 </script>
 
 <style scoped>
+/* .product-box-1 {
+  border: 5px solid red;
+} */
+.loading-spinner-sub-category {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  z-index: 999;
+}
+
 .container-product-list {
   width: 100%;
   display: flex;
