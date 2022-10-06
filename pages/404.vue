@@ -2,7 +2,7 @@
   <div>
     <!-- Banner Area -->
     <section id="common_banner_one">
-      <div class="container ">
+      <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="common_banner_text">
