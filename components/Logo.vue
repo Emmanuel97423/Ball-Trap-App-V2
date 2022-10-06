@@ -12,6 +12,7 @@ export default {
 
 <style>
 .login-form-logo {
+  padding: 50px 0 50px 0;
   display: flex;
   justify-content: center;
   align-items: center;
