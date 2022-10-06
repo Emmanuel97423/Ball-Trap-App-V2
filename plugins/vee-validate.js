@@ -1,5 +1,9 @@
-import { extend } from "vee-validate";
+import { extend, localize } from "vee-validate";
 import { required, alpha, email, ext } from "vee-validate/dist/rules";
+import fr from 'vee-validate/dist/locale/fr.json';
+
+localize('fr', fr);
+
 
 extend("required", {
     ...required,
@@ -13,7 +17,7 @@ extend("alpha", {
 
 extend("email", email, {
 
-    message: "* Veuillez entrer une adrsse mail valide"
+    message: "* Veuillez entrer une adresse e-mail valide"
 });
 extend("ext", ext);
 
@@ -24,4 +28,3 @@ extend('password', {
     },
     message: '* Les mots de passe fournis sont différents'
 });
-
