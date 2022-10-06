@@ -18,12 +18,13 @@
     </section>
 
     <!-- Login-Area -->
-    <section id="login_area" class="ptb-100">
+    <section id="login_area">
       <div class="container login-container">
         <div class="row">
           <!-- <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12"> -->
           <div class="col-md-12 col-sm-12 col-12">
             <div class="account_form">
+              <!-- <div> -->
               <h3 data-testid="login-title">Bienvenue à la maison, shooter!</h3>
               <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
                 <form
@@ -210,7 +211,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .login_submit {
   display: flex;
   flex-direction: column;

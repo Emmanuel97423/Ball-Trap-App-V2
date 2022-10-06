@@ -18,11 +18,13 @@
     </section>
 
     <!-- Register-Area -->
-    <section id="login_area" class="ptb-100">
-      <div class="container">
+    <section v-if="enabled" id="login_area">
+      <div class="container login-container">
         <div class="row">
-          <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="account_form">
+          <!-- <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12"> -->
+          <div class="col-md-12 col-sm-12 col-12">
+            <div class="account_form-register account_form">
+              <!-- <div> -->
               <h3>Ouvrir un compte</h3>
               <ValidationObserver ref="registerForm" v-slot="{ handleSubmit }">
                 <form
@@ -186,6 +188,7 @@
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
+  layout: "login",
   middleware: "guest",
   name: "Register",
   components: { ValidationProvider, ValidationObserver },
@@ -274,6 +277,7 @@ export default {
   color: red;
   font-size: 12px;
 } */
+
 .login_submit {
   display: flex;
   flex-direction: column;
