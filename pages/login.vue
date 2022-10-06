@@ -21,7 +21,8 @@
     <section id="login_area" class="ptb-100">
       <div class="container login-container">
         <div class="row">
-          <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
+          <!-- <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12"> -->
+          <div class="col-md-12 col-sm-12 col-12">
             <div class="account_form">
               <h3 data-testid="login-title">Bienvenue à la maison, shooter!</h3>
               <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
@@ -125,6 +126,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
   middleware: "guest",
   name: "Login",
+  layout: "login",
   components: { ValidationProvider, ValidationObserver },
   data() {
     return {
@@ -174,6 +176,7 @@ export default {
           // this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
+          console.log("err:", err);
           const serverMessageError = err.response.data.error;
           if (serverMessageError === "Mot de passe incorrect !") {
             this.$refs.loginForm.setErrors({
@@ -238,8 +241,11 @@ export default {
   text-decoration-line: underline;
 }
 
-.login-container {
-  width: 70%;
+/* .login-container {
+  width: 100%;
+} */
+.account_form form {
+  /* padding: 50px; */
 }
 
 .account_form h3 {
@@ -297,7 +303,7 @@ export default {
   border: 1px solid var(--main-theme-color) !important;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .login-container {
     width: 80%;
   }
@@ -306,5 +312,5 @@ export default {
   .login-container {
     width: 100%;
   }
-}
+} */
 </style>

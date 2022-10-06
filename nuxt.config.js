@@ -116,7 +116,7 @@ export default {
     },
 
     analyse: false,
-    transpile: ["vee-validate/dist/rules"]
+    transpile: ["vee-validate/dist/rules", 'vee-validate/dist/locale/fr']
 
   },
   server: {
