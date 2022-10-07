@@ -7,10 +7,7 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
@@ -25,86 +22,42 @@
           <div class="col-md-12 col-sm-12 col-12">
             <div class="account_form">
               <!-- <div> -->
-              <h3 data-testid="login-title">Bienvenue à la maison, shooter!</h3>
+              <h3 data-testid="login-title">Bienvenue à la maison, cow-boy!</h3>
               <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
-                <form
-                  id="loginForm"
-                  name="loginForm"
-                  @submit.prevent="handleSubmit(onSubmit)"
-                >
-                  <ValidationProvider
-                    name="email"
-                    vid="email"
-                    rules="required"
-                    v-slot="{ errors }"
-                  >
+                <form id="loginForm" name="loginForm" @submit.prevent="handleSubmit(onSubmit)">
+                  <ValidationProvider name="email" vid="email" rules="required" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label>Email <span>*</span></label>
-                      <input
-                        name="email"
-                        v-model="login.email"
-                        type="email"
-                        class="form-control"
-                      />
+                      <input name="email" v-model="login.email" type="email" class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
-                  <ValidationProvider
-                    name="password"
-                    rules="required"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="password" rules="required" v-slot="{ errors }">
                     <div class="default-form-box password-login-button">
                       <label>Mot de passe <span>*</span></label>
 
                       <div class="password-login-input">
-                        <input
-                          v-if="!login.showPassword"
-                          name="password"
-                          v-model="login.password"
-                          type="password"
-                          class="form-control"
-                          autocomplete="on"
-                        />
-                        <input
-                          v-else
-                          name="password"
-                          v-model="login.password"
-                          class="form-control"
-                          autocomplete="on"
-                        />
+                        <input v-if="!login.showPassword" name="password" v-model="login.password" type="password"
+                          class="form-control" autocomplete="on" />
+                        <input v-else name="password" v-model="login.password" class="form-control" autocomplete="on" />
                         <button class="btn-login-password">
-                          <i
-                            v-if="!login.showPassword"
-                            class="fa fa-solid fa-eye"
-                            @click.stop.prevent="showPassword()"
-                          ></i>
-                          <i
-                            v-else
-                            class="fa fa-solid fa-eye-slash"
-                            @click.stop.prevent="showPassword()"
-                          ></i>
+                          <i v-if="!login.showPassword" class="fa fa-solid fa-eye"
+                            @click.stop.prevent="showPassword()"></i>
+                          <i v-else class="fa fa-solid fa-eye-slash" @click.stop.prevent="showPassword()"></i>
                         </button>
                       </div>
 
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                     <div class="forgot-password">
-                      <nuxt-link to="/resetting/request"
-                        >Mot de passe oublié?</nuxt-link
-                      >
+                      <nuxt-link to="/resetting/request">Mot de passe oublié?</nuxt-link>
                     </div>
                   </ValidationProvider>
                   <div class="login_submit">
-                    <button
-                      class="theme-btn-one btn-black-overlay btn_md"
-                      type="submit"
-                    >
+                    <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
                       Pull!
                     </button>
-                    <nuxt-link to="/register"
-                      ><span>Ou </span>créer un compte</nuxt-link
-                    >
+                    <nuxt-link to="/register"><span>Ou </span>créer un compte</nuxt-link>
                   </div>
                   <!-- <div class="remember_area">
                     <label class="checkbox-default">
@@ -218,6 +171,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .login_submit a {
   margin: 25px 0 0 0;
   text-decoration: none;
@@ -225,19 +179,23 @@ export default {
   font-weight: bold;
   color: rgb(105, 105, 105);
 }
+
 .login_submit span {
   text-transform: lowercase;
   font-weight: 400;
   color: rgb(158, 156, 156);
 }
+
 .forgot-password {
   text-align: center;
   margin: 0 0 20px 0;
 }
+
 .forgot-password a {
   text-decoration: none;
   color: rgb(158, 156, 156);
 }
+
 .forgot-password a:hover {
   text-decoration-line: underline;
 }
@@ -258,6 +216,7 @@ export default {
   cursor: pointer;
   /* color: rgb(183, 183, 183); */
 }
+
 /* .password-login-button input {
   border: none;
 }
@@ -297,6 +256,7 @@ export default {
   box-shadow: none;
   border-color: transparent; */
 }
+
 .password-login-button button:visited {
   background-color: #fff;
   outline: none;

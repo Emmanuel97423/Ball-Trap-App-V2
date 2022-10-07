@@ -1,5 +1,5 @@
 <template>
-  <section class="ptb-100">
+  <section class="pb-100">
     <div class="container">
       <div class="row">
         <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
@@ -18,13 +18,16 @@
 
 <script>
 export default {
-  mounted() {
-    setTimeout(() => {
-      this.$router.push("/login");
-    }, 8000);
-  },
+  layout: "headless-layout",
+
+  // mounted() {
+  //   setTimeout(() => {
+  //     this.$router.push("/login");
+  //   }, 8000);
+  // },
 };
 </script>
 
 <style>
+
 </style>
