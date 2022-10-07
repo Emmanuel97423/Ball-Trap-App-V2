@@ -7,10 +7,7 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
@@ -27,26 +24,13 @@
               <!-- <div> -->
               <h3>Ouvrir un compte</h3>
               <ValidationObserver ref="registerForm" v-slot="{ handleSubmit }">
-                <form
-                  id="registerForm"
-                  name="registerForm"
-                  @submit.prevent="handleSubmit(onSubmit)"
-                >
+                <form id="registerForm" name="registerForm" @submit.prevent="handleSubmit(onSubmit)">
                   <!-- fisrtName -->
-                  <ValidationProvider
-                    name="firstName"
-                    rules="required|alpha"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="firstName" rules="required|alpha" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label for="firstName">Pseudo <span>*</span></label>
-                      <input
-                        v-model="register.firstName"
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        class="form-control"
-                      />
+                      <input v-model="register.firstName" id="firstName" name="firstName" type="text"
+                        class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
@@ -73,62 +57,32 @@
 
                   <!-- Email      -->
 
-                  <ValidationProvider
-                    name="email"
-                    rules="required|email"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label for="email">Email <span>*</span></label>
-                      <input
-                        v-model="register.email"
-                        id="email"
-                        name="email"
-                        type="text"
-                        class="form-control"
-                      />
+                      <input v-model="register.email" id="email" name="email" type="text" class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
 
                   <!-- Password -->
 
-                  <ValidationProvider
-                    name="password"
-                    rules="required|password:@confirmPassword"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="password" rules="required|password:@confirmPassword" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label for="password">Mot de passe <span>*</span></label>
-                      <input
-                        v-model="register.password"
-                        id="password"
-                        name="password"
-                        type="password"
-                        class="form-control"
-                      />
+                      <input v-model="register.password" id="password" name="password" type="password"
+                        class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
 
                   <!-- Confirm password confirmation -->
 
-                  <ValidationProvider
-                    name="confirmPassword"
-                    rules="required"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="confirmPassword" rules="required" v-slot="{ errors }">
                     <div class="default-form-box">
-                      <label for="confirmPassword"
-                        >Confirmez votre mot de passe <span>*</span></label
-                      >
-                      <input
-                        v-model="register.confirmation"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        class="form-control"
-                      />
+                      <label for="confirmPassword">Confirmez votre mot de passe <span>*</span></label>
+                      <input v-model="register.confirmation" id="confirmPassword" name="confirmPassword" type="password"
+                        class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
@@ -166,10 +120,7 @@
                   <!-- </ValidationProvider> -->
                   <recaptcha />
                   <div class="login_submit">
-                    <button
-                      class="theme-btn-one btn-black-overlay btn_md"
-                      type="submit"
-                    >
+                    <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
                       Pull!
                     </button>
                     <nuxt-link to="/login">Se connecter</nuxt-link>
@@ -215,6 +166,8 @@ export default {
         password: "",
         idFile: null,
       },
+      spinnerLoading: true,
+
     };
   },
 
@@ -233,6 +186,7 @@ export default {
   },
   methods: {
     async onSubmit() {
+
       try {
         const token = await this.$recaptcha.getResponse();
         // console.log("ReCaptcha token:", token);
@@ -284,6 +238,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .login_submit,
 a {
   margin: 10px 0 0 0;

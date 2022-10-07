@@ -14,6 +14,7 @@
       </div>
     </section>
 
+
     <!-- Login-Area -->
     <section id="login_area">
       <div class="container login-container">
@@ -127,10 +128,11 @@ export default {
           this.$auth.setUser(user);
           this.$store.commit("user/LOGIN", user);
           this.$router.push("/my-account");
+
           // this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
-          console.log("err:", err);
+
           const serverMessageError = err.response.data.error;
           if (serverMessageError === "Mot de passe incorrect !") {
             this.$refs.loginForm.setErrors({
@@ -160,7 +162,9 @@ export default {
       //   this.login.showPassword = false;
       // }, 5000);
     },
+
   },
+
 };
 </script>
 
