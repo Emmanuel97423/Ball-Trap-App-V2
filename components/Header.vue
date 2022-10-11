@@ -781,6 +781,7 @@ export default {
         .logout("local")
         .then((res) => {
           console.log(res);
+          // this.$router.push("/login");
         })
         .catch((err) => {
           console.log(err);

@@ -7,10 +7,7 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
@@ -50,10 +47,7 @@
               </div>
               <span v-else>Aucune information n'a été renseigné</span>
               <div class="check-out-form">
-                <button
-                  @click="formShow"
-                  class="theme-btn-one btn-black-overlay btn_md"
-                >
+                <button @click="formShow" class="theme-btn-one btn-black-overlay btn_md">
                   Editer
                 </button>
                 <!-- <nuxt-link
@@ -63,52 +57,25 @@
                   Modifier
                 </nuxt-link> -->
 
-                <ValidationObserver
-                  v-if="formEnabled"
-                  v-slot="{ handleSubmit }"
-                >
-                  <form
-                    id="formInvoice"
-                    @submit.prevent="handleSubmit(invoiceSubmit)"
-                  >
+                <ValidationObserver v-if="formEnabled" v-slot="{ handleSubmit }">
+                  <form id="formInvoice" @submit.prevent="handleSubmit(invoiceSubmit)">
                     <div class="row">
                       <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
                         <div class="form-group">
-                          <ValidationProvider
-                            rules="required|alpha"
-                            v-slot="{ errors }"
-                          >
+                          <ValidationProvider rules="required|alpha" v-slot="{ errors }">
                             <label for="fisrtName">Nom</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              id="fname"
-                              name="firstName"
-                              placeholder="Nom *"
-                              required=""
-                              v-model="invoicing.firstName"
-                            />
+                            <input type="text" class="form-control" id="fname" name="firstName" placeholder="Nom *"
+                              required="" v-model="invoicing.firstName" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </ValidationProvider>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                        <ValidationProvider
-                          name="lastName"
-                          rules="required|alpha"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="lastName" rules="required|alpha" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="lastName">Prénom</label>
-                            <input
-                              type="text"
-                              required=""
-                              class="form-control"
-                              id="lname"
-                              name="lastName"
-                              placeholder="Prénom *"
-                              v-model="invoicing.lastName"
-                            />
+                            <input type="text" required="" class="form-control" id="lname" name="lastName"
+                              placeholder="Prénom *" v-model="invoicing.lastName" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
@@ -117,54 +84,28 @@
                         <ValidationProvider name="company" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="cname">Entreprise</label>
-                            <input
-                              class="form-control"
-                              type="text"
-                              id="cname"
-                              name="company"
-                              placeholder="Entreprise"
-                              v-model="invoicing.company"
-                            />
+                            <input class="form-control" type="text" id="cname" name="company" placeholder="Entreprise"
+                              v-model="invoicing.company" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
                       </div>
                       <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                        <ValidationProvider
-                          name="email"
-                          rules="required|email"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="email">Email </label>
-                            <input
-                              v-model="invoicing.email"
-                              class="form-control"
-                              required=""
-                              type="email"
-                              id="email"
-                              name="email"
-                              placeholder="info@gmail.com *"
-                            />
+                            <input v-model="invoicing.email" class="form-control" required="" type="email" id="email"
+                              name="email" placeholder="info@gmail.com *" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
                       </div>
                       <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                        <ValidationProvider
-                          name="country"
-                          rules="required"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="country" rules="required" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="country">Pays</label>
-                            <select
-                              v-model="invoicing.country"
-                              class="form-control first_null"
-                              id="country"
-                              name="country"
-                              required=""
-                            >
+                            <select v-model="invoicing.country" class="form-control first_null" id="country"
+                              name="country" required="">
                               <option value="">
                                 Choisissez une option... *
                               </option>
@@ -175,20 +116,11 @@
                         </ValidationProvider>
                       </div>
                       <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                        <ValidationProvider
-                          name="zone"
-                          rules="required"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="zone" rules="required" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="city">Région</label>
-                            <select
-                              v-model="invoicing.zone"
-                              class="form-control first_null"
-                              id="zone"
-                              name="zone"
-                              required=""
-                            >
+                            <select v-model="invoicing.zone" class="form-control first_null" id="zone" name="zone"
+                              required="">
                               <option value="">
                                 Choisissez une option... *
                               </option>
@@ -199,43 +131,21 @@
                         </ValidationProvider>
                       </div>
                       <div class="col-lg-6 col-md-12 col-sm-=12 col-12">
-                        <ValidationProvider
-                          name="zip"
-                          rules="required"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="zip" rules="required" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="zip">Code postal</label>
-                            <input
-                              v-model="invoicing.zip"
-                              type="text"
-                              class="form-control"
-                              id="zip"
-                              name="zip"
-                              required=""
-                              placeholder="Entrez votre code postal *"
-                            />
+                            <input v-model="invoicing.zip" type="text" class="form-control" id="zip" name="zip"
+                              required="" placeholder="Entrez votre code postal *" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
                       </div>
                       <div class="col-lg-12 col-md-12 col-sm-=12 col-12">
-                        <ValidationProvider
-                          name="adresse"
-                          rule="required"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="adresse" rule="required" v-slot="{ errors }">
                           <div class="form-group">
                             <label for="addresse">Adresse complète</label>
-                            <input
-                              v-model="invoicing.adress"
-                              type="text"
-                              class="form-control"
-                              id="adresse"
-                              name="adresse"
-                              required=""
-                              placeholder="Entrez votre adresse.. *"
-                            />
+                            <input v-model="invoicing.adress" type="text" class="form-control" id="adresse"
+                              name="adresse" required="" placeholder="Entrez votre adresse.. *" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
@@ -266,10 +176,7 @@
                     </div>
                   </div> -->
                     </div>
-                    <button
-                      class="theme-btn-one btn-black-overlay btn_md"
-                      type="submit"
-                    >
+                    <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
                       Sauvegarder
                     </button>
                     <!-- {{ userDetails }} -->
@@ -297,22 +204,18 @@
                       <th>Total</th>
                     </tr>
                   </thead>
-                  <tbody
-                    v-for="productItem in selectedProducts"
-                    :key="productItem.id"
-                  >
+                  <tbody v-for="productItem in selectedProducts" :key="productItem.id">
                     <tr>
                       <td>
                         {{ productItem.libelle }}
                         <span class="product-qty">
-                          x {{ productItem.orderQuantity }}</span
-                        >
+                          x {{ productItem.orderQuantity }}</span>
                       </td>
                       <td>
                         {{
-                          (
-                            productItem.pvTtc * productItem.orderQuantity
-                          ).toFixed(2)
+                        (
+                        productItem.pvTtc * productItem.orderQuantity
+                        ).toFixed(2)
                         }}
                         €
                       </td>
@@ -331,17 +234,10 @@
                           Retrait:
                           <div class="click-and-collect-location-text">
                             <p v-if="userAdress.adressSelected">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="12"
-                                height="12"
-                                fill="currentColor"
-                                class="bi bi-geo-alt-fill"
-                                viewBox="0 0 16 16"
-                              >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                 <path
-                                  d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
-                                />
+                                  d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
                               </svg>
                               <!-- {{ userAdress.adressSelected.adress }} -->
                               {{ userAdress.adressSelected.adress }},
@@ -399,19 +295,16 @@
               <span class="sr-only">Loading...</span>
               <Spinner v-if="stripe.loading"></Spinner>
 
-              <b-button
-                v-else
-                class="theme-btn-one btn-black-overlay btn_sm btn-pay"
-                :class="paymentButtonOptions"
-                :href="stripe.url"
-                @click="onSubmit()"
-                ><b-spinner
-                  small
-                  v-if="paymentButtonOptions.loading"
-                ></b-spinner>
+              <b-button v-else class="theme-btn-one btn-black-overlay btn_sm btn-pay" :class="paymentButtonOptions"
+                :href="stripe.url" @click="onSubmit()">
+                <b-spinner small v-if="paymentButtonOptions.loading"></b-spinner>
 
-                <span v-else>Etape suivante</span></b-button
-              >
+                <span v-else>Etape suivante</span>
+              </b-button>
+
+            </div>
+            <div v-if="stripe.message">
+              <p>{{stripe.message}}</p>
             </div>
 
             <div v-if="!enabled" class="order_review bg-white">
@@ -421,50 +314,27 @@
               <div class="payment_method">
                 <div class="payment_option">
                   <div class="custome-radio">
-                    <input
-                      class="form-check-input"
-                      required=""
-                      type="radio"
-                      name="payment_option"
-                      id="exampleRadios3"
-                      value="option3"
-                      checked=""
-                    />
-                    <label class="form-check-label" for="exampleRadios3"
-                      >Direct Bank Transfer</label
-                    >
+                    <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3"
+                      value="option3" checked="" />
+                    <label class="form-check-label" for="exampleRadios3">Direct Bank Transfer</label>
                     <p data-method="option3" class="payment-text">
                       There are many variations of passages of Lorem Ipsum
                       available, but the majority have suffered alteration.
                     </p>
                   </div>
                   <div class="custome-radio">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="payment_option"
-                      id="exampleRadios4"
-                      value="option4"
-                    />
-                    <label class="form-check-label" for="exampleRadios4"
-                      >Check Payment</label
-                    >
+                    <input class="form-check-input" type="radio" name="payment_option" id="exampleRadios4"
+                      value="option4" />
+                    <label class="form-check-label" for="exampleRadios4">Check Payment</label>
                     <p data-method="option4" class="payment-text">
                       Please send your cheque to Store Name, Store Street, Store
                       Town, Store State / County, Store Postcode.
                     </p>
                   </div>
                   <div class="custome-radio">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      name="payment_option"
-                      id="exampleRadios5"
-                      value="option5"
-                    />
-                    <label class="form-check-label" for="exampleRadios5"
-                      >Paypal</label
-                    >
+                    <input class="form-check-input" type="radio" name="payment_option" id="exampleRadios5"
+                      value="option5" />
+                    <label class="form-check-label" for="exampleRadios5">Paypal</label>
                     <p data-method="option5" class="payment-text">
                       Pay via PayPal; you can pay with your credit card if you
                       don't have a PayPal account.
@@ -472,9 +342,7 @@
                   </div>
                 </div>
               </div>
-              <a href="#!" class="theme-btn-one btn-black-overlay btn_sm"
-                >Place Order</a
-              >
+              <a href="#!" class="theme-btn-one btn-black-overlay btn_sm">Place Order</a>
             </div>
           </div>
         </div>
@@ -608,42 +476,58 @@ export default {
     async onSubmit(payload) {
       console.log("payload:", payload);
       // return;
-      if (payload) {
-        this.userAdress = payload;
-        this.stripe.loading = true;
-
-        const userId = this.$store.state.auth.user.userId;
-
-        try {
-          const stripeCheckoutSession = await this.$axios.post(
-            "/order/create-checkout-session",
-            {
-              shippingAdress: payload.adressSelected,
-              products: this.selectedProducts,
-              userId: userId,
-            },
-            {
-              progress: true,
-            }
-          );
-
-          if (stripeCheckoutSession.data.message) {
-            this.stripe.message = stripeCheckoutSession.data.message;
-            this.paymentButtonOptions.disabled = true;
-            this.makeToast();
-          } else if (stripeCheckoutSession.data.session.url) {
-            const stripeCheckoutUrlWithDomain =
-              stripeCheckoutSession.data.session.url;
-            this.stripe.url = stripeCheckoutUrlWithDomain;
-            this.paymentButtonOptions.disabled = false;
-            this.stripe.loading = false;
-          }
-        } catch (error) {
-          console.log("error:", error);
-        }
+      if (this.selectedProducts.length == 0) {
+        this.stripe.loading = false;
+        return
       } else {
-        this.paymentButtonOptions.loading = true;
+        if (payload) {
+          this.userAdress = payload;
+          this.stripe.loading = true;
+
+          const userId = this.$store.state.auth.user.userId;
+
+          try {
+            const stripeCheckoutSession = await this.$axios.post(
+              "/order/create-checkout-session",
+              {
+                shippingAdress: payload.adressSelected,
+                products: this.selectedProducts,
+                userId: userId,
+              },
+              {
+                progress: true,
+              }
+            );
+
+            if (stripeCheckoutSession.data.message) {
+              this.stripe.message = stripeCheckoutSession.data.message;
+              this.paymentButtonOptions.disabled = true;
+              this.paymentButtonOptions.loading = false;
+              this.stripe.loading = false;
+
+              this.makeToast();
+            } else if (stripeCheckoutSession.data.session.url) {
+              const stripeCheckoutUrlWithDomain =
+                stripeCheckoutSession.data.session.url;
+              this.stripe.url = stripeCheckoutUrlWithDomain;
+              this.paymentButtonOptions.disabled = false;
+              this.stripe.loading = false;
+            }
+          } catch (error) {
+            console.log("error:", error);
+          }
+        } else {
+          console.log('this.paymentButtonOptions.disabled:', this.paymentButtonOptions.disabled)
+          if (this.paymentButtonOptions.disabled) {
+            this.paymentButtonOptions.loading = false;
+
+          } else {
+            this.paymentButtonOptions.loading = true;
+          }
+
+        }
       }
+
     },
   },
   computed: {
@@ -685,10 +569,12 @@ export default {
   font-size: 12px;
   font-style: italic;
 }
+
 .click-and-collect-location-text {
   display: flex;
   align-items: center;
 }
+
 .click-and-collect-location svg {
   margin: 0 5px 0 15px;
   color: grey;
@@ -697,6 +583,7 @@ export default {
 .box {
   text-align: center;
 }
+
 .box__payment {
   text-align: center;
 }
@@ -710,25 +597,31 @@ export default {
   border: 1px solid rgb(195, 195, 195);
   border-radius: 5px;
 }
+
 .payment__element {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .btn_sm {
   margin: 2rem 0 0 0;
   width: 90%;
 }
+
 .invoice__adresse {
   font-weight: bold;
 }
+
 .btn_md {
   margin: 0 0 1.5rem 0;
 }
+
 #alert-message {
   color: red;
 }
+
 .checkout-payment {
   width: 100%;
   display: flex;
@@ -736,11 +629,13 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .btn-pay {
   text-align: center;
   color: #fff;
   transition: all 0.2s linear;
 }
+
 .isActive {
   display: none;
 }
@@ -751,6 +646,7 @@ export default {
     flex-direction: column;
     align-items: start;
   }
+
   .click-and-collect-location svg {
     margin: 0;
   }

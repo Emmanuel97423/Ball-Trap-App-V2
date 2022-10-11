@@ -7,10 +7,7 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
@@ -18,33 +15,22 @@
     </section>
 
     <!-- Register-Area -->
-    <section id="login_area" class="ptb-100">
-      <div class="container">
+    <section v-if="enabled" id="login_area">
+      <div class="container login-container">
         <div class="row">
-          <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="account_form">
+          <!-- <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12"> -->
+          <div class="col-md-12 col-sm-12 col-12">
+            <div class="account_form-register account_form">
+              <!-- <div> -->
               <h3>Ouvrir un compte</h3>
               <ValidationObserver ref="registerForm" v-slot="{ handleSubmit }">
-                <form
-                  id="registerForm"
-                  name="registerForm"
-                  @submit.prevent="handleSubmit(onSubmit)"
-                >
+                <form id="registerForm" name="registerForm" @submit.prevent="handleSubmit(onSubmit)">
                   <!-- fisrtName -->
-                  <ValidationProvider
-                    name="firstName"
-                    rules="required|alpha"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="firstName" rules="required|alpha" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label for="firstName">Pseudo <span>*</span></label>
-                      <input
-                        v-model="register.firstName"
-                        id="firstName"
-                        name="firstName"
-                        type="text"
-                        class="form-control"
-                      />
+                      <input v-model="register.firstName" id="firstName" name="firstName" type="text"
+                        class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
@@ -71,62 +57,32 @@
 
                   <!-- Email      -->
 
-                  <ValidationProvider
-                    name="email"
-                    rules="required|email"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="email" rules="required|email" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label for="email">Email <span>*</span></label>
-                      <input
-                        v-model="register.email"
-                        id="email"
-                        name="email"
-                        type="text"
-                        class="form-control"
-                      />
+                      <input v-model="register.email" id="email" name="email" type="text" class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
 
                   <!-- Password -->
 
-                  <ValidationProvider
-                    name="password"
-                    rules="required|password:@confirmPassword"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="password" rules="required|password:@confirmPassword" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label for="password">Mot de passe <span>*</span></label>
-                      <input
-                        v-model="register.password"
-                        id="password"
-                        name="password"
-                        type="password"
-                        class="form-control"
-                      />
+                      <input v-model="register.password" id="password" name="password" type="password"
+                        class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
 
                   <!-- Confirm password confirmation -->
 
-                  <ValidationProvider
-                    name="confirmPassword"
-                    rules="required"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="confirmPassword" rules="required" v-slot="{ errors }">
                     <div class="default-form-box">
-                      <label for="confirmPassword"
-                        >Confirmez votre mot de passe <span>*</span></label
-                      >
-                      <input
-                        v-model="register.confirmation"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        type="password"
-                        class="form-control"
-                      />
+                      <label for="confirmPassword">Confirmez votre mot de passe <span>*</span></label>
+                      <input v-model="register.confirmation" id="confirmPassword" name="confirmPassword" type="password"
+                        class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
@@ -164,11 +120,9 @@
                   <!-- </ValidationProvider> -->
                   <recaptcha />
                   <div class="login_submit">
-                    <button
-                      class="theme-btn-one btn-black-overlay btn_md"
-                      type="submit"
-                    >
-                      Pull!
+                    <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
+                      <b-spinner v-if="loading" small></b-spinner>
+                      <div v-else>Pull!</div>
                     </button>
                     <nuxt-link to="/login">Se connecter</nuxt-link>
                     <!-- <a href="/login">Se connecter</a> -->
@@ -186,6 +140,7 @@
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
+  layout: "login",
   middleware: "guest",
   name: "Register",
   components: { ValidationProvider, ValidationObserver },
@@ -194,6 +149,7 @@ export default {
     return {
       enabled: true,
       title: "Ouvrir un compte",
+      loading: false,
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -212,6 +168,7 @@ export default {
         password: "",
         idFile: null,
       },
+
     };
   },
 
@@ -230,6 +187,7 @@ export default {
   },
   methods: {
     async onSubmit() {
+      this.loading = true;
       try {
         const token = await this.$recaptcha.getResponse();
         // console.log("ReCaptcha token:", token);
@@ -238,10 +196,13 @@ export default {
         const signupError = this.$store.state.user.userSignup;
 
         if (signupError.message) {
+          this.loading = false;
+
           this.$refs.registerForm.setErrors({
             email: [signupError.message],
           });
         } else if (signupError.passwordError) {
+          this.loading = false;
           this.$refs.registerForm.setErrors({
             password: [signupError.passwordError],
           });
@@ -250,20 +211,10 @@ export default {
         // at the end you need to reset recaptcha
         await this.$recaptcha.reset();
       } catch (error) {
+        this.loading = false;
         console.log("Login error:", error);
       }
 
-      // console.log("signupError:", signupError);
-      // this._register
-      // console.log("this._register:", this.register);
-
-      const formData = new FormData(registerForm);
-
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(key, value);
-      // }
-
-      // this.$store.dispatch("user/signup", formData);
     },
   },
 };
@@ -274,12 +225,14 @@ export default {
   color: red;
   font-size: 12px;
 } */
+
 .login_submit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .login_submit,
 a {
   margin: 10px 0 0 0;

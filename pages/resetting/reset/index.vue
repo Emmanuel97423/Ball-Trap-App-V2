@@ -68,6 +68,7 @@
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
+  layout: "headless-layout",
   components: { ValidationObserver, ValidationProvider },
   data() {
     return {
