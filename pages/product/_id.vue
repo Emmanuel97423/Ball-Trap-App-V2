@@ -10,10 +10,7 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>Shop</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
@@ -33,65 +30,34 @@
         <div class="container">
           <div class="product-list-breadcrumb-section">
             <a class="back-link" onclick="history.back()">Retour</a>
-            <b-breadcrumb
-              :items="breadcrumbItems"
-              class="product-list-breadcrumb"
-            ></b-breadcrumb>
+            <b-breadcrumb :items="breadcrumbItems" class="product-list-breadcrumb"></b-breadcrumb>
           </div>
           <div class="row area_boxed">
             <div class="col-lg-4 col-img">
               <div class="product_single_one_img">
-                <swiper
-                  v-if="product.isAProductGamme == true"
-                  class="swiper product-single-2-slider"
-                  :options="swiperOption"
-                  ref="swiperImage"
-                >
+                <swiper v-if="product.isAProductGamme == true" class="swiper product-single-2-slider"
+                  :options="swiperOption" ref="swiperImage">
                   <!-- <swiper-slide>
                     <img :src="product.imageUrl" alt="img" />
                   </swiper-slide> -->
-                  <swiper-slide
-                    v-for="(product, index) in productVariants"
-                    :key="index"
-                  >
+                  <swiper-slide v-for="(product, index) in productVariants" :key="index">
                     <div v-if="!product.imageUrl" class="productbox-no-img">
                       <p>Pas d'image disponible</p>
                     </div>
                     <img v-else :src="product.imageUrl" alt="img" />
                   </swiper-slide>
 
-                  <div
-                    class="swiper-button-prev swiper-button-white"
-                    slot="button-prev"
-                  ></div>
-                  <div
-                    class="swiper-button-next swiper-button-white"
-                    slot="button-next"
-                  ></div>
+                  <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+                  <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
                 </swiper>
 
-                <swiper
-                  v-else
-                  class="swiper product-single-2-slider"
-                  :options="swiperOption"
-                  ref="swiperImage"
-                >
+                <swiper v-else class="swiper product-single-2-slider" :options="swiperOption" ref="swiperImage">
                   <swiper-slide>
-                    <img
-                      v-if="product.imageUrl"
-                      :src="product.imageUrl"
-                      alt="img"
-                    />
+                    <img v-if="product.imageUrl" :src="product.imageUrl" alt="img" />
                   </swiper-slide>
 
-                  <div
-                    class="swiper-button-prev swiper-button-white"
-                    slot="button-prev"
-                  ></div>
-                  <div
-                    class="swiper-button-next swiper-button-white"
-                    slot="button-next"
-                  ></div>
+                  <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+                  <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
                 </swiper>
               </div>
             </div>
@@ -124,18 +90,10 @@
                     <div id="card-element"></div>
                   </div>
 
-                  <SizeChart
-                    v-if="!enabled"
-                    :productName="product.libelle"
-                  ></SizeChart>
-                  <form
-                    id="gammeSelectForm"
-                    method="post"
-                    ref="gammeSelectForm"
-                    v-on:submit.prevent="
-                      addToCart(productSelected, quantitySelected.orderQuantity)
-                    "
-                  >
+                  <SizeChart v-if="!enabled" :productName="product.libelle"></SizeChart>
+                  <form id="gammeSelectForm" method="post" ref="gammeSelectForm" v-on:submit.prevent="
+                    addToCart(productSelected, quantitySelected.orderQuantity)
+                  ">
                     <div class="pt-15">
                       <!-- <span>Tailles</span> -->
                       <!-- {{ size }} -->
@@ -144,32 +102,19 @@
                     {{ isAProductGamme }} -->
                       <!-- {{ product }} -->
                       <!-- {{ purchaseProductDetails }} -->
-                      <SelectGenre
-                        v-if="gammesOptions.genre === true"
-                        :genre="genre"
-                      />
-                      <SelectSize2
-                        v-if="gammesOptions.size === true"
-                        :size="uniqueSize"
-                        @size-click-event="sizeClickEventV2"
-                      />
+                      <SelectGenre v-if="gammesOptions.genre === true" :genre="genre" />
+                      <SelectSize2 v-if="gammesOptions.size === true" :size="uniqueSize"
+                        @size-click-event="sizeClickEventV2" />
                     </div>
 
                     <div class="color-select" :class="showColorOptions">
-                      <SelectColor
-                        v-if="gammesOptions.color === true"
-                        :colors="color"
-                        :colorLibelle="colorLibelle"
-                        @color-click-event="colorClickEventV2"
-                      />
+                      <SelectColor v-if="gammesOptions.color === true" :colors="color" :colorLibelle="colorLibelle"
+                        @color-click-event="colorClickEventV2" />
                       <Spinner v-else></Spinner>
                     </div>
                     <div v-if="gammesOptions.laterality">
                       <!-- {{ productVariantsSelected }} -->
-                      <SelectLaterality
-                        :laterality="laterality"
-                        @laterality-click-event="lateralityClickEvent"
-                      />
+                      <SelectLaterality :laterality="laterality" @laterality-click-event="lateralityClickEvent" />
                     </div>
                     <!-- <p class="error-required-message" v-if="errorInputMessage">
                       {{ errorInputMessage }}
@@ -177,16 +122,10 @@
                     <!-- {{ productSelected.stock }}
                     {{ productFilter }} -->
                     <div v-if="stockNotificationOptions.isActive">
-                      <button
-                        v-if="productSelected.stock > 0"
-                        class="btn__stock--green"
-                      >
+                      <button v-if="productSelected.stock > 0" class="btn__stock--green">
                         Stock disponible
                       </button>
-                      <button
-                        v-if="productSelected.stock < 1"
-                        class="btn__stock--red"
-                      >
+                      <button v-if="productSelected.stock < 1" class="btn__stock--red">
                         Stock indisponible
                       </button>
                     </div>
@@ -195,19 +134,9 @@
                     <!-- quantitySelected.orderQuantity:
                     {{ quantitySelected.orderQuantity }} -->
                     <!-- state cart: {{ this.$store.state.cart.items[0] }} -->
-                    <div
-                      class="product_count_one pt-15"
-                      @click="clickQuantitySelect"
-                    >
-                      <b-form-spinbutton
-                        required
-                        id="sb-inline"
-                        v-model="quantitySelected.orderQuantity"
-                        inline
-                        class="border-0"
-                        min="1"
-                        :max="productSelected.stock"
-                      ></b-form-spinbutton>
+                    <div class="product_count_one pt-15" @click="clickQuantitySelect">
+                      <b-form-spinbutton required id="sb-inline" v-model="quantitySelected.orderQuantity" inline
+                        class="border-0" min="1" :max="productSelected.stock"></b-form-spinbutton>
                     </div>
                   </form>
 
@@ -286,9 +215,7 @@
                       </div>
                       <div class="assurances-product-text">
                         <h5>Satisfait ou remboursé</h5>
-                        <a href="./legal"
-                          ><span>Après réception (2 jours)</span></a
-                        >
+                        <a href="./legal"><span>Après réception (2 jours)</span></a>
                       </div>
                     </li>
                     <li class="assurances-product-list">
@@ -323,10 +250,7 @@
                     </li>
                   </ul> -->
                     <div v-if="!this.$auth.loggedIn" class="signup-mention">
-                      <b-icon
-                        class="signup-mention-icon"
-                        icon="exclamation-circle-fill"
-                      ></b-icon>
+                      <b-icon class="signup-mention-icon" icon="exclamation-circle-fill"></b-icon>
                       <p>Toute commande nécessite la création d'un compte</p>
                     </div>
                     <!-- <input
@@ -341,12 +265,8 @@
                         )
                       "
                     /> -->
-                    <button
-                      type="submit"
-                      form="gammeSelectForm"
-                      id="purchase-button"
-                      class="theme-btn-one btn-black-overlay btn_sm"
-                    >
+                    <button type="submit" form="gammeSelectForm" id="purchase-button"
+                      class="theme-btn-one btn-black-overlay btn_sm">
                       Ajouter au panier
                     </button>
                     <!-- <b-tooltip target="tooltip-purchase-button" variant="danger"
@@ -626,31 +546,18 @@
             </div>
           </div>
           <div class="row">
-            <div
-              class="col-lg-3 col-md-4 col-sm-6 col-12"
-              v-for="item in relatedProducts.slice(
-                relatedProductRangesOptions.min,
-                relatedProductRangesOptions.max
-              )"
-              :key="item._id"
-            >
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="item in relatedProducts.slice(
+              relatedProductRangesOptions.min,
+              relatedProductRangesOptions.max
+            )" :key="item._id">
               <!-- <p v-if="$fetchState.pending">
                 <span class="loading"></span>
                 <Spinner></Spinner>
               </p> -->
               <!-- <p v-else-if="$fetchState.error">Une erreur est survenue! 🤬</p> -->
-              <ProductBox1
-                class="mt-3"
-                :productImg1="item.imageUrl"
-                :productImg2="item.imageUrl"
-                :productTagClass="item.productTagClass"
-                :productTag="item.productTag"
-                :productTitle="item.libelle"
-                :productPrice="item.pvTtc"
-                :productQuantity="item.stock"
-                :productId="item._id"
-                :productObject="item"
-              />
+              <ProductBox1 class="mt-3" :productImg1="item.imageUrl" :productImg2="item.imageUrl"
+                :productTagClass="item.productTagClass" :productTag="item.productTag" :productTitle="item.libelle"
+                :productPrice="item.pvTtc" :productQuantity="item.stock" :productId="item._id" :productObject="item" />
             </div>
           </div>
         </div>
@@ -659,30 +566,17 @@
 
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
-    <b-modal
-      id="parent-modal"
-      ref="my-modal-purchase"
-      hide-footer
-      title="Information"
-      modal-class="modal-connect"
-      dialog-class="dialog__class--cart"
-      content-class="content__class--cart"
-    >
+    <b-modal id="parent-modal" ref="my-modal-purchase" hide-footer title="Information" modal-class="modal-connect"
+      dialog-class="dialog__class--cart" content-class="content__class--cart">
       <div id="login-modal">
-        <div
-          class="
+        <div class="
             d-flex
             justify-content-center
             align-items-center
             d-block
             text-center
-          "
-        >
-          <b-icon
-            id="icon-check-purchase"
-            icon="check"
-            variant="success"
-          ></b-icon>
+          ">
+          <b-icon id="icon-check-purchase" icon="check" variant="success"></b-icon>
           <h3 class="ml-2">Article ajouter au panier</h3>
         </div>
 
@@ -695,17 +589,10 @@
               Se connecter
             </button> -->
 
-          <button
-            class="theme-btn-one btn-black-overlay btn_sm"
-            @click="closeModal"
-          >
+          <button class="theme-btn-one btn-black-overlay btn_sm" @click="closeModal">
             Continuer mes achats
           </button>
-          <nuxt-link
-            to="/my-account/checkout-1"
-            class="theme-btn-one btn-green-overlay btn_sm"
-            >Commander</nuxt-link
-          >
+          <nuxt-link to="/my-account/checkout-1" class="theme-btn-one btn-green-overlay btn_sm">Commander</nuxt-link>
           <!-- <button
               class="mt-2 theme-btn-one btn-black-overlay btn_sm"
               block
@@ -877,19 +764,19 @@ export default {
         {
           text: this.$route.query.libelleFamille
             ? this.$route.query.libelleFamille
-                .toLowerCase()
-                .charAt(0)
-                .toUpperCase() +
-              this.$route.query.libelleFamille.toLowerCase().slice(1)
+              .toLowerCase()
+              .charAt(0)
+              .toUpperCase() +
+            this.$route.query.libelleFamille.toLowerCase().slice(1)
             : null,
           to: this.$route.query.codeFamille
             ? "/shop/category/" +
-              this.$route.query.libelleFamille
-                .toLowerCase()
-                .replaceAll(" ", "-") +
-              "?" +
-              "codefamille=" +
-              this.$route.query.codeFamille
+            this.$route.query.libelleFamille
+              .toLowerCase()
+              .replaceAll(" ", "-") +
+            "?" +
+            "codefamille=" +
+            this.$route.query.codeFamille
             : null,
         },
         {
@@ -1189,9 +1076,11 @@ export default {
   background-color: green;
   color: #fff;
 }
+
 #tax {
   font-size: 12px;
 }
+
 .productbox-no-img {
   width: 100%;
   height: 518px;
@@ -1201,6 +1090,7 @@ export default {
   background-color: rgb(219, 219, 219);
   font-size: 12px;
 }
+
 /* .back-link {
   width: 26%;
   display: flex;
@@ -1214,6 +1104,7 @@ export default {
   cursor: pointer;
   font-size: 12px;
 }
+
 .product-list-breadcrumb-section {
   display: flex;
   align-items: center;
@@ -1221,14 +1112,17 @@ export default {
   margin: 0 0 30px 0;
   font-size: 12px;
 }
+
 .product-list-breadcrumb-section ol,
 ul,
 dl {
   margin: 0;
 }
+
 .product-list-breadcrumb {
   background-color: transparent;
 }
+
 .modal__button {
   text-align: center;
   width: 100%;
@@ -1239,21 +1133,26 @@ dl {
   /* align-items: center; */
   row-gap: 10px;
 }
+
 .modal-connect {
   width: 100%;
   padding: 20px 0 0 0;
 }
+
 .dialog__class--cart {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .content__class--cart {
   width: 50%;
 }
+
 #icon-check-purchase {
   font-size: 35px;
 }
+
 .btn__stock--green {
   background-color: green;
   color: #fff;
@@ -1265,6 +1164,7 @@ dl {
   text-transform: uppercase;
   margin: 15px 0 0 0;
 }
+
 .btn__stock--red {
   background-color: red;
   color: #fff;
@@ -1276,14 +1176,17 @@ dl {
   text-transform: uppercase;
   margin: 15px 0 0 0;
 }
+
 .stock-alert {
   margin: 20px 0 0 0;
 }
+
 .assurances-product {
   margin: 20px 0 0 0;
   display: flex;
   /* flex-direction: column; */
 }
+
 .assurances-product li {
   margin: 0 15px 0 0;
   display: flex;
@@ -1294,18 +1197,22 @@ dl {
   font-size: 40px;
   margin: 0 10px 0 0;
 }
+
 .assurances-product-text h5 {
   font-weight: bold;
   font-size: 16px;
 }
+
 .assurances-product-text span {
   font-size: 14px;
 }
+
 #middle-assurances {
   border-left: 1px solid #e2e2e2;
   border-right: 1px solid #e2e2e2;
   padding: 0 20px;
 }
+
 .signup-mention {
   background-color: rgba(255, 0, 0, 0.3);
   display: flex;
@@ -1314,10 +1221,12 @@ dl {
   border-radius: 5px;
   margin: 15px 0 0 0;
 }
+
 .signup-mention p {
   color: red;
   padding: 15px;
 }
+
 .signup-mention-icon {
   color: rgba(255, 0, 0, 0.8);
 }
@@ -1337,12 +1246,14 @@ dl {
   max-height: 100px;
   transition: max-height 3s ease-in;
 }
+
 .isInactive {
   /* display: none; */
   max-height: 0;
   /* transition: max-height 3s ease-out; */
   overflow: hidden;
 }
+
 @media (max-width: 425px) {
   #purchase-button {
     width: 100%;
@@ -1354,12 +1265,14 @@ dl {
   .assurances-product {
     flex-direction: column;
   }
+
   #middle-assurances {
     border-left: none;
     border-right: none;
     padding: 0;
   }
 }
+
 @media only screen and (min-width: 768px) {
   /* tablettes et ordinateurs */
 
