@@ -7,27 +7,15 @@
 
     <div class="product-image-variants">
       <Spinner v-if="loading == true"></Spinner>
-      <div
-        v-else
-        v-for="(libelle, index) in colorArray"
-        :key="index"
-        class="image-variants"
-      >
-        <label
-          :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-          :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }"
-          class="box-genre"
-          >{{
-            libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
-            libelle.gammeValue.toLowerCase().slice(1)
+      <div v-else v-for="(libelle, index) in colorArray" :key="index" class="image-variants">
+        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+          :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
+          libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+          libelle.gammeValue.toLowerCase().slice(1)
           }}
-          <input
-            type="radio"
-            :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-            name="color"
+          <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
             :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-            @click="handleCLick(index, libelle.gammeCode)"
-          />
+            @click="handleCLick(index, libelle.gammeCode)" />
         </label>
 
         <!-- <img :src="product" @click="selectColor(index)" /> -->
@@ -158,21 +146,26 @@ export default {
 
   /* flex-direction: row; */
 }
+
 .product-image-variants img {
   width: 100%;
   cursor: pointer;
   border: 1px solid black;
 }
+
 .product-image-variants label {
   font-size: 12px;
 }
+
 .select-color-active {
   background-color: black;
   color: #fff;
 }
+
 .image-variants {
   margin: 5px 5px 0 0;
 }
+
 input[type="radio"] {
   vertical-align: middle;
 }

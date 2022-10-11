@@ -113,6 +113,9 @@
                       <Spinner v-else></Spinner>
                     </div>
                     <SelectType v-if="gammesOptions.type === true" :type="type" @type-click-event=typeClickEvent />
+                    <SelectType v-if="gammesOptions.inscription === true" :inscription="inscription"
+                      @inscription-click-event=inscriptionClickEvent />
+
                     <div v-if="gammesOptions.laterality">
                       <!-- {{ productVariantsSelected }} -->
                       <SelectLaterality :laterality="laterality" @laterality-click-event="lateralityClickEvent" />
@@ -620,6 +623,7 @@ import StockAlert from "@/components/product/StockAlert";
 import SelectColor from "@/components/product/SelectColor";
 import SelectLaterality from "@/components/product/SelectLaterality";
 import SelectType from "@/components/product/SelectType";
+import SelectInscription from "@/components/product/SelectInscription";
 import AfterPayMessage from "@/components/product/AfterPayMessage";
 import { ProductFactory } from "@/utils/product/productClasse";
 import ClickCollect from "@/components/product/ClickCollect";
@@ -640,6 +644,7 @@ export default {
     AfterPayMessage,
     SelectGenre,
     SelectType,
+    SelectInscription,
     ClickCollect,
   },
 
@@ -661,6 +666,7 @@ export default {
       laterality: [],
       genre: [],
       type: [],
+      SelectInscription: [],
       mainImage: null,
       isStripeLoaded: false,
       gammeQuantity: "",
@@ -678,6 +684,7 @@ export default {
         laterality: "",
         genre: "",
         type: "",
+        inscription: "",
       },
       // Product details Popup slider
       swiperOption: {
@@ -737,6 +744,7 @@ export default {
         laterality: false,
         genre: false,
         type: false,
+        inscription: false,
       },
       stockNotificationOptions: {
         isActive: false,
@@ -878,6 +886,12 @@ export default {
       ) {
         this.errorInputMessage = "Champ requis";
         this.makeToast("warning", "Selectionnez le type");
+      } else if (
+        this.gammesOptions.inscription == true &&
+        !this.productFilter.inscription
+      ) {
+        this.errorInputMessage = "Champ requis";
+        this.makeToast("warning", "Selectionnez le type");
       }
       else {
         this.stockNotificationOptions.isActive = true;
@@ -920,6 +934,14 @@ export default {
       });
       this.productVariantFilterV3();
     },
+    inscriptionClickEvent(payload) {
+      this.productFilter.inscription = payload.inscription;
+
+      this.productVariantsSelected.map((product) => {
+        this.gammeMethod(product.gamme, product.gammesValue);
+      });
+      this.productVariantFilterV3();
+    },
 
     sizeClickEventV2(payload) {
       this.productFilter.size = payload.size;
@@ -954,6 +976,7 @@ export default {
         this.productFilter.color +
         this.productFilter.size +
         this.productFilter.type +
+        this.productFilter.inscription +
         this.productFilter.laterality;
 
       this.productVariants.filter((product) => {
@@ -965,17 +988,17 @@ export default {
       });
     },
     async gammeMethod(gammeArray, gammesValueArray) {
+
       try {
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
+          console.log('gammeValue:', gammeValue)
+
           gammeArray.split("¤").filter(async (gamme, indexGamme) => {
+
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
             fetchGamme.data.filter(async (itemGamme) => {
-              // console.log(
-              //   " itemGamme.elementsGammeLibelle:",
-              //   itemGamme.elementsGammeLibelle
-              // );
-              // console.log("gammeValue:", gammeValue);
-
+              // console.log('gammeValue:', gammeValue)
+              // console.log('itemGamme.elementsGammeLibelle:', itemGamme.elementsGammeLibelle)
               if (gammeValue === itemGamme.elementsGammeLibelle) {
                 const libelleGamme = itemGamme.libelle;
                 const gammeValue = itemGamme.gammeValue;
@@ -1006,9 +1029,11 @@ export default {
                   this.genre.push(obj);
                   this.gammesOptions.genre = true;
                 } else if (obj.libelleGamme === "TYPE") {
-                  console.log('obj.libelleGamme:', obj.libelleGamme)
                   this.type.push(obj);
                   this.gammesOptions.type = true;
+                } else if (obj.libelleGamme === "INSCRIPTION") {
+                  this.inscription.push(obj);
+                  this.gammesOptions.inscription = true;
                 }
               }
             });
