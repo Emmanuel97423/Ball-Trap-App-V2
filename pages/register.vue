@@ -166,7 +166,6 @@ export default {
         password: "",
         idFile: null,
       },
-      spinnerLoading: true,
 
     };
   },
