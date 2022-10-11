@@ -121,7 +121,8 @@
                   <recaptcha />
                   <div class="login_submit">
                     <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
-                      Pull!
+                      <b-spinner v-if="loading" small></b-spinner>
+                      <div v-else>Pull!</div>
                     </button>
                     <nuxt-link to="/login">Se connecter</nuxt-link>
                     <!-- <a href="/login">Se connecter</a> -->
@@ -148,6 +149,7 @@ export default {
     return {
       enabled: true,
       title: "Ouvrir un compte",
+      loading: false,
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -185,7 +187,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-
+      this.loading = true;
       try {
         const token = await this.$recaptcha.getResponse();
         // console.log("ReCaptcha token:", token);
@@ -194,10 +196,13 @@ export default {
         const signupError = this.$store.state.user.userSignup;
 
         if (signupError.message) {
+          this.loading = false;
+
           this.$refs.registerForm.setErrors({
             email: [signupError.message],
           });
         } else if (signupError.passwordError) {
+          this.loading = false;
           this.$refs.registerForm.setErrors({
             password: [signupError.passwordError],
           });
@@ -206,20 +211,10 @@ export default {
         // at the end you need to reset recaptcha
         await this.$recaptcha.reset();
       } catch (error) {
+        this.loading = false;
         console.log("Login error:", error);
       }
 
-      // console.log("signupError:", signupError);
-      // this._register
-      // console.log("this._register:", this.register);
-
-      const formData = new FormData(registerForm);
-
-      // for (let [key, value] of formData.entries()) {
-      //   console.log(key, value);
-      // }
-
-      // this.$store.dispatch("user/signup", formData);
     },
   },
 };
