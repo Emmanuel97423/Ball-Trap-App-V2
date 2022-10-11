@@ -56,7 +56,8 @@
                   </ValidationProvider>
                   <div class="login_submit">
                     <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
-                      Pull!
+                      <b-spinner v-if="loading" small></b-spinner>
+                      <div v-else>Pull!</div>
                     </button>
                     <nuxt-link to="/register"><span>Ou </span>créer un compte</nuxt-link>
                   </div>
@@ -92,6 +93,7 @@ export default {
         password: "",
         showPassword: false,
       },
+      loading: false,
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -121,9 +123,12 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.loading = true;
       this.$auth
         .loginWith("cookie", { data: this.login })
         .then((res) => {
+          // this.loading = true;
+
           const user = res.data;
           this.$auth.setUser(user);
           this.$store.commit("user/LOGIN", user);
@@ -132,6 +137,7 @@ export default {
           // this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
+          this.loading = false;
 
           const serverMessageError = err.response.data.error;
           if (serverMessageError === "Mot de passe incorrect !") {
@@ -189,6 +195,14 @@ export default {
   font-weight: 400;
   color: rgb(158, 156, 156);
 }
+
+.login_submit button {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .forgot-password {
   text-align: center;
