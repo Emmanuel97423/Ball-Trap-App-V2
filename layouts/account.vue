@@ -28,8 +28,8 @@
             <div class="dashboard_tab_button">
               <b-navbar-nav>
                 <b-nav-item to="/my-account">Tableau de bord</b-nav-item>
-                <b-nav-item to="/my-account/purchases">Commandes V2</b-nav-item>
-                <b-nav-item to="/my-account/orders">Commandes</b-nav-item>
+                <b-nav-item to="/my-account/purchases">Commandes</b-nav-item>
+                <!-- <b-nav-item to="/my-account/orders">Commandes</b-nav-item> -->
                 <!-- <b-nav-item v-if="!enabled" to="/my-account/downloads"
                   >Downloads</b-nav-item
                 > -->

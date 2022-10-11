@@ -7,102 +7,59 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+
     <!-- Login-Area -->
-    <section id="login_area" class="ptb-100">
+    <section id="login_area">
       <div class="container login-container">
         <div class="row">
-          <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
+          <!-- <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12"> -->
+          <div class="col-md-12 col-sm-12 col-12">
             <div class="account_form">
-              <h3 data-testid="login-title">Bienvenue à la maison, shooter!</h3>
+              <!-- <div> -->
+              <h3 data-testid="login-title">Bienvenue à la maison, cow-boy!</h3>
               <ValidationObserver ref="loginForm" v-slot="{ handleSubmit }">
-                <form
-                  id="loginForm"
-                  name="loginForm"
-                  @submit.prevent="handleSubmit(onSubmit)"
-                >
-                  <ValidationProvider
-                    name="email"
-                    vid="email"
-                    rules="required"
-                    v-slot="{ errors }"
-                  >
+                <form id="loginForm" name="loginForm" @submit.prevent="handleSubmit(onSubmit)">
+                  <ValidationProvider name="email" vid="email" rules="required" v-slot="{ errors }">
                     <div class="default-form-box">
                       <label>Email <span>*</span></label>
-                      <input
-                        name="email"
-                        v-model="login.email"
-                        type="email"
-                        class="form-control"
-                      />
+                      <input name="email" v-model="login.email" type="email" class="form-control" />
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                   </ValidationProvider>
-                  <ValidationProvider
-                    name="password"
-                    rules="required"
-                    v-slot="{ errors }"
-                  >
+                  <ValidationProvider name="password" rules="required" v-slot="{ errors }">
                     <div class="default-form-box password-login-button">
                       <label>Mot de passe <span>*</span></label>
 
                       <div class="password-login-input">
-                        <input
-                          v-if="!login.showPassword"
-                          name="password"
-                          v-model="login.password"
-                          type="password"
-                          class="form-control"
-                          autocomplete="on"
-                        />
-                        <input
-                          v-else
-                          name="password"
-                          v-model="login.password"
-                          class="form-control"
-                          autocomplete="on"
-                        />
+                        <input v-if="!login.showPassword" name="password" v-model="login.password" type="password"
+                          class="form-control" autocomplete="on" />
+                        <input v-else name="password" v-model="login.password" class="form-control" autocomplete="on" />
                         <button class="btn-login-password">
-                          <i
-                            v-if="!login.showPassword"
-                            class="fa fa-solid fa-eye"
-                            @click.stop.prevent="showPassword()"
-                          ></i>
-                          <i
-                            v-else
-                            class="fa fa-solid fa-eye-slash"
-                            @click.stop.prevent="showPassword()"
-                          ></i>
+                          <i v-if="!login.showPassword" class="fa fa-solid fa-eye"
+                            @click.stop.prevent="showPassword()"></i>
+                          <i v-else class="fa fa-solid fa-eye-slash" @click.stop.prevent="showPassword()"></i>
                         </button>
                       </div>
 
                       <span class="error__message">{{ errors[0] }}</span>
                     </div>
                     <div class="forgot-password">
-                      <nuxt-link to="/resetting/request"
-                        >Mot de passe oublié?</nuxt-link
-                      >
+                      <nuxt-link to="/resetting/request">Mot de passe oublié?</nuxt-link>
                     </div>
                   </ValidationProvider>
                   <div class="login_submit">
-                    <button
-                      class="theme-btn-one btn-black-overlay btn_md"
-                      type="submit"
-                    >
-                      Pull!
+                    <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
+                      <b-spinner v-if="loading" small></b-spinner>
+                      <div v-else>Pull!</div>
                     </button>
-                    <nuxt-link to="/register"
-                      ><span>Ou </span>créer un compte</nuxt-link
-                    >
+                    <nuxt-link to="/register"><span>Ou </span>créer un compte</nuxt-link>
                   </div>
                   <!-- <div class="remember_area">
                     <label class="checkbox-default">
@@ -125,6 +82,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
   middleware: "guest",
   name: "Login",
+  layout: "login",
   components: { ValidationProvider, ValidationObserver },
   data() {
     return {
@@ -135,6 +93,7 @@ export default {
         password: "",
         showPassword: false,
       },
+      loading: false,
 
       // Breadcrumb Items Data
       breadcrumbItems: [
@@ -164,16 +123,22 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.loading = true;
       this.$auth
         .loginWith("cookie", { data: this.login })
         .then((res) => {
+          // this.loading = true;
+
           const user = res.data;
           this.$auth.setUser(user);
           this.$store.commit("user/LOGIN", user);
           this.$router.push("/my-account");
+
           // this.$store.dispatch("user/login", res.data);
         })
         .catch((err) => {
+          this.loading = false;
+
           const serverMessageError = err.response.data.error;
           if (serverMessageError === "Mot de passe incorrect !") {
             this.$refs.loginForm.setErrors({
@@ -203,17 +168,20 @@ export default {
       //   this.login.showPassword = false;
       // }, 5000);
     },
+
   },
+
 };
 </script>
 
-<style>
+<style >
 .login_submit {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .login_submit a {
   margin: 25px 0 0 0;
   text-decoration: none;
@@ -221,25 +189,40 @@ export default {
   font-weight: bold;
   color: rgb(105, 105, 105);
 }
+
 .login_submit span {
   text-transform: lowercase;
   font-weight: 400;
   color: rgb(158, 156, 156);
 }
+
+.login_submit button {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .forgot-password {
   text-align: center;
   margin: 0 0 20px 0;
 }
+
 .forgot-password a {
   text-decoration: none;
   color: rgb(158, 156, 156);
 }
+
 .forgot-password a:hover {
   text-decoration-line: underline;
 }
 
-.login-container {
-  width: 70%;
+/* .login-container {
+  width: 100%;
+} */
+.account_form form {
+  /* padding: 50px; */
 }
 
 .account_form h3 {
@@ -251,6 +234,7 @@ export default {
   cursor: pointer;
   /* color: rgb(183, 183, 183); */
 }
+
 /* .password-login-button input {
   border: none;
 }
@@ -290,6 +274,7 @@ export default {
   box-shadow: none;
   border-color: transparent; */
 }
+
 .password-login-button button:visited {
   background-color: #fff;
   outline: none;
@@ -297,7 +282,7 @@ export default {
   border: 1px solid var(--main-theme-color) !important;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .login-container {
     width: 80%;
   }
@@ -306,5 +291,5 @@ export default {
   .login-container {
     width: 100%;
   }
-}
+} */
 </style>

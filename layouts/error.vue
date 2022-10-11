@@ -7,10 +7,10 @@
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>Page introuvable</h2>
-              <b-breadcrumb
+              <!-- <b-breadcrumb
                 :items="breadcrumbItems"
                 class="bg-transparent"
-              ></b-breadcrumb>
+              ></b-breadcrumb> -->
             </div>
           </div>
         </div>
@@ -30,17 +30,17 @@
                 Aïe! La page que vous recherchez est introuvable ou n'est plus
                 disponible.
               </h3>
-              <form>
+              <!-- <form>
                 <div class="input-group">
                   <input type="text" class="form-control" />
                   <button><i class="fas fa-search"></i></button>
                 </div>
-              </form>
+              </form> -->
               <div>
                 <NuxtLink
                   class="error-link theme-btn-one btn-black-overlay btn_md mt-0"
                   to="/"
-                  >Back to the home page</NuxtLink
+                  >Retour à la boutique</NuxtLink
                 >
               </div>
             </div>
@@ -49,12 +49,14 @@
               class="erorr_wrapper text-center mt-4 mb-4"
             >
               <h1>403</h1>
-              <h3 class="my-3 headline">Sorry, access denied</h3>
+              <h3 class="my-3 headline">
+                Désolé, vous n’êtes pas autorisé à accéder à cette page
+              </h3>
               <div>
                 <NuxtLink
                   class="error-link theme-btn-one btn-black-overlay btn_md mt-0"
                   to="/"
-                  >Back to the home page</NuxtLink
+                  >Retour à la boutique</NuxtLink
                 >
               </div>
             </div>
@@ -63,12 +65,14 @@
               class="erorr_wrapper text-center mt-4 mb-4"
             >
               <h1>500</h1>
-              <h3 class="my-3 headline">Sorry, the server is down</h3>
+              <h3 class="my-3 headline">
+                Sorry, une erreur s'est produite...Réessayez plus tard...
+              </h3>
               <div>
                 <NuxtLink
                   class="error-link theme-btn-one btn-black-overlay btn_md mt-0"
                   to="/"
-                  >Back to the home page</NuxtLink
+                  >Retour à la boutique</NuxtLink
                 >
               </div>
             </div>

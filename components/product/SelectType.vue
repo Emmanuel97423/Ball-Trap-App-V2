@@ -1,28 +1,28 @@
 <template>
-  <div class="variable-single-item">
-    <div>
-      <span>Couleur(s)</span>
-      <!-- <span class="error-required-message"> (Champ requis)</span> -->
-    </div>
+    <div class="variable-single-item">
+        <div>
+            <span>Type</span>
+            <!-- <span class="error-required-message"> (Champ requis)</span> -->
+        </div>
 
-    <div class="product-image-variants">
-      <Spinner v-if="loading == true"></Spinner>
-      <div v-else v-for="(libelle, index) in colorArray" :key="index" class="image-variants">
-        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-          :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
-          libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
-          libelle.gammeValue.toLowerCase().slice(1)
-          }}
-          <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
-            :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-            @click="handleCLick(index, libelle.gammeCode)" />
-        </label>
+        <div class="product-image-variants">
+            <Spinner v-if="loading == true"></Spinner>
+            <div v-else v-for="(libelle, index) in typeArray" :key="index" class="image-variants">
+                <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+                    :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
+                    libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+                    libelle.gammeValue.toLowerCase().slice(1)
+                    }}
+                    <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
+                        :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+                        @click="handleCLick(index, libelle.gammeCode)" />
+                </label>
 
-        <!-- <img :src="product" @click="selectColor(index)" /> -->
-      </div>
-    </div>
+                <!-- <img :src="product" @click="selectColor(index)" /> -->
+            </div>
+        </div>
 
-    <!-- <div class="product-variable-color">
+        <!-- <div class="product-variable-color">
                     <label for="modal-product-color-red1">
                       <input
                         name="modal-product-color"
@@ -79,94 +79,91 @@
                       <span class="product-color-light-blue"></span>
                     </label>
                   </div> -->
-  </div>
+    </div>
 </template>
 
 <script>
 export default {
-  name: "SelectColor",
-  props: {
-    // colors: Array,
-    colorLibelle: Array,
-  },
-  data() {
-    return {
-      colors: "",
-      colorUniqueArray: [],
-      loading: true,
-      activeOptions: [],
-    };
-  },
-
-  methods: {
-    handleCLick(index, value) {
-      let pos = this.activeOptions.indexOf(index);
-
-      this.$emit("color-click-event", { color: value, isFocused: true });
-      if (pos === -1) {
-        this.activeOptions.splice(pos, 1);
-        this.activeOptions.push(index);
-        // this.activeOptions.splice(pos, -1);
-      } else {
-        this.activeOptions.splice(pos, 1);
-        // this.activeOptions.pop();
-      }
+    name: "SelectType",
+    props: {
+        type: Array,
     },
-  },
-  computed: {
-    colorArray() {
-      let array = [];
-      this.colorLibelle.filter((colorObject) => {
-        let i = array.findIndex(
-          (color) => colorObject.gammeCode == color.gammeCode
-        );
-        if (i <= -1) {
-          array.push(colorObject);
-        } else {
-          return null;
-        }
-      });
-      return array;
+    data() {
+        return {
+            loading: true,
+            activeOptions: [],
+        };
     },
-  },
 
-  mounted() {
-    setTimeout(() => {
-      this.loading = false;
-    }, 2500);
-  },
+    methods: {
+        handleCLick(index, value) {
+            let pos = this.activeOptions.indexOf(index);
+
+            this.$emit("type-click-event", { type: value, isFocused: true });
+            if (pos === -1) {
+                this.activeOptions.splice(pos, 1);
+                this.activeOptions.push(index);
+                // this.activeOptions.splice(pos, -1);
+            } else {
+                this.activeOptions.splice(pos, 1);
+                // this.activeOptions.pop();
+            }
+        },
+    },
+    computed: {
+        typeArray() {
+            let array = [];
+            this.type.filter((typeObject) => {
+                let i = array.findIndex(
+                    (type) => typeObject.gammeCode == type.gammeCode
+                );
+                if (i <= -1) {
+                    array.push(typeObject);
+                } else {
+                    return null;
+                }
+            });
+            return array;
+        },
+    },
+
+    mounted() {
+        setTimeout(() => {
+            this.loading = false;
+        }, 2500);
+    },
 };
 </script>
 
 <style>
 .product-image-variants {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 
-  /* flex-direction: row; */
+    /* flex-direction: row; */
 }
 
 .product-image-variants img {
-  width: 100%;
-  cursor: pointer;
-  border: 1px solid black;
+    width: 100%;
+    cursor: pointer;
+    border: 1px solid black;
 }
 
 .product-image-variants label {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .select-color-active {
-  background-color: black;
-  color: #fff;
+    background-color: black;
+    color: #fff;
 }
 
 .image-variants {
-  margin: 5px 5px 0 0;
+    margin: 5px 5px 0 0;
 }
 
 input[type="radio"] {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 </style>

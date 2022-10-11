@@ -247,7 +247,7 @@ ul li {
   background-image: url("../img/slide/breadcrumb-bg.jpg");
   padding: 90px 0;
   background-repeat: no-repeat;
-  height: 100px;
+  height: 225px;
   background-position: 0 70%
 }
 
@@ -4328,7 +4328,7 @@ table {
 -------------------------------------*/
 
 .account_form {
-  box-shadow: 0px 0px 7px 5px #0000000a;
+  /* box-shadow: 0px 0px 7px 5px #0000000a; */
   padding: 30px 40px;
   background: #fff;
 }
