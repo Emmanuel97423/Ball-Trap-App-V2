@@ -1,11 +1,16 @@
 <template>
     <div class="thumb-example">
+
         <!-- swiper1 -->
         <swiper class="swiper gallery-top" :options="swiperOptionTop" ref="swiperTop">
 
-            <swiper-slide v-for="(product,index) in productVariants" :key=index class="slide-1">
+            <swiper-slide v-for=" (variant,index) in productVariants" :key=index class="slide-1">
+                <img :src="variant.imageUrl">
+            </swiper-slide>
+            <swiper-slide class="slide-1">
                 <img :src="product.imageUrl">
             </swiper-slide>
+
 
 
 
@@ -15,8 +20,10 @@
         <!-- swiper2 Thumbs -->
         <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs">
 
-
-            <swiper-slide v-for="(product,index) in productVariants" :key=index class="slide-1">
+            <swiper-slide v-for=" (variant,index) in productVariants" :key=index class="slide-1">
+                <img :src="variant.imageUrl">
+            </swiper-slide>
+            <swiper-slide class="slide-1">
                 <img :src="product.imageUrl">
             </swiper-slide>
 
@@ -36,7 +43,7 @@ export default {
         Swiper,
         SwiperSlide
     },
-    props: { productVariants: Array },
+    props: { productVariants: Array, product: Object },
     data() {
         return {
             swiperOptionTop: {
@@ -71,8 +78,6 @@ export default {
 </script>
 
 <style  scoped>
-.swiper {}
-
 .thumb-example {
     height: 480px;
     /* background-color: $black; */
@@ -103,52 +108,4 @@ export default {
 .gallery-thumbs .swiper-slide-active {
     opacity: 1;
 }
-
-/* .swiper {
-    .swiper-slide {
-        background-size: cover;
-        background-position: center;
-
-        &.slide-1 {
-            background-image: url('/images/example/1.jpg');
-        }
-
-        &.slide-2 {
-            background-image: url('/images/example/2.jpg');
-        }
-
-        &.slide-3 {
-            background-image: url('/images/example/4.jpg');
-        }
-
-        &.slide-4 {
-            background-image: url('/images/example/5.jpg');
-        }
-
-        &.slide-5 {
-            background-image: url('/images/example/6.jpg');
-        }
-    }
-
-    &.gallery-top {
-        height: 80%;
-        width: 100%;
-    }
-
-    &.gallery-thumbs {
-        height: 20%;
-        box-sizing: border-box;
-        padding: $gap 0;
-    }
-
-    &.gallery-thumbs .swiper-slide {
-        width: 25%;
-        height: 100%;
-        opacity: 0.4;
-    }
-
-    &.gallery-thumbs .swiper-slide-active {
-        opacity: 1;
-    }
-} */
 </style>
