@@ -991,14 +991,11 @@ export default {
 
       try {
         gammesValueArray.split("¤").filter((gammeValue, indexGammeValue) => {
-          console.log('gammeValue:', gammeValue)
 
           gammeArray.split("¤").filter(async (gamme, indexGamme) => {
 
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
             fetchGamme.data.filter(async (itemGamme) => {
-              // console.log('gammeValue:', gammeValue)
-              // console.log('itemGamme.elementsGammeLibelle:', itemGamme.elementsGammeLibelle)
               if (gammeValue === itemGamme.elementsGammeLibelle) {
                 const libelleGamme = itemGamme.libelle;
                 const gammeValue = itemGamme.gammeValue;

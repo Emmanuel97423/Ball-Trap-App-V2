@@ -1,55 +1,20 @@
 <template>
   <div>
     <!-- Banner Area -->
-    <section v-if="enabled" id="common_banner_one">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="common_banner_text">
-              <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- My Account-Area -->
-    <section id="my-account_area" class="ptb-100">
+    <section id="my-account_area">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-3 col-lg-3 dashboard_container">
-            <!-- Nav tabs -->
-            <div class="dashboard_tab_button">
-              <b-navbar-nav>
-                <b-nav-item to="/my-account">Tableau de bord</b-nav-item>
-                <!-- <b-nav-item to="/my-account/orders">Commande</b-nav-item> -->
-                <!-- <b-nav-item v-if="!enabled" to="/my-account/downloads"
-                  >Downloads</b-nav-item
-                > -->
-                <b-nav-item to="/my-account/addresses">Adresse</b-nav-item>
-                <b-nav-item to="/my-account/account-details"
-                  >Détails du compte</b-nav-item
-                >
-                <b-nav-item @click="logout">Déconnexion</b-nav-item>
-              </b-navbar-nav>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-9 col-lg-9">
+
+          <div class="col-sm-12 col-md-9 col-lg-12">
             <div class="dashboard_content">
               <h3>Détails du compte</h3>
               <div class="login">
                 <div class="login_form_container">
                   <div class="account_details_form">
                     <ValidationObserver v-slot="{ handleSubmit }">
-                      <form
-                        id="accountForm"
-                        name="accountForm"
-                        @submit.prevent="handleSubmit(onSubmit)"
-                      >
+                      <form id="accountForm" name="accountForm" @submit.prevent="handleSubmit(onSubmit)">
                         <p v-if="!enabled">
                           Already have an account?
                           <nuxt-link to="/login">Log in instead!</nuxt-link>
@@ -73,101 +38,51 @@
                         >
                       </div> -->
                         <br />
-                        <ValidationProvider
-                          name="firstName"
-                          rules="required|alpha"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="firstName" rules="required|alpha" v-slot="{ errors }">
                           <div class="default-form-box mb-20">
                             <label>Nom</label>
-                            <input
-                              v-model="accountDetails.firstName"
-                              type="text"
-                              name="firstName"
-                              class="form-control"
-                              :placeholder="userDetails.data.firstName"
-                            />
+                            <input v-model="accountDetails.firstName" type="text" name="firstName" class="form-control"
+                              :placeholder="userDetails.data.firstName" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
-                        <ValidationProvider
-                          name="lastName"
-                          rules="required|alpha"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="lastName" rules="required|alpha" v-slot="{ errors }">
                           <div class="default-form-box mb-20">
                             <label>Prénom</label>
-                            <input
-                              v-model="accountDetails.lastName"
-                              type="text"
-                              name="lastName"
-                              class="form-control"
-                              :placeholder="userDetails.data.lastName"
-                            />
+                            <input v-model="accountDetails.lastName" type="text" name="lastName" class="form-control"
+                              :placeholder="userDetails.data.lastName" />
 
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
-                        <ValidationProvider
-                          name="email"
-                          rules="required"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="email" rules="required" v-slot="{ errors }">
                           <div class="default-form-box mb-20">
                             <label>Email</label>
-                            <input
-                              v-model="accountDetails.email"
-                              type="text"
-                              name="email"
-                              class="form-control"
-                            />
+                            <input v-model="accountDetails.email" type="text" name="email" class="form-control" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
 
                         <!-- Password -->
 
-                        <ValidationProvider
-                          name="password"
-                          rules="required|password:@confirmPassword"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="password" rules="required|password:@confirmPassword"
+                          v-slot="{ errors }">
                           <div class="default-form-box">
-                            <label for="password"
-                              >Mot de passe <span>*</span></label
-                            >
-                            <input
-                              v-model="accountDetails.password"
-                              id="password"
-                              name="password"
-                              type="password"
-                              class="form-control"
-                              autocomplete="on"
-                            />
+                            <label for="password">Mot de passe <span>*</span></label>
+                            <input v-model="accountDetails.password" id="password" name="password" type="password"
+                              class="form-control" autocomplete="on" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
 
                         <!-- Confirm password confirmation -->
 
-                        <ValidationProvider
-                          name="confirmPassword"
-                          rules="required"
-                          v-slot="{ errors }"
-                        >
+                        <ValidationProvider name="confirmPassword" rules="required" v-slot="{ errors }">
                           <div class="default-form-box">
-                            <label for="confirmPassword"
-                              >Confirmez votre mot de passe
-                              <span>*</span></label
-                            >
-                            <input
-                              v-model="accountDetails.confirmation"
-                              id="confirmPassword"
-                              name="confirmPassword"
-                              type="password"
-                              class="form-control"
-                              autocomplete="on"
-                            />
+                            <label for="confirmPassword">Confirmez votre mot de passe
+                              <span>*</span></label>
+                            <input v-model="accountDetails.confirmation" id="confirmPassword" name="confirmPassword"
+                              type="password" class="form-control" autocomplete="on" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
@@ -200,10 +115,7 @@
                         </span>
                       </label> -->
                         <div class="save_button mt-3"></div>
-                        <button
-                          class="theme-btn-one btn-black-overlay btn_md"
-                          type="submit"
-                        >
+                        <button class="theme-btn-one btn-black-overlay btn_md" type="submit">
                           Sauvegarder les modifications
                         </button>
                       </form>
@@ -225,6 +137,7 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
   name: "AccountDetails",
   middleware: "auth",
+  layout: "account",
   components: {
     ValidationProvider,
     ValidationObserver,

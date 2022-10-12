@@ -7,13 +7,16 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="common_banner_text">
-              <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
-            </div>
+            <Comp class="common_banner_text">
+              <template v-if="username">
+                <h2>Salut {{username}},</h2>
+
+              </template>
+              <template v-else>
+                <h2>{{title}}</h2>
+              </template>
+              <!-- <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb> -->
+            </Comp>
           </div>
         </div>
       </div>
@@ -33,10 +36,8 @@
                 <!-- <b-nav-item v-if="!enabled" to="/my-account/downloads"
                   >Downloads</b-nav-item
                 > -->
-                <b-nav-item to="/my-account/addresses">Adresse</b-nav-item>
-                <b-nav-item to="/my-account/account-details"
-                  >Détails du compte</b-nav-item
-                >
+                <!-- <b-nav-item to="/my-account/addresses">Adresse</b-nav-item> -->
+                <b-nav-item to="/my-account/account-details">Détails du compte</b-nav-item>
                 <b-nav-item @click="logout">Déconnexion</b-nav-item>
               </b-navbar-nav>
             </div>
@@ -66,12 +67,15 @@
         </div>
       </div>
     </section>
-    <div><FooterNav /></div>
+    <div>
+      <FooterNav />
+    </div>
     <Footer id="footer__app" v-if="enabled" />
   </div>
 </template>
 
 <script>
+
 import NavCategories from "@/components/header/Categories";
 export default {
   name: "Dashboard",
@@ -98,7 +102,9 @@ export default {
       login: {
         email: "",
         password: "",
+
       },
+      username: "",
     };
   },
   // Page head() Title, description for SEO
@@ -133,6 +139,9 @@ export default {
     this.$store.dispatch("adress/getAdresses", userObject.userId);
     this.$store.dispatch("order/getOrders", userObject.userId);
     this.$store.dispatch("nav/getCategory");
+    this.username = this.$store.state.user.userDetails.data.firstName
+
+
 
     // // this.$auth.refreshTokens();
     // this.login.email = this.$store.state.user.userLogin.email;
