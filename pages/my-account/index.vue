@@ -4,15 +4,10 @@
     <p>
       Depuis le tableau de bord de votre compte. vous pouvez facilement vérifier
       &amp; afficher vos
-      <nuxt-link to="/my-account/orders">recentes commande</nuxt-link>, gérer
-      vos
-      <nuxt-link to="/my-account/addresses"
-        >adresses de livraison et de facturation</nuxt-link
-      >
+      <nuxt-link to="/my-account/purchases">recentes commande</nuxt-link>
       et
-      <nuxt-link to="/my-account/account-details"
-        >modifier votre mot de passe et les détails de votre compte.</nuxt-link
-      >
+      <nuxt-link to="/my-account/account-details">modifier votre mot de passe et les détails de votre compte.
+      </nuxt-link>
     </p>
   </div>
 </template>

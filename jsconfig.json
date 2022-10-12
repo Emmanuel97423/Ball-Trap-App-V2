@@ -3,5 +3,8 @@
         "./pages/**/*",
         "./layouts/**/*",
         "./components/**/*"
-    ]
+    ],
+    "vueCompilerOptions": {
+        "target": 2
+    }
 }
