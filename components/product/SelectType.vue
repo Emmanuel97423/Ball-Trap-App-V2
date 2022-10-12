@@ -2,13 +2,10 @@
     <div class="variable-single-item">
         <div>
             <span>Type</span>
-            <!-- <span class="error-required-message"> (Champ requis)</span> -->
         </div>
-
         <Comp class="product-image-variants">
             <template v-if="loading == true">
                 <Spinner></Spinner>
-
             </template>
             <template v-else>
                 <div v-for="(libelle, index) in typeArray" :key="index" class="image-variants">
@@ -21,86 +18,9 @@
                             :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
                             @click="handleCLick(index, libelle.gammeCode)" />
                     </label>
-
                 </div>
             </template>
         </Comp>
-
-
-
-        <!-- <div class="product-image-variants">
-            <Spinner v-if="loading == true"></Spinner>
-            <div v-else v-for="(libelle, index) in typeArray" :key="index" class="image-variants">
-                <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-                    :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
-                    libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
-                    libelle.gammeValue.toLowerCase().slice(1)
-                    }}
-                    <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
-                        :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-                        @click="handleCLick(index, libelle.gammeCode)" />
-                </label>
-
-            </div>
-        </div> -->
-
-        <!-- <div class="product-variable-color">
-                    <label for="modal-product-color-red1">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-red1"
-                        class="color-select"
-                        type="radio"
-                        checked=""
-                      />
-                      <span class="product-color-red"></span>
-                    </label>
-                    <label for="modal-product-color-tomato2">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-tomato2"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-tomato"></span>
-                    </label>
-                    <label for="modal-product-color-green3">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-green3"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-green"></span>
-                    </label>
-                    <label for="modal-product-color-light-green4">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-light-green4"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-light-green"></span>
-                    </label>
-                    <label for="modal-product-color-blue5">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-blue5"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-blue"></span>
-                    </label>
-                    <label for="modal-product-color-light-blue6">
-                      <input
-                        name="modal-product-color"
-                        id="modal-product-color-light-blue6"
-                        class="color-select"
-                        type="radio"
-                      />
-                      <span class="product-color-light-blue"></span>
-                    </label>
-                  </div> -->
     </div>
 </template>
 

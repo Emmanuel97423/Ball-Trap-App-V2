@@ -34,7 +34,7 @@
           </div>
           <div class="row area_boxed">
             <div class="col-lg-4 col-img">
-              <div class="product_single_one_img">
+              <div v-if="!enabled" class="product_single_one_img">
                 <swiper v-if="product.isAProductGamme == true" class="swiper product-single-2-slider"
                   :options="swiperOption" ref="swiperImage">
                   <!-- <swiper-slide>
@@ -59,7 +59,11 @@
                   <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
                   <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
                 </swiper>
+
               </div>
+              <ImageSwiper :productVariants="productVariants" />
+
+
             </div>
 
             <div class="col-lg-8">
@@ -627,6 +631,8 @@ import SelectInscription from "@/components/product/SelectInscription";
 import AfterPayMessage from "@/components/product/AfterPayMessage";
 import { ProductFactory } from "@/utils/product/productClasse";
 import ClickCollect from "@/components/product/ClickCollect";
+import ImageSwiper from "../../components/product/ImageSwiper.vue";
+
 
 export default {
   middleware: "auth",
@@ -646,6 +652,7 @@ export default {
     SelectType,
     SelectInscription,
     ClickCollect,
+    ImageSwiper
   },
 
   data() {
@@ -1120,6 +1127,23 @@ export default {
 </script>
 
 <style scoped>
+.product-thumbail-image {
+  padding: 10px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.product-thumbail-image img {
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+}
+
+.product-thumbail-image img:nth-child(n) {
+  margin: 0 0 0 10px;
+}
+
 .btn-green-overlay {
   background-color: green;
   color: #fff;

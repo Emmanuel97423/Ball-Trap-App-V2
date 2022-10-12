@@ -10,7 +10,6 @@
             <Comp class="common_banner_text">
               <template v-if="username">
                 <h2>Salut {{username}},</h2>
-
               </template>
               <template v-else>
                 <h2>{{title}}</h2>
