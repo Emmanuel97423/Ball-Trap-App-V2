@@ -5,7 +5,30 @@
             <!-- <span class="error-required-message"> (Champ requis)</span> -->
         </div>
 
-        <div class="product-image-variants">
+        <Comp class="product-image-variants">
+            <template v-if="loading == true">
+                <Spinner></Spinner>
+
+            </template>
+            <template v-else>
+                <div v-for="(libelle, index) in typeArray" :key="index" class="image-variants">
+                    <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+                        :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
+                        libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+                        libelle.gammeValue.toLowerCase().slice(1)
+                        }}
+                        <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
+                            :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+                            @click="handleCLick(index, libelle.gammeCode)" />
+                    </label>
+
+                </div>
+            </template>
+        </Comp>
+
+
+
+        <!-- <div class="product-image-variants">
             <Spinner v-if="loading == true"></Spinner>
             <div v-else v-for="(libelle, index) in typeArray" :key="index" class="image-variants">
                 <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
@@ -18,9 +41,8 @@
                         @click="handleCLick(index, libelle.gammeCode)" />
                 </label>
 
-                <!-- <img :src="product" @click="selectColor(index)" /> -->
             </div>
-        </div>
+        </div> -->
 
         <!-- <div class="product-variable-color">
                     <label for="modal-product-color-red1">

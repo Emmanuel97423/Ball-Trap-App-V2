@@ -1,44 +1,25 @@
 <template>
   <div>
     <!-- Banner Area -->
-    <section v-if="enabled" id="common_banner_one">
+    <!-- <section v-if="enabled" id="common_banner_one">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="common_banner_text">
               <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="bg-transparent"></b-breadcrumb>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- My Account-Area -->
-    <section id="my-account_area" class="ptb-100">
+    <section id="my-account_area">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-3 col-lg-3 dashboard_container">
-            <!-- Nav tabs -->
-            <div class="dashboard_tab_button">
-              <b-navbar-nav>
-                <b-nav-item to="/my-account">Tableau de bord</b-nav-item>
-                <!-- <b-nav-item to="/my-account/orders">Commande</b-nav-item> -->
-                <!-- <b-nav-item v-if="!enabled" to="/my-account/downloads"
-                  >Downloads</b-nav-item
-                > -->
-                <b-nav-item to="/my-account/addresses">Adresse</b-nav-item>
-                <b-nav-item to="/my-account/account-details"
-                  >Détails du compte</b-nav-item
-                >
-                <b-nav-item @click="logout">Déconnexion</b-nav-item>
-              </b-navbar-nav>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-9 col-lg-9">
+
+          <div>
             <div class="dashboard_content">
               <p>
                 Les adresses suivantes seront utilisées par défaut sur la page
@@ -47,8 +28,7 @@
               <h5 class="billing-address">Adresse</h5>
 
               <p v-if="adresses">
-                <strong
-                  >{{ adresses.firstName }} {{ adresses.lastName }}
+                <strong>{{ adresses.firstName }} {{ adresses.lastName }}
                 </strong>
               </p>
               <div>
@@ -86,12 +66,7 @@
                           {{ adresses.firstName }} {{ adresses.lastName }}
                         </td>
                         <td class="adresses_default">
-                          <input
-                            type="radio"
-                            name="adress_default"
-                            value="default"
-                            checked="true"
-                          />
+                          <input type="radio" name="adress_default" value="default" checked="true" />
                         </td>
                       </tr>
                     </tbody>
@@ -104,10 +79,7 @@
                   </table>
                 </div>
               </div>
-              <button
-                @click="formShow"
-                class="theme-btn-one btn-black-overlay btn_md"
-              >
+              <button @click="formShow" class="theme-btn-one btn-black-overlay btn_md">
                 Editer
               </button>
             </div>
@@ -125,6 +97,7 @@ import Modal from "~/components/modal/adressModal";
 export default {
   name: "Addresses",
   middleware: "auth",
+  layout: "account",
   props: {
     method: Function,
   },
@@ -248,9 +221,11 @@ export default {
   font-size: 15px;
   cursor: pointer;
 }
+
 .invoice__adresse {
   font-weight: bold;
 }
+
 .btn_md {
   margin: 0 0 1rem 0;
 }
