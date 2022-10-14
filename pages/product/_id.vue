@@ -61,7 +61,19 @@
                 </swiper>
 
               </div>
-              <ImageSwiper :productVariants="productVariants" />
+              <ImageSwiper :productVariants="productVariants" :product="product" />
+
+              <!-- <Comp>
+                <template v-if="productVariants.length > 0">
+                  <ImageSwiper :productVariants="productVariants" />
+
+                </template>
+                <template v-else>
+                  <ImageSwiper :product="product" />
+
+                </template>
+
+              </Comp> -->
 
 
             </div>

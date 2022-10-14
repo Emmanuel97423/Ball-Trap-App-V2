@@ -9,7 +9,10 @@
     </transition>
 
     <Spinner id="spinner__app"></Spinner>
-    <div><FooterNav /></div>
+    <div>
+      <FooterAssurances />
+      <FooterNav />
+    </div>
     <Footer id="footer__app" v-if="enabled" />
   </div>
 </template>
@@ -19,6 +22,8 @@ import Spinner from "../components/spinner";
 import FooterNav from "@/components/footer/FooterNav";
 import NavCategories from "@/components/header/Categories";
 import LeftCategoriesNav from "~/components/navigation/LeftCategoriesNav";
+import FooterAssurances from "@/components/footer/FooterAssurances";
+
 
 export default {
   components: {
@@ -26,6 +31,8 @@ export default {
     FooterNav,
     NavCategories,
     LeftCategoriesNav,
+    FooterAssurances
+
   },
   data() {
     return {
@@ -46,10 +53,12 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .error__message {
   color: red;
   font-size: 12px;
 }
+
 /* #nuxt__app {
   width: 100%;
   height: 100%;
@@ -64,6 +73,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
+
 #footer__app {
   /* position: absolute; */
   margin-top: auto;
@@ -75,6 +85,7 @@ export default {
 .fa-user {
   color: black;
 }
+
 /* #my-account_area {
   height: 100vh;
 } */

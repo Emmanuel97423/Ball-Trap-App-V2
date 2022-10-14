@@ -7,9 +7,10 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
+            <!-- <h2>Salut Cow-Boy,</h2> -->
             <Comp class="common_banner_text">
               <template v-if="username">
-                <h2>Salut {{username}},</h2>
+                <h2>Salut Cow-Boy,</h2>
               </template>
               <template v-else>
                 <h2>{{title}}</h2>
@@ -67,6 +68,7 @@
       </div>
     </section>
     <div>
+      <FooterAssurances />
       <FooterNav />
     </div>
     <Footer id="footer__app" v-if="enabled" />
@@ -76,11 +78,16 @@
 <script>
 
 import NavCategories from "@/components/header/Categories";
+import FooterAssurances from "@/components/footer/FooterAssurances";
+import FooterNav from "@/components/footer/FooterNav";
+
 export default {
   name: "Dashboard",
   middleware: "auth",
   components: {
     NavCategories,
+    FooterNav,
+    FooterAssurances
   },
   data() {
     return {
@@ -138,7 +145,11 @@ export default {
     this.$store.dispatch("adress/getAdresses", userObject.userId);
     this.$store.dispatch("order/getOrders", userObject.userId);
     this.$store.dispatch("nav/getCategory");
-    this.username = this.$store.state.user.userDetails.data.firstName
+    // if (this.$store.state.user) {
+    //   this.username = this.$store.state.user.userDetails.data.firstName
+    // } else {
+    //   this.username = "Cow-Boy"
+    // }
 
 
 
