@@ -1,67 +1,14 @@
 <template>
   <div>
-    <!-- Banner Area -->
-    <section v-if="!enabled" id="common_banner_one">
-      <div class="container ">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="common_banner_text">
-              <h2>{{ this.title }}</h2>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="bg-transparent"
-              ></b-breadcrumb>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Login-Area -->
-    <section id="login_area" class="ptb-100">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="account_form">
-              <h3>Connexion</h3>
-              <form @submit.prevent="userLogin">
-                <div class="default-form-box">
-                  <label>Email <span>*</span></label>
-                  <input
-                    v-model="login.email"
-                    type="text"
-                    class="form-control"
-                  />
-                </div>
-                <div class="default-form-box">
-                  <label>Mot de passe <span>*</span></label>
-                  <input
-                    v-model="login.password"
-                    type="password"
-                    class="form-control"
-                  />
-                </div>
-                <div class="login_submit">
-                  <button
-                    class="theme-btn-one btn-black-overlay btn_md"
-                    type="submit"
-                  >
-                    Connexion
-                  </button>
-                </div>
-                <p v-if="error.enabled">{{ error.message }}</p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <h1>Tableau de bord</h1>
   </div>
 </template>
 
 <script>
 export default {
   name: "Login",
+  layout: "admin",
+  middleware: "auth",
   data() {
     return {
       enabled: true,
@@ -103,6 +50,23 @@ export default {
       }
     },
   },
+  mounted() {
+    if (this.$store.state.auth.user) {
+      const userAuthObject = this.$store.state.auth.user.userObject;
+      const role = this.$store.state.auth.user.userObject.role;
+      console.log('role:', role)
+      if (role !== "administrator") {
+        this.$router.push('/admin/no-access')
+      }
+    }
+
+
+
+
+  },
+  // asyncData({ redirect }) {
+  //   console.log('this.$store.state.auth:', this.$store.state.auth)
+  // },
 
   // Page head() Title, description for SEO
   head() {
@@ -120,4 +84,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

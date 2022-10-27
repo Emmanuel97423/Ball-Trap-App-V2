@@ -41,16 +41,15 @@
                         <ValidationProvider name="firstName" rules="required|alpha" v-slot="{ errors }">
                           <div class="default-form-box mb-20">
                             <label>Nom</label>
-                            <input v-model="accountDetails.firstName" type="text" name="firstName" class="form-control"
-                              :placeholder="userDetails.data.firstName" />
+                            <input v-model="accountDetails.firstName" type="text" name="firstName"
+                              class="form-control" />
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
                         </ValidationProvider>
                         <ValidationProvider name="lastName" rules="required|alpha" v-slot="{ errors }">
                           <div class="default-form-box mb-20">
                             <label>Prénom</label>
-                            <input v-model="accountDetails.lastName" type="text" name="lastName" class="form-control"
-                              :placeholder="userDetails.data.lastName" />
+                            <input v-model="accountDetails.lastName" type="text" name="lastName" class="form-control" />
 
                             <span class="error__message">{{ errors[0] }}</span>
                           </div>
