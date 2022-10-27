@@ -1,11 +1,14 @@
 <template>
-  <div>Admin content</div>
+  <div>
+    <h1>Tableau de bord</h1>
+  </div>
 </template>
 
 <script>
 export default {
   name: "Login",
   layout: "admin",
+  middleware: "auth",
   data() {
     return {
       enabled: true,
@@ -48,13 +51,16 @@ export default {
     },
   },
   mounted() {
-    console.log('this.$store.state.auth:', this.$store.state.auth);
-    const userAuthObject = this.$store.state.auth.user.userObject;
-    const role = this.$store.state.auth.user.userObject.role;
-    console.log('role:', role)
-    if (role !== "administrator") {
-      this.$router.push('/admin/no-access')
+    if (this.$store.state.auth.user) {
+      const userAuthObject = this.$store.state.auth.user.userObject;
+      const role = this.$store.state.auth.user.userObject.role;
+      console.log('role:', role)
+      if (role !== "administrator") {
+        this.$router.push('/admin/no-access')
+      }
     }
+
+
 
 
   },

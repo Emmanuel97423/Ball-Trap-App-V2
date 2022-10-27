@@ -89,7 +89,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="theme-btn-one btn-black-overlay btn_md">Gérer la commande</button>
+
+
+                        <!-- Order Modal -->
+                        <OrderModal :order="order" />
+
                         <!-- <b-card-text
                 >I start opened because <code>visible</code> is
                 <code>true</code></b-card-text
@@ -99,12 +103,19 @@
                 </b-collapse>
             </b-card>
         </div>
+
     </div>
+
     <!-- </b-container> -->
 </template>
 <script>
+import OrderModal from "@/components/admin/OrderModal"
 export default {
     layout: 'admin',
+    middleware: "auth",
+    components: {
+        OrderModal,
+    },
     data() {
         return {
             orders: "",
@@ -123,7 +134,16 @@ export default {
             console.log('error:', error)
 
         }
-    }
+    },
+    mounted() {
+        if (this.$store.state.auth.user) {
+            const userAuthObject = this.$store.state.auth.user.userObject;
+            const role = this.$store.state.auth.user.userObject.role;
+            if (role !== "administrator") {
+                this.$router.push('/admin/no-access')
+            }
+        }
+    },
 }
 </script>
 <style scoped>
