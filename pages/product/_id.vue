@@ -555,6 +555,18 @@
           </div>
         </div>
       </section>
+      <!-- Start product variants list -->
+      <section class="product-variants">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <h3>ETAT DU STOCK</h3>
+              <ListVariants :productVariants="productVariants" @handleAddToCart="addToCartByListVariants" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End product variants list -->
       <!-- Related Product -->
       <section id="related_product" class="pb-100">
         <div class="container">
@@ -644,6 +656,7 @@ import AfterPayMessage from "@/components/product/AfterPayMessage";
 import { ProductFactory } from "@/utils/product/productClasse";
 import ClickCollect from "@/components/product/ClickCollect";
 import ImageSwiper from "../../components/product/ImageSwiper.vue";
+import ListVariants from "@/components/product/ListVariants";
 
 
 export default {
@@ -664,7 +677,8 @@ export default {
     SelectType,
     SelectInscription,
     ClickCollect,
-    ImageSwiper
+    ImageSwiper,
+    ListVariants,
   },
 
   data() {
@@ -933,6 +947,14 @@ export default {
           }
         }
       }
+    },
+    async addToCartByListVariants(payload) {
+
+      this.$store.commit(
+        "cart/add",
+        payload
+      );
+      this.toggleModal();
     },
     toggleModal() {
       // We pass the ID of the button that we want to return focus to
