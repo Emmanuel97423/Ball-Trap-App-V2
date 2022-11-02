@@ -54,19 +54,12 @@ export default {
     if (this.$store.state.auth.user) {
       const userAuthObject = this.$store.state.auth.user.userObject;
       const role = this.$store.state.auth.user.userObject.role;
-      console.log('role:', role)
       if (role !== "administrator") {
         this.$router.push('/admin/no-access')
       }
     }
-
-
-
-
   },
-  // asyncData({ redirect }) {
-  //   console.log('this.$store.state.auth:', this.$store.state.auth)
-  // },
+
 
   // Page head() Title, description for SEO
   head() {
