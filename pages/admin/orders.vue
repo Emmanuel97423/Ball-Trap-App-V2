@@ -19,12 +19,38 @@
                         <div class="box-purchase-price">
                             <span>{{ order.amount.toFixed(2) }} €</span> <span>Total</span>
                         </div>
-                        <div class="box-purchase-status">
+                        <!-- Status condition -->
+                        <div v-if="order.status === 'En attente...'" class="box-purchase-status orange-status">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-circle-fill" viewBox="0 0 16 16">
                                 <circle cx="8" cy="8" r="8" />
                             </svg>{{ order.status }}
                         </div>
+                        <div v-if="order.status === 'En cours de préparation'" class="box-purchase-status blue-status">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>{{ order.status }}
+                        </div>
+                        <div v-if="order.status === 'Commande prête'" class="box-purchase-status green-status">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>{{ order.status }}
+                        </div>
+                        <div v-if="order.status === 'Commande retirée'" class="box-purchase-status grey-status">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>{{ order.status }}
+                        </div>
+                        <div v-if="order.status === 'Commande annulée'" class="box-purchase-status red-status">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-circle-fill" viewBox="0 0 16 16">
+                                <circle cx="8" cy="8" r="8" />
+                            </svg>{{ order.status }}
+                        </div>
+                        <!-- End of Status condition -->
                     </b-button>
                 </b-card-header>
                 <b-collapse :id="order.orderNumberId" visible accordion="my-accordion" role="tabpanel">
@@ -92,7 +118,7 @@
 
 
                         <!-- Order Modal -->
-                        <OrderModal :order="order" />
+                        <OrderModal :order="order" @handleChangeOrderStatus=handleChangeOrderStatus />
 
                         <!-- <b-card-text
                 >I start opened because <code>visible</code> is
@@ -120,13 +146,24 @@ export default {
         return {
             orders: "",
 
+
+        }
+    },
+
+    methods: {
+        async handleChangeOrderStatus(payload) {
+
+            const fetchOrderStatus = await this.$axios.post("/order/changeOrderStatus/", payload)
+            if (fetchOrderStatus) {
+                this.$nuxt.refresh()
+            }
+
         }
     },
     async fetch() {
         try {
             const ordersData = await this.$axios.get("/order/allOrdersAdmin");
             if (ordersData) {
-                console.log('ordersData:', ordersData)
                 this.orders = ordersData.data.orders
 
             }
@@ -178,7 +215,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: orange;
+
 }
 
 .box-purchase-status svg {
@@ -221,5 +258,26 @@ export default {
 
 .purchase-body-infos-payment-mode-type {
     text-align: right;
+}
+
+/* order Color status */
+.orange-status {
+    color: orange;
+}
+
+.blue-status {
+    color: blue;
+}
+
+.green-status {
+    color: green;
+}
+
+.red-status {
+    color: red;
+}
+
+.grey-status {
+    color: grey;
 }
 </style>
