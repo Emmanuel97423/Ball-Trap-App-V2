@@ -10,7 +10,8 @@
             <b-form-select v-model="orderStatusSelected" :options="orderStatusOptions" size="sm" class="mt-3">
             </b-form-select>
 
-            <button class="theme-btn-one btn-black-overlay btn_md btn-modal">Sauvegarder</button>
+            <button class="theme-btn-one btn-black-overlay btn_md btn-modal"
+                @click="handleChangeOrderStatus(order, orderStatusSelected)">Sauvegarder</button>
         </b-modal>
 
     </div>
@@ -27,6 +28,7 @@ export default {
                 { value: "En cours de préparation", text: "En cours de préparation" },
                 { value: "Commande prête", text: "Commande prête" },
                 { value: "Commande retirée", text: "Commande retirée" },
+                { value: "Commande annulée", text: "Commande annulée" },
             ],
             orderStatusSelected: null
         }
@@ -34,6 +36,19 @@ export default {
     computed: {
         modalId() {
             return this.order._id
+        }
+    },
+    methods: {
+        handleChangeOrderStatus(order, orderStatusSelected) {
+            const status = orderStatusSelected
+            const orderStatusObject = {
+                orderId: order.orderNumberId,
+                status: status,
+                userId: order.userId
+            }
+            this.$emit("handleChangeOrderStatus", orderStatusObject)
+            this.$bvModal.hide(this.modalId)
+
         }
     }
 }
