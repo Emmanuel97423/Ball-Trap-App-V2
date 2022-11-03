@@ -100,6 +100,7 @@
 
                     <AfterPayMessage :amount="product.pvTtc" />
                     <ClickCollect />
+
                     <p class="pt-15">
                       {{ product.description }}
                     </p>
@@ -858,6 +859,14 @@ export default {
   },
 
   computed: {
+    rtfToHtmlDescription() {
+      const rtfString = this.product.description
+      const RegRtf = /\\\w+|\{.*?\}|}/g
+
+      return rtfString.replace(RegRtf, " ")
+
+
+    },
     uniqueSize() {
       return [...new Set(this.size)];
     },
@@ -878,6 +887,9 @@ export default {
     },
   },
   methods: {
+
+
+
     clickQuantitySelect() {
       this.orderQuantity;
     },
@@ -1037,6 +1049,7 @@ export default {
 
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
             fetchGamme.data.filter(async (itemGamme) => {
+
               if (gammeValue === itemGamme.elementsGammeLibelle) {
                 const libelleGamme = itemGamme.libelle;
                 const gammeValue = itemGamme.gammeValue;
