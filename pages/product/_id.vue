@@ -1037,6 +1037,7 @@ export default {
 
             const fetchGamme = await this.$axios.get("/gammes/gamme/" + gamme);
             fetchGamme.data.filter(async (itemGamme) => {
+
               if (gammeValue === itemGamme.elementsGammeLibelle) {
                 const libelleGamme = itemGamme.libelle;
                 const gammeValue = itemGamme.gammeValue;

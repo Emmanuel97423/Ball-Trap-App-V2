@@ -437,6 +437,9 @@ button {
 .sticky-header.sticky.sticky-color--black {
   background: #24262b;
 }
+.sticky-header.sticky.sticky-color--grey {
+  background:#e9e8e2;
+}
 
 .search_width img {
   width: 20px;
