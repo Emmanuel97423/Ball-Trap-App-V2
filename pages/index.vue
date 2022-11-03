@@ -17,98 +17,63 @@
           </div>
         </div> -->
         <div class="row pt-50">
-          <div
-            v-for="assuranceItem in assuranceItems.slice(0, 3)"
-            :key="assuranceItem.id"
-            class="col-lg-4 col-md-4 col-sm-6 col-12"
-          >
-            <Assurance
-              :blogThumb="assuranceItem.assuranceThumb"
-              :blogTitle="assuranceItem.assuranceTitle"
-              :blogDescription="assuranceItem.assuranceDescription"
-            />
+          <div v-for="assuranceItem in assuranceItems.slice(0, 3)" :key="assuranceItem.id"
+            class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <Assurance :blogThumb="assuranceItem.assuranceThumb" :blogTitle="assuranceItem.assuranceTitle"
+              :blogDescription="assuranceItem.assuranceDescription" />
           </div>
         </div>
       </div>
     </section>
     <!-- Product variation -->
-    <section
-      id="product_variation_one"
-      class="categories-section categorie-section pt-50"
-    >
+    <section id="product_variation_one" class="categories-section categorie-section pt-50">
       <div class="container-fluid">
         <div class="row">
           <div id="col-1" class="col-lg-4 col-md-12">
-            <div
-              id="equipement-card"
-              class="product_variation_one_boxed img-zoom-hover"
-            >
-              <nuxt-link
-                :to="{
-                  path: '/shop/category/accessoires-ball-trap',
-                  query: {
-                    codefamille: `FAR00002`,
-                    libelleFamille: `ACCESSOIRES BALL TRAP`,
-                  },
-                }"
-              >
-                <img
-                  class="img"
-                  :src="require('@/assets/img/banner/accessoires.png')"
-                  alt="img"
-                />
+            <div id="equipement-card" class="product_variation_one_boxed img-zoom-hover">
+              <nuxt-link :to="{
+                path: '/shop/category/accessoires-ball-trap',
+                query: {
+                  codefamille: `FAR00002`,
+                  libelleFamille: `ACCESSOIRES BALL TRAP`,
+                },
+              }">
+                <img class="img" :src="require('@/assets/img/banner/accessoires.png')" alt="img" />
                 <div class="product_var_one_text">
                   <h4 class="color_one">Ball trap</h4>
                   <h2 class="color_two text-light">Accessoires</h2>
                   <!-- <h4 class="color_two">Collection</h4> -->
-                  <nuxt-link
-                    class="theme-btn-one bg-black btn_sm"
-                    :to="{
-                      path: '/shop/category/accessoires-ball-trap',
-                      query: {
-                        codefamille: `FAR00002`,
-                        libelleFamille: `ACCESSOIRES BALL TRAP`,
-                      },
-                    }"
-                    >Pull!</nuxt-link
-                  >
+                  <nuxt-link class="theme-btn-one bg-black btn_sm" :to="{
+                    path: '/shop/category/accessoires-ball-trap',
+                    query: {
+                      codefamille: `FAR00002`,
+                      libelleFamille: `ACCESSOIRES BALL TRAP`,
+                    },
+                  }">Pull!</nuxt-link>
                 </div>
               </nuxt-link>
             </div>
 
-            <div
-              id="weapon-card"
-              class="product_variation_one_boxed img-zoom-hover"
-            >
-              <nuxt-link
-                :to="{
-                  path: '/shop/category/armes-cat-c',
-                  query: {
-                    codefamille: `FAR00003`,
-                    libelleFamille: `ARMES CAT C`,
-                  },
-                }"
-              >
-                <img
-                  class="opacity-25"
-                  :src="require('@/assets/img/banner/fusil-ball-trap.png')"
-                  alt="img"
-                />
+            <div id="weapon-card" class="product_variation_one_boxed img-zoom-hover">
+              <nuxt-link :to="{
+                path: '/shop/category/armes-cat-c',
+                query: {
+                  codefamille: `FAR00003`,
+                  libelleFamille: `ARMES CAT C`,
+                },
+              }">
+                <img class="opacity-25" :src="require('@/assets/img/banner/fusil-ball-trap.png')" alt="img" />
                 <div class="product_var_one_text">
                   <!-- <h4 class="color_one">Hiver</h4> -->
                   <h2 class="text-light">Armes</h2>
                   <h4 class="color_one">Catégorie C.</h4>
-                  <nuxt-link
-                    :to="{
-                      path: '/shop/category/armes-cat-c',
-                      query: {
-                        codefamille: `FAR00003`,
-                        libelleFamille: `ARMES CAT C`,
-                      },
-                    }"
-                    class="theme-btn-one bg-black btn_sm"
-                    >Pull!</nuxt-link
-                  >
+                  <nuxt-link :to="{
+                    path: '/shop/category/armes-cat-c',
+                    query: {
+                      codefamille: `FAR00003`,
+                      libelleFamille: `ARMES CAT C`,
+                    },
+                  }" class="theme-btn-one bg-black btn_sm">Pull!</nuxt-link>
                 </div>
               </nuxt-link>
             </div>
@@ -133,108 +98,71 @@
                 </div> -->
             <!-- </nuxt-link>
             </div> -->
-            <div
-              id="textile-card"
-              class="product_variation_one_boxed img-zoom-hover"
-            >
-              <nuxt-link
-                :to="{
-                  path: '/shop/category/vêtements-ball-trap',
-                  query: {
-                    codefamille: `FAR00001`,
-                    libelleFamille: `VÊTEMENTS BALL TRAP`,
-                  },
-                }"
-              >
-                <img
-                  class="textile-img"
-                  :src="require('@/assets/img/banner/textile.png')"
-                  alt="img"
-                />
+            <div id="textile-card" class="product_variation_one_boxed img-zoom-hover">
+              <nuxt-link :to="{
+                path: '/shop/category/vêtements-ball-trap',
+                query: {
+                  codefamille: `FAR00001`,
+                  libelleFamille: `VÊTEMENTS BALL TRAP`,
+                },
+              }">
+                <img class="textile-img" :src="require('@/assets/img/banner/textile.png')" alt="img" />
                 <div class="product_var_one_text">
                   <h2 class="text-light">Textiles</h2>
                   <h4 class="color_one">Ball Trap</h4>
-                  <nuxt-link
-                    :to="{
-                      path: '/shop/category/vêtements-ball-trap',
-                      query: {
-                        codefamille: `FAR00001`,
-                        libelleFamille: `VÊTEMENTS BALL TRAP`,
-                      },
-                    }"
-                    class="theme-btn-one bg-black btn_sm"
-                    >Pull!</nuxt-link
-                  >
+                  <nuxt-link :to="{
+                    path: '/shop/category/vêtements-ball-trap',
+                    query: {
+                      codefamille: `FAR00001`,
+                      libelleFamille: `VÊTEMENTS BALL TRAP`,
+                    },
+                  }" class="theme-btn-one bg-black btn_sm">Pull!</nuxt-link>
                 </div>
               </nuxt-link>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div
-              id="munitions-card"
-              class="product_variation_one_boxed img-zoom-hover"
-            >
-              <nuxt-link
-                :to="{
-                  path: '/shop/category/munitions',
-                  query: {
-                    codefamille: `FAR00005`,
-                    libelleFamille: `MUNITIONS`,
-                  },
-                }"
-              >
-                <img
-                  :src="require('@/assets/img/banner/munitions.png')"
-                  alt="img"
-                />
+            <div id="munitions-card" class="product_variation_one_boxed img-zoom-hover">
+              <nuxt-link :to="{
+                path: '/shop/category/munitions',
+                query: {
+                  codefamille: `FAR00005`,
+                  libelleFamille: `MUNITIONS`,
+                },
+              }">
+                <img :src="require('@/assets/img/banner/munitions.png')" alt="img" />
                 <div class="product_var_one_text">
                   <h2 class="text-light">Munitions</h2>
                   <!-- <h4 class="color_one">Arrivage</h4> -->
-                  <nuxt-link
-                    :to="{
-                      path: '/shop/category/munitions',
-                      query: {
-                        codefamille: `FAR00005`,
-                        libelleFamille: `MUNITIONS`,
-                      },
-                    }"
-                    class="theme-btn-one bg-black btn_sm"
-                    >Pull!</nuxt-link
-                  >
+                  <nuxt-link :to="{
+                    path: '/shop/category/munitions',
+                    query: {
+                      codefamille: `FAR00005`,
+                      libelleFamille: `MUNITIONS`,
+                    },
+                  }" class="theme-btn-one bg-black btn_sm">Pull!</nuxt-link>
                 </div>
               </nuxt-link>
             </div>
-            <div
-              id="weapon-d"
-              class="product_variation_one_boxed img-zoom-hover"
-            >
-              <nuxt-link
-                :to="{
-                  path: '/shop/category/armes-cat-d',
-                  query: {
-                    codefamille: `FAR00004`,
-                    libelleFamille: `ARMES CAT D`,
-                  },
-                }"
-              >
-                <img
-                  :src="require('@/assets/img/banner/fusil-ball-trap.png')"
-                  alt="img"
-                />
+            <div id="weapon-d" class="product_variation_one_boxed img-zoom-hover">
+              <nuxt-link :to="{
+                path: '/shop/category/armes-cat-d',
+                query: {
+                  codefamille: `FAR00004`,
+                  libelleFamille: `ARMES CAT D`,
+                },
+              }">
+                <img :src="require('@/assets/img/banner/fusil-ball-trap.png')" alt="img" />
                 <div class="product_var_one_text">
                   <h2 class="text-light">ARMES</h2>
                   <h4 class="color_one">Catégorie D.</h4>
-                  <nuxt-link
-                    :to="{
-                      path: '/shop/category/armes-cat-d',
-                      query: {
-                        codefamille: `FAR00004`,
-                        libelleFamille: `ARMES CAT D`,
-                      },
-                    }"
-                    class="theme-btn-one bg-black btn_sm"
-                    >Pull!</nuxt-link
-                  >
+                  <nuxt-link :to="{
+                    path: '/shop/category/armes-cat-d',
+                    query: {
+                      codefamille: `FAR00004`,
+                      libelleFamille: `ARMES CAT D`,
+                    },
+                  }" class="theme-btn-one bg-black btn_sm">Pull!</nuxt-link>
                 </div>
               </nuxt-link>
             </div>
@@ -365,9 +293,7 @@
     <section v-if="enabled" id="offer_timer_one">
       <div class="container">
         <div class="row">
-          <div
-            class="col-lg-8 offset-lg-4 col-md-7 offset-md-4 col-sm-12 col-12"
-          >
+          <div class="col-lg-8 offset-lg-4 col-md-7 offset-md-4 col-sm-12 col-12">
             <div class="offer_time_flex">
               <div class="count_down">
                 <div id="countdown">
@@ -402,32 +328,18 @@
         </div>
         <div class="row">
           <div class="col-lg-12">
-            <carousel
-              class="todays_slider"
-              :autoplay="true"
-              :loop="true"
-              :nav="true"
-              :dots="false"
-              :smartSpeed="1000"
-              :margin="30"
-              :responsive="{
+            <carousel class="todays_slider" :autoplay="true" :loop="true" :nav="true" :dots="false" :smartSpeed="1000"
+              :margin="30" :responsive="{
                 0: { items: 1 },
                 600: { items: 2 },
                 992: { items: 3 },
                 1200: { items: 4 },
-              }"
-            >
-              <ProductBox1
-                v-for="productItem in productItems"
-                :key="productItem.id"
-                :productImg1="productItem.productImg1"
-                :productImg2="productItem.productImg2"
-                :productTagClass="productItem.productTagClass"
-                :productTag="productItem.productTag"
-                :productTitle="productItem.productTitle"
-                :productPrice="productItem.productPrice"
-                :productDescription="productItem.productDescription"
-              />
+              }">
+              <ProductBox1 v-for="productItem in productItems" :key="productItem.id"
+                :productImg1="productItem.productImg1" :productImg2="productItem.productImg2"
+                :productTagClass="productItem.productTagClass" :productTag="productItem.productTag"
+                :productTitle="productItem.productTitle" :productPrice="productItem.productPrice"
+                :productDescription="productItem.productDescription" />
             </carousel>
           </div>
         </div>
@@ -446,9 +358,7 @@
                 Consectetur adipisicing elit. Dolores nisi distinctio magni,
                 iure deserunt doloribus optio
               </p>
-              <nuxt-link to="/shop" class="theme-btn-one bg-whites btn_md"
-                >Shop Now</nuxt-link
-              >
+              <nuxt-link to="/shop" class="theme-btn-one bg-whites btn_md">Shop Now</nuxt-link>
             </div>
           </div>
         </div>
@@ -467,17 +377,9 @@
           </div>
         </div>
         <div class="row">
-          <div
-            v-for="blogItem in blogItems.slice(0, 3)"
-            :key="blogItem.id"
-            class="col-lg-4 col-md-4 col-sm-6 col-12"
-          >
-            <BlogItem1
-              :blogThumb="blogItem.blogThumb"
-              :blogTitle="blogItem.blogTitle"
-              :blogDescription="blogItem.blogDescription"
-              :blogPublishDate="blogItem.blogPublishDate"
-            />
+          <div v-for="blogItem in blogItems.slice(0, 3)" :key="blogItem.id" class="col-lg-4 col-md-4 col-sm-6 col-12">
+            <BlogItem1 :blogThumb="blogItem.blogThumb" :blogTitle="blogItem.blogTitle"
+              :blogDescription="blogItem.blogDescription" :blogPublishDate="blogItem.blogPublishDate" />
           </div>
         </div>
       </div>
@@ -493,9 +395,7 @@
                 Consectetur adipisicing elit. Dolores nisi distinctio magni,
                 iure deserunt doloribus optio
               </p>
-              <nuxt-link to="/shop" class="theme-btn-one bg-whites btn_md"
-                >Shop Now</nuxt-link
-              >
+              <nuxt-link to="/shop" class="theme-btn-one bg-whites btn_md">Shop Now</nuxt-link>
             </div>
           </div>
         </div>
@@ -504,8 +404,7 @@
     <section class="edito_section">
       <div class="container">
         <div class="row">
-          <div
-            class="
+          <div class="
               text-center
               mx-auto
               col-lg-6
@@ -515,8 +414,7 @@
               flex-column
               justify-content-center
               align-items-center
-            "
-          >
+            ">
             <div class="top_line_edito"></div>
             <h3>Qui sommes nous ?</h3>
             <br />
@@ -535,7 +433,9 @@
         </div>
       </div>
     </section>
-    <div class="call-to-action"><CallToActionHomePage /></div>
+    <div class="call-to-action">
+      <CallToActionHomePage />
+    </div>
     <!-- Instagram Arae -->
     <!-- <div v-if="!enabled"><InstagramArea /></div> -->
   </div>
@@ -706,26 +606,33 @@ chasse, fusil et carabines de tir sportif pour le tir de loisir `,
 h1 {
   color: white;
 }
+
 .color_two {
   color: white;
 }
+
 .banner_text_one h1 {
   color: black;
 }
+
 #carousel-home {
   height: auto;
 }
+
 .categories-section {
   /* max-width: 1400px; */
 
   margin: 0 auto;
 }
+
 #textile-card {
   text-align: center;
 }
+
 .textile-img {
   width: 93%;
 }
+
 .text-light {
   background-color: #000;
   font-size: 24px;
@@ -733,9 +640,11 @@ h1 {
   /* margin: 0 0 10px 0;
   padding: 10px 20px; */
 }
+
 #equipement-card h2 {
   width: 150%;
 }
+
 #munitions-card h2 {
   width: 150%;
 }
@@ -749,6 +658,7 @@ h1 {
 #munitions-card {
   margin: 0 0 15px 0;
 }
+
 /* #weapon-card, */
 #equipement-card {
   margin: 0 0 15px 0;
@@ -758,41 +668,49 @@ h1 {
   padding: 50px 100px 50px 100px;
   display: flex;
 }
+
 .edito_section h3,
 p {
   text-align: center;
 }
+
 .edito_section img {
   margin: 20px 0 0 0;
   width: 7%;
 }
+
 .top_line_edito {
   margin: 0 0 20px 0;
   background-color: black;
   width: 30%;
   height: 1px;
 }
+
 /* Responsive */
 @media only screen and (min-width: 768px) {
   #weapon-card {
     margin: 0 0 15px 0;
   }
 }
+
 @media only screen and (max-width: 767px) {
   .textile-img {
     width: 100%;
     margin: 0 0 15px 0;
   }
 }
+
 @media only screen and (max-width: 576px) {
   .textile-img {
     width: 100%;
     margin: 0 0 15px 0;
   }
+
   .edito_section {
     padding: 50px 10px 10px 10px;
   }
 }
+
 /* @media only screen and (max-width: 1440px) {
 
 }

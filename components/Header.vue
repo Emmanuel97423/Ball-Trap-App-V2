@@ -231,7 +231,7 @@
                     <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                       <i class="fas fa-shopping-bag"></i>
                       <span class="item-count">{{
-                          selectedProducts.length
+                      selectedProducts.length
                       }}</span>
                     </a>
                   </li>
@@ -314,7 +314,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -616,28 +616,26 @@ export default {
   },
   mounted() {
     // Menu Js
-    this.$nextTick(function () {
-      window.onscroll = function () {
-        myFunction();
-      };
-      const header = document.getElementById("header");
+    // this.$nextTick(function () {
+    //   window.onscroll = function () {
+    //     myFunction();
+    //   };
+    //   const header = document.getElementById("header");
 
-      const mobile_header = document.getElementById("mobile_header");
+    //   const mobile_header = document.getElementById("mobile_header");
 
-      const sticky = header.offsetTop;
+    //   const sticky = header.offsetTop;
 
-      function myFunction() {
-        if (window.pageYOffset) {
-          header.classList.add("sticky");
-          mobile_header.classList.add("sticky");
-        } else {
-          header.classList.remove("sticky");
-          mobile_header.classList.remove("sticky");
-        }
-      }
-    });
-
-
+    //   function myFunction() {
+    //     if (window.pageYOffset) {
+    //       header.classList.add("sticky");
+    //       mobile_header.classList.add("sticky");
+    //     } else {
+    //       header.classList.remove("sticky");
+    //       mobile_header.classList.remove("sticky");
+    //     }
+    //   }
+    // });
   },
   methods: {
     shapeMenu() { },
@@ -708,21 +706,7 @@ export default {
       this.menu2.push(this.menu);
     }
   },
-  mounted() {
-    // try {
-    //   //Administration options
 
-    //   const userRole = this.$store.state.auth.user.userObject.role
-    //   if (userRole !== "administrator") {
-    //     return;
-    //   } else {
-    //     this.adminOptions.isActive = true;
-    //   }
-    // } catch (error) {
-    //   console.log('error:', error)
-
-    // }
-  }
 
 };
 </script>
