@@ -24,10 +24,7 @@
 
     <div v-else class="container-product-list">
       <div class="left-nav-categories">
-        <LeftCategoriesNav
-          :subCategory="subCategory"
-          @handle-click-sub-category="fetchSubCategoryProduct"
-        />
+        <LeftCategoriesNav :subCategory="subCategory" @handle-click-sub-category="fetchSubCategoryProduct" />
       </div>
       <!-- Shop Main Area -->
       <div class="shop-content">
@@ -35,15 +32,9 @@
           <div class="container">
             <div v-if="enabled" class="product-list-breadcrumb-section">
               <a class="back-link" onclick="history.back()">Retour</a>
-              <b-breadcrumb
-                :items="breadcrumbItems"
-                class="product-list-breadcrumb"
-              ></b-breadcrumb>
+              <b-breadcrumb :items="breadcrumbItems" class="product-list-breadcrumb"></b-breadcrumb>
             </div>
-            <Tags
-              :tagsSelected="tagsSelected"
-              @remove-tag="removeTagSelected"
-            />
+            <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
             <!-- <div class="row"> -->
             <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
@@ -99,40 +90,21 @@
             </h4>
 
             <div class="row">
-              <div
-                class="loading-spinner-sub-category"
-                v-if="subCategoryLoading"
-              >
+              <div class="loading-spinner-sub-category" v-if="subCategoryLoading">
                 <!-- <span class="loading"></span> -->
                 <Spinner></Spinner>
               </div>
-              <div
-                v-else
-                class="col-lg-3 col-md-4 col-sm-6 col-12"
-                v-for="productItem in productsGammes"
-                :key="productItem._id"
-              >
-                <ProductBox1
-                  :productImg1="productItem.imageUrl"
-                  :productImg2="productItem.imageUrl"
-                  :productTagClass="productItem.productTagClass"
-                  :productTag="productItem.productTag"
-                  :productTitle="productItem.libelle"
-                  :productPrice="productItem.pvTtc"
-                  :productId="productItem._id"
-                  :productQuantity="productItem.stock"
-                  :productObject="productItem"
-                />
+              <div v-else class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="productItem in productsGammes"
+                :key="productItem._id">
+                <ProductBox1 :productImg1="productItem.imageUrl" :productImg2="productItem.imageUrl"
+                  :productTagClass="productItem.productTagClass" :productTag="productItem.productTag"
+                  :productTitle="productItem.libelle" :productPrice="productItem.pvTtc" :productId="productItem._id"
+                  :productQuantity="productItem.stock" :productObject="productItem" />
               </div>
 
               <div class="col-lg-12">
                 <!-- pagination start -->
-                <b-pagination
-                  v-if="!enabled"
-                  v-model="currentPage"
-                  pills
-                  :total-rows="rows"
-                ></b-pagination>
+                <b-pagination v-if="!enabled" v-model="currentPage" pills :total-rows="rows"></b-pagination>
                 <!-- pagination end -->
               </div>
             </div>
@@ -258,6 +230,7 @@ export default {
               },
             }
           );
+          console.log('productSearchBySubcategory:', productSearchBySubcategory)
 
           this.productsGammes = productSearchBySubcategory.data.productsArray;
           this.subCategoryLoading = false;
@@ -372,13 +345,16 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+
 .category-empty {
   height: 500px;
 }
+
 .shop-content {
   flex-grow: 1;
   /* height: 500px; */
 }
+
 .back-link:first-child {
   /* flex: 10%; */
   /* margin: 0 0 40px 0; */
@@ -387,22 +363,27 @@ export default {
   cursor: pointer;
   font-size: 12px;
 }
+
 .product-list-breadcrumb-section {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   font-size: 12px;
 }
+
 .product-list-breadcrumb-section ol,
 ul,
 dl {
   margin: 0;
 }
+
 .product-list-breadcrumb {
   background-color: transparent;
 }
+
 /* Responsive */
 @media only screen and (max-width: 425px) {
+
   /* tablettes*/
   .product-list-breadcrumb-section {
     display: none;
@@ -410,6 +391,7 @@ dl {
 }
 
 @media only screen and (max-width: 768px) {
+
   /* tablettes et ordinateurs */
   .left-nav-categories {
     display: none;
