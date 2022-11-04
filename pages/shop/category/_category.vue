@@ -17,26 +17,26 @@
       </div>
     </section>
 
-    <div class="loading-spinner" v-if="$fetchState.pending">
-      <!-- <span class="loading"></span> -->
+    <!-- <div  class="loading-spinner" v-if="$fetchState.pending">
+      <span class="loading"></span>
       <Spinner></Spinner>
-    </div>
-
-    <div v-else class="container-product-list">
-      <div class="left-nav-categories">
-        <LeftCategoriesNav :subCategory="subCategory" @handle-click-sub-category="fetchSubCategoryProduct" />
-      </div>
-      <!-- Shop Main Area -->
-      <div class="shop-content">
-        <section id="shop_main_area" class="ptb-25">
-          <div class="container">
-            <div v-if="enabled" class="product-list-breadcrumb-section">
-              <a class="back-link" onclick="history.back()">Retour</a>
-              <b-breadcrumb :items="breadcrumbItems" class="product-list-breadcrumb"></b-breadcrumb>
-            </div>
-            <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
-            <!-- <div class="row"> -->
-            <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
+    </div> -->
+    <b-overlay :show="subCategoryLoading" rounded="sm">
+      <div class="container-product-list">
+        <div class="left-nav-categories">
+          <LeftCategoriesNav :subCategory="subCategory" @handle-click-sub-category="fetchSubCategoryProduct" />
+        </div>
+        <!-- Shop Main Area -->
+        <div class="shop-content">
+          <section id="shop_main_area" class="ptb-25">
+            <div class="container">
+              <div v-if="enabled" class="product-list-breadcrumb-section">
+                <a class="back-link" onclick="history.back()">Retour</a>
+                <b-breadcrumb :items="breadcrumbItems" class="product-list-breadcrumb"></b-breadcrumb>
+              </div>
+              <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
+              <!-- <div class="row"> -->
+              <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_filter">
               <div class="customs_selects">
                 <select name="product" class="customs_sel_box">
@@ -49,7 +49,7 @@
               </div>
             </div>
           </div> -->
-            <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
+              <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
             <div class="product_shot">
               <div class="product_shot_title">
                 <p>Sort By:</p>
@@ -83,44 +83,45 @@
               </div>
             </div>
           </div> -->
-            <!-- </div> -->
+              <!-- </div> -->
 
-            <h4 class="category-empty" v-if="productsGammes.length < 1">
-              Dans le lanceur...
-            </h4>
+              <h4 class="category-empty" v-if="productsGammes.length < 1">
+                Dans le lanceur...
+              </h4>
 
-            <div v-else class="row">
-              <div class="loading-spinner-sub-category" v-if="subCategoryLoading">
-                <!-- <span class="loading"></span> -->
-                <Spinner></Spinner>
-              </div>
-              <div v-if="productsGammes.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-12"
-                v-for="productItem in productsGammes" :key="productItem._id">
-                <ProductBox1 :productImg1="productItem.imageUrl" :productImg2="productItem.imageUrl"
-                  :productTagClass="productItem.productTagClass" :productTag="productItem.productTag"
-                  :productTitle="productItem.libelle" :productPrice="productItem.pvTtc" :productId="productItem._id"
-                  :productQuantity="productItem.stock" :productObject="productItem" />
-              </div>
+              <div v-else class="row">
+                <!-- <div class="loading-spinner-sub-category" v-if="subCategoryLoading">
+                  <span class="loading"></span>
+                  <Spinner></Spinner>
+                </div> -->
+                <div v-if="productsGammes.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-12"
+                  v-for="productItem in productsGammes" :key="productItem._id">
+                  <ProductBox1 :productImg1="productItem.imageUrl" :productImg2="productItem.imageUrl"
+                    :productTagClass="productItem.productTagClass" :productTag="productItem.productTag"
+                    :productTitle="productItem.libelle" :productPrice="productItem.pvTtc" :productId="productItem._id"
+                    :productQuantity="productItem.stock" :productObject="productItem" />
+                </div>
 
-              <div class="col-lg-12 loadmore-product-btn">
-                <!-- pagination start -->
-                <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.start }}</span>
-                  sur
-                  <span class="pagination-number">{{
-                      loadMoreOptions.totalProducts
-                  }}</span> articles</span>
-                <button v-if="loadMoreOptions.isActive" class="theme-btn-one btn-black-overlay btn_sm"
-                  @click="handleLoadMoreProduct()">EN CHARGER
-                  PLUS</button>
-                <b-pagination v-if="!enabled" v-model="currentPage" pills :total-rows="rows"></b-pagination>
-                <!-- pagination end -->
+                <div class="col-lg-12 loadmore-product-btn">
+                  <!-- pagination start -->
+                  <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.start }}</span>
+                    sur
+                    <span class="pagination-number">{{
+                        loadMoreOptions.totalProducts
+                    }}</span> articles</span>
+                  <button v-if="loadMoreOptions.isActive" class="theme-btn-one btn-black-overlay btn_sm"
+                    @click="handleLoadMoreProduct()">EN CHARGER
+                    PLUS</button>
+                  <!-- <p v-else>D'avantage de choix prochainement...</p> -->
+                  <b-pagination v-if="!enabled" v-model="currentPage" pills :total-rows="rows"></b-pagination>
+                  <!-- pagination end -->
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
-    </div>
-
+    </b-overlay>
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
   </div>
@@ -189,7 +190,7 @@ export default {
       // Start load more products
       loadMoreOptions: {
         status: false,
-        start: 10,
+        start: 20,
         size: 10,
         payload: null,
         totalProducts: null,
@@ -213,25 +214,31 @@ export default {
     };
   },
   watch: {
-
+    // Start a corrigé
     'loadMoreOptions.start'() {
-      console.log("Changement par watcher")
+
       if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
         this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
         this.loadMoreOptions.isActive = false;
       }
-    }
+    },
+    // productsGammes() {
+    //   console.log("this.loadMoreOptions.start:", this.loadMoreOptions.start);
+    //   console.log(' this.loadMoreOptions.totalProducts:', this.loadMoreOptions.totalProducts)
+    //   if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
+    //     this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
+    //     this.loadMoreOptions.isActive = false;
+    //   }
+    // }
 
   },
-
+  // End a corrigé
   methods: {
     // Start load more products
     async handleLoadMoreProduct() {
-      if (this.productsGammes.length <= this.loadMoreOptions.start) {
-        this.loadMoreOptions.start = this.productsGammes.length
-        console.log(this.loadMoreOptions.start)
-      }
-      this.loadMoreOptions.status = true;
+      // if (this.productsGammes.length <= this.loadMoreOptions.start) {
+      //   this.loadMoreOptions.start = this.productsGammes.length
+      // }
       const start = this.loadMoreOptions.start;
       const size = this.loadMoreOptions.size;
       this.loadMoreOptions.start = start + size;
@@ -256,6 +263,7 @@ export default {
     },
     // End load more products
     pushTagsSelected(payload) {
+
       if (this.tagsSelected.length < 1) {
         this.tagsSelected.push(payload.libelleSousFamille);
       } else {
@@ -276,9 +284,8 @@ export default {
       this.loadMoreOptions.payload = payload;
       this.subCategoryLoading = true;
       if (payload) {
-        if (this.loadMoreOptions.status == false) {
-          this.pushTagsSelected(payload);
-        }
+        this.pushTagsSelected(payload);
+
         try {
           const productSearchBySubcategory = await this.$axios.get(
             "search/filter/subCategory",
@@ -294,8 +301,13 @@ export default {
           );
 
           this.productsGammes = productSearchBySubcategory.data.productsArray;
-          this.subCategoryLoading = false;
+          this.loadMoreOptions.totalProducts = productSearchBySubcategory.data.totalProducts
 
+          this.subCategoryLoading = false;
+          // if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
+          //   this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
+          //   this.loadMoreOptions.isActive = false;
+          // }
         } catch (error) {
           console.log("error:", error);
         }
@@ -313,14 +325,15 @@ export default {
             }
           );
           this.productsGammes = productSearchBySubcategory.data.productsArray;
+          this.loadMoreOptions.totalProducts = productSearchBySubcategory.data.totalProducts
           this.subCategoryLoading = false;
-
         } catch (error) {
           console.log("error:", error);
         }
       }
     },
     async fetchData() {
+
       this.subCategoryLoading = true;
       try {
         const productsGammes = await this.$axios.get("/search/filter", {
@@ -331,6 +344,8 @@ export default {
           },
         });
         this.productsGammes = productsGammes.data.productsArray;
+        this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts;
+
         this.subCategoryLoading = false;
       } catch (error) {
         console.log("error:", error);
@@ -375,24 +390,7 @@ export default {
       console.log("🚀 ~ file: _category.vue ~ line 242 ~ fetch ~ error", error);
     }
 
-    // try {
-    //   const products = await this.$axios.get("/product/allProduct");
-    //   products.data.map((product) => {
-    //     if (product.codeGamme === "") {
-    //       console.log("product:", product);
 
-    //       this.singlesProducts.push(product);
-    //     }
-    //   });
-
-    //   // products.data.map((product) => {
-    //   //   if (!product.codeGamme) {
-    //   //     this.singleProduct.push(product);
-    //   //   }
-    //   // });
-    // } catch (error) {
-    //   console.log("🚀 ~ file: shop-2.vue ~ line 190 ~ fetch ~ error", error);
-    // }
   },
   fetchOnServer: false,
 };
