@@ -83,8 +83,9 @@
                 <div class="modal_product_content_one">
                   <h3>{{ product.libelle }}</h3>
 
+                  <span v-if="product.brand" class="product-brand">Marque: {{ product.brand }}</span>
+
                   <div v-if="!enabled" class="reviews_rating">
-                    <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -1174,6 +1175,12 @@ export default {
 </script>
 
 <style scoped>
+/* Style for brand */
+.product-brand {
+  color: grey;
+  font-size: 12px;
+}
+
 .product-thumbail-image {
   padding: 10px 0 0 0;
   display: flex;
