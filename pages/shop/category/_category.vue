@@ -89,21 +89,29 @@
               Dans le lanceur...
             </h4>
 
-            <div class="row">
+            <div v-else class="row">
               <div class="loading-spinner-sub-category" v-if="subCategoryLoading">
                 <!-- <span class="loading"></span> -->
                 <Spinner></Spinner>
               </div>
-              <div v-else class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="productItem in productsGammes"
-                :key="productItem._id">
+              <div v-if="productsGammes.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-12"
+                v-for="productItem in productsGammes" :key="productItem._id">
                 <ProductBox1 :productImg1="productItem.imageUrl" :productImg2="productItem.imageUrl"
                   :productTagClass="productItem.productTagClass" :productTag="productItem.productTag"
                   :productTitle="productItem.libelle" :productPrice="productItem.pvTtc" :productId="productItem._id"
                   :productQuantity="productItem.stock" :productObject="productItem" />
               </div>
 
-              <div class="col-lg-12">
+              <div class="col-lg-12 loadmore-product-btn">
                 <!-- pagination start -->
+                <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.start }}</span>
+                  sur
+                  <span class="pagination-number">{{
+                      loadMoreOptions.totalProducts
+                  }}</span> articles</span>
+                <button v-if="loadMoreOptions.isActive" class="theme-btn-one btn-black-overlay btn_sm"
+                  @click="handleLoadMoreProduct()">EN CHARGER
+                  PLUS</button>
                 <b-pagination v-if="!enabled" v-model="currentPage" pills :total-rows="rows"></b-pagination>
                 <!-- pagination end -->
               </div>
@@ -178,6 +186,16 @@ export default {
       // Pagination Data
       rows: 60,
       currentPage: 1,
+      // Start load more products
+      loadMoreOptions: {
+        status: false,
+        start: 10,
+        size: 10,
+        payload: null,
+        totalProducts: null,
+        isActive: true,
+      }
+      // End load more products
     };
   },
 
@@ -194,10 +212,50 @@ export default {
       ],
     };
   },
+  watch: {
+
+    'loadMoreOptions.start'() {
+      console.log("Changement par watcher")
+      if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
+        this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
+        this.loadMoreOptions.isActive = false;
+      }
+    }
+
+  },
 
   methods: {
+    // Start load more products
+    async handleLoadMoreProduct() {
+      if (this.productsGammes.length <= this.loadMoreOptions.start) {
+        this.loadMoreOptions.start = this.productsGammes.length
+        console.log(this.loadMoreOptions.start)
+      }
+      this.loadMoreOptions.status = true;
+      const start = this.loadMoreOptions.start;
+      const size = this.loadMoreOptions.size;
+      this.loadMoreOptions.start = start + size;
+
+      try {
+        if (this.tagsSelected.length > 0) {
+          const payloadLoadMore = {
+            codeFamille: this.$route.query.codefamille,
+            codeSousFamille: this.loadMoreOptions.payload.codeSousFamille
+          }
+
+          this.fetchSubCategoryProduct(payloadLoadMore)
+
+        } else {
+          this.fetchData()
+        }
+      } catch (error) {
+        console.log('error:', error)
+
+      }
+
+    },
+    // End load more products
     pushTagsSelected(payload) {
-      console.log("payload:", payload);
       if (this.tagsSelected.length < 1) {
         this.tagsSelected.push(payload.libelleSousFamille);
       } else {
@@ -215,11 +273,12 @@ export default {
       }
     },
     async fetchSubCategoryProduct(payload) {
-      console.log("fetchSubCategoryProduct payload:", payload);
+      this.loadMoreOptions.payload = payload;
       this.subCategoryLoading = true;
       if (payload) {
-        this.pushTagsSelected(payload);
-
+        if (this.loadMoreOptions.status == false) {
+          this.pushTagsSelected(payload);
+        }
         try {
           const productSearchBySubcategory = await this.$axios.get(
             "search/filter/subCategory",
@@ -227,13 +286,16 @@ export default {
               params: {
                 search: payload.codeSousFamille,
                 searchArrayByTags: this.tagsSelected,
+                start: this.loadMoreOptions.start,
+                size: this.loadMoreOptions.size
+
               },
             }
           );
-          console.log('productSearchBySubcategory:', productSearchBySubcategory)
 
           this.productsGammes = productSearchBySubcategory.data.productsArray;
           this.subCategoryLoading = false;
+
         } catch (error) {
           console.log("error:", error);
         }
@@ -245,12 +307,14 @@ export default {
               params: {
                 // search: payload.codeSousFamille,
                 searchArrayByTags: this.tagsSelected,
+                start: this.loadMoreOptions.start,
+                size: this.loadMoreOptions.size
               },
             }
           );
+          this.productsGammes = productSearchBySubcategory.data.productsArray;
           this.subCategoryLoading = false;
 
-          this.productsGammes = productSearchBySubcategory.data.productsArray;
         } catch (error) {
           console.log("error:", error);
         }
@@ -262,6 +326,8 @@ export default {
         const productsGammes = await this.$axios.get("/search/filter", {
           params: {
             search: this.$route.query.codefamille,
+            start: this.loadMoreOptions.start,
+            size: this.loadMoreOptions.size
           },
         });
         this.productsGammes = productsGammes.data.productsArray;
@@ -274,6 +340,8 @@ export default {
           "/category/subCategory/" + this.$route.query.codefamille
         );
         this.subCategory = subCategory.data.subCategory;
+        this.subCategoryLoading = false;
+
       } catch (error) {
         console.log(
           "🚀 ~ file: _category.vue ~ line 242 ~ fetch ~ error",
@@ -288,9 +356,13 @@ export default {
       const productsGammes = await this.$axios.get("/search/filter", {
         params: {
           search: this.$route.query.codefamille,
+          start: this.loadMoreOptions.start,
+          size: this.loadMoreOptions.size
         },
       });
+
       this.productsGammes = productsGammes.data.productsArray;
+      this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts
     } catch (error) {
       console.log("error:", error);
     }
@@ -327,9 +399,27 @@ export default {
 </script>
 
 <style scoped>
-/* .product-box-1 {
-  border: 5px solid red;
-} */
+/* Start load more product section */
+.loadmore-product-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0 0 0;
+
+}
+
+.loadmore-product-btn span {
+  font-size: 12px;
+  margin: 0 0 20px 0;
+}
+
+.pagination-number {
+  font-weight: bold;
+}
+
+/* End load more product section */
+
 .loading-spinner-sub-category {
   width: 100%;
   height: 50vh;
