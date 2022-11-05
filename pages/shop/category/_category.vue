@@ -104,13 +104,13 @@
 
                 <div class="col-lg-12 loadmore-product-btn">
                   <!-- pagination start -->
-                  <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.start }}</span>
+                  <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.productByPage }}</span>
                     sur
                     <span class="pagination-number">{{
                         loadMoreOptions.totalProducts
                     }}</span> articles</span>
-                  <button v-if="loadMoreOptions.isActive" class="theme-btn-one btn-black-overlay btn_sm"
-                    @click="handleLoadMoreProduct()">EN CHARGER
+                  <button v-if="loadMoreOptions.productByPage < loadMoreOptions.totalProducts"
+                    class="theme-btn-one btn-black-overlay btn_sm" @click="handleLoadMoreProduct()">EN CHARGER
                     PLUS</button>
                   <!-- <p v-else>D'avantage de choix prochainement...</p> -->
                   <b-pagination v-if="!enabled" v-model="currentPage" pills :total-rows="rows"></b-pagination>
@@ -195,6 +195,7 @@ export default {
         payload: null,
         totalProducts: null,
         isActive: true,
+        productByPage: null,
       }
       // End load more products
     };
@@ -217,10 +218,10 @@ export default {
     // Start a corrigé
     'loadMoreOptions.start'() {
 
-      if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
-        this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
-        this.loadMoreOptions.isActive = false;
-      }
+      // if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
+      //   this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
+      //   this.loadMoreOptions.isActive = false;
+      // }
     },
     // productsGammes() {
     //   console.log("this.loadMoreOptions.start:", this.loadMoreOptions.start);
@@ -263,14 +264,16 @@ export default {
     },
     // End load more products
     pushTagsSelected(payload) {
-
-      if (this.tagsSelected.length < 1) {
-        this.tagsSelected.push(payload.libelleSousFamille);
-      } else {
-        this.tagsSelected.indexOf(payload.libelleSousFamille) === -1
-          ? this.tagsSelected.push(payload.libelleSousFamille)
-          : null;
+      if (payload.libelleSousFamille) {
+        if (this.tagsSelected.length < 1) {
+          this.tagsSelected.push(payload.libelleSousFamille);
+        } else {
+          this.tagsSelected.indexOf(payload.libelleSousFamille) === -1
+            ? this.tagsSelected.push(payload.libelleSousFamille)
+            : null;
+        }
       }
+
     },
     removeTagSelected(payload) {
       this.tagsSelected = this.tagsSelected.filter((tag) => tag !== payload);
@@ -283,6 +286,7 @@ export default {
     async fetchSubCategoryProduct(payload) {
       this.loadMoreOptions.payload = payload;
       this.subCategoryLoading = true;
+
       if (payload) {
         this.pushTagsSelected(payload);
 
@@ -299,10 +303,12 @@ export default {
               },
             }
           );
+          console.log('productSearchBySubcategory:', productSearchBySubcategory)
 
           this.productsGammes = productSearchBySubcategory.data.productsArray;
           this.loadMoreOptions.totalProducts = productSearchBySubcategory.data.totalProducts
-
+          this.loadMoreOptions.productByPage = productSearchBySubcategory.data.productByPage;
+          console.log('this.loadMoreOptions:', this.loadMoreOptions)
           this.subCategoryLoading = false;
           // if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
           //   this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
@@ -326,6 +332,7 @@ export default {
           );
           this.productsGammes = productSearchBySubcategory.data.productsArray;
           this.loadMoreOptions.totalProducts = productSearchBySubcategory.data.totalProducts
+          this.loadMoreOptions.productByPage = productSearchBySubcategory.data.productByPage;
           this.subCategoryLoading = false;
         } catch (error) {
           console.log("error:", error);
@@ -345,6 +352,7 @@ export default {
         });
         this.productsGammes = productsGammes.data.productsArray;
         this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts;
+        this.loadMoreOptions.productByPage = productsGammes.data.productByPage;
 
         this.subCategoryLoading = false;
       } catch (error) {
@@ -377,7 +385,8 @@ export default {
       });
 
       this.productsGammes = productsGammes.data.productsArray;
-      this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts
+      this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts;
+      this.loadMoreOptions.productByPage = productsGammes.data.productByPage;
     } catch (error) {
       console.log("error:", error);
     }
