@@ -245,9 +245,8 @@ ul li {
 
 #common_banner_one {
   background-image: url("../img/slide/breadcrumb-bg.jpg");
-  padding: 90px 0;
+  padding: 25px;
   background-repeat: no-repeat;
-  height: 225px;
   background-position: 0 70%
 }
 

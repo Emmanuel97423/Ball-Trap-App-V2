@@ -31,69 +31,32 @@
           <section id="shop_main_area" class="ptb-25">
             <div class="container">
               <div v-if="enabled" class="product-list-breadcrumb-section">
-                <a class="back-link" onclick="history.back()">Retour</a>
-                <b-breadcrumb :items="breadcrumbItems" class="product-list-breadcrumb"></b-breadcrumb>
+
+                <div class="breadcrumb__item-breadcrumb">
+                  <a class="back-link" onclick="history.back()">Retour</a>
+                  <b-breadcrumb :items="breadcrumbItems" class="product-list-breadcrumb"></b-breadcrumb>
+                </div>
+
+                <!-- Start sort by price -->
+                <SortByPrice class="breadcrumb__item-sort" @sortByPrice=sortByPrice />
+
+                <!-- End sort by price -->
               </div>
+              <!-- Start tags selected -->
+              <button v-if="this.tagsSelected.length > 0" class="theme-btn-one btn-black-overlay btn_sm"
+                @click="handleRemoveAllTags">Effacer tous les
+                filtres</button>
               <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
-              <!-- <div class="row"> -->
-              <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
-            <div class="product_filter">
-              <div class="customs_selects">
-                <select name="product" class="customs_sel_box">
-                  <option value="Filter">Filter</option>
-                  <option value="most_popular">Most Popular</option>
-                  <option value="best_seller">Best Seller</option>
-                  <option value="tranding">Tranding</option>
-                  <option value="featured">Featured</option>
-                </select>
-              </div>
-            </div>
-          </div> -->
-              <!-- <div v-if="!enabled" class="col-lg-6 col-md-12">
-            <div class="product_shot">
-              <div class="product_shot_title">
-                <p>Sort By:</p>
-              </div>
-              <div class="customs_selects">
-                <select name="product" class="customs_sel_box">
-                  <option value="popularity">Sort by Popularity</option>
-                  <option value="new">Sort by new</option>
-                  <option value="low">Price: low to high</option>
-                  <option value="high">Price: high to low</option>
-                </select>
-              </div>
-              <div class="product_shot_view">
-                <ul>
-                  <li>
-                    <nuxt-link to="/shop/shop-3"
-                      ><i class="fas fa-list"></i
-                    ></nuxt-link>
-                  </li>
-                  <li>
-                    <nuxt-link to="/shop/shop-2" class="active"
-                      ><i class="fas fa-th-large"></i
-                    ></nuxt-link>
-                  </li>
-                  <li>
-                    <nuxt-link to="/shop/shop-4"
-                      ><i class="fas fa-th"></i
-                    ></nuxt-link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div> -->
-              <!-- </div> -->
+              <!-- End tags selected -->
+
+
 
               <h4 class="category-empty" v-if="productsGammes.length < 1">
                 Dans le lanceur...
               </h4>
 
               <div v-else class="row">
-                <!-- <div class="loading-spinner-sub-category" v-if="subCategoryLoading">
-                  <span class="loading"></span>
-                  <Spinner></Spinner>
-                </div> -->
+
                 <div v-if="productsGammes.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-12"
                   v-for="productItem in productsGammes" :key="productItem._id">
                   <ProductBox1 :productImg1="productItem.imageUrl" :productImg2="productItem.imageUrl"
@@ -104,13 +67,13 @@
 
                 <div class="col-lg-12 loadmore-product-btn">
                   <!-- pagination start -->
-                  <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.start }}</span>
+                  <span>Affichage de <span class="pagination-number"> {{ loadMoreOptions.productByPage }}</span>
                     sur
                     <span class="pagination-number">{{
                         loadMoreOptions.totalProducts
                     }}</span> articles</span>
-                  <button v-if="loadMoreOptions.isActive" class="theme-btn-one btn-black-overlay btn_sm"
-                    @click="handleLoadMoreProduct()">EN CHARGER
+                  <button v-if="loadMoreOptions.productByPage < loadMoreOptions.totalProducts"
+                    class="theme-btn-one btn-black-overlay btn_sm" @click="handleLoadMoreProduct()">EN CHARGER
                     PLUS</button>
                   <!-- <p v-else>D'avantage de choix prochainement...</p> -->
                   <b-pagination v-if="!enabled" v-model="currentPage" pills :total-rows="rows"></b-pagination>
@@ -132,6 +95,29 @@ import ProductBox1 from "~/components/product-box/ProductBox1";
 import InstagramArea from "~/components/instagram/InstagramArea";
 import LeftCategoriesNav from "~/components/navigation/LeftCategoriesNav";
 import Tags from "@/components/category/Tags";
+import SortByPrice from "@/components/filter/SortByPrice";
+
+// Start sort function
+function ascendingSort(a, b) {
+  if (a.pvTtc < b.pvTtc) {
+    return -1;
+  }
+  if (a.pvTtc > b.pvTtc) {
+    return 1;
+  }
+  return 0;
+};
+function descendingSort(a, b) {
+  if (a.pvTtc < b.pvTtc) {
+    return 1;
+  }
+  if (a.pvTtc > b.pvTtc) {
+    return -1;
+  }
+  return 0;
+}
+// End sort function
+
 export default {
   name: "shop-three-grid",
   middleware: "auth",
@@ -142,6 +128,7 @@ export default {
     InstagramArea,
     LeftCategoriesNav,
     Tags,
+    SortByPrice
   },
   data() {
     return {
@@ -195,8 +182,13 @@ export default {
         payload: null,
         totalProducts: null,
         isActive: true,
-      }
+        productByPage: null,
+      },
       // End load more products
+
+      // Start sort by price
+      ascendingSort: true,
+      // End sort by price
     };
   },
 
@@ -215,30 +207,22 @@ export default {
   },
   watch: {
     // Start a corrigé
-    'loadMoreOptions.start'() {
-
-      if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
-        this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
-        this.loadMoreOptions.isActive = false;
+    ascendingSort() {
+      if (!this.ascendingSort) {
+        this.productsGammes.sort(descendingSort)
+      } else {
+        this.productsGammes.sort(ascendingSort)
       }
+
     },
-    // productsGammes() {
-    //   console.log("this.loadMoreOptions.start:", this.loadMoreOptions.start);
-    //   console.log(' this.loadMoreOptions.totalProducts:', this.loadMoreOptions.totalProducts)
-    //   if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
-    //     this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
-    //     this.loadMoreOptions.isActive = false;
-    //   }
-    // }
+
 
   },
   // End a corrigé
   methods: {
     // Start load more products
     async handleLoadMoreProduct() {
-      // if (this.productsGammes.length <= this.loadMoreOptions.start) {
-      //   this.loadMoreOptions.start = this.productsGammes.length
-      // }
+
       const start = this.loadMoreOptions.start;
       const size = this.loadMoreOptions.size;
       this.loadMoreOptions.start = start + size;
@@ -262,15 +246,23 @@ export default {
 
     },
     // End load more products
-    pushTagsSelected(payload) {
+    // Start sort by price
+    sortByPrice(payload) {
+      this.ascendingSort = payload.ascendingSort
 
-      if (this.tagsSelected.length < 1) {
-        this.tagsSelected.push(payload.libelleSousFamille);
-      } else {
-        this.tagsSelected.indexOf(payload.libelleSousFamille) === -1
-          ? this.tagsSelected.push(payload.libelleSousFamille)
-          : null;
+    },
+    // End sort by price
+    pushTagsSelected(payload) {
+      if (payload.libelleSousFamille) {
+        if (this.tagsSelected.length < 1) {
+          this.tagsSelected.push(payload.libelleSousFamille);
+        } else {
+          this.tagsSelected.indexOf(payload.libelleSousFamille) === -1
+            ? this.tagsSelected.push(payload.libelleSousFamille)
+            : null;
+        }
       }
+
     },
     removeTagSelected(payload) {
       this.tagsSelected = this.tagsSelected.filter((tag) => tag !== payload);
@@ -280,9 +272,15 @@ export default {
         this.fetchData();
       }
     },
+    handleRemoveAllTags() {
+      this.tagsSelected = [];
+      this.fetchData()
+    },
+
     async fetchSubCategoryProduct(payload) {
       this.loadMoreOptions.payload = payload;
       this.subCategoryLoading = true;
+
       if (payload) {
         this.pushTagsSelected(payload);
 
@@ -299,15 +297,19 @@ export default {
               },
             }
           );
+          // Start sort product fetch result
+          if (!this.ascendingSort) {
+            this.productsGammes = productSearchBySubcategory.data.productsArray.sort(descendingSort);
 
-          this.productsGammes = productSearchBySubcategory.data.productsArray;
+          } else {
+            this.productsGammes = productSearchBySubcategory.data.productsArray.sort(ascendingSort)
+          }
+          // End sort product fetch result
           this.loadMoreOptions.totalProducts = productSearchBySubcategory.data.totalProducts
+          this.loadMoreOptions.productByPage = productSearchBySubcategory.data.productByPage;
 
           this.subCategoryLoading = false;
-          // if (this.loadMoreOptions.start >= this.loadMoreOptions.totalProducts) {
-          //   this.loadMoreOptions.start = this.loadMoreOptions.totalProducts;
-          //   this.loadMoreOptions.isActive = false;
-          // }
+
         } catch (error) {
           console.log("error:", error);
         }
@@ -324,8 +326,16 @@ export default {
               },
             }
           );
-          this.productsGammes = productSearchBySubcategory.data.productsArray;
+          // Start sort product fetch result
+          if (!this.ascendingSort) {
+            this.productsGammes = productSearchBySubcategory.data.productsArray.sort(descendingSort);
+
+          } else {
+            this.productsGammes = productSearchBySubcategory.data.productsArray.sort(ascendingSort)
+          }
+          // End sort product fetch result
           this.loadMoreOptions.totalProducts = productSearchBySubcategory.data.totalProducts
+          this.loadMoreOptions.productByPage = productSearchBySubcategory.data.productByPage;
           this.subCategoryLoading = false;
         } catch (error) {
           console.log("error:", error);
@@ -343,8 +353,16 @@ export default {
             size: this.loadMoreOptions.size
           },
         });
-        this.productsGammes = productsGammes.data.productsArray;
+        // Start sort product fetch result
+        if (!this.ascendingSort) {
+          this.productsGammes = productsGammes.data.productsArray.sort(descendingSort);
+
+        } else {
+          this.productsGammes = productsGammes.data.productsArray.sort(ascendingSort)
+        }
+        // End sort product fetch result
         this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts;
+        this.loadMoreOptions.productByPage = productsGammes.data.productByPage;
 
         this.subCategoryLoading = false;
       } catch (error) {
@@ -376,8 +394,10 @@ export default {
         },
       });
 
-      this.productsGammes = productsGammes.data.productsArray;
-      this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts
+
+      this.productsGammes = productsGammes.data.productsArray.sort(ascendingSort);
+      this.loadMoreOptions.totalProducts = productsGammes.data.totalProducts;
+      this.loadMoreOptions.productByPage = productsGammes.data.productByPage;
     } catch (error) {
       console.log("error:", error);
     }
@@ -455,14 +475,20 @@ export default {
 .product-list-breadcrumb-section {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   font-size: 12px;
 }
+
+.breadcrumb__item-breadcrumb {
+  display: flex;
+  align-items: center;
+}
+
 
 .product-list-breadcrumb-section ol,
 ul,
 dl {
-  margin: 0;
+  margin: 0 0 0 20px;
 }
 
 .product-list-breadcrumb {
@@ -471,9 +497,13 @@ dl {
 
 /* Responsive */
 @media only screen and (max-width: 425px) {
+  .breadcrumb__item-sort {
+    flex: 50%;
+    margin: 0 10px;
+  }
 
   /* tablettes*/
-  .product-list-breadcrumb-section {
+  .breadcrumb__item-breadcrumb {
     display: none;
   }
 }

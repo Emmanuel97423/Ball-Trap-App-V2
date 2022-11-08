@@ -7,19 +7,6 @@
           <h4 @click="handleClickSubCategory(menuItem)">
             {{ menuItem.libelleSousFamille }}
           </h4>
-          <!-- <nuxt-link
-            :to="{
-              path: '/category/subCategory/' + menuItem.codeSousFamille,
-              query: {
-                libelleSousFamille: menuItem.libelleSousFamille,
-                codeSousFamille: menuItem.codeSousFamille,
-                codeFamille: menuItem.codeFamille,
-              },
-            }"
-            ><h4>
-              {{ menuItem.libelleSousFamille }} {{ menuItem }}
-            </h4></nuxt-link
-          > -->
         </li>
       </ul>
     </div>
@@ -32,6 +19,7 @@ export default {
   props: {
     subCategory: Array,
   },
+
   data() {
     return {
       menu: "",
@@ -76,6 +64,7 @@ export default {
   margin: 0 0 20px 0;
   text-decoration: underline;
 }
+
 .container-left-categories-nav {
   padding: 30px;
 
@@ -84,6 +73,7 @@ export default {
   width: 200px;
   margin: 10px auto;
 }
+
 .container-left-categories-nav ul {
   display: flex;
   flex-direction: column;
@@ -94,9 +84,11 @@ export default {
   margin: 0 0 10px 0;
   cursor: pointer;
 }
+
 .container-left-categories-nav h4 {
   font-size: 16px;
 }
+
 .container-left-categories-nav h4:hover {
   text-decoration: underline;
 }
