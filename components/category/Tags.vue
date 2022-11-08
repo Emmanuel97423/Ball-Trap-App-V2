@@ -1,13 +1,9 @@
 <template>
-  <ul v-if="tagsSelected.length > 0" class="list-inline d-inline-block mb-2">
-    <li v-for="tag in tagsSelected" :key="tag" class="list-inline-item">
-      <b-form-tag
-        @remove="removeTag(tag)"
-        :title="tag"
-        variant="info"
-        class="category-tags"
-        >{{ tag }}</b-form-tag
-      >
+  <ul v-if="tagsSelected.length > 0" class="list-inline d-inline-block mb-2 tags_list">
+    <li v-for="tag in tagsSelected" :key="tag" class=" list-inline-item">
+      <b-form-tag @remove="removeTag(tag)" :title="tag" variant="info" class="category-tags theme-btn-one  btn_sm">{{
+          tag
+      }}</b-form-tag>
     </li>
   </ul>
 </template>
@@ -34,6 +30,8 @@ export default {
 
 <style >
 .category-tags {
-  background-color: rgb(74, 74, 74);
+  background-color: rgb(255, 255, 255);
+  border: 1px solid #000;
+  color: #000;
 }
 </style>
