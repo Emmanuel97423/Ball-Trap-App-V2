@@ -38,15 +38,19 @@
                 </div>
 
                 <!-- Start sort by price -->
+
                 <SortByPrice class="breadcrumb__item-sort" @sortByPrice=sortByPrice />
+                <FilterCategory />
+
 
                 <!-- End sort by price -->
               </div>
-              <!-- Start tags selected -->
-              <button v-if="this.tagsSelected.length > 0" class="theme-btn-one btn-black-overlay btn_sm"
-                @click="handleRemoveAllTags">Effacer tous les
-                filtres</button>
-              <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
+              <div v-if="this.tagsSelected.length > 0" class="tags_section">
+                <!-- Start tags selected -->
+                <button class="theme-btn-one btn-black-overlay" @click="handleRemoveAllTags">Effacer tous les
+                  filtres</button>
+                <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
+              </div>
               <!-- End tags selected -->
 
 
@@ -55,7 +59,7 @@
                 Dans le lanceur...
               </h4>
 
-              <div v-else class="row">
+              <div v-else class="row products_list">
 
                 <div v-if="productsGammes.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-12"
                   v-for="productItem in productsGammes" :key="productItem._id">
@@ -96,6 +100,7 @@ import InstagramArea from "~/components/instagram/InstagramArea";
 import LeftCategoriesNav from "~/components/navigation/LeftCategoriesNav";
 import Tags from "@/components/category/Tags";
 import SortByPrice from "@/components/filter/SortByPrice";
+import FilterCategory from "@/components/filter/FilterCategory"
 
 // Start sort function
 function ascendingSort(a, b) {
@@ -128,7 +133,8 @@ export default {
     InstagramArea,
     LeftCategoriesNav,
     Tags,
-    SortByPrice
+    SortByPrice,
+    FilterCategory
   },
   data() {
     return {
@@ -463,6 +469,13 @@ export default {
   /* height: 500px; */
 }
 
+/* Start product list */
+.products_list {
+  padding: 25px 0 0 0;
+}
+
+/* End product list */
+
 .back-link:first-child {
   /* flex: 10%; */
   /* margin: 0 0 40px 0; */
@@ -472,7 +485,11 @@ export default {
   font-size: 12px;
 }
 
+
+
+/* Start breadcrumb section */
 .product-list-breadcrumb-section {
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -480,6 +497,7 @@ export default {
 }
 
 .breadcrumb__item-breadcrumb {
+  flex: 60%;
   display: flex;
   align-items: center;
 }
@@ -489,22 +507,66 @@ export default {
 ul,
 dl {
   margin: 0 0 0 20px;
+  margin-bottom: 0
 }
 
 .product-list-breadcrumb {
   background-color: transparent;
 }
 
+.breadcrumb__item-sort {
+  flex: 30%;
+  height: 42px;
+  padding: 0 15px;
+  /* width: 20%; */
+  /* display: flex;
+  align-items: stretch;
+  height: 100%; */
+}
+
+/* End breadcrumb section */
+
+/* Start Tags section */
+.tags_section {
+  padding: 25px 0 0 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.tags_section button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+}
+
+/* End Tags section */
+
 /* Responsive */
 @media only screen and (max-width: 425px) {
   .breadcrumb__item-sort {
     flex: 50%;
-    margin: 0 10px;
+    margin: 0 10px 0 0;
   }
 
   /* tablettes*/
   .breadcrumb__item-breadcrumb {
     display: none;
+  }
+
+  .product-list-breadcrumb-section ol,
+  ul,
+  dl {
+    margin: 0;
+    padding: 25px 0 0 0;
+  }
+
+  .tags_section {
+
+    flex-direction: column;
+
   }
 }
 
@@ -513,6 +575,12 @@ dl {
   /* tablettes et ordinateurs */
   .left-nav-categories {
     display: none;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .breadcrumb__item-sort {
+    flex: 10%;
   }
 }
 </style>
