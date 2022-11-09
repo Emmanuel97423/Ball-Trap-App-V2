@@ -31,7 +31,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
 .btn_sort {
 
     display: inline-flex;

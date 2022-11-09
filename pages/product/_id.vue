@@ -558,7 +558,7 @@
         </div>
       </section>
       <!-- Start product variants list -->
-      <section class="product-variants">
+      <section v-if="productVariants.length > 0" class="product-variants">
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
@@ -1235,7 +1235,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin: 0 0 30px 0;
+  margin: 0 0 25px 0;
   font-size: 12px;
 }
 
@@ -1356,6 +1356,17 @@ dl {
 .signup-mention-icon {
   color: rgba(255, 0, 0, 0.8);
 }
+
+/* Start stock variants section */
+.product-variants {
+  padding: 50px 0 0 0;
+}
+
+#related_product {
+  padding: 25px 0 25px 0;
+}
+
+/* End stock variants section */
 
 /* Select color */
 /* .colorSelectHide {

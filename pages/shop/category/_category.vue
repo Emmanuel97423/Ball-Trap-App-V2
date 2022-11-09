@@ -38,11 +38,10 @@
                 </div>
 
                 <!-- Start sort by price -->
-
-                <SortByPrice class="breadcrumb__item-sort" @sortByPrice=sortByPrice />
-                <FilterCategory />
-
-
+                <div class="breadcrumb__item-filter">
+                  <FilterCategory class="breadcrumb__item-sort" @handleClickFilter=handleClickFilter />
+                  <SortByPrice class="breadcrumb__item-sort" @sortByPrice=sortByPrice />
+                </div>
                 <!-- End sort by price -->
               </div>
               <div v-if="this.tagsSelected.length > 0" class="tags_section">
@@ -91,6 +90,13 @@
     </b-overlay>
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
+    <!-- Start filter modal -->
+    <b-modal v-model="filterModal" id="modal-filter" hide-footer hide-header dialog-class="modal_dialog-filter">
+
+      <LeftCategoriesNav :subCategory="subCategory" @handle-click-sub-category="fetchSubCategoryProduct" />
+
+    </b-modal>
+    <!-- End filter modal -->
   </div>
 </template>
 
@@ -195,6 +201,8 @@ export default {
       // Start sort by price
       ascendingSort: true,
       // End sort by price
+      //Start mobile filter modal
+      filterModal: false,
     };
   },
 
@@ -258,6 +266,13 @@ export default {
 
     },
     // End sort by price
+
+    // Start launch mobile filter modal
+    handleClickFilter() {
+      this.filterModal = true
+    },
+    // End launch mobile filter modal
+
     pushTagsSelected(payload) {
       if (payload.libelleSousFamille) {
         if (this.tagsSelected.length < 1) {
@@ -286,6 +301,7 @@ export default {
     async fetchSubCategoryProduct(payload) {
       this.loadMoreOptions.payload = payload;
       this.subCategoryLoading = true;
+      this.filterModal = false;
 
       if (payload) {
         this.pushTagsSelected(payload);
@@ -429,7 +445,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 0 0 0;
+  padding: 50px 0 50px 0;
 
 }
 
@@ -511,20 +527,34 @@ dl {
 }
 
 .product-list-breadcrumb {
+  flex: 80%;
   background-color: transparent;
 }
 
+
+
+/* End breadcrumb section */
+
+/* Start filter section */
 .breadcrumb__item-sort {
   flex: 30%;
   height: 42px;
   padding: 0 15px;
-  /* width: 20%; */
-  /* display: flex;
-  align-items: stretch;
-  height: 100%; */
+
 }
 
-/* End breadcrumb section */
+.breadcrumb__item-filter {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.breadcrumb__item-sort:nth-child(2n+1) {
+  margin: 0 10px 0 0;
+}
+
+/* End filter section */
 
 /* Start Tags section */
 .tags_section {
@@ -544,11 +574,24 @@ dl {
 
 /* End Tags section */
 
+/* Start modal filter section */
+/* #modal-filter {
+  width: 100%;
+}
+
+.modal_dialog-filter {
+  width: 100%;
+  border-radius: none;
+
+} */
+
+/* End modal filter section */
+
 /* Responsive */
 @media only screen and (max-width: 425px) {
+
   .breadcrumb__item-sort {
     flex: 50%;
-    margin: 0 10px 0 0;
   }
 
   /* tablettes*/
@@ -560,7 +603,7 @@ dl {
   ul,
   dl {
     margin: 0;
-    padding: 25px 0 0 0;
+    /* padding: 25px 0 0 0; */
   }
 
   .tags_section {
@@ -571,6 +614,9 @@ dl {
 }
 
 @media only screen and (max-width: 768px) {
+  .breadcrumb__item-sort {
+    flex: 30%;
+  }
 
   /* tablettes et ordinateurs */
   .left-nav-categories {
@@ -581,6 +627,11 @@ dl {
 @media only screen and (min-width: 1024px) {
   .breadcrumb__item-sort {
     flex: 10%;
+  }
+
+  .breadcrumb__item-filter {
+    flex: 10%;
+
   }
 }
 </style>

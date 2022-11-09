@@ -14,19 +14,15 @@ export default {
         }
     },
     methods: {
-        handleClick(payload) {
-            console.log('payload:', payload)
+        handleClick() {
+            this.$emit("handleClickFilter")
 
         }
     }
 }
 </script>
 <style scoped>
-.btn {
-    flex: 30%;
-}
-
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1024px) {
     .btn {
         display: none;
 

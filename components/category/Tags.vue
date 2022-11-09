@@ -28,7 +28,7 @@ export default {
 };
 </script>
 
-<style  >
+<style >
 .tags_item {
   /* display: flex;
   justify-content: center;
@@ -40,5 +40,7 @@ export default {
   margin: 0.25em 0.4em;
 }
 
-@media only screen and (max-width: 425px) {}
+/* @media only screen and (max-width: 425px) {
+  .tags_item {}
+} */
 </style>

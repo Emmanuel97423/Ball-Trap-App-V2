@@ -118,26 +118,26 @@
               </h6>
             </div>
           </div>
-          <div
-            class="
+          <div class="
               legals-links
               d-flex
               flex-row-reverse
               align-items-center
               bd-highligh
               col-lg-6 col-md-6 col-sm-6 col-12
-            "
-          >
+            ">
             <div class="copyright_left mr-3">
-              <a href="./legal/politique-de-confidentialité"
-                ><h6>Politique de confidentialité</h6></a
-              >
+              <a href="./legal/politique-de-confidentialité">
+                <h6>Politique de confidentialité</h6>
+              </a>
             </div>
             <!-- <div class="copyright_left mr-3">
               <h6>Coordonnées</h6>
             </div> -->
             <div class="copyright_left mr-3">
-              <a href="./legal"><h6>Condition générale de ventes</h6></a>
+              <a href="./legal">
+                <h6>Condition générale de ventes</h6>
+              </a>
             </div>
           </div>
         </div>
@@ -164,14 +164,20 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
+/* #footer {
+  padding: 25px 0 0 0;
+} */
+
 .copyright_right {
   display: flex;
   justify-content: flex-end;
 }
+
 .copyright_right :nth-child(1) {
   margin-right: 1rem;
 }
+
 @media only screen and (max-width: 425px) {
   .legals-links {
     margin: 15px 0 0 0;

@@ -14,7 +14,7 @@ export default {
     },
     methods: {
         handleClick() {
-            this.$emit("handleClick", this.data)
+            this.$emit("handleClick")
         }
     }
 }
