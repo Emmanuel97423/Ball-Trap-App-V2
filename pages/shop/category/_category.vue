@@ -38,15 +38,18 @@
                 </div>
 
                 <!-- Start sort by price -->
-                <SortByPrice class="breadcrumb__item-sort" @sortByPrice=sortByPrice />
-
+                <div class="breadcrumb__item-filter">
+                  <FilterCategory class="breadcrumb__item-sort" @handleClickFilter=handleClickFilter />
+                  <SortByPrice class="breadcrumb__item-sort" @sortByPrice=sortByPrice />
+                </div>
                 <!-- End sort by price -->
               </div>
-              <!-- Start tags selected -->
-              <button v-if="this.tagsSelected.length > 0" class="theme-btn-one btn-black-overlay btn_sm"
-                @click="handleRemoveAllTags">Effacer tous les
-                filtres</button>
-              <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
+              <div v-if="this.tagsSelected.length > 0" class="tags_section">
+                <!-- Start tags selected -->
+                <button class="theme-btn-one btn-black-overlay" @click="handleRemoveAllTags">Effacer tous les
+                  filtres</button>
+                <Tags :tagsSelected="tagsSelected" @remove-tag="removeTagSelected" />
+              </div>
               <!-- End tags selected -->
 
 
@@ -55,7 +58,7 @@
                 Dans le lanceur...
               </h4>
 
-              <div v-else class="row">
+              <div v-else class="row products_list">
 
                 <div v-if="productsGammes.length > 0" class="col-lg-3 col-md-4 col-sm-6 col-12"
                   v-for="productItem in productsGammes" :key="productItem._id">
@@ -87,6 +90,13 @@
     </b-overlay>
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
+    <!-- Start filter modal -->
+    <b-modal v-model="filterModal" id="modal-filter" hide-footer hide-header dialog-class="modal_dialog-filter">
+
+      <LeftCategoriesNav :subCategory="subCategory" @handle-click-sub-category="fetchSubCategoryProduct" />
+
+    </b-modal>
+    <!-- End filter modal -->
   </div>
 </template>
 
@@ -96,6 +106,7 @@ import InstagramArea from "~/components/instagram/InstagramArea";
 import LeftCategoriesNav from "~/components/navigation/LeftCategoriesNav";
 import Tags from "@/components/category/Tags";
 import SortByPrice from "@/components/filter/SortByPrice";
+import FilterCategory from "@/components/filter/FilterCategory"
 
 // Start sort function
 function ascendingSort(a, b) {
@@ -128,7 +139,8 @@ export default {
     InstagramArea,
     LeftCategoriesNav,
     Tags,
-    SortByPrice
+    SortByPrice,
+    FilterCategory
   },
   data() {
     return {
@@ -189,6 +201,8 @@ export default {
       // Start sort by price
       ascendingSort: true,
       // End sort by price
+      //Start mobile filter modal
+      filterModal: false,
     };
   },
 
@@ -252,6 +266,13 @@ export default {
 
     },
     // End sort by price
+
+    // Start launch mobile filter modal
+    handleClickFilter() {
+      this.filterModal = true
+    },
+    // End launch mobile filter modal
+
     pushTagsSelected(payload) {
       if (payload.libelleSousFamille) {
         if (this.tagsSelected.length < 1) {
@@ -280,6 +301,7 @@ export default {
     async fetchSubCategoryProduct(payload) {
       this.loadMoreOptions.payload = payload;
       this.subCategoryLoading = true;
+      this.filterModal = false;
 
       if (payload) {
         this.pushTagsSelected(payload);
@@ -423,7 +445,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 0 0 0;
+  padding: 50px 0 50px 0;
 
 }
 
@@ -463,6 +485,13 @@ export default {
   /* height: 500px; */
 }
 
+/* Start product list */
+.products_list {
+  padding: 25px 0 0 0;
+}
+
+/* End product list */
+
 .back-link:first-child {
   /* flex: 10%; */
   /* margin: 0 0 40px 0; */
@@ -472,7 +501,11 @@ export default {
   font-size: 12px;
 }
 
+
+
+/* Start breadcrumb section */
 .product-list-breadcrumb-section {
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -480,6 +513,7 @@ export default {
 }
 
 .breadcrumb__item-breadcrumb {
+  flex: 60%;
   display: flex;
   align-items: center;
 }
@@ -489,30 +523,115 @@ export default {
 ul,
 dl {
   margin: 0 0 0 20px;
+  margin-bottom: 0
 }
 
 .product-list-breadcrumb {
+  flex: 80%;
   background-color: transparent;
 }
 
+
+
+/* End breadcrumb section */
+
+/* Start filter section */
+.breadcrumb__item-sort {
+  flex: 30%;
+  height: 42px;
+  padding: 0 15px;
+
+}
+
+.breadcrumb__item-filter {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.breadcrumb__item-sort:nth-child(2n+1) {
+  margin: 0 10px 0 0;
+}
+
+/* End filter section */
+
+/* Start Tags section */
+.tags_section {
+  padding: 25px 0 0 0;
+  display: flex;
+  align-items: center;
+
+}
+
+.tags_section button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+}
+
+/* End Tags section */
+
+/* Start modal filter section */
+/* #modal-filter {
+  width: 100%;
+}
+
+.modal_dialog-filter {
+  width: 100%;
+  border-radius: none;
+
+} */
+
+/* End modal filter section */
+
 /* Responsive */
 @media only screen and (max-width: 425px) {
+
   .breadcrumb__item-sort {
     flex: 50%;
-    margin: 0 10px;
   }
 
   /* tablettes*/
   .breadcrumb__item-breadcrumb {
     display: none;
   }
+
+  .product-list-breadcrumb-section ol,
+  ul,
+  dl {
+    margin: 0;
+    /* padding: 25px 0 0 0; */
+  }
+
+  .tags_section {
+
+    flex-direction: column;
+
+  }
 }
 
 @media only screen and (max-width: 768px) {
+  .breadcrumb__item-sort {
+    flex: 30%;
+  }
 
   /* tablettes et ordinateurs */
   .left-nav-categories {
     display: none;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .breadcrumb__item-sort {
+    flex: 10%;
+  }
+
+  .breadcrumb__item-filter {
+    flex: 10%;
+
   }
 }
 </style>

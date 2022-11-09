@@ -46,6 +46,10 @@ export default {
 };
 </script>
 <style >
+/* #footer {
+  padding: 25px 0 0 0;
+} */
+
 #spinner__app {
   display: none;
   position: fixed;
