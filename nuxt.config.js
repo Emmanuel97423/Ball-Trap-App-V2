@@ -124,10 +124,10 @@ export default {
   },
   strapi: {},
   axios: {
-    baseURL: " http://localhost:8080/api",
+    // baseURL: " http://localhost:8080/api",
     // baseURL: "https://trap-one-api.herokuapp.com/api",
     // baseURL: "https://exo-trap-api.onrender.com/api",
-    // baseURL: "https://exo-trap-api.osc-fr1.scalingo.io/api",
+    baseURL: "https://exo-trap-api.osc-fr1.scalingo.io/api",
     proxy: false
   },
   auth: {

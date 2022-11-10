@@ -33,11 +33,11 @@ export default {
             orderStatusSelected: null
         }
     },
-    watch: {
-        orderStatusOptions() {
-            this.handleChangeOrderStatus()
-        }
-    },
+    // watch: {
+    //     orderStatusOptions() {
+    //         this.handleChangeOrderStatus()
+    //     }
+    // },
     computed: {
         modalId() {
             return this.order._id
@@ -51,7 +51,6 @@ export default {
                 status: status,
                 userId: this.order.userId
             };
-            console.log('orderStatusObject:', orderStatusObject)
 
             this.$emit("handleChangeOrderStatus", orderStatusObject)
             this.$bvModal.hide(this.modalId)

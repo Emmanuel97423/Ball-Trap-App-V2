@@ -152,7 +152,6 @@ export default {
 
     methods: {
         async handleChangeOrderStatus(payload) {
-            console.log('payload:', payload)
 
             const fetchOrderStatus = await this.$axios.post("/order/changeOrderStatus/", payload)
             if (fetchOrderStatus) {
