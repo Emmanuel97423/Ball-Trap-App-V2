@@ -11,7 +11,7 @@
             </b-form-select>
 
             <button class="theme-btn-one btn-black-overlay btn_md btn-modal"
-                @click="handleChangeOrderStatus(order, orderStatusSelected)">Sauvegarder</button>
+                @click="handleChangeOrderStatus()">Sauvegarder</button>
         </b-modal>
 
     </div>
@@ -33,19 +33,26 @@ export default {
             orderStatusSelected: null
         }
     },
+    watch: {
+        orderStatusOptions() {
+            this.handleChangeOrderStatus()
+        }
+    },
     computed: {
         modalId() {
             return this.order._id
         }
     },
     methods: {
-        handleChangeOrderStatus(order, orderStatusSelected) {
-            const status = orderStatusSelected
+        handleChangeOrderStatus() {
+            const status = this.orderStatusSelected
             const orderStatusObject = {
-                orderId: order.orderNumberId,
+                orderId: this.order.orderNumberId,
                 status: status,
-                userId: order.userId
-            }
+                userId: this.order.userId
+            };
+            console.log('orderStatusObject:', orderStatusObject)
+
             this.$emit("handleChangeOrderStatus", orderStatusObject)
             this.$bvModal.hide(this.modalId)
 
