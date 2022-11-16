@@ -11,242 +11,86 @@
             sticky-color--golden
           ">
           <div class="container">
-            <div>
-              <div class="header-content">
-                <!-- Start Header Logo -->
-                <div class="header-logo">
-                  <div class="logo">
-                    <nuxt-link to="/"><img :src="require('@/assets/img/logo-exo-trap.png')" alt="logo" /></nuxt-link>
-                  </div>
-                </div>
-                <!-- End Header Logo -->
+            <div class="header-content">
+              <!-- Start Header Logo -->
+              <!-- <div class="header-logo"> -->
+              <div class="logo">
+                <nuxt-link to="/"><img :src="require('@/assets/img/logo-exo-trap.png')" alt="logo" /></nuxt-link>
+              </div>
+              <!-- </div> -->
+              <!-- End Header Logo -->
 
-                <!-- Start Header Main Menu -->
-                <div class="main-menu menu-color--black menu-hover-color--golden">
-                  <nav>
-                    <ul>
-                      <li>
-                        <div class="nav-top-bar-home">
-                          <!-- <nuxt-link class="active main-menu-link" to="/"
+              <!-- Start search bar -->
+
+              <!-- <SearchBar /> -->
+
+
+              <!-- End search bar -->
+
+              <!-- Start Header Main Menu -->
+              <div class="main-menu menu-color--black menu-hover-color--golden">
+                <nav>
+                  <ul>
+                    <li>
+                      <div class="nav-top-bar-home">
+                        <!-- <nuxt-link class="active main-menu-link" to="/"
                             >Parcourir</nuxt-link
                           > -->
-                          <nuxt-link class="active main-menu-link" to="/">à propos</nuxt-link>
-                          <nuxt-link class="active main-menu-link" to="/faq">Aide</nuxt-link>
-                          <nuxt-link v-if="!this.$auth.user" class="active main-menu-link" to="/login">Connexion
-                          </nuxt-link>
-                          <a v-if="this.$auth.user" class="active main-menu-link btn-logout" @click="logout">
-                            Déconnexion
-                          </a>
-                          <!-- <nuxt-link v-if="!this.$auth.user" class="bg-black justify-center subscribe-btn"
-                            to="/register">S'inscrire</nuxt-link> -->
-                          <!-- <nuxt-link v-if="adminOptions.isActive" class="bg-black justify-center subscribe-btn"
-                            to="/admin">
-                            Administration</nuxt-link> -->
-                        </div>
-                      </li>
-                      <li class="has-dropdown has-megaitem nav-catalog">
-                        <!-- <nuxt-link
-                          class="active main-menu-link"
-                          to="/shop/shop-2"
-                          >Catalogue <i class="fa fa-angle-down"></i
-                        ></nuxt-link> -->
-
-                        <!-- Mega Menu -->
-                        <div v-if="!enabled" class="mega-menu">
-                          <ul class="mega-menu-inner">
-                            <!-- Mega Menu Sub Link -->
-                            <li class="mega-menu-item">
-                              <a href="#" class="mega-menu-item-title">Vêtements</a>
-                              <ul class="mega-menu-sub">
-                                <li>
-                                  <nuxt-link to="#">Casquettes</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Doudounes</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Gants</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Gilets</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Lycra</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">T-Shirt</nuxt-link>
-                                </li>
-                              </ul>
-                            </li>
-                            <!-- Mega Menu Sub Link -->
-                            <li class="mega-menu-item">
-                              <a href="#" class="mega-menu-item-title">Accessoires</a>
-                              <ul class="mega-menu-sub">
-                                <li>
-                                  <nuxt-link to="#">Bouchons oreilles</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Casques</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Déplombant</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Graisse</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Kit de Nettoyage</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Huile entretien</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Lunettes</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Malette de transport</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Oeilleres</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Repose canon</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Sacs de transport</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Serviette de tir</nuxt-link>
-                                </li>
-                                <li>
-                                  <nuxt-link to="#">Snap lock</nuxt-link>
-                                </li>
-                              </ul>
-                            </li>
-
-                            <!-- Mega Menu Sub Link -->
-                            <!-- <li class="mega-menu-item">
-                              <div class="menu-banner">
-                                <nuxt-link to="/shop" class="menu-banner-link">
-                                  <img
-                                    class="menu-banner-img"
-                                    :src="
-                                      require('@/assets/img/common/nav_banner.png')
-                                    "
-                                    alt="img"
-                                  />
-                                </nuxt-link>
-                              </div>
-                            </li> -->
-                          </ul>
-                        </div>
-                      </li>
-                      <li v-if="!enabled" class="has-dropdown">
-                        <a href="#!">Blog <i class="fa fa-angle-down"></i></a>
-                        <!-- Sub Menu -->
-                        <ul class="sub-menu">
-                          <li>
-                            <nuxt-link to="/blog">Blog Grid View One</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/blog/blog-2">Blog Grid View Two</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/blog/blog-3">Blog List View</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/blog/blog-single">Blog Single View One
-                            </nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/blog/blog-single-2">Blog Single View TWo</nuxt-link>
-                          </li>
-                        </ul>
-                      </li>
-                      <li v-if="!enabled" class="has-dropdown">
-                        <a href="#">Pages <i class="fa fa-angle-down"></i></a>
-                        <!-- Sub Menu -->
-                        <ul class="sub-menu">
-                          <li>
-                            <nuxt-link to="/faq">Frequently Questions</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/404">404 Page</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/contact-us">Contact Us One</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/contact-us/contact-us-2">Contact Us Two</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/coming-soon">Coming Soon</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/my-account">My Account</nuxt-link>
-                          </li>
-                          <li>
-                            <nuxt-link to="/login">Login</nuxt-link>
-                          </li>
-                        </ul>
-                      </li>
-                      <!-- <li>
-                        <nuxt-link to="#">A propos</nuxt-link>
-                      </li> -->
-                      <!-- <li>
-                        <nuxt-link
-                          class="active main-menu-link"
-                          to="/my-account"
-                          >Mon espace
+                        <nuxt-link class="active main-menu-link" to="/">à propos</nuxt-link>
+                        <nuxt-link class="active main-menu-link" to="/faq">Aide</nuxt-link>
+                        <nuxt-link v-if="!this.$auth.user" class="active main-menu-link" to="/login">Connexion
                         </nuxt-link>
-                      </li> -->
-                    </ul>
-                  </nav>
-                </div>
-                <!-- End Header Main Menu Start -->
+                        <a v-if="this.$auth.user" class="active main-menu-link btn-logout" @click="logout">
+                          Déconnexion
+                        </a>
 
-                <!-- Start Header Action Link -->
-                <ul v-if="this.$auth.loggedIn" class="
+                      </div>
+                    </li>
+
+
+                  </ul>
+                </nav>
+              </div>
+              <!-- End Header Main Menu Start -->
+
+              <!-- Start Header Action Link -->
+              <ul v-if="this.$auth.loggedIn" class="
                     header-action-link
                     action-color--black
                     action-hover-color--golden
                   ">
-                  <li v-if="!enabled">
-                    <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
-                      <i class="far fa-heart"></i>
-                      <span class="item-count">{{ productItems.length }}</span>
-                    </a>
-                  </li>
-                  <!-- Account icon -->
-                  <li v-if="enabled">
-                    <nuxt-link to="/my-account" class="offcanvas-toggle">
-                      <i class="fas fa-user"></i>
-                      <!-- <span class="item-count">{{ productItems.length }}</span> -->
-                    </nuxt-link>
-                  </li>
-                  <li>
-                    <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
-                      <i class="fas fa-shopping-bag"></i>
-                      <span class="item-count">{{
-                      selectedProducts.length
-                      }}</span>
-                    </a>
-                  </li>
-                  <li v-if="!enabled">
-                    <a v-b-toggle.search_sidebar class="search_width offcanvas-toggle">
-                      <img src="~/assets/img/svg/search.svg" alt="img" />
-                    </a>
-                  </li>
-                  <li v-if="!enabled">
-                    <a v-b-toggle.offcanvas-about class="offacnvas offside-about offcanvas-toggle"><i
-                        class="fas fa-bars"></i></a>
-                  </li>
-                </ul>
-                <!-- End Header Action Link -->
-              </div>
+                <li v-if="!enabled">
+                  <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
+                    <i class="far fa-heart"></i>
+                    <span class="item-count">{{ productItems.length }}</span>
+                  </a>
+                </li>
+                <!-- Account icon -->
+                <li v-if="enabled">
+                  <nuxt-link to="/my-account" class="offcanvas-toggle">
+                    <i class="fas fa-user"></i>
+                    <!-- <span class="item-count">{{ productItems.length }}</span> -->
+                  </nuxt-link>
+                </li>
+                <li>
+                  <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="item-count">{{
+                        selectedProducts.length
+                    }}</span>
+                  </a>
+                </li>
+                <li v-if="enabled">
+                  <a v-b-toggle.search_sidebar class="search_width offcanvas-toggle">
+                    <img src="~/assets/img/svg/search.svg" alt="img" />
+                  </a>
+                </li>
+                <li v-if="!enabled">
+                  <a v-b-toggle.offcanvas-about class="offacnvas offside-about offcanvas-toggle"><i
+                      class="fas fa-bars"></i></a>
+                </li>
+              </ul>
+              <!-- End Header Action Link -->
             </div>
           </div>
         </div>
@@ -314,7 +158,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                    selectedProducts.length
+                        selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -530,10 +374,12 @@
           w-100
           h-100
         ">
-        <form class="d-flex flex-column justify-content-center w-100">
+        <form id=search_form class="d-flex flex-column  w-100">
           <input type="search" placeholder="Vos mots clés" />
-          <button class="btn btn-lg btn-golden">Rechercher</button>
+          <!-- <button class="btn btn-lg btn-golden">Rechercher</button> -->
+          <div>Result</div>
         </form>
+
       </div>
     </b-sidebar>
     <!-- End Offcanvas Search Bar Section -->
@@ -543,10 +389,12 @@
 <script>
 import NavCategories from "@/components/header/Categories";
 import AfterPayCartMessage from "@/components/cart/AfterPayCartMessage";
+import SearchBar from "@/components/SearchBar"
 export default {
   components: {
     NavCategories,
     AfterPayCartMessage,
+    SearchBar
   },
   data() {
     return {
@@ -712,6 +560,17 @@ export default {
 </script>
 
 <style>
+/* Start search section */
+#search_form {
+  padding: 50px 0 0 0;
+}
+
+#search_form input {
+  border: 1px solid rgb(227, 227, 227);
+}
+
+/* End search section */
+
 .login-mobile-container {
   margin: 15px 0 0 0;
   display: flex;
@@ -733,9 +592,9 @@ export default {
   cursor: pointer;
 }
 
-.logo {
+/* .logo {
   align-self: flex-start;
-}
+} */
 
 .nav-catalog a {
   border-left: 1px solid #e2e2e2;

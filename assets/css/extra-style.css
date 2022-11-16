@@ -186,14 +186,14 @@
 
 /* Search Sidebar CSS */
 #search_sidebar {
-    background-color: rgba(0, 0, 0, 0.8) !important;
+    background-color: #fff;
     width: 100%;
     height: 100%;
 }
 
 .search-sidebar-content-wrap form input[type=search] {
     width: 80%;
-    color: white;
+    color: #000;
     background: rgba(0, 0, 0, 0);
     font-size: 21px;
     font-weight: 300;
