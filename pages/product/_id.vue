@@ -98,6 +98,10 @@
                       {{ parseFloat(product.pvTtc).toFixed(2) }} €
                       <span id="tax">T.T.C</span>
                     </h4>
+                    <SizeChart
+                      v-if="product.codeSousFamille === 'SFAR00017' || product.codeSousFamille === 'SFAR00003' || product.codeSousFamille === 'SFAR00001' || product.codeSousFamille === 'SFAR00008' || product.codeSousFamille === 'SFAR00011' || product.codeSousFamille === 'SFAR00002'"
+                      :productName="product.libelle">
+                    </SizeChart>
 
                     <AfterPayMessage :amount="product.pvTtc" />
                     <ClickCollect />
@@ -107,8 +111,7 @@
                     </p>
                     <div id="card-element"></div>
                   </div>
-
-                  <SizeChart v-if="!enabled" :productName="product.libelle"></SizeChart>
+                  {{ product.codeSousFamille }}
                   <form id="gammeSelectForm" method="post" ref="gammeSelectForm" v-on:submit.prevent="
                     addToCart(productSelected, quantitySelected.orderQuantity)
                   ">
