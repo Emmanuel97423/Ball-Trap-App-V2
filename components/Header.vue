@@ -76,7 +76,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -158,7 +158,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -374,7 +374,7 @@
           w-100
           h-100
         ">
-        <div id=search_form class="d-flex flex-column  w-100">
+        <div id=search_form class="d-flex flex-column  w-100  ">
           <input v-model="searchOptions.request" type="search"
             placeholder="Entrez les 3 premières lettres de votre requête..." />
           <!-- <button class="btn btn-lg btn-golden">Rechercher</button> -->
@@ -619,6 +619,10 @@ export default {
 
 <style>
 /* Start search section */
+#search_sidebar {
+  background: #fff !important;
+}
+
 #search_form {
   padding: 50px 0 0 0;
 }
