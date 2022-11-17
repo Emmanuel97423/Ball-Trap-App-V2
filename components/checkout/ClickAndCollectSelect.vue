@@ -1,47 +1,26 @@
 <template>
   <div>
-    <b-form-radio-group
-      v-for="(adressItem, index) in adresses"
-      :key="adressItem.id"
-    >
-      <b-card
-        no-body
-        :class="{ adressClassSelected: adressItem.checked }"
-        class="overflow-hidden click-and-collect-card"
-      >
+    <b-form-radio-group v-for="(adressItem, index) in adresses" :key="adressItem.id">
+      <b-card no-body :class="{ adressClassSelected: adressItem.checked }"
+        class="overflow-hidden click-and-collect-card">
         <b-row no-gutters>
           <b-col md="6">
-            <b-card-img
-              :src="adressItem.imageUrl"
-              alt="Image"
-              class="rounded-0"
-            ></b-card-img>
+            <b-card-img :src="adressItem.imageUrl" alt="Image" class="rounded-0"></b-card-img>
           </b-col>
           <b-col md="6">
             <b-card-body :title="`A partir du ${nextDateComputed}`">
               <h4>{{ adressItem.title }}</h4>
               <b-card-text>
-                {{ adressItem.adress }}, <br /><span
-                  >{{ adressItem.city }} {{ adressItem.zip }},
-                  {{ adressItem.region }}</span
-                >.
+                {{ adressItem.adress }}, <br /><span>{{ adressItem.city }} {{ adressItem.zip }},
+                  {{ adressItem.region }}</span>.
               </b-card-text>
 
-              <b-form-checkbox
-                class="click-and-collect-checkbox"
-                v-model="adressSelected"
-                name="check-button"
-                size="lg"
-                :value="adressItem"
-                switch
-                @change="submitAdress(adressSelected, index)"
-              >
+              <b-form-checkbox class="click-and-collect-checkbox" v-model="adressSelected" name="check-button" size="lg"
+                :value="adressItem" switch @change="submitAdress(adressSelected, index)">
                 <!-- Switch Checkbox <b>( {{ adressSelected.city }})</b> -->
               </b-form-checkbox>
 
-              <b-button class="theme-btn-one btn-black btn_sm btn-contact-shop"
-                >Contacter le magasin</b-button
-              >
+              <b-button class="theme-btn-one btn-black btn_sm btn-contact-shop">Contacter le magasin</b-button>
             </b-card-body>
           </b-col>
         </b-row>
@@ -68,17 +47,17 @@ export default {
           region: "La Réunion",
           checked: true,
         },
-        {
-          id: 2,
-          title: "Ville de Saint-Denis",
-          imageUrl: require("/assets/img/common/littora-peche-img.jpg"),
-          collectDate: "Retrait mardi 23/09",
-          adress: "61 Rue Marius et Ary Leblond",
-          city: "Saint-Denis",
-          zip: "97460",
-          region: "La Réunion",
-          checked: false,
-        },
+        // {
+        //   id: 2,
+        //   title: "Ville de Saint-Denis",
+        //   imageUrl: require("/assets/img/common/littora-peche-img.jpg"),
+        //   collectDate: "Retrait mardi 23/09",
+        //   adress: "61 Rue Marius et Ary Leblond",
+        //   city: "Saint-Denis",
+        //   zip: "97460",
+        //   region: "La Réunion",
+        //   checked: false,
+        // },
       ],
       adressSelected: {
         id: 1,
@@ -136,16 +115,19 @@ export default {
 
   /* cursor: pointer; */
 }
+
 /* .click-and-collect-card:focus {
   border: 10px solid green;
 } */
 .click-and-collect-card h4 {
   text-transform: uppercase;
 }
+
 .click-and-collect-card span {
   text-transform: uppercase;
   font-weight: bold;
 }
+
 .btn-contact-shop {
   width: 100%;
   margin: 15px 0 0 0;
@@ -154,6 +136,7 @@ export default {
 .adressClassSelected {
   border: 10px solid #efc69d;
 }
+
 /* .click-and-collect-checkbox input {
   width: 100%;
 } */
