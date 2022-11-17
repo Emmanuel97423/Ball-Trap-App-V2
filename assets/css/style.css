@@ -720,7 +720,6 @@ button {
   font-size: 21px;
   position: relative;
   letter-spacing: -6px;
-  display: flex;
 }
 
 .header-action-link li a span {

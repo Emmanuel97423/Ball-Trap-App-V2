@@ -36,8 +36,8 @@
                         <!-- <nuxt-link class="active main-menu-link" to="/"
                             >Parcourir</nuxt-link
                           > -->
-                        <nuxt-link class="active main-menu-link" to="/">à propos</nuxt-link>
-                        <nuxt-link class="active main-menu-link" to="/faq">Aide</nuxt-link>
+                        <!-- <nuxt-link class="active main-menu-link" to="/">à propos</nuxt-link> -->
+                        <!-- <nuxt-link class="active main-menu-link" to="/faq">Aide</nuxt-link> -->
                         <nuxt-link v-if="!this.$auth.user" class="active main-menu-link" to="/login">Connexion
                         </nuxt-link>
                         <a v-if="this.$auth.user" class="active main-menu-link btn-logout" @click="logout">
@@ -162,7 +162,7 @@
                     }}</span>
                   </a>
                 </li>
-                <li v-if="enabled">
+                <li v-if="!enabled">
                   <a v-b-toggle.offcanvas-about class="offacnvas offside-about offcanvas-toggle"><i
                       class="fas fa-bars"></i></a>
                 </li>
@@ -374,11 +374,20 @@
           w-100
           h-100
         ">
-        <form id=search_form class="d-flex flex-column  w-100">
-          <input type="search" placeholder="Vos mots clés" />
+        <div id=search_form class="d-flex flex-column  w-100">
+          <input v-model="searchOptions.request" type="search"
+            placeholder="Entrez les 3 premières lettres de votre requête..." />
           <!-- <button class="btn btn-lg btn-golden">Rechercher</button> -->
-          <div>Result</div>
-        </form>
+          <div class="search_list">
+            <ProductBox1 v-for="product in searchOptions.productsFind" :key="product._id" class="search_list-product"
+              :productImg1="product.imageUrl" :productImg2="product.imageUrl" :productTagClass="product.productTagClass"
+              :productTag="product.productTag" :productTitle="product.libelle" :productPrice="product.pvTtc"
+              :productId="product._id" :productQuantity="product.stock" :productObject="product" />
+
+
+          </div>
+
+        </div>
 
       </div>
     </b-sidebar>
@@ -389,15 +398,21 @@
 <script>
 import NavCategories from "@/components/header/Categories";
 import AfterPayCartMessage from "@/components/cart/AfterPayCartMessage";
-import SearchBar from "@/components/SearchBar"
+import SearchBar from "@/components/SearchBar";
+import ProductBox1 from "@/components/product-box/ProductBox1"
 export default {
   components: {
     NavCategories,
     AfterPayCartMessage,
-    SearchBar
+    SearchBar,
+    ProductBox1
   },
   data() {
     return {
+      searchOptions: {
+        request: null,
+        productsFind: [],
+      },
       enabled: true,
       adminOptions: {
         isActive: false,
@@ -462,30 +477,51 @@ export default {
       productItems: [],
     };
   },
-  mounted() {
-    // Menu Js
-    // this.$nextTick(function () {
-    //   window.onscroll = function () {
-    //     myFunction();
-    //   };
-    //   const header = document.getElementById("header");
 
-    //   const mobile_header = document.getElementById("mobile_header");
-
-    //   const sticky = header.offsetTop;
-
-    //   function myFunction() {
-    //     if (window.pageYOffset) {
-    //       header.classList.add("sticky");
-    //       mobile_header.classList.add("sticky");
-    //     } else {
-    //       header.classList.remove("sticky");
-    //       mobile_header.classList.remove("sticky");
-    //     }
-    //   }
-    // });
+  watch: {
+    'searchOptions.request'() {
+      this.searchProducts();
+    }
   },
   methods: {
+    // Start search method
+    async searchProducts() {
+      const searchArray = [];
+      if (this.searchOptions.request.length >= 3) {
+
+        try {
+          // this.searchOptions.productsFind = [];
+
+          const products = await this.$axios.post('/search/search/products', { request: this.searchOptions.request })
+          // this.searchOptions.productsFind.push(products.data.productsArray)
+          products.data.productsArray.map((product) => {
+            // this.searchOptions.productsFind.push(product)
+            searchArray.push(product)
+          })
+        } catch (error) {
+          console.log('error:', error)
+
+        };
+        try {
+
+          const productsGamme = await this.$axios.post('/search/search/productsGamme', { request: this.searchOptions.request })
+          // this.searchOptions.productsFind.push(products.data.productsArray)
+          productsGamme.data.productsArray.map((product) => {
+            // this.searchOptions.productsFind.push(product)
+            searchArray.push(product)
+          })
+        } catch (error) {
+          console.log('error:', error)
+
+        };
+        try {
+          this.searchOptions.productsFind = searchArray
+        } catch (error) {
+          console.log('error:', error)
+
+        }
+      }
+    },
     shapeMenu() { },
     // For Delete/Remove Product Item
     removeProductItem(productItem) {
@@ -554,7 +590,29 @@ export default {
       this.menu2.push(this.menu);
     }
   },
+  mounted() {
+    // Menu Js
+    // this.$nextTick(function () {
+    //   window.onscroll = function () {
+    //     myFunction();
+    //   };
+    //   const header = document.getElementById("header");
 
+    //   const mobile_header = document.getElementById("mobile_header");
+
+    //   const sticky = header.offsetTop;
+
+    //   function myFunction() {
+    //     if (window.pageYOffset) {
+    //       header.classList.add("sticky");
+    //       mobile_header.classList.add("sticky");
+    //     } else {
+    //       header.classList.remove("sticky");
+    //       mobile_header.classList.remove("sticky");
+    //     }
+    //   }
+    // });
+  },
 
 };
 </script>
@@ -567,6 +625,18 @@ export default {
 
 #search_form input {
   border: 1px solid rgb(227, 227, 227);
+}
+
+.search_list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search_list-product {
+  width: 15%;
+  padding: 20px;
 }
 
 /* End search section */
