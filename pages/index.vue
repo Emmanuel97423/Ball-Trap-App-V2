@@ -108,6 +108,7 @@
 import Button from "@/components/Button/Button"
 export default {
     layout: "default",
+    middleware: "auth",
     components: {
         Button,
     },
