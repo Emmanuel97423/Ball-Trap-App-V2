@@ -158,10 +158,11 @@ export default {
 .landingpage_calltoaction-01 h1,
 .landingpage_calltoaction-01 h2 {
 
-    padding: 0 0 20px 0;
+    padding: 0 0 30px 0;
     position: relative;
     color: #ffffff;
     line-height: 0.9;
+    letter-spacing: 1px;
 }
 
 .landingpage_calltoaction-01 h1 {
@@ -186,7 +187,7 @@ export default {
     background-size: cover;
     padding: 8%;
 
-    height: 600px;
+    height: 540px;
 }
 
 .landingpage_category-line1 {
@@ -244,7 +245,7 @@ export default {
 
 .landingpage_category-04 {
     position: relative;
-    flex: 60%;
+    flex: 55%;
     background-position: 0 65%;
 }
 
@@ -260,7 +261,7 @@ export default {
 
 .landingpage_category-05 {
     position: relative;
-    flex: 40%;
+    flex: 45%;
     background-position: 0 65%;
 }
 

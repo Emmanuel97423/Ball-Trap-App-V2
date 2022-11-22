@@ -132,7 +132,7 @@ export default {
           const user = res.data;
           this.$auth.setUser(user);
           this.$store.commit("user/LOGIN", user);
-          this.$router.push("/my-account");
+          this.$router.push("/");
 
           // this.$store.dispatch("user/login", res.data);
         })
