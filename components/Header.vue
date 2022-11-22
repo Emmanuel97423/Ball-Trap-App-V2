@@ -76,7 +76,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -158,7 +158,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -527,12 +527,13 @@ export default {
     removeProductItem(productItem) {
       this.$store.commit("cart/remove", productItem);
     },
+
     logout() {
       this.$auth
         .logout("local")
         .then((res) => {
           console.log(res);
-          // this.$router.push("/login");
+          this.$router.push("/login");
         })
         .catch((err) => {
           console.log(err);
