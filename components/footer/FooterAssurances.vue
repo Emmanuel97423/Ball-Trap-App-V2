@@ -106,7 +106,7 @@ name: "FooterAssurances",
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        padding: 9px 40px;
+        padding: 20px 40px;
         gap: 50px;
 
     }

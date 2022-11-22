@@ -149,7 +149,7 @@ export default {
   }
 
   .list ul {
-    margin: 180px 0 0 0;
+    /* margin: 180px 0 0 0; */
   }
 }
 
