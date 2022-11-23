@@ -556,13 +556,13 @@ export default {
     //   return this.$store.state.adress.userAdresses.data;
     // },
   },
-  async mounted(){
+  async beforeMount(){
     const userId = this.$auth.user.userId;
       try {
       const user = await this.$axios.get('/user/user/' + userId);
       if(user){
-          const isActived = user.data.actived  
-          if(!isActived){
+        const isValided = user.data.isValided  
+        if (!isValided){
             this.$router.push("/my-account/account-no-actived")
           }
               }
