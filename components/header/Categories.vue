@@ -138,7 +138,7 @@ export default {
   overflow: visible;
 } */
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 768px) {
   .nav-categories ul {
     justify-content: flex-start;
   }

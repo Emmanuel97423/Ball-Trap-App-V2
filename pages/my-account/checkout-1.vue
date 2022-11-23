@@ -433,6 +433,7 @@ export default {
         disabled: true,
         loading: false,
       },
+      userIsActived:"",
     };
   },
 
@@ -555,6 +556,22 @@ export default {
     //   return this.$store.state.adress.userAdresses.data;
     // },
   },
+  async mounted(){
+    const userId = this.$auth.user.userId;
+      try {
+      const user = await this.$axios.get('/user/user/' + userId);
+      if(user){
+          const isActived = user.data.actived  
+          if(!isActived){
+            this.$router.push("/my-account/account-no-actived")
+          }
+              }
+      } catch (error) {
+        console.log('error:', error)
+        
+      }
+    
+  }
 };
 </script>
 

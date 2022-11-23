@@ -76,7 +76,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -158,7 +158,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                        selectedProducts.length
+                    selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -363,7 +363,7 @@
     <!-- End Offcanvas Wishlist Sidebar Section -->
 
     <!-- Start Offcanvas Search Bar Section -->
-    <b-sidebar id="search_sidebar" class="" backdrop>
+    <b-sidebar id="search_sidebar" class="" backdrop lazy="true" title="Rechercher..." aria-label="Rechercher">
       <div class="
           px-3
           py-2
@@ -374,7 +374,7 @@
           w-100
           h-100
         ">
-        <div id=search_form class="d-flex flex-column  w-100">
+        <div id=search_form class="d-flex flex-column  w-100  ">
           <input v-model="searchOptions.request" type="search"
             placeholder="Entrez les 3 premières lettres de votre requête..." />
           <!-- <button class="btn btn-lg btn-golden">Rechercher</button> -->
@@ -527,12 +527,13 @@ export default {
     removeProductItem(productItem) {
       this.$store.commit("cart/remove", productItem);
     },
+
     logout() {
       this.$auth
         .logout("local")
         .then((res) => {
           console.log(res);
-          // this.$router.push("/login");
+          this.$router.push("/login");
         })
         .catch((err) => {
           console.log(err);
@@ -619,9 +620,13 @@ export default {
 
 <style>
 /* Start search section */
-#search_form {
-  padding: 50px 0 0 0;
+#search_sidebar {
+  background: #fff !important;
 }
+
+/* #search_form {
+  padding: 50px 0 0 0;
+} */
 
 #search_form input {
   border: 1px solid rgb(227, 227, 227);
@@ -722,5 +727,42 @@ export default {
 
 .offcanvas-cart-item-link {
   font-size: 14px;
+}
+
+/* Start mobile section */
+@media (max-width: 1024px) {
+  #search_form input {
+    width: 100%;
+  }
+
+  .search_list-product {
+    width: 25%;
+    padding: 10px;
+
+  }
+}
+
+@media (max-width: 768px) {
+  #search_form input {
+    width: 100%;
+  }
+
+  .search_list-product {
+    width: 30%;
+    padding: 10px;
+
+  }
+}
+
+@media (max-width: 425px) {
+  #search_form input {
+    width: 100%;
+  }
+
+  .search_list-product {
+    width: 100%;
+    padding: 0;
+
+  }
 }
 </style>
