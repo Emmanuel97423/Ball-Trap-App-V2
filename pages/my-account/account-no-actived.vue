@@ -12,7 +12,7 @@
         </div>
         <div class="send-email_section">
             <button class="theme-btn-one btn-black-overlay btn_sm">
-                <a href="mailto:pull@exotrap.re">Envoyer les justifictatifs manquants</a>
+                <a href="mailto:pull@exo-trap.re">Envoyer les justifictatifs manquants</a>
             </button>
             <nuxt-link to="/" class="back-to-shop">Retour au magasin</nuxt-link>
 
