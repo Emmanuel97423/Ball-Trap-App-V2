@@ -556,10 +556,11 @@ export default {
     //   return this.$store.state.adress.userAdresses.data;
     // },
   },
-  async beforeMount(){
+  async fetch(){
     const userId = this.$auth.user.userId;
       try {
       const user = await this.$axios.get('/user/user/' + userId);
+      
       if(user){
         const isValided = user.data.isValided  
         if (!isValided){

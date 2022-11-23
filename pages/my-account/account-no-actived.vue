@@ -26,43 +26,79 @@ export default {
         return {
             accountVérification: [
                 {
+                    id: 1,
                     title: "Pièce d'identité recto (CNI ou passeport)",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 },
                 {
+                    id: 2,
                     title: "Pièce d'identité Verso (CNI)",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 },
                 {
+                    id: 3,
                     title: "Justificatif de domicile (- de 3 mois)",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 },
                 {
+                    id: 4,
                     title: "Permis de chasser",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 },
                 {
+                    id: 5,
                     title: "Licence de Tir en cours de validité",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 },
                 {
+                    id: 6,
                     title: "Licence de Tir FFT Verso",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 },
                 {
+                    id: 7,
                     title: "Validation du permis de chasser de l'année en cours ou licence de Tir FFBT ou FFTir en cours de validité signée et tamponnée par le médecin.",
                     status: "unValided",
-                    statusCode: false
+                    statusCode: null
                 }
 
 
             ]
+        }
+    },
+    async fetch() {
+        const userId = this.$auth.user.userId;
+
+        try {
+            const user = await this.$axios.get('/user/user/' + userId);
+            console.log('user:', user.data.validationOptions);
+            const validations = user.data.validationOptions
+            this.accountVérification[0].statusCode = validations.identityJustificatifRecto;
+            this.accountVérification[1].statusCode = validations.identityJustificatifVerso;
+            this.accountVérification[2].statusCode = validations.adressJustificatif;
+            this.accountVérification[3].statusCode = validations.PermisChasseJustificatif
+                ;
+            this.accountVérification[4].statusCode = validations.licenceTirJustificatif;
+            this.accountVérification[5].statusCode = validations.licenceTirFftJustificatif;
+            this.accountVérification[6].statusCode = validations.PermisChasseFFBTJustificatif;
+
+            ;
+
+
+
+
+
+
+
+        } catch (error) {
+            console.log('error:', error)
+
         }
     }
 }
@@ -75,6 +111,10 @@ export default {
 
 .item_unvalided-icon {
     color: rgb(177, 12, 12);
+}
+
+.item_valided-icon {
+    color: rgb(55, 183, 0);
 }
 
 .send-email_section {
