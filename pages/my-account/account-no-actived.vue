@@ -82,11 +82,11 @@ export default {
             this.accountVérification[0].statusCode = validations.identityJustificatifRecto;
             this.accountVérification[1].statusCode = validations.identityJustificatifVerso;
             this.accountVérification[2].statusCode = validations.adressJustificatif;
-            this.accountVérification[3].statusCode = validations.PermisChasseJustificatif
+            this.accountVérification[3].statusCode = validations.chassePermisJustificatif
                 ;
             this.accountVérification[4].statusCode = validations.licenceTirJustificatif;
             this.accountVérification[5].statusCode = validations.licenceTirFftJustificatif;
-            this.accountVérification[6].statusCode = validations.PermisChasseFFBTJustificatif;
+            this.accountVérification[6].statusCode = validations.permisChasseFFBTJustificatif;
 
             ;
 

@@ -26,6 +26,10 @@ export default {
                     link: "orders"
                 },
                 {
+                    name: "Clients",
+                    link: "customers"
+                },
+                {
                     name: "Articles",
                     link: "products"
                 }
