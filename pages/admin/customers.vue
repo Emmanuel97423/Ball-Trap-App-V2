@@ -12,7 +12,9 @@
                     <i v-else class="fas fa-ban item_unvalided-icon"></i>
                 </template>
                 <template #cell(Gérer)="data">
-                    <button class="theme-btn-one btn-black-overlay btn_sm">Gérer</button>
+                    <CustomerModal :customer="data.item" />
+
+
                 </template>
             </b-table>
         </div>
@@ -20,8 +22,12 @@
 
 </template>
 <script>
+import CustomerModal from "@/components/admin/CustomerModal"
 export default {
     layout: 'admin',
+    components: {
+        CustomerModal
+    },
     data() {
         return {
             customers: "",
