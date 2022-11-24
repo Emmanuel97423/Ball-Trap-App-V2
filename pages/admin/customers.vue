@@ -12,7 +12,8 @@
                     <i v-else class="fas fa-ban item_unvalided-icon"></i>
                 </template>
                 <template #cell(Gérer)="data">
-                    <CustomerModal :customer="data.item" />
+                    <CustomerModal :customer="data.item"
+                        @handleChangeValidationCustomer=handleChangeValidationCustomer />
 
 
                 </template>
@@ -51,6 +52,29 @@ export default {
 
                 "Gérer"
             ]
+        }
+    },
+    methods: {
+        async handleChangeValidationCustomer(payload) {
+            const customerId = payload.customerId;
+            const verificationObj = payload.verification
+            try {
+                const customer = this.$axios.post("/user/updateValidation/" + customerId, {
+                    verificationObj
+                })
+
+
+                if (customer) {
+                    console.log('customer:', customer)
+                    this.$nuxt.refresh()
+
+                }
+
+
+            } catch (error) {
+                console.log('error:', error)
+
+            }
         }
     },
     async fetch() {
