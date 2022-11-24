@@ -35,30 +35,6 @@ export default {
       ],
     };
   },
-  methods: {
-    async userLogin() {
-      try {
-        let response = await this.$auth.loginWith("local", {
-          data: this.login,
-        });
-        console.log(response);
-        this.$router.push("/admin/addProduct");
-      } catch (err) {
-        console.log(err.response.data.error);
-        this.error.enabled = true;
-        this.error.message = err.response.data.error;
-      }
-    },
-  },
-  mounted() {
-    if (this.$store.state.auth.user) {
-      const userAuthObject = this.$store.state.auth.user.userObject;
-      const role = this.$store.state.auth.user.userObject.role;
-      if (role !== "administrator") {
-        this.$router.push('/admin/no-access')
-      }
-    }
-  },
 
 
   // Page head() Title, description for SEO
@@ -74,6 +50,48 @@ export default {
       ],
     };
   },
+  methods: {
+    async userLogin() {
+      try {
+        let response = await this.$auth.loginWith("local", {
+          data: this.login,
+        });
+        console.log(response);
+        this.$router.push("/admin/addProduct");
+      } catch (err) {
+        console.log(err.response.data.error);
+        this.error.enabled = true;
+        this.error.message = err.response.data.error;
+      }
+    },
+  },
+
+  mounted() {
+    if (this.$store.state.auth.user) {
+      const userAuthObject = this.$store.state.auth.user.userObject;
+      const role = this.$store.state.auth.user.userObject.role;
+      if (role !== "administrator") {
+        this.$router.push('/admin/no-access')
+      }
+    }
+  },
+  // async fetch() {
+  //   const userId = this.$auth.user.userId;
+
+  //   try {
+  //     const user = await this.$axios.get('/user/user/' + userId);
+  //     console.log('user:', user.data);
+  //     return
+  //     const role = user.data.role;
+  //     if (role !== "administrator") {
+  //       this.$router.push('/admin/no-access')
+  //     }
+  //   } catch (error) {
+  //     console.log('error:', error)
+
+  //   }
+  // },
+
 };
 </script>
 
