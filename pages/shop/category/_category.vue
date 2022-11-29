@@ -603,7 +603,7 @@ dl {
   ul,
   dl {
     margin: 0;
-    /* padding: 25px 0 0 0; */
+    padding: 15px 0 0 0;
   }
 
   .tags_section {

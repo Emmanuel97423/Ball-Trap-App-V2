@@ -71,6 +71,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .list-item div {
@@ -81,5 +82,27 @@ export default {
 
 .list-item img {
     width: 100px;
+}
+
+@media only screen and (max-width : 768px) {
+
+    .list-item,
+    h4 {
+        font-size: 12px;
+    }
+
+
+}
+
+@media only screen and (max-width : 425px) {
+
+    .list-item,
+    h4 {
+        font-size: 16px;
+    }
+
+    .list-item {
+        flex-direction: column;
+    }
 }
 </style>
