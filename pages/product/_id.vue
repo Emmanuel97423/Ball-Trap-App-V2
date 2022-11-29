@@ -1401,7 +1401,7 @@ dl {
 }
 
 /*Responsive*/
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .assurances-product {
     flex-direction: column;
   }
@@ -1411,10 +1411,16 @@ dl {
     border-right: none;
     padding: 0;
   }
+
+  .product-variants h3 {
+    text-align: center;
+  }
 }
 
 @media only screen and (min-width: 768px) {
+
   /* tablettes et ordinateurs */
+
 
   .col-img {
     max-width: 26%;
