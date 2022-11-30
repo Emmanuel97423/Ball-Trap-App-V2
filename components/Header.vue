@@ -10,11 +10,11 @@
             sticky-header
             sticky-color--golden
           ">
-          <div class="container">
+          <div id="header-links">
             <div class="header-content">
               <!-- Start Header Logo -->
               <!-- <div class="header-logo"> -->
-              <div class="logo">
+              <div id="header-logo" class="logo">
                 <nuxt-link to="/"><img :src="require('@/assets/img/logo-exo-trap.png')" alt="logo" /></nuxt-link>
               </div>
               <!-- </div> -->
@@ -28,7 +28,7 @@
               <!-- End search bar -->
 
               <!-- Start Header Main Menu -->
-              <div class="main-menu menu-color--black menu-hover-color--golden">
+              <div v-if="!enabled" class="main-menu menu-color--black menu-hover-color--golden">
                 <nav>
                   <ul>
                     <li>
@@ -59,6 +59,13 @@
                     action-color--black
                     action-hover-color--golden
                   ">
+                <li>
+                  <a v-if="this.$auth.user" id="disconnect-btn" class="active main-menu-link btn-logout "
+                    @click="logout">
+                    Déconnexion
+                  </a>
+
+                </li>
                 <li v-if="!enabled">
                   <a v-b-toggle.offcanvas-wishlish class="offcanvas-toggle">
                     <i class="far fa-heart"></i>
@@ -76,7 +83,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                    selectedProducts.length
+                        selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -158,7 +165,7 @@
                   <a v-b-toggle.offcanvas-add-cart class="offcanvas-toggle">
                     <i class="fas fa-shopping-bag"></i>
                     <span class="item-count">{{
-                    selectedProducts.length
+                        selectedProducts.length
                     }}</span>
                   </a>
                 </li>
@@ -296,10 +303,10 @@
           </div>
           <AfterPayCartMessage />
 
-          <ul class="offcanvas-cart-action-button">
-            <li>
+          <ul class="offcanvas-cart-action-button purchase-cart-list-action">
+            <!-- <li>
               <nuxt-link to="/cart" class="theme-btn-one btn-black-overlay btn_md">Voir le panier</nuxt-link>
-            </li>
+            </li> -->
             <li>
               <nuxt-link to="/my-account/checkout-1" class="theme-btn-one btn-black-overlay btn_md">Commander
               </nuxt-link>
@@ -619,6 +626,14 @@ export default {
 </script>
 
 <style>
+#header {
+  padding: 20px 0;
+}
+
+#header-links {
+  padding: 0 20px;
+}
+
 /* Start search section */
 #search_sidebar {
   background: #fff !important;
@@ -727,6 +742,24 @@ export default {
 
 .offcanvas-cart-item-link {
   font-size: 14px;
+}
+
+.purchase-cart-list-action li {
+  flex: 1;
+}
+
+.purchase-cart-list-action a {
+  width: 100%;
+  text-align: center;
+}
+
+#disconnect-btn {
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+#header-logo {
+  max-width: 70%;
 }
 
 /* Start mobile section */
