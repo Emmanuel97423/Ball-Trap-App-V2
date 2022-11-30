@@ -1,15 +1,8 @@
 <template>
   <div>
     <button class="btn-orange" v-b-modal.modal-1>Tableau des tailles</button>
-    <b-modal
-      id="modal-1"
-      body-class="body-chart-size"
-      dialog-class="dialog-chart-size"
-      content-class="content-chart-size"
-      modal-class="modal-chart-size"
-      :hide-footer="true"
-      :hide-header="true"
-    >
+    <b-modal id="modal-1" body-class="body-chart-size" dialog-class="dialog-chart-size"
+      content-class="content-chart-size" modal-class="modal-chart-size" :hide-footer="true">
       <div class="chart-size-content">
         <div><img src="@/assets/img/chart-size.png" /></div>
         <div>
@@ -151,12 +144,14 @@ export default {
   letter-spacing: 0.8px;
   margin: 15px 0 0 0;
 }
+
 .chart-size-content {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 @media (max-width: 425px) {
   .chart-size-content {
     display: flex;
@@ -164,13 +159,16 @@ export default {
     justify-content: center;
     align-items: center;
   }
+
   .btn-orange {
     width: 100%;
   }
 }
+
 .chart-size-content img {
   margin: 0 200px 0 0;
 }
+
 .modal-chart-size {
   width: 100%;
 }
