@@ -604,7 +604,7 @@
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
     <b-modal id="parent-modal" ref="my-modal-purchase" hide-footer title="Information" modal-class="modal-connect"
-      dialog-class="dialog__class--cart" content-class="content__class--cart">
+      header-close-label="close" dialog-class="dialog__class--cart" content-class="content__class--cart">
       <div id="login-modal">
         <div class="
             d-flex
@@ -907,7 +907,7 @@ export default {
     },
     makeToast(variant = null, message = null) {
       this.$bvToast.toast(message, {
-        title: "Champ requis",
+        title: "Alerte",
         variant: variant,
         solid: true,
         // toaster: "b-toaster-bottom-center",
