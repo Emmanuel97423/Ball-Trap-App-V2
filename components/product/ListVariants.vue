@@ -5,6 +5,7 @@
             <img :src=product.imageUrl />
 
             {{ product.libelle }}
+            <span id="variant-price">{{ product.pvTtc.toFixed(2) }}€</span>
             <h4 v-if="product.stock >= 1">
                 <b-badge variant="success">En stock</b-badge>
             </h4>
@@ -67,6 +68,11 @@ export default {
 }
 </script>
 <style scoped>
+#variant-price {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -91,6 +97,11 @@ export default {
         font-size: 12px;
     }
 
+    #variant-price {
+        font-size: 12px;
+
+    }
+
 
 }
 
@@ -103,6 +114,11 @@ export default {
 
     .list-item {
         flex-direction: column;
+    }
+
+    #variant-price {
+        font-size: 16px;
+
     }
 }
 </style>

@@ -94,10 +94,12 @@
                   </div>
 
                   <div class="d-flex flex-column">
-                    <h4>
+                    <PriceRange v-if="product.isAProductGamme" :productGamme="product"
+                      :productsVariants="productVariants" />
+                    <h4 v-else>
                       {{ parseFloat(product.pvTtc).toFixed(2) }} €
-                      <span id="tax">T.T.C</span>
-                    </h4>
+
+                    </h4><span id="tax">T.T.C</span>
                     <SizeChart
                       v-if="product.codeSousFamille === 'SFAR00017' || product.codeSousFamille === 'SFAR00003' || product.codeSousFamille === 'SFAR00001' || product.codeSousFamille === 'SFAR00008' || product.codeSousFamille === 'SFAR00011' || product.codeSousFamille === 'SFAR00002'"
                       :productName="product.libelle">
@@ -604,7 +606,7 @@
     <!-- Instagram Arae -->
     <!-- <InstagramArea /> -->
     <b-modal id="parent-modal" ref="my-modal-purchase" hide-footer title="Information" modal-class="modal-connect"
-      header-close-label="close" dialog-class="dialog__class--cart" content-class="content__class--cart">
+      dialog-class="dialog__class--cart" content-class="content__class--cart">
       <div id="login-modal">
         <div class="
             d-flex
@@ -662,6 +664,7 @@ import { ProductFactory } from "@/utils/product/productClasse";
 import ClickCollect from "@/components/product/ClickCollect";
 import ImageSwiper from "../../components/product/ImageSwiper.vue";
 import ListVariants from "@/components/product/ListVariants";
+import PriceRange from "@/components/product/PriceRange"
 
 
 export default {
@@ -684,6 +687,7 @@ export default {
     ClickCollect,
     ImageSwiper,
     ListVariants,
+    PriceRange
   },
 
   data() {
@@ -1178,6 +1182,10 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  font-size: 16px;
+}
+
 /* Style for brand */
 .product-brand {
   color: grey;
