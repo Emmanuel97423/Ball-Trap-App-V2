@@ -113,7 +113,7 @@
     background-position: 79%;
   }
   .offcanvas-cart-action-button {
-    display: inherit;
+    /* display: inherit; */
   }
   .offcanvas-cart-action-button li {
     margin-bottom: 15px;

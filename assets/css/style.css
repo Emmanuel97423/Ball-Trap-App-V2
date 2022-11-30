@@ -244,19 +244,19 @@ ul li {
 }
 
 #common_banner_one {
-  background-image: url("../img/slide/breadcrumb-bg.jpg");
-  padding: 25px;
+  /* background-image: url("../img/slide/breadcrumb-bg.jpg"); */
+  padding: 70px;
   background-repeat: no-repeat;
   background-position: 0 70%
 }
 
 .common_banner_text {
   text-align: center;
-  color: #fff;
+  color: #000;
 }
 
 .common_banner_text h2 {
-  color: #fff;
+  color: #000;
 }
 
 .common_banner_text ul {
@@ -1898,9 +1898,11 @@ button {
 }
 
 .offcanvas-cart-action-button {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  margin:50px 0 0 0;
 }
 
 .address img {

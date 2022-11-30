@@ -94,10 +94,12 @@
                   </div>
 
                   <div class="d-flex flex-column">
-                    <h4>
+                    <PriceRange v-if="product.isAProductGamme" :productGamme="product"
+                      :productsVariants="productVariants" />
+                    <h4 v-else>
                       {{ parseFloat(product.pvTtc).toFixed(2) }} €
-                      <span id="tax">T.T.C</span>
-                    </h4>
+
+                    </h4><span id="tax">T.T.C</span>
                     <SizeChart
                       v-if="product.codeSousFamille === 'SFAR00017' || product.codeSousFamille === 'SFAR00003' || product.codeSousFamille === 'SFAR00001' || product.codeSousFamille === 'SFAR00008' || product.codeSousFamille === 'SFAR00011' || product.codeSousFamille === 'SFAR00002'"
                       :productName="product.libelle">
@@ -662,6 +664,7 @@ import { ProductFactory } from "@/utils/product/productClasse";
 import ClickCollect from "@/components/product/ClickCollect";
 import ImageSwiper from "../../components/product/ImageSwiper.vue";
 import ListVariants from "@/components/product/ListVariants";
+import PriceRange from "@/components/product/PriceRange"
 
 
 export default {
@@ -684,6 +687,7 @@ export default {
     ClickCollect,
     ImageSwiper,
     ListVariants,
+    PriceRange
   },
 
   data() {
@@ -907,7 +911,7 @@ export default {
     },
     makeToast(variant = null, message = null) {
       this.$bvToast.toast(message, {
-        title: "Champ requis",
+        title: "Alerte",
         variant: variant,
         solid: true,
         // toaster: "b-toaster-bottom-center",
@@ -1178,6 +1182,10 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  font-size: 16px;
+}
+
 /* Style for brand */
 .product-brand {
   color: grey;
@@ -1401,7 +1409,7 @@ dl {
 }
 
 /*Responsive*/
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .assurances-product {
     flex-direction: column;
   }
@@ -1411,10 +1419,16 @@ dl {
     border-right: none;
     padding: 0;
   }
+
+  .product-variants h3 {
+    text-align: center;
+  }
 }
 
 @media only screen and (min-width: 768px) {
+
   /* tablettes et ordinateurs */
+
 
   .col-img {
     max-width: 26%;
