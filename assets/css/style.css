@@ -3081,8 +3081,9 @@ button {
 }
 
 #product_single_one .modal_product_content_one h4 del {
-  padding-left: 20px;
+  /* padding-left: 20px; */
   color: var(--main-theme-color);
+  font-size: 12px;
 }
 
 #product_single_one .modal_product_content_one p {
@@ -3316,8 +3317,9 @@ button {
 }
 
 #product_single_two .modal_product_content_one h4 del {
-  padding-left: 20px;
+  /* padding-left: 20px; */
   color: var(--main-theme-color);
+  font-size: 12px;
 }
 
 #product_single_two .modal_product_content_one p {
