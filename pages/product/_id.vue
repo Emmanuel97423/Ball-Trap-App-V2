@@ -97,8 +97,9 @@
                     <PriceRange v-if="product.isAProductGamme" :productGamme="product"
                       :productsVariants="productVariants" />
                     <h4 v-else>
-                      {{ parseFloat(product.pvTtc).toFixed(2) }} €
 
+                      {{ parseFloat(product.pvTtc).toFixed(2) }} €
+                      <!-- <del>100.00€</del> -->
                     </h4><span id="tax">T.T.C</span>
                     <SizeChart
                       v-if="product.codeSousFamille === 'SFAR00017' || product.codeSousFamille === 'SFAR00003' || product.codeSousFamille === 'SFAR00001' || product.codeSousFamille === 'SFAR00008' || product.codeSousFamille === 'SFAR00011' || product.codeSousFamille === 'SFAR00002'"

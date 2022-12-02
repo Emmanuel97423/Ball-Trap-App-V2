@@ -52,6 +52,7 @@
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@nuxt/test-utils": "^0.2.2",
+    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/pwa": "^3.3.5",
     "@testing-library/vue": "^5.8.3",
     "babel-eslint": "^10.1.0",

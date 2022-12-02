@@ -20,7 +20,16 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: "Exo-Trap",
-    titleTemplate: "%s - Exo-Trap vente d'article de sport",
+    titleTemplate: "Exo-Trap vente d'article de sport",
+     meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        hid: "Vente d'article de sport ",
+        name: "Vente d'article de sport pour le ball trap",
+        content: "L'Armurerie BOSSA  EXO TRAP est le site n°1 à La réunion pour la pratique du Ball trap. "
+      }
+    ],
     htmlAttrs: {
       lang: "fr",
     },
