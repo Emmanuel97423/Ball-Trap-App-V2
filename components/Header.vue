@@ -40,6 +40,7 @@
                         <!-- <nuxt-link class="active main-menu-link" to="/faq">Aide</nuxt-link> -->
                         <nuxt-link v-if="!this.$auth.user" class="active main-menu-link" to="/login">Connexion
                         </nuxt-link>
+
                         <a v-if="this.$auth.user" class="active main-menu-link btn-logout" @click="logout">
                           Déconnexion
                         </a>
@@ -60,6 +61,17 @@
                     action-hover-color--golden
                   ">
                 <li>
+                  <a id="home-link-btn" class="active main-menu-link btn-logout " href="/">
+                    Accueil
+                  </a>
+                </li>
+                <!-- <li>
+                  <a id="home-link-btn" class="active main-menu-link btn-logout " href="/">
+                    A propos
+                  </a>
+                </li> -->
+                <li>
+
                   <a v-if="this.$auth.user" id="disconnect-btn" class="active main-menu-link btn-logout "
                     @click="logout">
                     Déconnexion
@@ -189,7 +201,7 @@
       <div class="mobile-menu-navbar-wrap">
         <!-- Start Mobile Menu Nav -->
         <div class="offcanvas-menu">
-          <sidebar-menu :menu="menu2" />
+          <sidebar-menu :menu="menuSimple" />
           <div v-if="!enabled" class="login-mobile-container">
             <nuxt-link v-if="!this.$auth.user" class="
                 active
@@ -430,6 +442,12 @@ export default {
       // },
       menu2: [],
       // Mobile Menu Item Data
+      menuSimple: [
+        {
+          href: "/",
+          title: "Accueil",
+        },
+      ],
       menu:
       // {
       //   href: "/",
@@ -753,7 +771,8 @@ export default {
   text-align: center;
 }
 
-#disconnect-btn {
+#disconnect-btn,
+#home-link-btn {
   font-size: 12px;
   letter-spacing: 1px;
 }

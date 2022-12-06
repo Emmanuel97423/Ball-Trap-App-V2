@@ -65,7 +65,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/dayjs'
+    '@nuxtjs/dayjs',
+    '@nuxtjs/google-analytics'
     // 'nuxt-purgecss',
   ],
 
@@ -135,8 +136,8 @@ export default {
   axios: {
     // baseURL: " http://localhost:8080/api",
     // baseURL: "https://trap-one-api.herokuapp.com/api",
-    // baseURL: "https://exo-trap-api.onrender.com/api",
-    baseURL: "https://exo-trap-api.osc-fr1.scalingo.io/api",
+    baseURL: "https://exo-trap-api.onrender.com/api",
+    // baseURL: "https://exo-trap-api.osc-fr1.scalingo.io/api",
     proxy: false
   },
   auth: {
@@ -210,7 +211,10 @@ export default {
       productionTip: false,
       devtools: true
     }
+  },
+  // Google analytics
+  googleAnalytics: {
+    id: 'G-S6R9LWHBZR'
   }
-  // ...
 
 };
