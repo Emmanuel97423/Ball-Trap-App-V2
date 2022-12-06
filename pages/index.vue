@@ -11,27 +11,7 @@
         </div>
         <section class="landingpage_category">
             <div class="landingpage_category-line1">
-                <div class="landingpage_category-item landingpage_category-01" :style="category.munitions">
-
-                    <button class="landingpage_btn">
-                        <nuxt-link :to="{
-                            path: '/shop/category/munitions',
-                            query: {
-                                codefamille: `FAR00005`,
-                                libelleFamille: `MUNITIONS`,
-                            },
-                        }">
-                            <h2>Munitions</h2>
-                        </nuxt-link>
-                    </button>
-                    <!-- <div class="landingpage_btn">
-                        <nuxt-link to="/">
-                            <h2>Munitions</h2>
-                        </nuxt-link>
-                    </div> -->
-
-                </div>
-                <div class="landingpage_category-item landingpage_category-02" :style="category.textiles">
+                <div class="landingpage_category-item landingpage_category-01" :style="category.textiles">
 
                     <button class="landingpage_btn">
                         <nuxt-link :to="{
@@ -47,9 +27,7 @@
 
 
                 </div>
-            </div>
-            <div class="landingpage_category-line2">
-                <div class="landingpage_category-item landingpage_category-03" :style="category.accessoires">
+                <div class="landingpage_category-item landingpage_category-02" :style="category.accessoires">
 
 
                     <button class="landingpage_btn">
@@ -64,6 +42,30 @@
                         </nuxt-link>
                     </button>
 
+
+                </div>
+
+
+            </div>
+            <div class="landingpage_category-line2">
+                <div class="landingpage_category-item landingpage_category-03" :style="category.munitions">
+
+                    <button class="landingpage_btn">
+                        <nuxt-link :to="{
+                            path: '/shop/category/munitions',
+                            query: {
+                                codefamille: `FAR00005`,
+                                libelleFamille: `MUNITIONS`,
+                            },
+                        }">
+                            <h2>Munitions</h2>
+                        </nuxt-link>
+                    </button>
+                    <!-- <div class="landingpage_btn">
+                                        <nuxt-link to="/">
+                                            <h2>Munitions</h2>
+                                        </nuxt-link>
+                                    </div> -->
 
                 </div>
 
@@ -118,7 +120,7 @@ export default {
                 image: { backgroundImage: `url(${require('@/assets/img/slide/call-to-action-01.jpg')})` }
             },
             category: {
-                "munitions": { backgroundImage: `url(${require('@/assets/img/banner/accessoires.jpg')})` },
+                "munitions": { backgroundImage: `url(${require('@/assets/img/banner/munitions.jpg')})` },
                 "textiles": { backgroundImage: `url(${require('@/assets/img/banner/textiles.jpg')})` },
                 "accessoires": { backgroundImage: `url(${require('@/assets/img/banner/accessoires.jpg')})` },
                 "armesC": { backgroundImage: `url(${require('@/assets/img/banner/armesC.jpg')})` },
@@ -199,6 +201,7 @@ export default {
 .landingpage_category-01 {
     flex: 40%;
     position: relative;
+    background-position: 0 65%;
 }
 
 .landingpage_category-01::before {
