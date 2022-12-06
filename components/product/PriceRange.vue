@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div v-if="minPrice !== maxPrice" class="price-range">
             <h4>{{ minPrice.toFixed(2) }}€-</h4>
             <h4>{{ maxPrice.toFixed(2) }}€</h4>
