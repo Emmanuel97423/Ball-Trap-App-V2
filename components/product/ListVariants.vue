@@ -1,9 +1,8 @@
 <template>
     <b-list-group>
-
-        <b-list-group-item class=list-item v-for="product in productVariants " :key="product_id">
+        <!-- {{ productVariantsSort }} -->
+        <b-list-group-item class=list-item v-for="(product, index) in productVariantsSort " :key="index">
             <img :src=product.imageUrl />
-
             {{ product.libelle }}
             <span id="variant-price">{{ product.pvTtc.toFixed(2) }}€</span>
             <h4 v-if="product.stock >= 1">
@@ -12,26 +11,12 @@
             <h4 v-else>
                 <b-badge variant="danger">Epuisé</b-badge>
             </h4>
-            <!-- <h4 v-if="product.stock > 5">
-                <b-badge variant="success">En stock</b-badge>
-            </h4>
-            <div v-else-if="product.stock < 5 && product.stock >= 1">
-                <h4>
-                    <b-badge variant="warning">Bientôt épuisé</b-badge>
-
-                </h4>
-                reste: {{ product.stock }}
-            </div>
-            <h4 v-else-if="product.stock < 1">
-                <b-badge variant="danger">Epuisé</b-badge>
-            </h4> -->
             <CounterQuantity @clickQuantitySelect="clickQuantitySelect" :maxQuantity=product.stock />
             <button v-if="product.stock >= 1" type="submit" id="purchase-button"
                 class="theme-btn-one btn-white-overlay btn_sm" @click="handleAddToCart(product)">
                 Ajouter au panier
             </button>
         </b-list-group-item>
-
     </b-list-group>
 </template>
 <script>
@@ -48,7 +33,24 @@ export default {
     },
     components: {
         CounterQuantity
+    },
+    computed: {
+        productVariantsSort() {
+            let sortedProducts = this.productVariants;
+            return sortedProducts =
+                sortedProducts.sort((a, b) => {
+                    let fa = a.libelle.toLowerCase(), fb = b.libelle.toLowerCase();
+                    if (fa < fb) {
+                        return -1
+                    }
+                    if (fa > fb) {
+                        return 1
+                    }
+                    return 0
 
+                });
+            // return sortedProducts
+        }
     },
     methods: {
         handleAddToCart(product) {
@@ -60,11 +62,8 @@ export default {
         },
         clickQuantitySelect(payload) {
             this.orderQuantity = payload
-
         }
     }
-
-
 }
 </script>
 <style scoped>
