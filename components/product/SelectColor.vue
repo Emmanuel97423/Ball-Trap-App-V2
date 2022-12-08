@@ -7,19 +7,23 @@
 
     <div class="product-image-variants">
       <Spinner v-if="loading == true"></Spinner>
-      <div v-else v-for="(libelle, index) in colorArray" :key="index" class="image-variants">
-        <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-          :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
-          libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
-          libelle.gammeValue.toLowerCase().slice(1)
-          }}
-          <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
-            :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
-            @click="handleCLick(index, libelle.gammeCode)" />
-        </label>
+      <div class="product-color-input" v-else>
+        <div v-for="(libelle, index) in colorArray" :key="index" class="image-variants">
 
-        <!-- <img :src="product" @click="selectColor(index)" /> -->
+          <label :for="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+            :class="{ 'select-color-active': activeOptions.indexOf(index) > -1 }" class="box-genre">{{
+                libelle.gammeValue.toLowerCase().charAt(0).toUpperCase() +
+                libelle.gammeValue.toLowerCase().slice(1)
+            }}
+            <input type="radio" :id="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`" name="color"
+              :value="`${libelle.gammeValue.replace(' ', '-').toLowerCase()}`"
+              @click="handleCLick(index, libelle.gammeCode)" />
+          </label>
+
+          <!-- <img :src="product" @click="selectColor(index)" /> -->
+        </div>
       </div>
+
     </div>
 
     <!-- <div class="product-variable-color">
@@ -139,6 +143,10 @@ export default {
 </script>
 
 <style>
+.product-color-input {
+  display: flex;
+}
+
 .product-image-variants {
   width: 100%;
   display: flex;
@@ -162,9 +170,6 @@ export default {
   color: #fff;
 }
 
-.image-variants {
-  margin: 5px 5px 0 0;
-}
 
 input[type="radio"] {
   vertical-align: middle;

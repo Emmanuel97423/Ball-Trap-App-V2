@@ -32,6 +32,10 @@ export default {
                 {
                     name: "Articles",
                     link: "products"
+                },
+                {
+                    name: "Documentation",
+                    link: "docs"
                 }
             ]
         }
