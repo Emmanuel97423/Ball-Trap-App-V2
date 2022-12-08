@@ -3,14 +3,30 @@
     <div>
         <h1>Commandes</h1>
         <div class="accordion" role="tablist">
-            <b-card v-for="order in orders" :key="order._id" no-body class="mb-1">
+            <b-card v-for="order, index in orders" :key="order._id" no-body class="mb-1">
                 <b-card-header header-tag="header" class="box-purchase-header p-1" role="tab">
-                    <b-button block v-b-toggle="order.orderNumberId" variant="light">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-plus-lg" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
-                        </svg>
+                    <b-button block v-b-toggle="order.orderNumberId" variant="light" @click="setActiveIndex(index)">
+                        <div class="open-accordion-btn">
+                            <!-- <svg :class="{ 'bi bi-plus-lg': !isActive(index), 'bi bi-dash': isActive(index) }"
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                            </svg> -->
+
+                            <i :id="order.orderNumberId" class="float-right fa"
+                                :class="{ 'fa-plus': !isActive(index), 'fa-minus': isActive(index) }">
+                            </i>
+                            <!-- <svg :class="{}"  xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                            </svg>
+                            <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-dash" viewBox="0 0 16 16">
+                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                            </svg> -->
+                        </div>
                         <div class="box-purchase-date">
                             <span>{{ order.date }}</span>
                             <!-- <span>avr.</span> -->
@@ -145,6 +161,10 @@ export default {
     data() {
         return {
             orders: "",
+            collapseOptions: {
+                isOpen: false,
+            },
+            activeIndex: 0,
 
 
         }
@@ -158,6 +178,30 @@ export default {
                 this.$nuxt.refresh()
             }
 
+        },
+        openCollapse(collapseId) {
+            this.$root.$on('bv::collapse::state', (collapseId, isJustShown) => {
+                console.log('collapseId:', collapseId)
+                console.log('isJustShown:', isJustShown)
+                this.collapseOptions.isOpen = isJustShown
+            })
+        },
+        /* set active index on click */
+        setActiveIndex(index) {
+            this.activeIndex = index
+            // if (this.activeIndex = index) {
+            //     this.activeIndex = null
+            // };
+        },
+        /* check if index is active or not */
+        isActive(index) {
+            // console.log('index:', index)
+            if (this.activeIndex !== index) {
+                return 0
+            } else {
+                return index === this.activeIndex;
+
+            }
         }
     },
     async fetch() {
@@ -179,6 +223,7 @@ export default {
             if (role !== "administrator") {
                 this.$router.push('/admin/no-access')
             }
+
         }
     },
 }
@@ -194,6 +239,10 @@ export default {
     border: none;
 }
 
+
+/* .open-accordion-btn {
+    
+} */
 .box-purchase-header button:hover {
     background-color: rgb(237, 237, 237);
 }

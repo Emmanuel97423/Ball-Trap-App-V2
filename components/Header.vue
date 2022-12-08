@@ -382,7 +382,7 @@
     <!-- End Offcanvas Wishlist Sidebar Section -->
 
     <!-- Start Offcanvas Search Bar Section -->
-    <b-sidebar id="search_sidebar" class="" backdrop lazy="true" title="Rechercher..." aria-label="Rechercher">
+    <b-sidebar id="search_sidebar" class="" backdrop :lazy="true" title="Rechercher..." aria-label="Rechercher">
       <div class="
           px-3
           py-2

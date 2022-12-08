@@ -32,7 +32,6 @@ export default {
             }
             // let max = priceArray.sort((a, b) => a - b)[priceArray.length - 1]
             let max = Math.max(...priceArray)
-            console.log('max:', max)
             // console.log('priceArray:', priceArray)
             return max
         },
@@ -45,8 +44,6 @@ export default {
                 })
             }
             let min = Math.min(...priceArray)
-            console.log('min:', min)
-            console.log('priceArray:', priceArray)
             return min
         }
     }
