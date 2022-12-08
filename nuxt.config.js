@@ -78,6 +78,7 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/auth-next",
     'nuxt-stripe-module',
+    '@nuxt/content',
     // '@nuxtjs/pwa',
     ['nuxt-vuex-localstorage', {
       localStorage: ['cart', 'user', 'order', 'adress', 'products']
