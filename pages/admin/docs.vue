@@ -21,6 +21,6 @@ export default {
 <style >
 .nuxt-content {
     max-width: 768px;
-    padding: 0 40px;
+    padding: 0 40px 40px 0;
 }
 </style>
