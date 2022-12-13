@@ -34,9 +34,14 @@ export default {
                     link: "products"
                 },
                 {
+                    name: "Slides",
+                    link: "slides"
+                },
+                {
                     name: "Documentation",
                     link: "docs"
-                }
+                },
+
             ]
         }
     },
