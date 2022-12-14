@@ -22,7 +22,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/recaptcha": "^1.0.4",
-    "@nuxtjs/strapi": "^0.3.4",
+    "@nuxtjs/strapi": "^0.3.6",
     "@stripe/stripe-js": "^1.17.1",
     "@vue/compiler-dom": "^3.2.40",
     "babel-core": "^7.0.0-bridge.0",
