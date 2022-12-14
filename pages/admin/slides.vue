@@ -1,6 +1,12 @@
 <template>
     <div class="ptb-100">
-        <h3>Slide1</h3>
+        <div>
+            <img :src="slides.imageUrl"> <br>
+            Titre: <h3>{{ slides.title }}</h3>
+            description: <h4>{{ slides.description }}</h4>
+            <!-- {{ slides }} -->
+        </div>
+        <!-- <h3>Slide1</h3> -->
         <b-form @submit="onSubmit" @reset="onReset" enctype="multipart/form-data">
             <b-form-group id="fieldset-1" description="Entrez un titre comprenant plus de 4 caractères." label="Titre"
                 label-for="input-1" valid-feedback="Valide" :invalid-feedback="invalidFeedback" :state="titleState">
@@ -67,30 +73,57 @@ export default {
                 description: '',
                 image: null,
             },
-            slides: []
+            slides: ""
         }
     },
+    // watch: {
+    //     slides() {
+    //         console.log('this.slides:', this.slides)
+    //         if (this.slides.length > 0) {
+    //             this.fetchSlide()
+
+    //         }
+    //     }
+    // },
     methods: {
-        onSubmit(e) {
+        async onSubmit(e) {
             e.preventDefault()
             // alert(JSON.stringify(this.form))
             const formData = new FormData();
             formData.append('slide01', this.form.image);
             formData.append('title', this.form.title);
             formData.append('description', this.form.description);
-            console.log('formData:', formData)
 
             try {
-                const slidesData = this.$axios.post("/slides/", formData)
-
+                const slidesData = await this.$axios.post("/slides/", formData);
+                this.onReset();
+                this.$nuxt.refresh()
+                // if (slidesData) {
+                //     this.fetchSlide()
+                // }
             } catch (error) {
                 console.log('error:', error)
 
             }
         },
         onReset() {
-            console.log('reset')
+            this.form.title = '',
+                this.form.description = '',
+                this.form.image = null,
+                console.log('reset')
+        },
+        async fetchSlide() {
+            try {
+                const data = await this.$axios.get("/slides")
+                this.slides = data.data.slide[0]
+            } catch (error) {
+                console.log('error:', error)
+
+            }
         }
+    },
+    async fetch() {
+        this.fetchSlide()
     }
 }
 </script>

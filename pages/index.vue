@@ -1,13 +1,13 @@
 <template>
     <div class="landingpage_container">
-        <div class="landingpage_calltoaction-01" :style="slide.image">
-            <div>
+        <div class="landingpage_calltoaction-01" :style="{ backgroundImage: `url(${slideObject.imageUrl})` }">
+            <!-- <div>
                 <h1>Le Black Friday arrive</h1>
                 <h2>Et il est plus intense que jamais!</h2>
                 <Button class="landingpage_calltoaction-01-btn" text="En savoir plus" />
-            </div>
+            </div> -->
             <!-- <img :src="require('@/assets/img/slide/call-to-action-01.jpg')" /> -->
-
+            <Slide :slideObject="slideObject" />
         </div>
         <section class="landingpage_category">
             <div class="landingpage_category-line1">
@@ -107,18 +107,21 @@
     </div>
 </template>
 <script>
-import Button from "@/components/Button/Button"
+import Button from "@/components/Button/Button";
+import Slide from "@/components/Slide"
 export default {
     layout: "default",
     middleware: "auth",
     components: {
         Button,
+        Slide
     },
     data() {
         return {
             slide: {
                 image: { backgroundImage: `url(${require('@/assets/img/slide/call-to-action-01.jpg')})` }
             },
+            slideObject: "",
             category: {
                 "munitions": { backgroundImage: `url(${require('@/assets/img/banner/munitions.jpg')})` },
                 "textiles": { backgroundImage: `url(${require('@/assets/img/banner/textiles.jpg')})` },
@@ -127,7 +130,19 @@ export default {
                 "armesD": { backgroundImage: `url(${require('@/assets/img/banner/armesD.jpg')})` },
             }
         }
+    },
+
+    async fetch() {
+        try {
+            const slideData = await this.$axios.get('/slides');
+            console.log('slideData:', slideData.data.slide);
+            this.slideObject = slideData.data.slide[0];
+        } catch (error) {
+            console.log('error:', error)
+
+        }
     }
+
 }
 </script>
 <style >
