@@ -45,7 +45,7 @@
     "vue-jest": "^3.0.7",
     "vue-owl-carousel": "^2.0.3",
     "vue-progressbar-component": "^1.1.0",
-    "vue-sidebar-menu": "^4.7.4",
+    "vue-sidebar-menu": "^5.0.0",
     "vue-simple-range-slider": "^0.1.10",
     "vue-stripe-elements-plus": "^1.0.2"
   },
